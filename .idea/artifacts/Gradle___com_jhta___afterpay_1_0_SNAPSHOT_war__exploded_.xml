@@ -1,0 +1,32 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" external-system-id="GRADLE" name="Gradle : com.jhta : afterpay-1.0-SNAPSHOT.war (exploded)">
+    <output-path>$PROJECT_DIR$/build/libs/exploded/afterpay-1.0-SNAPSHOT.war</output-path>
+    <properties id="gradle-properties">
+      <options external-project-path="$PROJECT_DIR$">
+        <buildTaskPath>:war_exploded</buildTaskPath>
+        <cleanTaskPath>:cleanWar_exploded</cleanTaskPath>
+        <manifest>TWFuaWZlc3QtVmVyc2lvbjogMS4wDQoNCg==</manifest>
+      </options>
+    </properties>
+    <root id="root">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/build/libs/exploded/afterpay-1.0-SNAPSHOT.war/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="afterpay.main/web/Web Gradle : afterpay-1.0-SNAPSHOT.war" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="afterpay.main" />
+          <element id="dir-copy" path="$PROJECT_DIR$/build/resources/main" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Gradle: com.oracle.database.jdbc:ojdbc11:23.5.0.24.07" />
+          <element id="library" level="project" name="Gradle: commons-codec:commons-codec:1.17.1" />
+          <element id="library" level="project" name="Gradle: org.apache.commons:commons-fileupload2-jakarta-servlet6:2.0.0-M2" />
+          <element id="library" level="project" name="Gradle: org.apache.commons:commons-lang3:3.17.0" />
+          <element id="library" level="project" name="Gradle: org.apache.commons:commons-fileupload2-core:2.0.0-M2" />
+          <element id="library" level="project" name="Gradle: commons-io:commons-io:2.15.1" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

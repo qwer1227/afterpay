@@ -5,14 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e17b7f1-0b1e-4240-8675-e60a521ee202" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/common/footer.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/common/header.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/img/main.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/img/main2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/img/main3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/img/main4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/img/main5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/product/men-list.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/product/women-list.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/common/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/common/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/common/footer.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/common/footer.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/common/header.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/common/header.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -24,6 +22,13 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Jsp File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -51,17 +56,24 @@
     "git-widget-placeholder": "taeyun",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/jhta/Documents/GitHub/afterpay/src/main/webapp",
+    "last_opened_file_path": "C:/Users/jhta/Documents/GitHub/afterpay/src/main/webapp/product",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "fileTemplates",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "PLAIN_TEXT"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\jhta\Documents\GitHub\afterpay\src\main\webapp\product" />
       <recent name="C:\Users\jhta\Documents\GitHub\afterpay\src\main\webapp" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -175,11 +187,15 @@
       <updated>1726122299632</updated>
       <workItem from="1726122300707" duration="181000" />
       <workItem from="1726122584813" duration="24000" />
-      <workItem from="1726127083891" duration="1812000" />
+      <workItem from="1726127083891" duration="6319000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

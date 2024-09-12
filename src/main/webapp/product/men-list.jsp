@@ -26,24 +26,148 @@
 %>
 <%@ include file="../common/header.jsp" %>
 <div class="container">
-  <ul class="nav justify-content-center">
+  <ul class="nav nav-underline">
     <li class="nav-item">
-      <a class="nav-link active" aria-current="page" href="#">전체보기</a>
+      <a class="nav-link active" aria-current="page" href="#men-all">전체보기</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">상의</a>
+      <a class="nav-link" href="#men-top">상의</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">하의</a>
+      <a class="nav-link" href="#men-bottom">하의</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">가방</a>
+      <a class="nav-link" href="#men-bag">가방</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">슈즈</a>
+      <a class="nav-link" href="#men-shoes">슈즈</a>
     </li>
   </ul>
+  <nav aria-label="...">
+    <ul class="pagination">
+      <li class="page-item disabled">
+        <a class="page-link">Previous</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item active" aria-current="page">
+        <a class="page-link" href="#">2</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item">
+        <a class="page-link" href="#">Next</a>
+      </li>
+    </ul>
+  </nav>
 </div>
+<section id="men-all">
+  전체보기
+  <div>전체보기</div>
+  <div>전체보기</div>
+  <div>전체보기</div>
+  <div>전체보기</div>
+  <div>전체보기</div>
+  <div>전체보기</div>
+  <div>전체보기</div>
+  <div>전체보기</div>
+  <div>전체보기</div>
+  <div>전체보기</div>
+  <div>전체보기</div>
+  <div>전체보기</div>
+  <div>전체보기</div>
+  <div>전체보기</div>
+  <div>전체보기</div>
+  <div>전체보기</div>
+  <div>전체보기</div>
+</section>
+<section id="men-top">
+  상의
+  <div>상의</div>
+  <div>상의</div>
+  <div>상의</div>
+  <div>상의</div>
+  <div>상의</div>
+  <div>상의</div>
+  <div>상의</div>
+  <div>상의</div>
+  <div>상의</div>
+  <div>상의</div>
+  <div>상의</div>
+  <div>상의</div>
+  <div>상의</div>
+  <div>상의</div>
+  <div>상의</div>
+  <div>상의</div>
+  <div>상의</div>
+  <div>상의</div>
+  <div>상의</div>
+  <div>상의</div>
+  <div>상의</div>
+  <div>상의</div>
+  <div>상의</div>
+  <div>상의</div>
+  <div>상의</div>
+
+</section>
+<section id="men-bottom">
+  하의
+  <div>하의</div>
+  <div>하의</div>
+  <div>하의</div>
+  <div>하의</div>
+  <div>하의</div>
+  <div>하의</div>
+  <div>하의</div>
+  <div>하의</div>
+  <div>하의</div>
+  <div>하의</div>
+  <div>하의</div>
+  <div>하의</div>
+  <div>하의</div>
+  <div>하의</div>
+  <div>하의</div>
+  <div>하의</div>
+  <div>하의</div>
+  <div>하의</div>
+  <div>하의</div>
+  <div>하의</div>
+  <div>하의</div>
+  <div>하의</div>
+  <div>하의</div>
+
+
+</section>
+<section id="men-bag">
+  가방
+  <div>가방</div>
+  <div>가방</div>
+  <div>가방</div>
+  <div>가방</div>
+  <div>가방</div>
+  <div>가방</div>
+  <div>가방</div>
+  <div>가방</div>
+  <div>가방</div>
+  <div>가방</div>
+  <div>가방</div>
+  <div>가방</div>
+  <div>가방</div>
+  <div>가방</div>
+  <div>가방</div>
+  <div>가방</div>
+  <div>가방</div>
+  <div>가방</div>
+  <div>가방</div>
+  <div>가방</div>
+  <div>가방</div>
+  <div>가방</div>
+  <div>가방</div>
+  <div>가방</div>
+
+
+</section>
+<section id="men-shoes">
+  슈즈
+</section>
 <%@ include file="../common/footer.jsp" %>
 </body>
 </html>

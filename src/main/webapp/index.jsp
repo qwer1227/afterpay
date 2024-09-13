@@ -16,7 +16,45 @@
 </head>
 <body>
 <%@ include file="/common/nav.jsp" %>
-  <h1>메인페이지</h1>
+<body class="d-flex flex-column min-vh-100 ">
+<%
+  String menu = "홈";
+%>
+<%@ include file="common/nav.jsp" %>
+<div class="main-container">
+  <div>
+    <img src="../img/main.png" alt=""/>
+  </div>
+  <div class="main-text" style="color: beige" >
+    <h3 >2024 Fall-Winter Collection</h3>
+    <h5>New Arrivals</h5>
+    <h5>
+      <a href="#">shop</a>
+    </h5>
+  </div>
+</div>
+<div>
+  <div class="sub-container">
+    <div class="row">
+      <div class="col" style="justify-content: center">
+        <img src="../img/main2.png" alt="" style="width: 250px; height:350px;"/>
+        <a href="/product/men-list.jsp">남성 상의</a>
+      </div>
+      <div class="col" style="justify-content: center">
+        <img src="../img/main3.png" alt="" style="width: 250px; height:350px;"/>
+        <a href="/product/women-list.jsp">여성 상의</a>
+      </div>
+      <div class="col" style="justify-content: center">
+        <img src="../img/main4.png" alt="" style="width: 250px; height:350px;"/>
+        <p style="text-align: center">가방</p>
+      </div>
+      <div class="col" style="justify-content: center">
+        <img src="../img/main5.png" alt="" style="width: 250px; height:350px;"/>
+        <p style="text-align: center">슈즈</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <%@ include file="/common/footer.jsp" %>
 </body>

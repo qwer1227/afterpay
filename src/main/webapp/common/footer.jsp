@@ -43,3 +43,7 @@
 <div class="footer-home py-3" >
   <a class="navbar-brand" href="index.jsp">AFTER PAY</a>
 </div>
+<<<<<<< HEAD
+
+=======
+>>>>>>> 1916f1e210cee1b462d9151eba7c18833043eb2c

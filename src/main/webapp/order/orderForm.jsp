@@ -20,7 +20,7 @@
             <h3>주문 결제</h3>
         </div>
         <div id="product" class="row mb-5">
-            <img src="../sample.jpg" class="rounded float-start">
+            <img src="sample.jpg" class="rounded float-start">
             <div class="col-6">
                 <p>워시드 콰트로 카고 팬츠 네이비</p>
                 <p>[옵션: S]</p>

@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e17b7f1-0b1e-4240-8675-e60a521ee202" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jhta/afterpay/payment/PaymentDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jhta/afterpay/payment/PaymentDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jhta/afterpay/addr/AddrDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jhta/afterpay/addr/AddrDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/order/order.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/order/order.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/order/orderForm.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/order/orderForm.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/sample.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/order/sample.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/test.jsp" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,9 +88,9 @@
       <recent name="C:\Users\jhta\Documents\GitHub\afterpay\src\main\webapp" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jhta\Documents\GitHub\afterpay\src\main\webapp\order" />
       <recent name="C:\Users\jhta\Documents\GitHub\afterpay\src\main\webapp\img" />
       <recent name="C:\Users\jhta\Documents\GitHub\afterpay\src\main\webapp" />
-      <recent name="C:\Users\jhta\Documents\GitHub\afterpay\src\main\webapp\order" />
       <recent name="C:\Users\jhta\Documents\GitHub\afterpay\src\main\webapp\common\css" />
       <recent name="C:\Users\jhta\Documents\GitHub\afterpay\src\main\webapp\common" />
     </key>

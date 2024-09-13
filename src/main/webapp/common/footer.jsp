@@ -1,10 +1,4 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
-<style>
-  ul > li {
-    list-style: none;
-  }
-
-</style>
 <div class="footer py-3 mt-auto" >
   <ul>
     <li class="footer1">

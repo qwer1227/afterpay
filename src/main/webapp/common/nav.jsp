@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <nav class="navbar bg-body-tertiary fixed-top">
   <div class="container-fluid">

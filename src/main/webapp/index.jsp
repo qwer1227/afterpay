@@ -39,7 +39,7 @@
       </div>
       <div class="col" style="justify-content: center">
         <img src="../img/main3.png" alt="" style="width: 250px; height:350px;"/>
-        <a href="/product/women-list.jsp?cat_no=21">여성 상의</a>
+        <a href="/product/list.jsp?cat_no=21">여성 상의</a>
       </div>
       <div class="col" style="justify-content: center">
         <img src="../img/main4.png" alt="" style="width: 250px; height:350px;"/>

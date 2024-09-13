@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="/common/css/style.css">
 </head>
 <body>
+<%
+    String menu = "회원 정보 목록";
+%>
 <%@ include file="../../common/nav.jsp" %>
     <div class="container">
         <div class="row">

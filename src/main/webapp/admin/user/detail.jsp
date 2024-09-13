@@ -16,14 +16,62 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/common/css/style.css">
 </head>
-<body class>
+<body>
 <%
-    String menu = "";
+    String menu = "회원 상세정보";
 %>
 <%@ include file="../../common/nav.jsp" %>
-<div>
-    내용
+<div class="container mt-4 mb-5">
+    <h1>회원 상세정보</h1>
 
+    <table class="table table-bordered">
+        <colgroup>
+            <col width="15%">
+            <col width="35%">
+            <col width="15%">
+            <col width="35%">
+        </colgroup>
+        <thead class="table-dark">
+        <tr>
+            <th>항목</th>
+            <th>값</th>
+            <th>항목</th>
+            <th>값</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>이름</th>
+            <td>민혜준</td>
+            <th>아이디</th>
+            <td>mnoqc</td>
+        </tr>
+        <tr>
+            <th>비밀번호</th>
+            <td>zxcv1234</td>
+            <th>전화번호</th>
+            <td>010-1234-5678</td>
+        </tr>
+        <tr>
+            <th>이메일</th>
+            <td>nmomnr@gmail.com</td>
+            <th>적립금</th>
+            <td>1,000,000 원</td>
+        </tr>
+        <tr>
+            <th>가입일</th>
+            <td>2024-09-13</td>
+            <th>등급</th>
+            <td>GOLD</td>
+        </tr>
+        <tr>
+            <th>정지여부</th>
+            <td>N</td>
+            <th>탈퇴여부</th>
+            <td>N</td>
+        </tr>
+        </tbody>
+    </table>
     <!--버튼-->
     <div class="text-end my-2">
         <a href="#" class="btn btn-danger">회원삭제</a>

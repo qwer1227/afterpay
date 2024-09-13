@@ -48,6 +48,7 @@
                             <th>가입일</th>
                             <th>등급</th>
                             <th>회원상태</th>
+                            <th>상세조회</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,6 +59,7 @@
                             <td>2024-09-13</td>
                             <td>GOLD</td>
                             <td>유효회원</td>
+                            <td><a href="#">상세조회</a></td>
                         </tr>
                         <tr>
                             <td>1</td>
@@ -66,6 +68,7 @@
                             <td>2024-09-13</td>
                             <td>GOLD</td>
                             <td>유효회원</td>
+                            <td><a href="#">상세조회</a></td>
                         </tr>
                         <tr>
                             <td>1</td>

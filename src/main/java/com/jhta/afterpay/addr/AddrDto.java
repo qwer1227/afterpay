@@ -65,10 +65,6 @@ public class AddrDto {
         this.addr2 = addr2;
     }
 
-    public String isAddrHome() {
-        return isAddrHome;
-    }
-
     public void setAddrHome(String addrHome) {
         isAddrHome = addrHome;
     }

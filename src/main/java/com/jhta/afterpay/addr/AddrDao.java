@@ -18,7 +18,7 @@ public class AddrDao {
                 """;
         DaoHelper.insert(sql, addr.getNo(), addr.getName(), addr.getTel()
         , addr.getZipCode(), addr.getAddr1(), addr.getAddr2()
-        , addr.isAddrHome(), addr.getUser().getNo());
+        , addr.getIsAddrHome(), addr.getUser().getNo());
     }
 
     public void deleteAddr(int addrNo) {
@@ -49,7 +49,7 @@ public class AddrDao {
                             , addr.getZipCode()
                             , addr.getAddr1()
                             , addr.getAddr2()
-                            , addr.isAddrHome()
+                            , addr.getIsAddrHome()
                             , addr.getUser().getNo()
         );
     }
@@ -69,7 +69,7 @@ public class AddrDao {
             addr.setZipCode(rs.getString("ZIP_CODE"));
             addr.setAddr1(rs.getString("ADDR_1"));
             addr.setAddr2(rs.getString("ADDR_2"));
-            addr.setAddrHome(rs.getString("ISADDR_HOME"));
+            addr.setIsAddrHome(rs.getString("ISADDR_HOME"));
             addr.getUser().setNo(rs.getInt("USER_NO"));
             return addr;
         }, addrNo);

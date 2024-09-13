@@ -1,5 +1,5 @@
 
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <nav class="navbar bg-body-tertiary fixed-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="../index.jsp">AFTER PAY</a>

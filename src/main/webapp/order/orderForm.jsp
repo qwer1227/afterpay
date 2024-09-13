@@ -36,17 +36,17 @@
                     <li><label>이름</label><input type="text" class="form-control"/></li>
                     <li>
                         <div class="col-12 input-group mt-2">
-                            <label>우편번호</label><input type="text" id="sample6_postcode" placeholder="우편번호" class="form-control">
+                            <label>우편번호</label><input type="text" id="sample6_postcode" name="zipcode" placeholder="우편번호" class="form-control">
                             <input type="button" id="addrBtn" onclick="sample6_execDaumPostcode()" value="검색" class="col-2"></button>
                         </div>
                     </li>
                     <li><label>주소</label><input type="text" id="sample6_address" name="address" placeholder="주소" class="form-control" required><br></li>
-                    <li><label>상세주소</label> <input type="text" id="sample6_detailAddress" placeholder="상세주소" class="form-control"></li>
-                    <li><label>참고항목</label><input type="text" id="sample6_extraAddress" placeholder="참고항목" class="form-control"></li>
-                    <li><label>휴대폰번호</label><input type="text" class="form-control" required/></li>
+                    <li><label>상세주소</label> <input type="text" id="sample6_detailAddress" name="detailAddress" placeholder="상세주소" class="form-control"></li>
+                    <li><label>참고항목</label><input type="text" id="sample6_extraAddress" name="cham" placeholder="참고항목" class="form-control"></li>
+                    <li><label>휴대폰번호</label><input type="text" class="form-control" name="tel" required/></li>
                     <li><%--@declare id="email"--%><label for="email">이메일주소</label><input type="text" class="form-control"/></li>
-                    <li><label>배송메세지</label><input type="text" class="form-control"/></li>
-                    <li><label>수령인</label><input type="text" class="form-control"/></li>
+                    <li><label>배송메세지</label><input type="text" name="message" class="form-control"/></li>
+                    <li><label>수령인</label><input type="text" name="recipient" class="form-control"/></li>
                 </ul>
             </div>
             <div id="price" class="rows border-bottom border-2">

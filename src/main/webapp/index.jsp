@@ -17,7 +17,7 @@
 <%
   String menu = "홈";
 %>
-<%@ include file="common/header.jsp" %>
+<%@ include file="common/footer.jsp" %>
 <div class="main-container">
   <div>
     <img src="../img/main.png" alt=""/>

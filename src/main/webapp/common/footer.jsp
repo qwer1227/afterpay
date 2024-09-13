@@ -41,5 +41,14 @@
   </ul>
 </div>
 <div class="footer-home py-3" >
+<<<<<<< HEAD
   <a class="navbar-brand" href="../index.jsp">AFTER PAY</a>
 </div>
+=======
+  <a class="navbar-brand" href="index.jsp">AFTER PAY</a>
+</div>
+<<<<<<< HEAD
+
+=======
+>>>>>>> 1916f1e210cee1b462d9151eba7c18833043eb2c
+>>>>>>> 2f6ce2ea2dbb413c8326faeabcfcb78d6ac1f3b2

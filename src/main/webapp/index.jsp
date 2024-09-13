@@ -2,6 +2,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+  <title>AfterPay</title>
+=======
+>>>>>>> 1916f1e210cee1b462d9151eba7c18833043eb2c
+>>>>>>> 2f6ce2ea2dbb413c8326faeabcfcb78d6ac1f3b2
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
@@ -13,6 +20,14 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/common/css/style.css">
 </head>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<body>
+<%@ include file="/common/nav.jsp" %>
+=======
+>>>>>>> 1916f1e210cee1b462d9151eba7c18833043eb2c
+>>>>>>> 2f6ce2ea2dbb413c8326faeabcfcb78d6ac1f3b2
 <body class="d-flex flex-column min-vh-100 ">
 <%
   String menu = "홈";
@@ -52,6 +67,15 @@
     </div>
   </div>
 </div>
+<<<<<<< HEAD
 <%@ include file="common/footer.jsp" %>
+=======
+<<<<<<< HEAD
+
+<%@ include file="/common/footer.jsp" %>
+=======
+<%@ include file="common/footer.jsp" %>
+>>>>>>> 1916f1e210cee1b462d9151eba7c18833043eb2c
+>>>>>>> 2f6ce2ea2dbb413c8326faeabcfcb78d6ac1f3b2
 </body>
 </html>

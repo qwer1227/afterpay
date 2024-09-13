@@ -20,6 +20,10 @@
   }
 </style>
 <body>
+<%
+   String userId = (String) session.getAttribute("USERID");
+   String grade = (String) session.getAttribute("GRADE");
+%>
 <%@include file="../common/nav.jsp"%>
 <div class="container">
   <div class="row mb-3">
@@ -37,8 +41,8 @@
         <img src="https://i.pinimg.com/474x/3e/c0/d4/3ec0d48e3332288604e8d48096296f3e.jpg" class="img-thumbnail rounded mx-auto d-block" width="90">
       </div>
       <div class="p-2">
-        <div class="fs-6"><strong>아이디</strong></div>
-        <div class="fs-6"><strong>등급</strong></div>
+        <div class="fs-6"><strong>아이디 <%= userId%></strong></div>
+        <div class="fs-6"><strong>등급 <%= grade%></strong></div>
       </div>
       <!-- 우측 정보수정하기 버튼 -->
       <div class="p-2 ms-auto">

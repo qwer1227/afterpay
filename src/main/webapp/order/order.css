@@ -10,7 +10,12 @@
     margin-top: 10px;
 }
 #addrBtn {
-
+    margin-left: 10px;
+    border-radius: 50px;
+    border: 2px solid black;
+    background-color: white;
+}
+#addrListBtn {
     margin-left: 10px;
     border-radius: 50px;
     border: 2px solid black;

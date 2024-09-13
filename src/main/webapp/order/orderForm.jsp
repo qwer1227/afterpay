@@ -34,8 +34,10 @@
                 <h4>배송 정보</h4>
                 <ul>
                     <li><label>이름</label><input type="text" class="form-control"/></li>
+                    <li><input type="button" id="addrListBtn" value="배송지 고르기"></li>
                     <li>
                         <div class="col-12 input-group mt-2">
+                            <input type="hidden" name="addrNo" value="" disabled>
                             <label>우편번호</label><input type="text" id="sample6_postcode" name="zipcode" placeholder="우편번호" class="form-control">
                             <input type="button" id="addrBtn" onclick="sample6_execDaumPostcode()" value="검색" class="col-2"></button>
                         </div>

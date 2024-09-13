@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +17,7 @@
 <%
   String menu = "홈";
 %>
-<%@ include file="common/header.jsp" %>
+<%@ include file="common/nav.jsp" %>
 <div class="main-container">
   <div>
     <img src="../img/main.png" alt=""/>
@@ -35,11 +35,11 @@
     <div class="row">
       <div class="col" style="justify-content: center">
         <img src="../img/main2.png" alt="" style="width: 250px; height:350px;"/>
-        <a href="/product/men-list.jsp">남성 상의</a>
+        <a href="/product/list.jsp?cat_no=11">남성 상의</a>
       </div>
       <div class="col" style="justify-content: center">
         <img src="../img/main3.png" alt="" style="width: 250px; height:350px;"/>
-        <a href="/product/women-list.jsp">여성 상의</a>
+        <a href="/product/women-list.jsp?cat_no=21">여성 상의</a>
       </div>
       <div class="col" style="justify-content: center">
         <img src="../img/main4.png" alt="" style="width: 250px; height:350px;"/>

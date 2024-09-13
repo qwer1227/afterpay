@@ -5,10 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e17b7f1-0b1e-4240-8675-e60a521ee202" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/product/men-list.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jhta/afterpay/product/Cart.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jhta/afterpay/product/Category.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jhta/afterpay/product/Image.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jhta/afterpay/product/Product.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jhta/afterpay/product/ProductDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jhta/afterpay/product/Review.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jhta/afterpay/product/Stock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jhta/afterpay/product/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jhta/afterpay/product/Wish.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jhta/afterpay/util/DaoHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jhta/afterpay/util/Pagination.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jhta/afterpay/util/RowMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jhta/afterpay/util/Utils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/product/men-list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/product/men-list.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/product/women-list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/product/women-list.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/common/footer.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/common/footer.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/common/header.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/common/nav.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/product/men-list.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/product/men-list.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/product/women-list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/product/list.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,11 +37,29 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="afterpay" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Jsp File" />
         <option value="JavaScript File" />
+        <option value="Jsp File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -46,35 +81,39 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.Build afterpay.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Tomcat Server.Tomcat 10.1.26.executor": "Run",
-    "git-widget-placeholder": "taeyun",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/jhta/Documents/GitHub/afterpay/src/main/webapp/product",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "fileTemplates",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.Build afterpay.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Tomcat Server.Tomcat 10.1.26.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;taeyun&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/jhta/Documents/GitHub/afterpay/src/main/java/com/jhta/afterpay/util&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;copyright.filetypes.JAVA&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "PLAIN_TEXT"
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;PLAIN_TEXT&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\jhta\Documents\GitHub\afterpay\src\main\java\com\jhta\afterpay\util" />
+      <recent name="C:\Users\jhta\Documents\GitHub\afterpay\src\main\java\com\jhta\afterpay" />
       <recent name="C:\Users\jhta\Documents\GitHub\afterpay\src\main\webapp\product" />
       <recent name="C:\Users\jhta\Documents\GitHub\afterpay\src\main\webapp" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jhta\Documents\GitHub\afterpay\src\main\java\com\jhta\afterpay\Product" />
       <recent name="C:\Users\jhta\Documents\GitHub\afterpay\src\main\webapp\common" />
     </key>
   </component>
@@ -186,6 +225,12 @@
       <workItem from="1726122300707" duration="181000" />
       <workItem from="1726122584813" duration="24000" />
       <workItem from="1726127083891" duration="10598000" />
+      <workItem from="1726138432753" duration="6000" />
+      <workItem from="1726138460847" duration="230000" />
+      <workItem from="1726185568871" duration="3976000" />
+      <workItem from="1726192384393" duration="16676000" />
+      <workItem from="1726210215388" duration="24000" />
+      <workItem from="1726210273336" duration="5103000" />
     </task>
     <servers />
   </component>

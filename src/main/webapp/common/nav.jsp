@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <nav class="navbar bg-body-tertiary fixed-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="/index.jsp">AFTER PAY</a>
@@ -37,11 +37,11 @@
               남성
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">전체보기</a></li>
-              <li><a class="dropdown-item" href="#">상의</a></li>
-              <li><a class="dropdown-item" href="#">하의</a></li>
-              <li><a class="dropdown-item" href="#">가방</a></li>
-              <li><a class="dropdown-item" href="#">슈즈</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat=10">전체보기</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat=11">상의</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat=12">하의</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat=13">가방</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat=14">슈즈</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -49,11 +49,11 @@
               여성
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">전체보기</a></li>
-              <li><a class="dropdown-item" href="#">상의</a></li>
-              <li><a class="dropdown-item" href="#">하의</a></li>
-              <li><a class="dropdown-item" href="#">가방</a></li>
-              <li><a class="dropdown-item" href="#">슈즈</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat=20">전체보기</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat=21">상의</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat=22">하의</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat=23">가방</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat=24">슈즈</a></li>
             </ul>
           </li>
           <li class="nav-item">

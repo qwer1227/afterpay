@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +29,7 @@
                 가격
             </div>
         </div>
-        <form action="processShippingInfo.jsp" method="post">
+        <form action="order.jsp" method="post">
             <div id="delivery" class="rows border-bottom border-top border-2">
                 <h4>배송 정보</h4>
                 <ul>

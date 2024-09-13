@@ -5,17 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e17b7f1-0b1e-4240-8675-e60a521ee202" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/img/main.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/img/main2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/img/main3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/img/main4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/img/main5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/order/order.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/order/orderList.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/order/order.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/order/order.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/order/order.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/order/order.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/order/orderConfirmation.jsp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/order/orderForm.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/order/orderForm.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/order/processShippingInfo.jsp" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

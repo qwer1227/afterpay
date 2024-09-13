@@ -2,7 +2,7 @@ package com.jhta.afterpay.addr;
 
 import com.jhta.afterpay.order.UserDto;
 
-public class AddrDto {
+public class Addr {
     private int no;
     private String name;
     private String tel;
@@ -13,7 +13,7 @@ public class AddrDto {
     private UserDto user;
 
 
-    public AddrDto() {
+    public Addr() {
     }
 
 

@@ -1,17 +1,17 @@
 package com.jhta.afterpay.delivery;
 
-import com.jhta.afterpay.order.OrderDto;
+import com.jhta.afterpay.order.Order;
 
-public class deliveryDto {
+public class delivery {
     private int no;
     private int price;
     private int amount;
     private String status;
     private Product product;
     private Stock stock;
-    private OrderDto order;
+    private Order order;
 
-    public deliveryDto() {
+    public delivery() {
     }
 
     public int getNo() {
@@ -62,11 +62,11 @@ public class deliveryDto {
         this.stock = stock;
     }
 
-    public OrderDto getOrder() {
+    public Order getOrder() {
         return order;
     }
 
-    public void setOrder(OrderDto order) {
+    public void setOrder(Order order) {
         this.order = order;
     }
 }

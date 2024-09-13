@@ -6,7 +6,7 @@ import java.util.List;
 
 public class OrderDao {
 
-    public void insertOrder(OrderDto order) {
+    public void insertOrder(Order order) {
         String sql= """
                     insert into ORDERS
                     (
@@ -45,7 +45,7 @@ public class OrderDao {
     }
 
     // USER 필요
-    public OrderDto getOrderByNo(int orderNo) {
+    public Order getOrderByNo(int orderNo) {
         String sql = """
                 SELECT *
                 FROM ORDERS 
@@ -53,7 +53,7 @@ public class OrderDao {
                 """;
 
         return DaoHelper.selectOne(sql, rs-> {
-            OrderDto orderDto = new OrderDto();
+            Order orderDto = new Order();
             orderDto.setNo(rs.getInt("ORDER_NO"));
             orderDto.setOrderDate(rs.getDate("ORDER_DATE"));
             orderDto.setStatus(rs.getInt("ORDER_STATUS"));
@@ -71,7 +71,7 @@ public class OrderDao {
 
     }
 
-    public List<OrderDto> getAllOrderByUserNo(int userNo) {
+    public List<Order> getAllOrderByUserNo(int userNo) {
         String sql = """
                 SELECT *
                 FROM ORDERS 
@@ -79,7 +79,7 @@ public class OrderDao {
                 """;
 
         return DaoHelper.selectList(sql, rs-> {
-            OrderDto orderDto = new OrderDto();
+            Order orderDto = new Order();
             orderDto.setNo(rs.getInt("ORDER_NO"));
             orderDto.setOrderDate(rs.getDate("ORDER_DATE"));
             orderDto.setStatus(rs.getInt("ORDER_STATUS"));

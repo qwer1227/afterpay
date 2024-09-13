@@ -1,13 +1,11 @@
 package com.jhta.afterpay.payment;
 
-import com.jhta.afterpay.order.OrderDto;
 import com.jhta.afterpay.util.DaoHelper;
 
-import java.util.Date;
 import java.util.List;
 
 public class PaymentDao {
-    public void insertPayment(PaymentDto payment) {
+    public void insertPayment(Payment payment) {
         String sql = """
                 INSERT INTO PAYMENTS
                 (PAYMENT_NO, PAYMENT_PRICE, ORDER_NO)
@@ -21,7 +19,7 @@ public class PaymentDao {
         );
     }
 
-    public void updatePayment(PaymentDto payment) {
+    public void updatePayment(Payment payment) {
         String sql = """
                 UPDATE PAYMENTS
                 SET PAYMENT_PRICE = ? 
@@ -32,7 +30,7 @@ public class PaymentDao {
                 , payment.getNo());
     }
 
-    public void deletePayment(PaymentDto payment) {
+    public void deletePayment(Payment payment) {
         String sql = """
                 DELETE FROM PAYMENTS
                 WHERE PAYMENT_NO = ?
@@ -41,7 +39,7 @@ public class PaymentDao {
         , payment.getNo());
     }
 
-    public PaymentDto getPaymentByNo(int paymentNo) {
+    public Payment getPaymentByNo(int paymentNo) {
         String sql = """
                 SELECT * 
                 FROM PAYMENTS
@@ -50,7 +48,7 @@ public class PaymentDao {
 
         return DaoHelper.selectOne(sql
             , rs -> {
-            PaymentDto payment = new PaymentDto();
+            Payment payment = new Payment();
             payment.setNo(rs.getInt("PAYMENT_NO"));
             payment.setPrice(rs.getInt("PAYMENT_PRICE"));
             payment.getOrder().setNo(rs.getInt("ORDER_NO"));
@@ -61,7 +59,7 @@ public class PaymentDao {
         );
     }
 
-    public List<PaymentDto> getAllPaymentsByOrderNo(int orderNo) {
+    public List<Payment> getAllPaymentsByOrderNo(int orderNo) {
         String sql= """
                 SELECT *
                 FROM PAYMENTS
@@ -70,7 +68,7 @@ public class PaymentDao {
 
         return DaoHelper.selectList(sql
              ,   rs -> {
-                PaymentDto payment = new PaymentDto();
+                Payment payment = new Payment();
 
 
 

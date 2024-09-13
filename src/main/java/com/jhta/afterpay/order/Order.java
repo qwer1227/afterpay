@@ -1,9 +1,9 @@
 package com.jhta.afterpay.order;
 
-import com.jhta.afterpay.addr.AddrDto;
+import com.jhta.afterpay.addr.Addr;
 import java.util.Date;
 
-public class OrderDto {
+public class Order {
     private int no;
     private Date orderDate;
     private int status;
@@ -15,17 +15,17 @@ public class OrderDto {
     private int paymentPrice;
     private int deliveryStatus;
     private int depositPoint;
-    private AddrDto addr;
+    private Addr addr;
     private UserDto user;
 
 
-    public OrderDto() {
+    public Order() {
     }
 
-    public OrderDto(int no, Date orderDate, int status, int price
+    public Order(int no, Date orderDate, int status, int price
                     , int amount, int deliveryPrice, int usePoint
                     , int discountPrice, int paymentPrice, int deliveryStatus
-                    , AddrDto addr) {
+                    , Addr addr) {
         this.no = no;
         this.orderDate = orderDate;
         this.status = status;
@@ -120,11 +120,11 @@ public class OrderDto {
         this.deliveryStatus = deliveryStatus;
     }
 
-    public AddrDto getAddr() {
+    public Addr getAddr() {
         return addr;
     }
 
-    public void setAddr(AddrDto addr) {
+    public void setAddr(Addr addr) {
         this.addr = addr;
     }
 

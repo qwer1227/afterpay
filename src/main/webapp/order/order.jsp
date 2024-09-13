@@ -1,5 +1,5 @@
 <%@ page import="com.jhta.afterpay.addr.AddrDao" %>
-<%@ page import="com.jhta.afterpay.addr.AddrDto" %>
+<%@ page import="com.jhta.afterpay.addr.Addr" %>
 <%@ page import="com.jhta.afterpay.order.UserDto" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <%
@@ -14,7 +14,7 @@
 
     // 배송지 저장
     AddrDao addrDao = new AddrDao();
-    AddrDto addr = new AddrDto();
+    Addr addr = new Addr();
     UserDto user = new UserDto();
     user.setNo(6);
     addr.setUser(user);

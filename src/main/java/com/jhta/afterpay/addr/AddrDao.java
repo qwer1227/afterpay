@@ -6,7 +6,7 @@ import java.util.List;
 
 public class AddrDao {
 
-    public void insertAddr(AddrDto addr) {
+    public void insertAddr(Addr addr) {
         String sql = """
                 INSERT INTO ADDRESSES
                 (ADDR_NO
@@ -33,7 +33,7 @@ public class AddrDao {
         DaoHelper.delete(sql, addrNo);
     }
 
-    public void updateAddr(AddrDto addr) {
+    public void updateAddr(Addr addr) {
         String sql= """           
                 UPDATE ADDRESSES
                 SET 
@@ -57,7 +57,7 @@ public class AddrDao {
         );
     }
 
-    public AddrDto getAddrByNo(int addrNo) {
+    public Addr getAddrByNo(int addrNo) {
         String sql = """
                 SELECT *
                 FROM ADDRESSES
@@ -65,7 +65,7 @@ public class AddrDao {
                 """;
 
         return DaoHelper.selectOne(sql, rs-> {
-            AddrDto addr = new AddrDto();
+            Addr addr = new Addr();
             addr.setNo(rs.getInt("ADDR_NO"));
             addr.setName(rs.getString("ADDR_NAME"));
             addr.setTel(rs.getString("ADDR_TEL"));
@@ -78,7 +78,7 @@ public class AddrDao {
         }, addrNo);
     }
 
-    public List<AddrDto> getAllAddrByUserNo(int userNo) {
+    public List<Addr> getAllAddrByUserNo(int userNo) {
         String sql = """
                 SELECT *
                 FROM ADDRESSES
@@ -86,7 +86,7 @@ public class AddrDao {
                 """;
 
         return DaoHelper.selectList(sql, rs -> {
-            AddrDto addr = new AddrDto();
+            Addr addr = new Addr();
             addr.setNo(rs.getInt("ADDR_NO"));
             addr.setName(rs.getString("ADDR_NAME"));
             addr.setTel(rs.getString("ADDR_TEL"));

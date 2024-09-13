@@ -1,5 +1,5 @@
 <%@ page import="com.jhta.afterpay.order.OrderDao" %>
-<%@ page import="com.jhta.afterpay.order.OrderDto" %>
+<%@ page import="com.jhta.afterpay.order.Order" %>
 <%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: jhta
@@ -29,9 +29,9 @@
 <%@include file="../common/nav.jsp" %>
 <%
   OrderDao orderDao = new OrderDao();
-  List<OrderDto> orders = orderDao.getAllOrderByUserNo(1);
+  List<Order> orders = orderDao.getAllOrderByUserNo(1);
 
-  for(OrderDto order : orders) {
+  for(Order order : orders) {
 %>
   <div id="order" class="container">
     <div class="rows">

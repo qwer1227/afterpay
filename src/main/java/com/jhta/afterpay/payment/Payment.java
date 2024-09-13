@@ -1,16 +1,16 @@
 package com.jhta.afterpay.payment;
 
-import com.jhta.afterpay.order.OrderDto;
+import com.jhta.afterpay.order.Order;
 
 import java.util.Date;
 
-public class PaymentDto {
+public class Payment {
     private int no;
     private int price;
     private Date createdDate;
-    private OrderDto order;
+    private Order order;
 
-    public PaymentDto() {
+    public Payment() {
     }
 
     public int getNo() {
@@ -37,11 +37,11 @@ public class PaymentDto {
         this.createdDate = createdDate;
     }
 
-    public OrderDto getOrder() {
+    public Order getOrder() {
         return order;
     }
 
-    public void setOrder(OrderDto order) {
+    public void setOrder(Order order) {
         this.order = order;
     }
 }

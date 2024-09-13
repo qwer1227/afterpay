@@ -1,14 +1,14 @@
 package com.jhta.afterpay.user;
 
+import java.awt.*;
 import java.util.Date;
 
 public class User {
-
     private int no;
-    private String id;
-    private String password;
-    private String name;
     private String email;
+    private String id;
+    private String pwd;
+    private String name;
     private String tel;
     private String isBanned;
     private String isSignOut;
@@ -16,7 +16,25 @@ public class User {
     private Date createdDate;
     private String gradeId;
 
-    public User() {}
+    public User() {
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "no=" + no +
+                ", email='" + email + '\'' +
+                ", id='" + id + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", name='" + name + '\'' +
+                ", tel='" + tel + '\'' +
+                ", isBanned='" + isBanned + '\'' +
+                ", isSignOut='" + isSignOut + '\'' +
+                ", point=" + point +
+                ", createdDate=" + createdDate +
+                ", gradeId='" + gradeId + '\'' +
+                '}';
+    }
 
     public int getNo() {
         return no;
@@ -24,6 +42,14 @@ public class User {
 
     public void setNo(int no) {
         this.no = no;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getId() {
@@ -34,12 +60,12 @@ public class User {
         this.id = id;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPwd() {
+        return pwd;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
     }
 
     public String getName() {
@@ -48,14 +74,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getTel() {

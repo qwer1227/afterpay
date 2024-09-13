@@ -1,0 +1,53 @@
+.footer a {
+    text-decoration-line:none;
+}
+.footer1, .footer2, .footer3 {
+    font-weight: bolder;
+}
+
+.navbar-brand {
+    font-family: "Judson", serif;
+    font-optical-sizing: auto;
+    font-weight: bolder;
+    font-size: xx-large;
+    font-style: normal;
+    margin-right: auto;
+}
+.footer {
+    padding: 30px;
+    border-top: 1px solid  #d9d9d9;
+    display: flex;
+    justify-content: space-around;
+}
+.footer a {
+    font-size: 13px;
+}
+.footer-home {
+    padding: 30px;
+    border-top: 1px solid  #d9d9d9;
+    border-bottom: 1px solid  #d9d9d9;
+    display: flex;
+}
+.footer-home a {
+    float:none;
+    margin:0 auto;
+    align-items:center;
+}
+.container {
+    width:1140px;
+    max-width: 1140px;
+    margin-top: 70px;
+}
+.logo {
+    margin: 0 auto;
+}
+.container-fluid {
+    justify-content: flex-end;
+}
+.btn svg {
+    width:16px;
+    height:16px;
+}
+.nav-box {
+    margin: 10px;
+}

@@ -1,7 +1,5 @@
 package com.jhta.afterpay.addr;
 
-import com.jhta.afterpay.order.UserDto;
-
 public class Addr {
     private int no;
     private String name;

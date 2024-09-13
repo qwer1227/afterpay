@@ -9,14 +9,17 @@ public class AddrDao {
     public void insertAddr(AddrDto addr) {
         String sql = """
                 INSERT INTO ADDRESSES
-                (ADDR_NO, ADDR_NAME, ADDR_TEL 
+                (ADDR_NO
+                , ADDR_NAME, ADDR_TEL 
                 , ZIP_CODE, ADDR_1, ADDR_2
                 , ISADDR_HOME, USER_NO)
-                values(?, ?, ?
+                values(ADDR_NO_SEQ.NEXTVAL, ?, ?
                 ,?, ?, ?
                 ,?, ?)
                 """;
-        DaoHelper.insert(sql, addr.getNo(), addr.getName(), addr.getTel()
+        DaoHelper.insert(sql
+
+        , addr.getName(), addr.getTel()
         , addr.getZipCode(), addr.getAddr1(), addr.getAddr2()
         , addr.getIsAddrHome(), addr.getUser().getNo());
     }

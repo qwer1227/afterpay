@@ -12,20 +12,18 @@
     String email = request.getParameter("email");   // 이메일
     String recipient = request.getParameter("recipient");   //수령인
 
+    // 배송지 저장
     AddrDao addrDao = new AddrDao();
     AddrDto addr = new AddrDto();
     UserDto user = new UserDto();
     user.setNo(6);
-
-    addr.setName("집");
     addr.setUser(user);
+    addr.setName("집");
     addr.setAddr1(address);
     addr.setAddr2(detailAddr);
     addr.setTel(tel);
     addr.setZipCode(zipcode);
     addr.setIsAddrHome("Y");
-    addr.setNo(10);
-
 
     addrDao.insertAddr(addr);
 

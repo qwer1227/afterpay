@@ -1,8 +1,6 @@
 package com.jhta.afterpay.user;
 
-<<<<<<< HEAD
-public class User {
-=======
+
 import java.awt.*;
 import java.util.Date;
 
@@ -126,5 +124,5 @@ public class User {
     public void setGradeId(String gradeId) {
         this.gradeId = gradeId;
     }
->>>>>>> 1916f1e210cee1b462d9151eba7c18833043eb2c
+
 }

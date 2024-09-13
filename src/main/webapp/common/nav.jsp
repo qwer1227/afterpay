@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <nav class="navbar bg-body-tertiary fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="home.html">AFTER PAY</a>
     <div class="nav-box">
       <button type="button" class="btn btn-outline-secondary">
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-heart fs-5" viewBox="0 0 16 16">

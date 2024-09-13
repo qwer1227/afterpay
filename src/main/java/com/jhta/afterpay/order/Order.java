@@ -1,6 +1,8 @@
 package com.jhta.afterpay.order;
 
 import com.jhta.afterpay.addr.Addr;
+import com.jhta.afterpay.user.User;
+
 import java.util.Date;
 
 public class Order {
@@ -16,7 +18,7 @@ public class Order {
     private int deliveryStatus;
     private int depositPoint;
     private Addr addr;
-    private UserDto user;
+    private User user;
 
 
     public Order() {
@@ -136,11 +138,11 @@ public class Order {
         this.depositPoint = depositPoint;
     }
 
-    public UserDto getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(UserDto user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

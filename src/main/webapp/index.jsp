@@ -35,7 +35,7 @@
     <div class="row">
       <div class="col" style="justify-content: center">
         <img src="../img/main2.png" alt="" style="width: 250px; height:350px;"/>
-        <a href="/product/list.jsp?cat_no=11">남성 상의</a>
+        <a href="/product/list.jsp?cat_no=11&page=">남성 상의</a>
       </div>
       <div class="col" style="justify-content: center">
         <img src="../img/main3.png" alt="" style="width: 250px; height:350px;"/>
@@ -43,11 +43,11 @@
       </div>
       <div class="col" style="justify-content: center">
         <img src="../img/main4.png" alt="" style="width: 250px; height:350px;"/>
-        <p style="text-align: center">가방</p>
+        <a href="/product/list.jsp?cat_no=23&page=">여성 가방</a>
       </div>
       <div class="col" style="justify-content: center">
         <img src="../img/main5.png" alt="" style="width: 250px; height:350px;"/>
-        <p style="text-align: center">슈즈</p>
+        <a href="/product/list.jsp?cat_no=14&page=">남성 슈즈</a>
       </div>
     </div>
   </div>

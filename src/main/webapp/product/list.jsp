@@ -3,13 +3,8 @@
 <%@ page import="com.jhta.afterpay.product.ProductDao" %>
 <%@ page import="com.jhta.afterpay.util.Utils" %>
 <%@ page import="com.jhta.afterpay.product.Category" %>
-<%@ page import="com.jhta.afterpay.util.Pagination" %><%--
-  Created by IntelliJ IDEA.
-  User: jhta
-  Date: 2024-09-12
-  Time: 오후 5:45
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="com.jhta.afterpay.util.Pagination" %>
+
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +19,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../common/css/style.css">
+  <style>
+    a {
+      text-decoration-line: none;
+    }
+  </style>
 </head>
 <body class="d-flex flex-column min-vh-100 ">
 <%
@@ -37,41 +37,46 @@
         http://localhost/product/list.jsp?cat=11
 
      */
-    int catNo = Utils.toInt(request.getParameter("catNo"));
-    int pageNo = Utils.toInt(request.getParameter("page"),1);
-
+//    int catNo = Utils.toInt(request.getParameter("cat_no"));
+//    int pageNo = Utils.toInt(request.getParameter("page"),1);
+//
+//    ProductDao productDao = new ProductDao();
+//    int totalRows = 0;
+//    Pagination pagination = null;
+//    List<Product> products = null;
+//    if (catNo == 30) {
+//      totalRows = productDao.getAllTotalRows();
+//      pagination = new Pagination(pageNo, totalRows);
+//      products = productDao.getAllProducts(pagination.getBegin(), pagination.getEnd());
+//      /*
+//      select *
+//      from products;
+//       */
+//    } else if (catNo == 10 || catNo == 20) {
+//      totalRows = productDao.getAllTotalRowsByParentCatNo(catNo);
+//      pagination = new Pagination(pageNo, totalRows);
+//      products = productDao.getAllProductsByParentCatNo(catNo, pagination.getBegin(), pagination.getEnd());
+//      /*
+//      select *
+//      from products
+//      where parent_cat_no = ?
+//       */
+//    } else {
+//      totalRows = productDao.getAllTotalRowsByCatNo(catNo);
+//      pagination = new Pagination(pageNo, totalRows);
+//      products = productDao.getAllProductsByCatNo(catNo, pagination.getBegin(), pagination.getEnd());
+//       /*
+//      select *
+//      from products
+//      where cat_no = ?
+//       */
+//    }
+    int catNo = Utils.toInt(request.getParameter("cat_no"));
+    System.out.println("catNo : " + catNo);
     ProductDao productDao = new ProductDao();
-    int totalRows = 0;
-    Pagination pagination = null;
-    List<Product> products = null;
-    if (catNo == 30) {
-      totalRows = productDao.getAllTotalRows();
-      pagination = new Pagination(pageNo, totalRows);
-      products = productDao.getAllProducts(pagination.getBegin(), pagination.getEnd());
-      /*
-      select *
-      from products;
-       */
-    } else if (catNo == 10 || catNo == 20) {
-      totalRows = productDao.getAllTotalRowsByParentCatNo(catNo);
-      pagination = new Pagination(pageNo, totalRows);
-      products = productDao.getAllProductsByParentCatNo(catNo, pagination.getBegin(), pagination.getEnd());
-      /*
-      select *
-      from products
-      where parent_cat_no = ?
-       */
-    } else {
-      totalRows = productDao.getAllTotalRowsByCatNo(catNo);
-      pagination = new Pagination(pageNo, totalRows);
-      products = productDao.getAllProductsByCatNo(catNo, pagination.getBegin(), pagination.getEnd());
-       /*
-      select *
-      from products
-      where cat_no = ?
-       */
-    }
 
+    List<Product> products = productDao.getAllProducts(catNo);
+    System.out.println(products);
   %>
   <table class="table">
     <colgroup>
@@ -93,8 +98,22 @@
       for (Product product : products) {
     %>
       <tr>
-        <td><%=category.getNo()%></td>
-        <td><a href="detail.jsp?no=&page="><%=product.getName()%></a></td>
+        <%
+          if (product.getCategory().getNo() == 11) {
+        %>
+        <td>남성상의</td>
+        <%
+          } else if (product.getCategory().getNo() == 21) {
+        %>
+        <td>여성상의</td>
+        <%
+          } else {
+        %>
+        <td></td>
+        <%
+          }
+        %>
+        <td><a href="detail.jsp"><%=product.getName()%></a></td>
         <td><%=product.getPrice()%></td>
         <td><%=product.getStatus()%></td>
       </tr>

@@ -7,26 +7,28 @@ import java.util.List;
 public class DeliveryDao {
     public void insertDelivery (Delivery delivery){
         String sql = """
-                INSERT INTO delivery
+                INSERT INTO ORDER_DELIVERY_PRODUCTS
                 (DELIVERY_NO, DELIVERY_PRODUCT_PRICE, DELIVERY_PRODUCT_AMOUNT
-                , DELIVERY_STATUS, PRODUCT_NO, PRODUCT_STOCK_NO, ORDER_NO)
+                , PRODUCT_NO, PRODUCT_STOCK_NO, ORDER_NO
+                , RECIPIENT)
                 VALUES
-                (DELIVERY_NO_SEQ.NEXTVAL, ?,  ?
-                , ?, ?, ?, ?)
+                (DELIVERY_NO_SEQ.NEXTVAL
+                , ?, ?, ?
+                , ?, ?, ?)
                 """;
-        DaoHelper.insert(sql, delivery.getNo()
+        DaoHelper.insert(sql
                             , delivery.getPrice()
                             , delivery.getAmount()
-                            , delivery.getStatus()
                             , delivery.getProduct().getNo()
                             , delivery.getStock().getNo()
                             , delivery.getOrder().getNo()
+                            , delivery.getRecipient()
         );
     }
 
     public void updateDelivery (Delivery delivery){
         String sql = """
-                UPDATE delivery
+                UPDATE ORDER_DELIVERY_PRODUCTS
                 SET DELIVERY_NO = ?,
                 DELIVERY_PRODUCT_PRICE = ?,
                 DELIVERY_PRODUCT_AMOUNT = ?,
@@ -48,7 +50,7 @@ public class DeliveryDao {
 
     public void deleteDelivery (int deliveryNo){
         String sql = """
-                DELETE FROM delivery
+                DELETE FROM ORDER_DELIVERY_PRODUCTS
                 WHERE DELIVERY_NO = ?
                 """;
         DaoHelper.delete(sql, deliveryNo);
@@ -57,7 +59,7 @@ public class DeliveryDao {
     public Delivery getDeliveryByNo (int deliveryNo){
         String sql = """
                 SELECT *
-                FROM delivery
+                FROM ORDER_DELIVERY_PRODUCTS
                 WHERE DELIVERY_NO = ?
                 """;
 
@@ -77,7 +79,7 @@ public class DeliveryDao {
     public List<Delivery> getAllDeliveryByUserNo(int userNo){
         String sql = """
                 SELECT *
-                FROM delivery
+                FROM ORDER_DELIVERY_PRODUCTS
                 WHERE USER_NO = ?
                 """;
         return DaoHelper.selectList(sql, rs -> {

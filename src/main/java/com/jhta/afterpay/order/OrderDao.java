@@ -1,7 +1,12 @@
 package com.jhta.afterpay.order;
 
+import com.jhta.afterpay.user.User;
 import com.jhta.afterpay.util.DaoHelper;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public class OrderDao {
@@ -85,5 +90,34 @@ public class OrderDao {
             orderDto.getAddr().setNo(rs.getInt("ADDR_NO"));
             return orderDto;
         }, userNo);
+    }
+
+    public Order getMostLatelyOrderNoByUserNo (int userNo) throws SQLException {
+     String sql = """
+             SELECT ORDER_NO
+              FROM (
+                      SELECT ORDER_NO
+                      FROM ORDERS
+                      WHERE USER_NO = ?
+                      ORDER BY ORDER_DATE DESC
+              )
+              WHERE ROWNUM = 1
+             """;
+        Connection con = DaoHelper.getConnection();
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        pstmt.setInt(1, userNo);
+        ResultSet rs =  pstmt.executeQuery();
+        Order order = null;
+
+        while(rs.next()){
+            order = new Order();
+            order.setNo(rs.getInt("ORDER_NO"));
+        }
+
+        rs.close();
+        pstmt.close();
+        con.close();
+
+        return order;
     }
 }

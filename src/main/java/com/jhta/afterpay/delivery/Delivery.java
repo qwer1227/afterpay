@@ -11,6 +11,7 @@ public class Delivery {
     private Product product;
     private Stock stock;
     private Order order;
+    private String recipient;
 
     public Delivery() {
     }
@@ -69,5 +70,13 @@ public class Delivery {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public String getRecipient() {
+        return recipient;
+    }
+
+    public void setRecipient(String recipient) {
+        this.recipient = recipient;
     }
 }

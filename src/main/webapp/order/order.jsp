@@ -10,6 +10,7 @@
 <%@ page import="com.jhta.afterpay.delivery.DeliveryDao" %>
 <%@ page import="com.jhta.afterpay.delivery.Delivery" %>
 <%@ page import="com.jhta.afterpay.product.Product" %>
+<%@ page import="com.jhta.afterpay.delivery.Stock" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <%
 
@@ -46,6 +47,7 @@
     addrDao.insertAddr(addr);
 
     List<Addr> addrs = addrDao.getAllAddrByUserNo(user.getNo());
+
     Addr wantAddr = new Addr();
     wantAddr.setUser(user);
     for (Addr findAddr : addrs) {
@@ -70,21 +72,33 @@
 
     orderDao.insertOrder(order);
 
+    Order payOrder = orderDao.getMostLatelyOrderNoByUserNo(user.getNo());
+
     // 배송상품 저장
     DeliveryDao deliveryDao = new DeliveryDao();
     Delivery delivery = new Delivery();
+
     Product product = new Product();
     product.setNo(10000);
-    product.set
     delivery.setProduct(product);
 
+    delivery.setOrder(payOrder);
+    delivery.setAmount(1);
+    delivery.setProduct(product);
+    delivery.setRecipient(recipient);
+
+    Stock stock = new Stock();
+    stock.setNo(1);
+    delivery.setStock(stock);
+
+    deliveryDao.insertDelivery(delivery);
 
     // 결제정보 저장
     PaymentDao paymentDao = new PaymentDao();
+
     Payment payment = new Payment();
     payment.setPrice(paymentPrice);
-    payment.setOrder(order);
-
+    payment.setOrder(payOrder);
     paymentDao.insertPayment(payment);
 
     response.sendRedirect("../index.jsp");

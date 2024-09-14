@@ -42,7 +42,11 @@
       </div>
       <!-- 우측 정보수정하기 버튼 -->
       <div class="p-2 ms-auto">
-        <button class="btn btn-primary" type="submit">정보 수정</button>
+        <a href="modify.jsp">
+          <button class="btn btn-primary" type="submit">
+            정보 수정
+          </button>
+        </a>
       </div>
     </div>
   </div>
@@ -52,12 +56,12 @@
   <div class="row mb-3 ">
     <div class="col-12">
       <div class="btn-group btn-group-lg w-100" role="group" aria-label="Basic outlined example">
-        <a type="button" class="btn btn-outline-secondary">
-          적립금<br/>
+        <a type="button" class="btn btn-outline-secondary" href="point.jsp">
+          <strong>적립금</strong><br/>
           30,000 원
         </a>
-        <a type="button" class="btn btn-outline-secondary">
-          후기<br/>
+        <a type="button" class="btn btn-outline-secondary" href="review.jsp">
+          <strong>후기</strong><br/>
           3 건
         </a>
       </div>

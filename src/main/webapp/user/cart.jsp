@@ -13,7 +13,12 @@
 <body>
 <%@include file="../common/nav.jsp"%>
 <div class="container">
+  <div class="row">
+    <div class="col-2">
+      <%@include file="../common/user-nav.jsp"%>
 
+    </div>
+  </div>
 </div>
 <%@include file="../common/footer.jsp"%>
 </body>

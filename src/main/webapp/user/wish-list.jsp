@@ -27,25 +27,25 @@
     </div>
       <!-- 컨텐츠 -->
       <div class="col-10">
-        <h2 class="mt-3"><strong>Shopping List</strong></h2>
+        <h2 class="m-3"><strong>Shopping List</strong></h2>
 
-        <div class="btn-group" role="group" aria-label="Basic outlined example">
-        <ul class="nav nav-tabs">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs justify-content-center">
           <li class="nav-item">
-            <a class="nav-link active" data-bs-toggle="tab" href="#cart">장바구니</a>
+            <!-- 값을 뭐로 받는지에 따라 active -->
+            <a class="nav-link" data-bs-toggle="tab" href="#cart">장바구니</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#wishlist">위시리스트</a>
+            <a class="nav-link active" data-bs-toggle="tab" href="#wishlist">위시리스트</a>
           </li>
         </ul>
-        </div>
 
         <!-- Tab panes -->
         <div class="tab-content">
-          <div class="tab-pane container active" id="cart">장바구니</div>
-          <div class="tab-pane container fade" id="wishlist">위시리스트</div>
-
+          <div class="tab-pane container fade" id="cart">wish 장바구니</div>
+          <div class="tab-pane container active" id="wishlist">wish 위시리스트</div>
         </div>
+
       </div>
     </div>
   </div>

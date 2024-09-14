@@ -1,5 +1,6 @@
 package com.jhta.afterpay.addr;
 
+import com.jhta.afterpay.user.User;
 import com.jhta.afterpay.util.DaoHelper;
 
 import java.util.List;
@@ -13,7 +14,8 @@ public class AddrDao {
                 , ADDR_NAME, ADDR_TEL 
                 , ZIP_CODE, ADDR_1, ADDR_2
                 , ISADDR_HOME, USER_NO)
-                values(ADDR_NO_SEQ.NEXTVAL, ?, ?
+                values(ADDR_NO_SEQ.NEXTVAL
+                , ?, ?
                 ,?, ?, ?
                 ,?, ?)
                 """;
@@ -94,7 +96,9 @@ public class AddrDao {
             addr.setAddr1(rs.getString("ADDR_1"));
             addr.setAddr2(rs.getString("ADDR_2"));
             addr.setAddrHome(rs.getString("ISADDR_HOME"));
-            addr.getUser().setNo(rs.getInt("USER_NO"));
+            User user = new User();
+            user.setNo(userNo);
+            addr.setUser(user);
             return addr;
         }, userNo);
     }

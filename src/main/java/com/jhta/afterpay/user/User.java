@@ -1,11 +1,5 @@
 package com.jhta.afterpay.user;
 
-
-<<<<<<< HEAD
-
-=======
-import java.awt.*;
->>>>>>> 2bd03a360438ce6b07c367b4aa860c78ec9056d8
 import java.util.Date;
 
 public class User {

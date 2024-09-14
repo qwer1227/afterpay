@@ -9,21 +9,18 @@ public class OrderDao {
     public void insertOrder(Order order) {
         String sql= """
                     insert into ORDERS
-                    (
-                    ORDER_NO
-                    , ORDER_DATE, ORDER_STATUS, ORDER_PRICE, ORDER_AMOUNT
-                    , DELIVERY_PRICE , USE_POINT , ORDER_DISCOUNT_PRICE, PAYMENT_PRICE
+                    (ORDER_NO
+                    , ORDER_PRICE, ORDER_AMOUNT , DELIVERY_PRICE 
+                    , USE_POINT , ORDER_DISCOUNT_PRICE, PAYMENT_PRICE
                     , DEPOSIT_POINT, USER_NO, ADDR_NO)
-                    VALUES(
-                          ?
-                        , ?, ?, ?, ?
-                        , ?, ?, ?, ?
-                        , ?, ?, ?)
+                    VALUES
+                    (ORDER_NO_SEQ.NEXVAL
+                    , ?, ?, ?
+                    , ?, ?, ? 
+                    , ?, ?, ?)
                 """;
 
-        DaoHelper.insert(sql, order.getNo()
-                            , order.getOrderDate()
-                            , order.getStatus()
+        DaoHelper.insert(sql
                             , order.getPrice()
                             , order.getAmount()
                             , order.getDeliveryPrice()

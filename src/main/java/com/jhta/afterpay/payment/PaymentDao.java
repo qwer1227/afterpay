@@ -8,12 +8,15 @@ public class PaymentDao {
     public void insertPayment(Payment payment) {
         String sql = """
                 INSERT INTO PAYMENTS
-                (PAYMENT_NO, PAYMENT_PRICE, ORDER_NO)
+                (PAYMENT_NO
+                , PAYMENT_PRICE
+                , ORDER_NO)
                 VALUES 
-                (?, ?, ?)
+                (PAYMENT_NO_SEQ.NEXTVAL 
+                , ?
+                , ?)
                 """;
         DaoHelper.insert(sql
-                , payment.getNo()
                 , payment.getPrice()
                 , payment.getOrder().getNo()
         );

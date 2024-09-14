@@ -11,6 +11,10 @@
   <title>AFTER PAY</title>
 </head>
 <body>
+<%@include file="../common/nav.jsp"%>
+<div class="container">
 
+</div>
+<%@include file="../common/footer.jsp"%>
 </body>
 </html>

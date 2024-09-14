@@ -3,7 +3,7 @@ package com.jhta.afterpay.delivery;
 import com.jhta.afterpay.order.Order;
 import com.jhta.afterpay.product.Product;
 
-public class delivery {
+public class Delivery {
     private int no;
     private int price;
     private int amount;
@@ -12,7 +12,7 @@ public class delivery {
     private Stock stock;
     private Order order;
 
-    public delivery() {
+    public Delivery() {
     }
 
     public int getNo() {

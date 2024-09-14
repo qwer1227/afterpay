@@ -4,8 +4,8 @@ import com.jhta.afterpay.util.DaoHelper;
 
 import java.util.List;
 
-public class deliveryDao {
-    public void insertDelivery (delivery delivery){
+public class DeliveryDao {
+    public void insertDelivery (Delivery delivery){
         String sql = """
                 INSERT INTO delivery
                 (DELIVERY_NO, DELIVERY_PRODUCT_PRICE, DELIVERY_PRODUCT_AMOUNT
@@ -24,7 +24,7 @@ public class deliveryDao {
         );
     }
 
-    public void updateDelivery (delivery delivery){
+    public void updateDelivery (Delivery delivery){
         String sql = """
                 UPDATE delivery
                 SET DELIVERY_NO = ?,
@@ -54,7 +54,7 @@ public class deliveryDao {
         DaoHelper.delete(sql, deliveryNo);
     }
 
-    public delivery getDeliveryByNo (int deliveryNo){
+    public Delivery getDeliveryByNo (int deliveryNo){
         String sql = """
                 SELECT *
                 FROM delivery
@@ -62,7 +62,7 @@ public class deliveryDao {
                 """;
 
         return DaoHelper.selectOne(sql, rs -> {
-            delivery dto = new delivery();
+            Delivery dto = new Delivery();
             dto.setNo(rs.getInt("DELIVERY_NO"));
             dto.setPrice(rs.getInt("DELIVERY_PRODUCT_PRICE"));
             dto.setAmount(rs.getInt("DELIVERY_PRODUCT_AMOUNT"));
@@ -74,14 +74,14 @@ public class deliveryDao {
         });
     }
 
-    public List<delivery> getAllDeliveryByUserNo(int userNo){
+    public List<Delivery> getAllDeliveryByUserNo(int userNo){
         String sql = """
                 SELECT *
                 FROM delivery
                 WHERE USER_NO = ?
                 """;
         return DaoHelper.selectList(sql, rs -> {
-            delivery dto = new delivery();
+            Delivery dto = new Delivery();
             dto.setNo(rs.getInt("DELIVERY_NO"));
             dto.setPrice(rs.getInt("DELIVERY_PRODUCT_PRICE"));
             dto.setAmount(rs.getInt("DELIVERY_PRODUCT_AMOUNT"));

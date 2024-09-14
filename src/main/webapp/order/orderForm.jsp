@@ -18,6 +18,7 @@
 <%
     Product product = new Product();
     product.setPrice(100000);
+    product.setNo(10000);
 %>
 <div id="main" class="container-sm d-flex justify-content-center border border-5">
     <div class="content-wrap">
@@ -35,6 +36,7 @@
             </div>
         </div>
         <form action="order.jsp" method="post">
+            <input type="hidden" name="products" value="">
             <div id="delivery" class="rows border-bottom border-top border-2">
                 <h4>배송 정보</h4>
                 <ul>

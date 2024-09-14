@@ -7,6 +7,9 @@
 <%@ page import="com.jhta.afterpay.order.OrderDao" %>
 <%@ page import="com.jhta.afterpay.user.UserDao" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.jhta.afterpay.delivery.DeliveryDao" %>
+<%@ page import="com.jhta.afterpay.delivery.Delivery" %>
+<%@ page import="com.jhta.afterpay.product.Product" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <%
 
@@ -16,12 +19,13 @@
     String tel = request.getParameter("tel");                                       // 전화번호
     String zipcode = request.getParameter("zipcode");                               // 우편번호
 //    String email = request.getParameter("email");                                   // 이메일
-//    String recipient = request.getParameter("recipient");                           // 수령인
+    String recipient = request.getParameter("recipient");                           // 수령인
 //    String userName = request.getParameter("userName");                             // 주문자명
 //    int totalPrice = Integer.parseInt(request.getParameter("totalPrice"));          // 주문 가격
 //    int discountPrice = Integer.parseInt(request.getParameter("discountPrice"));    // 할인 가격
 //    int deliveryPrice = Integer.parseInt(request.getParameter("deliveryPrice"));    // 배송비
     int paymentPrice = Integer.parseInt(request.getParameter("paymentPrice"));      // 결제 금액
+
 
     // 주문 회원 정보
     UserDao userDao = new UserDao();
@@ -59,11 +63,21 @@
     order.setDeliveryPrice(1);
     order.setUsePoint(1);
     order.setDiscountPrice(1);
+    order.setPaymentPrice(paymentPrice);
     order.setDepositPoint(1);
     order.setAddr(wantAddr);
     order.setUser(user);
 
     orderDao.insertOrder(order);
+
+    // 배송상품 저장
+    DeliveryDao deliveryDao = new DeliveryDao();
+    Delivery delivery = new Delivery();
+    Product product = new Product();
+    product.setNo(10000);
+    product.set
+    delivery.setProduct(product);
+
 
     // 결제정보 저장
     PaymentDao paymentDao = new PaymentDao();

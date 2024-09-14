@@ -14,22 +14,16 @@ public class OrderDao {
                     , USE_POINT , ORDER_DISCOUNT_PRICE, PAYMENT_PRICE
                     , DEPOSIT_POINT, USER_NO, ADDR_NO)
                     VALUES
-                    (ORDER_NO_SEQ.NEXVAL
+                    (ORDER_NO_SEQ.NEXTVAL
                     , ?, ?, ?
                     , ?, ?, ? 
                     , ?, ?, ?)
                 """;
 
         DaoHelper.insert(sql
-                            , order.getPrice()
-                            , order.getAmount()
-                            , order.getDeliveryPrice()
-                            , order.getUsePoint()
-                            , order.getDiscountPrice()
-                            , order.getPaymentPrice()
-                            , order.getDepositPoint()
-                            , order.getUser().getNo()
-                            , order.getAddr().getNo()
+        , order.getPrice(), order.getAmount(), order.getDeliveryPrice()
+        , order.getUsePoint(), order.getDiscountPrice(), order.getPaymentPrice()
+         , order.getDepositPoint(), order.getUser().getNo(), order.getAddr().getNo()
         );
     }
 

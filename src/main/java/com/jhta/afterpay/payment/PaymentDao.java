@@ -71,16 +71,10 @@ public class PaymentDao {
 
         return DaoHelper.selectList(sql
              ,   rs -> {
-                Payment payment = new Payment();
-
-
-
-
-
-
+                    Payment payment = new Payment();
+                    payment.setNo(rs.getInt("PAYMENT_NO"));
+                    payment.getOrder().setNo(orderNo);
                     return payment;
-                }
-
-                );
+                },orderNo);
     }
 }

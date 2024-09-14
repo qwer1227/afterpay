@@ -22,7 +22,7 @@
     <!-- 메뉴 -->
     <div class="col-2">
       <div class="list-group mt-3 mb-3">
-        <a href="../user/order.jsp" class="mb-1 p-2 list-group-item-action btn btn-outline">주문내역</a>
+        <a href="../user/orders.jsp" class="mb-1 p-2 list-group-item-action btn btn-outline">주문내역</a>
         <a href="../user/resolution.jsp" class="mb-1 p-2 list-group-item-action btn btn-outline">취소/반품/환불</a>
         <a href="../user/cart.jsp" class="mb-1 p-2 list-group-item-action btn btn-outline">장바구니</a>
         <a href="../user/wish-list.jsp" class="mb-1 p-2 list-group-item-action btn btn-outline">위시리스트</a>

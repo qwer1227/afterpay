@@ -22,7 +22,10 @@
   #prd-detail{
     border: 1px solid black;
   }
-  #move{
+  #move-cart{
+    border: 1px solid black;
+  }
+  #move-order{
     border: 1px solid black;
   }
 </style>
@@ -38,7 +41,6 @@
     <!-- 컨텐츠 -->
     <div class="col-10">
       <h2 class="m-3"><strong>Shopping List</strong></h2>
-
       <!-- Nav tabs -->
       <ul class="nav mt-3 nav-tabs justify-content-center">
         <li class="nav-item">
@@ -50,6 +52,14 @@
         </li>
       </ul>
 
+      <div class="hstack gap-3 mt-1">
+        <div class="p-2">
+          <input type="checkbox" style="zoom:1.8">
+        </div>
+        <div class="p-2 ms-auto">
+          <button>선택삭제</button>
+        </div>
+      </div>
 
       <!-- Tab panes -->
       <div class="row">
@@ -108,9 +118,9 @@
             </td>
             <th>
               <td rowspan="1" class="align-middle text-end">
-                <button class="btn" id="move">장바구니 이동</button>
+                <button class="btn" id="move-cart">장바구니 이동</button>
                 <p></p>
-                <button class="btn" id="move">주문하기</button>
+                <button class="btn" id="move-order">주문하기</button>
               </td>
             </th>
           </tr>

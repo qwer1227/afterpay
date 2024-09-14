@@ -71,7 +71,7 @@
   <div class="row mb-3">
     <div class="col-12">
       <div class="list-group">
-        <a href="/user/order.jsp" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
+        <a href="/user/orders.jsp" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
           주문 내역
         </a>
         <a href="/user/resolution.jsp" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">

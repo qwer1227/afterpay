@@ -10,16 +10,21 @@
     <link href="/common/css/style.css" rel="stylesheet" >
     <title>AFTER PAY</title>
 </head>
+<style>
+    h2{
+        text-align: center;
+    }
+</style>
 <body>
 <%@include file="../common/nav.jsp"%>
 <div class="container">
-    <div class="container">
-        <div class="row">
-            <div class="col-2">
-                <%@include file="../common/user-nav.jsp"%>
-
-            </div>
-        </div>
+  <div class="row">
+    <div class="col-2">
+       <%@include file="../common/user-nav.jsp"%>
+    </div>
+    <div class="col-10">
+       <h2 class="mt-3"><strong>MY MILEAGE</strong></h2>
+    </div>
     </div>
 </div>
 <%@include file="../common/footer.jsp"%>

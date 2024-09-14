@@ -1,6 +1,7 @@
 package com.jhta.afterpay.delivery;
 
 import com.jhta.afterpay.order.Order;
+import com.jhta.afterpay.product.Product;
 
 public class delivery {
     private int no;

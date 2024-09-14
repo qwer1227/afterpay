@@ -1,6 +1,6 @@
 package com.jhta.afterpay.addr;
 
-import com.jhta.afterpay.order.UserDto;
+import com.jhta.afterpay.user.User;
 
 public class Addr {
     private int no;
@@ -10,7 +10,7 @@ public class Addr {
     private String addr1;
     private String addr2;
     private String isAddrHome;
-    private UserDto user;
+    private User user;
 
 
     public Addr() {
@@ -77,11 +77,11 @@ public class Addr {
         this.isAddrHome = isAddrHome;
     }
 
-    public UserDto getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(UserDto user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

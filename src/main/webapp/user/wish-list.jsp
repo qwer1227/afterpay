@@ -10,11 +10,14 @@
   <link href="/common/css/style.css" rel="stylesheet" >
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <title>AFTER PAY</title>
+  <title>AFTER PAY_Shopping List</title>
 </head>
 <style>
   h2{
     text-align: center;
+  }
+  #cart-info{
+    height: 120px;
   }
 </style>
 <body>
@@ -25,28 +28,168 @@
     <div class="col-2">
       <%@include file="../common/user-nav.jsp"%>
     </div>
-      <!-- 컨텐츠 -->
-      <div class="col-10">
-        <h2 class="m-3"><strong>Shopping List</strong></h2>
 
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs justify-content-center">
-          <li class="nav-item">
-            <!-- 값을 뭐로 받는지에 따라 active -->
-            <a class="nav-link" data-bs-toggle="tab" href="#cart">장바구니</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" data-bs-toggle="tab" href="#wishlist">위시리스트</a>
-          </li>
-        </ul>
-
-        <!-- Tab panes -->
-        <div class="tab-content">
-          <div class="tab-pane container fade" id="cart">wish 장바구니</div>
-          <div class="tab-pane container active" id="wishlist">wish 위시리스트</div>
+    <!-- 컨텐츠 -->
+    <div class="col-10">
+      <h2 class="m-3"><strong>Shopping List</strong></h2>
+      <!-- Nav tabs -->
+      <nav>
+        <div class="nav nav-tabs mt-4 justify-content-center fs-5" id="nav-tab" role="tablist">
+          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
+                  data-bs-target="#nav-cart" type="button" role="tab" aria-controls="nav-home" aria-selected="true">
+            장바구니
+          </button>
+          <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab"
+                  data-bs-target="#nav-wishlist" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
+            위시리스트
+          </button>
+        </div>
+      </nav>
+      <!-- Tab Contents -->
+      <div class="tab-content" id="nav-tabContent">
+        <div class="hstack gap-3">
+          <div class="p-2">
+            <input type="checkbox" style="zoom:1.8">
+          </div>
+          <!-- 카트 모양은 위시리스트 선택했을때만 보이게 -->
+          <div class="p-3">
+            <button class="btn btn-lg">
+              <i class="bi bi-cart4"></i>
+            </button>
+          </div>
+          <div class="p-3 ms-auto">
+            <button class="btn btn-lg">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
         </div>
 
+        <div class="tab-pane fade show active" id="nav-cart" role="tabpanel" aria-labelledby="nav-home-tab">
+          <div class="table-responsive">
+            <table class="table align-middle">
+              <colgroup>
+                <col width="1%">
+                <col width="15%">
+                <col width="*">
+                <col width="15%">
+              </colgroup>
+              <tr>
+                <td>
+                  <input class="form-check-input" type="checkbox" style="zoom:1.5" value="check-item">
+                </td>
+                <td>
+                  <img src="../img/main2.png" class="rounded mx-auto d-block" width="170">
+                </td>
+                <td class="align-top">
+                  <p></p>
+                  <p style="font-size: 20px"><strong>상품명</strong></p>
+                  <p>사이즈</p>
+                  <p>수량</p>
+                  <p>가격</p>
+                </td>
+                <td class="align-middle text-end">
+                  <button class="btn btn-outline-primary">상세보기</button>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <input class="form-check-input" type="checkbox" style="zoom:1.5" value="check-item">
+                </td>
+                <td>
+                  <img src="../img/main2.png" class="rounded mx-auto d-block" width="170">
+                </td>
+                <td class="align-top">
+                  <p></p>
+                  <p style="font-size: 20px"><strong>상품명</strong></p>
+                  <p>사이즈</p>
+                  <p>수량</p>
+                  <p>가격</p>
+                </td>
+                <td class="align-middle text-end">
+                  <button class="btn btn-outline-primary">상세보기</button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="nav-wishlist" role="tabpanel" aria-labelledby="nav-profile-tab">
+          <div class="table-responsive">
+            <table class="table align-middle">
+              <colgroup>
+                <col width="1%">
+                <col width="15%">
+                <col width="*">
+                <col width="15%">
+              </colgroup>
+              <tr>
+                <td>
+                  <input class="form-check-input" type="checkbox" style="zoom:1.5" value="check-item">
+                </td>
+                <td>
+                  <img src="../img/main3.png" class="rounded mx-auto d-block" width="170">
+                </td>
+                <td class="align-top">
+                  <p></p>
+                  <p style="font-size: 20px"><strong>상품명</strong></p>
+                  <p>사이즈</p>
+                  <p>수량</p>
+                  <p>가격</p>
+                </td>
+                <td class="align-middle text-end">
+                  <button class="btn btn-outline-primary">장바구니</button>
+                  <p></p>
+                  <button class="btn btn-outline-success">주문하기</button>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <input class="form-check-input" type="checkbox" style="zoom:1.5" value="check-item">
+                </td>
+                <td>
+                  <img src="../img/main3.png" class="rounded mx-auto d-block" width="170">
+                </td>
+                <td class="align-top">
+                  <p></p>
+                  <p style="font-size: 20px"><strong>상품명</strong></p>
+                  <p>사이즈</p>
+                  <p>수량</p>
+                  <p>가격</p>
+                </td>
+                <td class="align-middle text-end">
+                  <button class="btn btn-outline-primary">장바구니</button>
+                  <p></p>
+                  <button class="btn btn-outline-success">주문하기</button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- Item Total Info -->
+        <div class="text-center mt-4 mb-5">
+          <div class="row fs-5" id="cart-info">
+            <!-- cart -->
+            <table border="1">
+              <tr class="fs-5">
+                <td>총 선택 갯수</td>
+                <td>배송비</td>
+                <td>총 결제 금액</td>
+                <td rowspan="2"><a href="" type="submit"><button class="btn btn-outline-success btn-lg">지금 주문하기</button></a></td>
+              </tr>
+              <tr>
+                <td><strong>1 개</strong></td>
+                <td><strong>3000 원</strong></td>
+                <td><strong>20000 원</strong></td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
 </div>

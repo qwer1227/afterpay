@@ -31,7 +31,7 @@
 
     <!-- 컨텐츠 -->
     <div class="col-10">
-      <h2 class="m-3"><strong>Shopping List</strong></h2>
+      <h2 class="m-4"><strong>Shopping List</strong></h2>
       <!-- Nav tabs -->
       <nav>
         <div class="nav nav-tabs mt-4 justify-content-center fs-5" id="nav-tab" role="tablist">

@@ -1,6 +1,5 @@
-package com.jhta.afterpay.user;
+package com.jhta.afterpay.user.vo;
 
-import java.awt.*;
 import java.util.Date;
 
 public class User {
@@ -15,24 +14,6 @@ public class User {
     private int point;
     private Date createdDate;
     private String gradeId;
-    private String addr1;
-    private String addr2;
-
-    public String getAddr1() {
-        return addr1;
-    }
-
-    public void setAddr1(String addr1) {
-        this.addr1 = addr1;
-    }
-
-    public String getAddr2() {
-        return addr2;
-    }
-
-    public void setAddr2(String addr2) {
-        this.addr2 = addr2;
-    }
 
     public User() {
     }

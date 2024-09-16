@@ -14,9 +14,6 @@
   <link rel="stylesheet" href="/common/css/style.css">
 </head>
 <body class="d-flex flex-column min-vh-100 ">
-<%
-  String menu = "홈";
-%>
 <%@ include file="common/nav.jsp" %>
 <div class="main-container">
   <div>

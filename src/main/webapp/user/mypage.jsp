@@ -1,3 +1,5 @@
+<%@ page import="com.jhta.afterpay.user.dao.UserDao" %>
+<%@ page import="com.jhta.afterpay.user.vo.User" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
@@ -23,6 +25,20 @@
 </style>
 <body>
 <%@include file="../common/nav.jsp"%>
+<%
+  /*
+  * user.jsp?id=hong
+  *
+  * 1. 요청파라미터 값 조회
+  * 2. 사용자 정보 값 조회
+  *
+  */
+
+  String id = "momo";
+  UserDao userDao = new UserDao();
+  User user = userDao.getUserById(id);
+%>
+
 <div class="container">
   <div class="row mb-3">
     <div class="col-12">
@@ -39,12 +55,12 @@
         <img src="https://i.pinimg.com/474x/3e/c0/d4/3ec0d48e3332288604e8d48096296f3e.jpg" class="img-thumbnail rounded mx-auto d-block" width="90">
       </div>
       <div class="p-2">
-        <div class="fs-6"><strong>아이디</strong></div>
-        <div class="fs-6"><strong>등급</strong></div>
+        <div class="fs-6"><strong><%=user.getId()%></strong></div>
+        <div class="fs-6"><strong><%=user.getGradeId()%></strong></div>
       </div>
       <!-- 우측 정보수정하기 버튼 -->
       <div class="p-2 ms-auto">
-        <a href="modify.jsp">
+        <a href="info.jsp">
           <button class="btn btn-primary" type="submit">
             정보 수정
           </button>

@@ -1,5 +1,6 @@
-package com.jhta.afterpay.user;
+package com.jhta.afterpay.user.dao;
 
+import com.jhta.afterpay.user.vo.User;
 import com.jhta.afterpay.util.DaoHelper;
 
 import java.sql.SQLException;
@@ -50,13 +51,11 @@ public class UserDao {
     /**
      * 사용자가 새로 입력한 정보를 db에 수정 반영
      * @param user
-     * @return
      * @throws SQLException
      */
     public void updateUserInfoById(User user) throws SQLException{
         String sql = """
-                select u.user_id
-                     , u.user_email
+                select  u.user_email
                      , u.user_tel
                      , a.addr_1
                      , a.addr_2

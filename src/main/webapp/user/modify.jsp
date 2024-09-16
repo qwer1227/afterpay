@@ -1,5 +1,5 @@
-<%@ page import="com.jhta.afterpay.user.UserDao" %>
-<%@ page import="com.jhta.afterpay.user.User" %>
+<%@ page import="com.jhta.afterpay.user.dao.UserDao" %>
+<%@ page import="com.jhta.afterpay.user.vo.User" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
@@ -52,12 +52,17 @@
           </tr>
           <tr>
             <th scope="row" class="text-center">연락처</th>
-            <td class="text-start"><%=user.getTel()%></td>
+            <td class="text-start">
+              <form action="">
+                <input type="text" value="<%=user.getTel()%>">
+              </form>
+            </td>
           </tr>
           <tr>
             <th scope="row" class="text-center">주소</th>
             <td class="text-start">
               <%=
+                // 승준님이 구현한 주소API 적용 필요
                 // addr1과 addr2가 둘 다 null이면 "-" 출력
                 // addr2가 null이면 "addr1", null이 아니면 "addr1 + addr2" 출력
                 (user.getAddr1()+user.getAddr2()).equals("nullnull") ? "-"
@@ -67,7 +72,11 @@
           </tr>
           <tr>
             <th scope="row" class="text-center">이메일</th>
-            <td><%=user.getEmail()%></td>
+            <td>
+              <form action="">
+                <input type="text" value="<%=user.getEmail()%>">
+              </form>
+            </td>
           </tr>
           <tr>
             <th scope="row" class="text-center">가입일</th>
@@ -77,7 +86,7 @@
       </table>
 
       <div class="text-end">
-        <a href="info.jsp" type="submit" class="btn btn-outline-primary">
+        <a href="" type="submit" class="btn btn-outline-primary">
             수정 저장
         </a>
       </div>

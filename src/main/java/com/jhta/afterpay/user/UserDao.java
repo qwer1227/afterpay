@@ -17,6 +17,12 @@ public class UserDao {
         DaoHelper.insert(sql,user.getEmail(),user.getId(),user.getPwd(),user.getName(),user.getTel());
     }
 
+    /**
+     * id로 해당하는 유저 정보 조회
+     * @param id 조회할 id
+     * @return id와 동일한 유저의 정보
+     * @throws SQLException
+     */
     public User getUserById(String id) throws  SQLException{
         String sql = """
                 select *
@@ -38,7 +44,32 @@ public class UserDao {
             user.setCreatedDate(rs.getDate("created_date"));
             user.setGradeId(rs.getString("grade_id"));
             return user;
-
         }, id);
+    }
+
+    /**
+     * 사용자가 새로 입력한 정보를 db에 수정 반영
+     * @param user
+     * @return
+     * @throws SQLException
+     */
+    public void updateUserInfoById(User user) throws SQLException{
+        String sql = """
+                select u.user_id
+                     , u.user_email
+                     , u.user_tel
+                     , a.addr_1
+                     , a.addr_2
+                from users u join addresses a
+                    on u.user_no = a.user_no
+                where u.user_id = ?
+                    and a.isAddr_home = 'Y';
+                """;
+
+        DaoHelper.update(sql
+                    , user.getEmail()
+                    , user.getTel()
+                    , user.getAddr1()
+                    , user.getAddr2());
     }
 }

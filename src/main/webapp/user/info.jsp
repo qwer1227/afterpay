@@ -77,8 +77,14 @@
       </table>
 
       <div class="text-end">
-        <a href="info.jsp" type="submit" class="btn btn-outline-primary">
-            수정 저장
+        <a href="modify.jsp" type="submit" class="btn btn-outline-secondary">
+            회원정보 수정
+        </a>
+        <a href="" type="submit" class="btn btn-outline-warning">
+            비밀번호 변경
+        </a>
+        <a href="" type="submit" class="btn btn-outline-danger">
+            회원 탈퇴
         </a>
       </div>
     </div>

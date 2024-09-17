@@ -1,9 +1,11 @@
 package com.jhta.afterpay.order;
 
 import com.jhta.afterpay.addr.Addr;
+import com.jhta.afterpay.product.Product;
 import com.jhta.afterpay.user.User;
 
 import java.util.Date;
+import java.util.List;
 
 public class Order {
     private int no;
@@ -19,7 +21,7 @@ public class Order {
     private int depositPoint;
     private Addr addr;
     private User user;
-
+    private List<Product> Products;
 
     public Order() {
     }
@@ -144,5 +146,13 @@ public class Order {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<Product> getProducts() {
+        return Products;
+    }
+
+    public void setProducts(List<Product> products) {
+        Products = products;
     }
 }

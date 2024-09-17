@@ -60,7 +60,7 @@
                 <tr>
                     <td><%=order.getNo() %></td>
                     <td><%=order.getPaymentPrice() %>></td>
-                    <td><%=%>></td>
+                    <td></td>
                     <td>2024-09-13</td>
                     <td>100개</td>
                     <td>판매중</td>

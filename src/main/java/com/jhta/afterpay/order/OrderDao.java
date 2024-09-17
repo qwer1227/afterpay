@@ -1,5 +1,6 @@
 package com.jhta.afterpay.order;
 
+import com.jhta.afterpay.product.Product;
 import com.jhta.afterpay.user.User;
 import com.jhta.afterpay.util.DaoHelper;
 
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class OrderDao {
 
-    public void insertOrder(Order order) {
+    public void insertOrder(Order order) throws SQLException {
         String sql= """
                     insert into ORDERS
                     (ORDER_NO
@@ -24,11 +25,10 @@ public class OrderDao {
                     , ?, ?, ? 
                     , ?, ?, ?)
                 """;
-
         DaoHelper.insert(sql
-        , order.getPrice(), order.getAmount(), order.getDeliveryPrice()
-        , order.getUsePoint(), order.getDiscountPrice(), order.getPaymentPrice()
-         , order.getDepositPoint(), order.getUser().getNo(), order.getAddr().getNo()
+                , order.getPrice(), order.getAmount(), order.getDeliveryPrice()
+                , order.getUsePoint(), order.getDiscountPrice(), order.getPaymentPrice()
+                , order.getDepositPoint(), order.getUser().getNo(), order.getAddr().getNo()
         );
     }
 

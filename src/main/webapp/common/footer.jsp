@@ -45,6 +45,4 @@
   <a class="navbar-brand" href="../index.jsp">AFTER PAY</a>
 </div>
 
-  <a class="navbar-brand" href="index.jsp">AFTER PAY</a>
-</div>
 

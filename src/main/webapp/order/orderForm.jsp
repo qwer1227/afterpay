@@ -37,10 +37,10 @@
 %>
 <div id="main" class="container-xl d-flex justify-content-center p-3">
     <div class="content-wrap">
-        <div class="rows text-center mb -5">
+        <div class="row text-center mb-5">
             <h3>주문 결제</h3>
         </div>
-        <div id="product" class="row mb-5">
+        <div class="row mb-5">
             <div class="col-3">
             <img src="sample.jpg" class="rounded float-start" style="width: 100px; height:130px;">
             </div>
@@ -54,7 +54,7 @@
         </div>
         <form action="order.jsp" method="post">
             <input type="hidden" name="products" value="">
-            <div id="delivery" class="rows border-bottom border-top border-2">
+            <div id="delivery" class="row border-bottom border-top border-2">
                 <h4>배송 정보</h4>
                 <ul class="list-unstyled">
                     <li><label>이름</label><input type="text" name="userName" class="form-control"/></li>
@@ -82,7 +82,7 @@
                 <label>보유한 적립금: </label><span><%=user.getPoint() %></span>
 --%>
             </div>
-            <div id="price" class="rows border-bottom border-2">
+            <div id="price" class="row border-bottom border-2">
                 <h4>결제 정보</h4>
                 <ul class="list-unstyled">
                     <li>
@@ -106,7 +106,7 @@
                     </li>
                 </ul>
             </div>
-            <div id="payment" class="rows">
+            <div id="payment" class="row">
                 <h4>결제 방법</h4>
                 <div class="form-check form-check-inline">
                     <%--@declare id="inlinecheckbox1"--%><input class="form-check-input" type="checkbox" name="pay" id="credit" value="option1" onclick="oneCheckbox(this)">
@@ -125,7 +125,7 @@
                     <label class="form-check-label" for="inlineCheckbox2">휴대폰</label>
                 </div>
             </div>
-            <div class="rows d-flex justify-content-center">
+            <div class="row d-flex justify-content-center">
                 <input type="submit" class="btn btn-primary" value="지금 결제하기">
             </div>
         </form>

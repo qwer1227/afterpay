@@ -20,21 +20,27 @@
     String detailAddr = request.getParameter("detailAddress");                      // 상세주소
     String tel = request.getParameter("tel");                                       // 전화번호
     String zipcode = request.getParameter("zipcode");                               // 우편번호
-//    String email = request.getParameter("email");                                   // 이메일
+    String email = request.getParameter("email");                                   // 이메일
     String recipient = request.getParameter("recipient");                           // 수령인
-//    String userName = request.getParameter("userName");                             // 주문자명
-//    int totalPrice = Integer.parseInt(request.getParameter("totalPrice"));          // 주문 가격
-//    int discountPrice = Integer.parseInt(request.getParameter("discountPrice"));    // 할인 가격
-//    int deliveryPrice = Integer.parseInt(request.getParameter("deliveryPrice"));    // 배송비
+    String userName = request.getParameter("userName");                             // 주문자명
+    int totalPrice = Integer.parseInt(request.getParameter("totalPrice"));          // 주문 가격
+    int discountPrice = Integer.parseInt(request.getParameter("discountPrice"));    // 할인 가격
+    int deliveryPrice = Integer.parseInt(request.getParameter("deliveryPrice"));    // 배송비
     int paymentPrice = Integer.parseInt(request.getParameter("paymentPrice"));      // 결제 금액
+    String[] proNoArr = request.getParameterValues(request.getParameter("productNo")); // 상품 번호
+    String[] amountArr = request.getParameterValues(request.getParameter("amount"));    // 주문 상품 개수
 
+
+    UserDao userDao = new UserDao();
+    AddrDao addrDao = new AddrDao();
+    DeliveryDao deliveryDao = new DeliveryDao();
+    OrderDao orderDao = new OrderDao();
+    PaymentDao paymentDao = new PaymentDao();
 
     // 주문 회원 정보
-    UserDao userDao = new UserDao();
     User user = userDao.getUserById("hong"); // 회원ID는 세션값으로 구할 예정
 
     // 배송지 저장
-    AddrDao addrDao = new AddrDao();
     Addr addr = new Addr();
 
     addr.setAddr1(address);
@@ -60,15 +66,16 @@
     }
 
 
+
+
+
     // 주문정보 저장
-    OrderDao orderDao = new OrderDao();
-    List<Order> orders = new ArrayList<>();
     Order order = new Order();
     order.setPrice(paymentPrice);
     order.setAmount(1);
-    order.setDeliveryPrice(1);
+    order.setDeliveryPrice(deliveryPrice);
     order.setUsePoint(1);
-    order.setDiscountPrice(1);
+    order.setDiscountPrice(discountPrice);
     order.setPaymentPrice(paymentPrice);
     order.setDepositPoint(1);
     order.setAddr(wantAddr);
@@ -79,31 +86,29 @@
     Order payOrder = orderDao.getMostLatelyOrderNoByUserNo(user.getNo());
 
     // 배송상품 저장
-    DeliveryDao deliveryDao = new DeliveryDao();
-    Delivery delivery = new Delivery();
 
-    Product product = new Product();
-    product.setNo(10000);
-    delivery.setProduct(product);
+    for (String proNo : proNoArr) {
+        int productNo = Integer.parseInt(proNo);
+        Delivery delivery = new Delivery();
+        Product product = new Product(); // productDao 필요
+        Stock stock = new Stock(); // stockDao 필요
+        stock.setNo(1);
+        product.setNo(10000);
+        delivery.setProduct(product);
+        delivery.setOrder(payOrder);
+        delivery.setAmount(1);
+        delivery.setProduct(product);
+        delivery.setRecipient(recipient);
+        delivery.setStock(stock);
 
-    delivery.setOrder(payOrder);
-    delivery.setAmount(1);
-    delivery.setProduct(product);
-    delivery.setRecipient(recipient);
-
-    Stock stock = new Stock();
-    stock.setNo(1);
-    delivery.setStock(stock);
-
-    deliveryDao.insertDelivery(delivery);
+        deliveryDao.insertDelivery(delivery);
+    }
 
     // 결제정보 저장
-    PaymentDao paymentDao = new PaymentDao();
-
     Payment payment = new Payment();
     payment.setPrice(paymentPrice);
     payment.setOrder(payOrder);
     paymentDao.insertPayment(payment);
 
-    response.sendRedirect("../index.jsp");
+    response.sendRedirect("/orderSuccess.jsp");
 %>

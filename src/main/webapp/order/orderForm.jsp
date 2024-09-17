@@ -1,9 +1,13 @@
 <%@ page import="com.jhta.afterpay.product.Product" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.jhta.afterpay.user.UserDao" %>
+<%@ page import="com.jhta.afterpay.user.User" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="order.css" />
+
     <link rel="stylesheet" href="../common/css/style.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -16,37 +20,50 @@
 <body>
 <%@ include file="../common/nav.jsp"%>
 <%
+    UserDao userDao = new UserDao();
+//    User user = userDao.getUserById();
+
     Product product = new Product();
     product.setPrice(100000);
     product.setNo(10000);
+
+    List<Product> products = new ArrayList<>();
+    products.add(product);
+    products.size();
+    int totalPrice = 0;
+    for(Product product1 : products) {
+        totalPrice += product1.getPrice();
+    }
 %>
-<div id="main" class="container-sm d-flex justify-content-center border border-5">
+<div id="main" class="container-xl d-flex justify-content-center p-3">
     <div class="content-wrap">
-        <div class="rows text-center mb-5">
+        <div class="rows text-center mb -5">
             <h3>주문 결제</h3>
         </div>
         <div id="product" class="row mb-5">
-            <img src="sample.jpg" class="rounded float-start">
-            <div class="col-6">
-                <p>워시드 콰트로 카고 팬츠 네이비</p>
-                <p>[옵션: S]</p>
-            </div>
             <div class="col-3">
-                가격
+            <img src="sample.jpg" class="rounded float-start" style="width: 100px; height:130px;">
+            </div>
+            <div class="col-7">
+                <p><%=products.get(0).getName() %>></p>
+<%--                <p>[옵션: <%= products.get(0).getStock().getSize()%>]</p>--%>
+            </div>
+            <div class="col-2">
+                <%=totalPrice%>
             </div>
         </div>
         <form action="order.jsp" method="post">
             <input type="hidden" name="products" value="">
             <div id="delivery" class="rows border-bottom border-top border-2">
                 <h4>배송 정보</h4>
-                <ul>
+                <ul class="list-unstyled">
                     <li><label>이름</label><input type="text" name="userName" class="form-control"/></li>
-                    <li><input type="button" id="addrListBtn" value="배송지 고르기"></li>
+                    <li><input type="button" id="addrListBtn" value="배송지 고르기" class="btn btn-primary"></li>
                     <li>
                         <div class="col-12 input-group mt-2">
                             <input type="hidden" name="addrNo" value="" disabled>
                             <label>우편번호</label><input type="text" id="sample6_postcode" name="zipcode" placeholder="우편번호" class="form-control">
-                            <input type="button" id="addrBtn" onclick="sample6_execDaumPostcode()" value="검색" class="col-2"></button>
+                            <input type="button" class="btn btn-primary" onclick="sample6_execDaumPostcode()" value="검색" class="col-2"></button>
                         </div>
                     </li>
                     <li><label>주소</label><input type="text" id="sample6_address" name="address" placeholder="주소" class="form-control" required><br></li>
@@ -58,13 +75,35 @@
                     <li><label>수령인</label><input type="text" name="recipient" class="form-control"/></li>
                 </ul>
             </div>
+            <div class="border-bottom mb-5">
+                <label><h4>적립금 사용하기</h4></label><br>
+                <input type="text" name="point" value="" class="form-control" />
+<%--
+                <label>보유한 적립금: </label><span><%=user.getPoint() %></span>
+--%>
+            </div>
             <div id="price" class="rows border-bottom border-2">
                 <h4>결제 정보</h4>
-                <ul>
-                    <li ><label class="col-8">합계 금액</label><input type="text" name="totalPrice" value="<%=product.getPrice() %>" disabled></li>
-                    <li><label class="col-8">할인 금액</label><input type="text" name="discountPrice" value="<%=product.getPrice() %>" disabled></li>
-                    <li><label class="col-8">배송비</label><input type="text" name="deliveryPrice" value="<%=product.getPrice() %>" disabled></li>
-                    <li><label class="col-8"><strong>결제 금액</strong></label><strong><input type="text" name="paymentPrice" value="<%=product.getPrice() %>" disabled</strong></li>
+                <ul class="list-unstyled">
+                    <li>
+                        <label class="col-8">합계 금액</label>
+                        <input type="hidden" name="totalPrice" value="<%=totalPrice %>" disabled>
+                        <span><%=totalPrice%></span>
+                    </li>
+                    <li>
+                        <label class="col-8">할인 금액</label>
+                        <input type="hidden" name="discountPrice" value="<%=product.getPrice() %>" disabled>
+                        <span><%=totalPrice%></span>
+                    <li>
+                        <label class="col-8">배송비</label>
+                        <input type="hidden" name="deliveryPrice" value="<%=product.getPrice() %>" disabled>
+                        <span><%=totalPrice%></span>
+                    </li>
+                    <li>
+                        <label class="col-8"><strong>결제 금액</strong></label>
+                        <strong><input type="hidden" name="paymentPrice" value="<%=product.getPrice() %>" disabled></strong>
+                        <span><%=totalPrice%></span>
+                    </li>
                 </ul>
             </div>
             <div id="payment" class="rows">
@@ -87,7 +126,7 @@
                 </div>
             </div>
             <div class="rows d-flex justify-content-center">
-                <input type="submit" id="payBtn" value="지금 결제하기">
+                <input type="submit" class="btn btn-primary" value="지금 결제하기">
             </div>
         </form>
     </div>

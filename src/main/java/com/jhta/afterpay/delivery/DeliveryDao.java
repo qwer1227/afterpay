@@ -76,7 +76,7 @@ public class DeliveryDao {
         });
     }
 
-    public List<Delivery> getAllDeliveryByUserNo(int userNo){
+    public List<Delivery> getAllDeliveryByOrderNo(int orderNo){
         String sql = """
                 SELECT *
                 FROM ORDER_DELIVERY_PRODUCTS
@@ -92,6 +92,6 @@ public class DeliveryDao {
             dto.getStock().setNo(rs.getInt("PRODUCT_STOCK_NO"));
             dto.getOrder().setNo(rs.getInt("ORDER_NO"));
             return dto;
-        }, userNo);
+        }, orderNo);
     }
 }

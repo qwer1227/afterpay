@@ -11,6 +11,7 @@
 <%@ page import="com.jhta.afterpay.delivery.Delivery" %>
 <%@ page import="com.jhta.afterpay.product.Product" %>
 <%@ page import="com.jhta.afterpay.delivery.Stock" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <%
 
@@ -61,6 +62,7 @@
 
     // 주문정보 저장
     OrderDao orderDao = new OrderDao();
+    List<Order> orders = new ArrayList<>();
     Order order = new Order();
     order.setPrice(paymentPrice);
     order.setAmount(1);

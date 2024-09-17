@@ -49,6 +49,8 @@
     List<Addr> addrs = addrDao.getAllAddrByUserNo(user.getNo());
 
     Addr wantAddr = new Addr();
+
+    // 주소가 중복 저장된 경우에는 어떻게 ??
     wantAddr.setUser(user);
     for (Addr findAddr : addrs) {
         if(findAddr.getAddr1().equals(address) && findAddr.getAddr2().equals(detailAddr)) {

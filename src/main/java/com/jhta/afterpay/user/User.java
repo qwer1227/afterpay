@@ -1,9 +1,5 @@
 package com.jhta.afterpay.user;
 
-<<<<<<< HEAD
-public class User {
-=======
-import java.awt.*;
 import java.util.Date;
 
 public class User {
@@ -20,23 +16,6 @@ public class User {
     private String gradeId;
 
     public User() {
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "no=" + no +
-                ", email='" + email + '\'' +
-                ", id='" + id + '\'' +
-                ", pwd='" + pwd + '\'' +
-                ", name='" + name + '\'' +
-                ", tel='" + tel + '\'' +
-                ", isBanned='" + isBanned + '\'' +
-                ", isSignOut='" + isSignOut + '\'' +
-                ", point=" + point +
-                ", createdDate=" + createdDate +
-                ", gradeId='" + gradeId + '\'' +
-                '}';
     }
 
     public int getNo() {
@@ -126,5 +105,21 @@ public class User {
     public void setGradeId(String gradeId) {
         this.gradeId = gradeId;
     }
->>>>>>> 1916f1e210cee1b462d9151eba7c18833043eb2c
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "no=" + no +
+                ", email='" + email + '\'' +
+                ", id='" + id + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", name='" + name + '\'' +
+                ", tel='" + tel + '\'' +
+                ", isBanned='" + isBanned + '\'' +
+                ", isSignOut='" + isSignOut + '\'' +
+                ", point=" + point +
+                ", createdDate=" + createdDate +
+                ", gradeId='" + gradeId + '\'' +
+                '}';
+    }
 }

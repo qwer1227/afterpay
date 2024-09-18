@@ -48,9 +48,9 @@ public class UserDao {
 
     public User getUserByNo(int no) throws SQLException {
         String sql = """
-                select *
-                from users
-                where user_no = ?
+                SELECT *
+                FROM USERS
+                WHERE USER_NO = ?
                 """;
 
         return DaoHelper.selectOne(sql, rs -> {
@@ -70,12 +70,12 @@ public class UserDao {
         }, no);
     }
 
-    public void updateUserInfoByNo(User user) throws SQLException {
+    public void updateUserInfoByUserNo(User user) throws SQLException {
         String sql = """
-                update users
-                set user_email = ?
-                    , user_tel = ?
-                where user_no = ?
+                UPDATE USERS
+                SET USER_EMAIL = ?
+                    , USER_TEL = ?
+                WHERE USER_NO = ?
                 """;
         DaoHelper.update(sql, user.getEmail()
                             , user.getTel()

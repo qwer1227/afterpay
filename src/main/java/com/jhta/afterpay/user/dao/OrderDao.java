@@ -14,11 +14,11 @@ public class OrderDao {
      * @return
      * @throws SQLException
      */
-    public List<Order> getOrderByNo(int userNo) throws SQLException{
+    public List<Order> getOrderByUserNo(int userNo) throws SQLException{
         String sql = """
-                select *
-                from orders
-                where user_no = ?
+                SELECT *
+                FROM ORDERS
+                WHERE USER_NO = ?
                 """;
         return DaoHelper.selectList(sql, rs -> {
             Order order = new Order();

@@ -16,15 +16,15 @@ public class ReviewDao {
      * @return
      * @throws SQLException
      */
-    public Review getReviewCntByNo(int userNo) throws SQLException {
+    public Review getReviewCntByUserNo(int userNo) throws SQLException {
         String sql = """
-                select count(user_no)
-                from reviews
-                where user_no = ?
-                    and isdeleted = 'N'
+                SELECT COUNT(USER_NO)
+                FROM REVIEWS
+                WHERE USER_NO = ?
+                    AND ISDELETED = 'N'
                 """;
 
-        return DaoHelper.selectOne(sql, rs -> {
+        return DaoHelper.selectOneInt(sql, rs -> {
             Review review = new Review();
             User user = new User();
             user.setNo(rs.getInt("user_no"));

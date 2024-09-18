@@ -107,9 +107,29 @@
         %>
         <td>여성상의</td>
         <%
-          } else {
+          } else if (product.getCategory().getNo() == 12) {
         %>
-        <td></td>
+        <td>남성하의</td>
+        <%
+          } else if (product.getCategory().getNo() == 22) {
+        %>
+        <td>여성하의</td>
+        <%
+          } else if (product.getCategory().getNo() == 13) {
+        %>
+        <td>남성슈즈</td>
+        <%
+          } else if (product.getCategory().getNo() == 23) {
+        %>
+        <td>여성슈즈</td>
+        <%
+        } else if (product.getCategory().getNo() == 14) {
+        %>
+        <td>남성가방</td>
+        <%
+        } else if (product.getCategory().getNo() == 24) {
+        %>
+        <td>여성가방</td>
         <%
           }
         %>

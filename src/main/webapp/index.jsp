@@ -43,11 +43,11 @@
       </div>
       <div class="col" style="justify-content: center">
         <img src="../img/main4.png" alt="" style="width: 250px; height:350px;"/>
-        <a href="/product/list.jsp?cat_no=23&page=">여성 가방</a>
+        <a href="/product/list.jsp?cat_no=24&page=">여성 가방</a>
       </div>
       <div class="col" style="justify-content: center">
         <img src="../img/main5.png" alt="" style="width: 250px; height:350px;"/>
-        <a href="/product/list.jsp?cat_no=14&page=">남성 슈즈</a>
+        <a href="/product/list.jsp?cat_no=13&page=">남성 슈즈</a>
       </div>
     </div>
   </div>

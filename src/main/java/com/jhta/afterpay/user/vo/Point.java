@@ -6,7 +6,9 @@ public class Point {
     private int no; // 개인 포인트 누적 순번
     private Date historyDate; // 포인트 적립일
     private String content; // 포인트 내용
-    private int point; // 포인트 누적/차감 금액
+    private int point; // 포인트 현재 잔액
+    private int plusPoint; // 총 적립금
+    private int minusPoint; //사용 적립금
     private User userNo; // 사용자 번호
 
     public Point() {}
@@ -18,8 +20,26 @@ public class Point {
                 ", historyDate=" + historyDate +
                 ", content='" + content + '\'' +
                 ", point=" + point +
+                ", plusPoint=" + plusPoint +
+                ", minusPoint=" + minusPoint +
                 ", userNo=" + userNo +
                 '}';
+    }
+
+    public int getPlusPoint() {
+        return plusPoint;
+    }
+
+    public void setPlusPoint(int plusPoint) {
+        this.plusPoint = plusPoint;
+    }
+
+    public int getMinusPoint() {
+        return minusPoint;
+    }
+
+    public void setMinusPoint(int minusPoint) {
+        this.minusPoint = minusPoint;
     }
 
     public int getNo() {

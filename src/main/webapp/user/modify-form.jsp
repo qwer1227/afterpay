@@ -1,5 +1,8 @@
 <%@ page import="com.jhta.afterpay.user.dao.UserDao" %>
 <%@ page import="com.jhta.afterpay.user.vo.User" %>
+<%@ page import="com.jhta.afterpay.user.vo.Address" %>
+<%@ page import="com.jhta.afterpay.user.dao.AddressDao" %>
+<%@ page import="com.jhta.afterpay.util.Utils" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
@@ -20,10 +23,13 @@
 <body>
 <%@include file="../common/nav.jsp"%>
 <%
+  // http://localhost/user/modify-form.jsp?id=xxx
   // 파라미터값을 전달받아 해당하는 정보를 받아 회원정보 폼에 각 값을 나타낸다.
-  String id = "momo";
   UserDao userDao = new UserDao();
-  User user = userDao.getUserById(id);
+  AddressDao addressDao = new AddressDao();
+
+  int no = Utils.toInt(request.getParameter("no"));
+  User user = userDao.getUserByNo(no);
 %>
 
 <div class="container">
@@ -61,13 +67,11 @@
           <tr>
             <th scope="row" class="text-center">주소</th>
             <td class="text-start">
-              <%=
+              <!--
                 // 승준님이 구현한 주소API 적용 필요
                 // addr1과 addr2가 둘 다 null이면 "-" 출력
                 // addr2가 null이면 "addr1", null이 아니면 "addr1 + addr2" 출력
-                (user.getAddr1()+user.getAddr2()).equals("nullnull") ? "-"
-                      : user.getAddr1() + (user.getAddr2().equals("null") ? "" : user.getAddr2())
-              %>
+              -->
             </td>
           </tr>
           <tr>
@@ -86,7 +90,7 @@
       </table>
 
       <div class="text-end">
-        <a href="" type="submit" class="btn btn-outline-primary">
+        <a href="update.jsp" type="submit" class="btn btn-outline-primary">
             수정 저장
         </a>
       </div>

@@ -15,9 +15,6 @@ public class User {
     private Date createdDate;
     private String gradeId;
 
-    public User() {
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -33,6 +30,10 @@ public class User {
                 ", createdDate=" + createdDate +
                 ", gradeId='" + gradeId + '\'' +
                 '}';
+    }
+
+
+    public User() {
     }
 
     public int getNo() {

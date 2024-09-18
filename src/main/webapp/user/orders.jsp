@@ -1,3 +1,9 @@
+<%@ page import="com.jhta.afterpay.user.vo.Order" %>
+<%@ page import="com.jhta.afterpay.user.dao.OrderDao" %>
+<%@ page import="com.jhta.afterpay.util.Utils" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.jhta.afterpay.user.dao.ProductDao" %>
+<%@ page import="com.jhta.afterpay.user.vo.Product" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
@@ -23,6 +29,12 @@
 </style>
 <body>
 <%@include file="../common/nav.jsp"%>
+<%
+  int userNo = Utils.toInt(request.getParameter("no"));
+  OrderDao orderDao = new OrderDao();
+  List<Order> order = orderDao.getOrderByNo(userNo);
+  ProductDao productDao = new ProductDao();
+%>
 <div class="container">
   <div class="container">
     <div class="row">

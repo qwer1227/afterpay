@@ -1,5 +1,7 @@
 <%@ page import="com.jhta.afterpay.user.dao.UserDao" %>
 <%@ page import="com.jhta.afterpay.user.vo.User" %>
+<%@ page import="com.jhta.afterpay.user.dao.ReviewDao" %>
+<%@ page import="com.jhta.afterpay.user.vo.Review" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
@@ -34,9 +36,11 @@
   *
   */
 
-  String id = "momo";
+  int userNo = 19;
   UserDao userDao = new UserDao();
-  User user = userDao.getUserById(id);
+  User user = userDao.getUserByNo(userNo);
+  ReviewDao reviewDao = new ReviewDao();
+
 %>
 
 <div class="container">
@@ -60,7 +64,7 @@
       </div>
       <!-- 우측 정보수정하기 버튼 -->
       <div class="p-2 ms-auto">
-        <a href="info.jsp">
+        <a href="info.jsp?no=<%=user.getNo()%>">
           <button class="btn btn-primary" type="submit">
             정보 수정
           </button>
@@ -76,11 +80,12 @@
       <div class="btn-group btn-group-lg w-100" role="group" aria-label="Basic outlined example">
         <a type="button" class="btn btn-outline-secondary" href="point.jsp">
           <strong>적립금</strong><br/>
-          30,000 원
+          <%=user.getPoint()%> 원
         </a>
         <a type="button" class="btn btn-outline-secondary" href="review.jsp">
           <strong>후기</strong><br/>
-          3 건
+          <!-- 후기 페이지에 있는 건수의 합계 값 출력-->
+          건
         </a>
       </div>
     </div>

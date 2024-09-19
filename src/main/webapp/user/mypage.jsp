@@ -38,9 +38,11 @@
 
   int userNo = 19;
   UserDao userDao = new UserDao();
-  User user = userDao.getUserByNo(userNo);
   ReviewDao reviewDao = new ReviewDao();
+  User user = userDao.getUserByNo(userNo);
 
+  int pointStatus = userDao.getPointStatusByUserNo(userNo);
+  int reviewCnt = reviewDao.getReviewCntByUserNo(userNo);
 %>
 
 <div class="container">
@@ -80,12 +82,12 @@
       <div class="btn-group btn-group-lg w-100" role="group" aria-label="Basic outlined example">
         <a type="button" class="btn btn-outline-secondary" href="point.jsp">
           <strong>적립금</strong><br/>
-          <%=user.getPoint()%> 원
+          <%=pointStatus%> 원
         </a>
         <a type="button" class="btn btn-outline-secondary" href="review.jsp">
           <strong>후기</strong><br/>
           <!-- 후기 페이지에 있는 건수의 합계 값 출력-->
-          건
+          <%=reviewCnt%>건
         </a>
       </div>
     </div>

@@ -3,9 +3,12 @@
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="product.ProductDao" %>
 <%@ page import="product.Product" %>
+<%@ page import="java.util.List" %>
+<%@ page import="product.Stock" %>
+<%@ page import="product.Review" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,44 +41,111 @@
   ProductDao productDao = new ProductDao();
   Product product = productDao.getProductByNo(1);
 
-  // 상품의 재고 수량 가져오기
+  // 상품 번호로 상품(productNo=?)의 재고 상황 반환
+  List<Stock> stocks = productDao.getAllStocksByNo(1);
+
+  // 상품 번호로 상품(productNo=?)의 모든 리뷰 반환
+  List<Review> reviews = productDao.getAllReviewsByNo(1);
 %>
-<div class="sub-container">
-  <div class="row">
-    <div class="col" style="justify-content: center; padding-left: 100px;">
-      <img src="../img/main2.png" alt="" style="width: 300px; height:400px;"/>
-      <div>
-        상품명:<%=product.getName() %>,
-        상품가격:<%=product.getPrice() %>
-        <button onclick="fn1();">위시리스트</button>
+<div class="container">
+  <div class="row mb-3">
+    <div class="col-4">
+      <img src="../img/main2.png" alt="" class="img-thumbnail"/>
+    </div>
+    <div class="col-8">
+      <div class="row mb-5">
+        <div class="col-12">
+          <h4>상품 상세 정보</h4>
+          <table class="table">
+            <colgroup >
+              <col width="15%" />
+              <col width="35%" />
+              <col width="15%" />
+              <col width="35%" />
+            </colgroup>
+            <tr>
+              <th>상품이름</th><td><%=product.getName() %></td>
+              <th>상품가격</th><td><%=product.getPrice() %></td>
+            </tr>
+          </table>
+          <div class="text-end">
+            <a href="../wish/wish.jsp" class="btn btn-outline-primary">위시 리스트 추가</a>
+          </div>
+        </div>
       </div>
-      <div>
-        상품수량:<input type="number" min="1" max="">
-        상품사이즈:
-        <input type="radio" name="size" value="S">S
-        <input type="radio" name="size" value="M">M
-        <input type="radio" name="size" value="L">L
+      <div class="row mb-3">
+        <div class="col-12 text-end">
+          <form class="row row-cols-lg-auto g-3 align-items-center" method="get" action="order.jsp">
+            <div class="col-12">
+              <div >
+                <%
+                  for (Stock stock : stocks) {
+                %>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="stockNo" value="<%=stock.getNo()%>">
+                    <label class="form-check-label" ><%=stock.getSize()%></label>
+                  </div>
+                <%
+                  }
+                %>
+              </div>
+            </div>
+            <%
+              for (Stock stock : stocks) {
+            %>
+              <div class="col-12">
+                <input type="number" class="form-control" name="amount" value="1" min="1" max="<%=stock.getAmount() %>">
+              </div>
+            <%
+              }
+            %>
+            <div class="col-12  text-end">
+              <div>
+                <button type="button" class="btn btn-outline-primary">장바구니 담기</button>
+                <button type="button" class="btn btn-outline-primary">구매하기</button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
-      <div>
-        <button onclick="fn2();">쇼핑백에 담기</button>
-        <button>지금 구매하기</button>
-      </div>
-      <div>
-        제품 세부 정보: <%=product.getContent() %>
-      </div>
-      <button>리뷰 작성하기</button>
     </div>
   </div>
-</div>
-<script type="text/javascript">
-  function fn1() {
-    alert("위시리스트에 추가되었습니다!");
-  }
 
-  function fn2() {
-    alert("쇼핑백에 담았습니다!");
-  }
-</script>
+  <div class="row mb-3">
+    <div class="col-12">
+      <a href="review.jsp" class="btn btn-primary">리뷰 작성하기</a>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <h4>리뷰 목록</h4>
+    <table class="table">
+      <colgroup >
+        <col width="15%" />
+        <col width="35%" />
+        <col width="15%" />
+        <col width="35%" />
+      </colgroup>
+      <%
+        for (Review review : reviews) {
+      %>
+        <tr>
+          <th>리뷰 제목</th><td><%=review.getTitle() %></td>
+        </tr>
+        <tr>
+          <th>리뷰내용</th><td><%=review.getContent() %></td>
+        </tr>
+        <tr>
+          <th>작성자이름</th><td><%=review.getUser().getName() %></td>
+          <th>평점</th><td><%=review.getRating() %></td>
+          <th>작성일</th><td><%=review.getCreatedDate() %></td>
+        </tr>
+      <%
+        }
+      %>
+    </table>
+  </div>
+</div>
 <%@ include file="../common/footer.jsp" %>
 </body>
 </html>

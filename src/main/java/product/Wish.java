@@ -2,8 +2,8 @@ package product;
 
 public class Wish {
     private int no;
-    private int productNo;
-    private int userNo;
+    private Product product;
+    private User user;
 
     public int getNo() {
         return no;
@@ -13,28 +13,28 @@ public class Wish {
         this.no = no;
     }
 
-    public int getProductNo() {
-        return productNo;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductNo(int productNo) {
-        this.productNo = productNo;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
-    public int getUserNo() {
-        return userNo;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserNo(int userNo) {
-        this.userNo = userNo;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
     public String toString() {
         return "Wish{" +
-                "no=" + no +
-                ", productNo=" + productNo +
-                ", userNo=" + userNo +
-                '}';
+               "no=" + no +
+               ", product=" + product +
+               ", user=" + user +
+               '}';
     }
 }

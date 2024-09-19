@@ -7,11 +7,12 @@ public class Point {
     private Date historyDate; // 포인트 적립일
     private String content; // 포인트 내용
     private int point; // 포인트 현재 잔액
-    private int plusPoint; // 총 적립금
-    private int minusPoint; //사용 적립금
+    private int totalPoint; // 총 적립금
+    private int usedPoint; //사용 적립금
     private User userNo; // 사용자 번호
 
-    public Point() {}
+    public Point() {
+    }
 
     @Override
     public String toString() {
@@ -20,26 +21,10 @@ public class Point {
                 ", historyDate=" + historyDate +
                 ", content='" + content + '\'' +
                 ", point=" + point +
-                ", plusPoint=" + plusPoint +
-                ", minusPoint=" + minusPoint +
+                ", totalPoint=" + totalPoint +
+                ", usedPoint=" + usedPoint +
                 ", userNo=" + userNo +
                 '}';
-    }
-
-    public int getPlusPoint() {
-        return plusPoint;
-    }
-
-    public void setPlusPoint(int plusPoint) {
-        this.plusPoint = plusPoint;
-    }
-
-    public int getMinusPoint() {
-        return minusPoint;
-    }
-
-    public void setMinusPoint(int minusPoint) {
-        this.minusPoint = minusPoint;
     }
 
     public int getNo() {
@@ -72,6 +57,22 @@ public class Point {
 
     public void setPoint(int point) {
         this.point = point;
+    }
+
+    public int getTotalPoint() {
+        return totalPoint;
+    }
+
+    public void setTotalPoint(int totalPoint) {
+        this.totalPoint = totalPoint;
+    }
+
+    public int getUsedPoint() {
+        return usedPoint;
+    }
+
+    public void setUsedPoint(int usedPoint) {
+        this.usedPoint = usedPoint;
     }
 
     public User getUserNo() {

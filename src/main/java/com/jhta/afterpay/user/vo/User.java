@@ -11,7 +11,7 @@ public class User {
     private String tel;
     private String isBanned;
     private String isSignOut;
-    private int point;
+    private Point point;
     private Date createdDate;
     private String gradeId;
 
@@ -100,11 +100,11 @@ public class User {
         this.isSignOut = isSignOut;
     }
 
-    public int getPoint() {
+    public Point getPoint() {
         return point;
     }
 
-    public void setPoint(int point) {
+    public void setPoint(Point point) {
         this.point = point;
     }
 

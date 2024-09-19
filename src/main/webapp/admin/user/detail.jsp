@@ -1,3 +1,7 @@
+<%@ page import="com.jhta.afterpay.util.Utils" %>
+<%@ page import="com.jhta.afterpay.user.UserDao" %>
+<%@ page import="com.jhta.afterpay.user.User" %>
+<%@ page import="org.apache.commons.lang3.StringEscapeUtils" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +27,13 @@
 <%@ include file="../../common/nav.jsp" %>
 <div class="container mt-4 mb-5">
     <h1>회원 상세정보</h1>
+    <%
+        int userNo = Utils.toInt(request.getParameter("no"));
 
+        // 요청파라미터로 전달받은 회원번호에 해당하는 회원 상세정보를 조회한다.
+        UserDao userDao = new UserDao();
+        User user = userDao.getUserByNo(userNo);
+    %>
     <table class="table table-bordered">
         <colgroup>
             <col width="15%">
@@ -40,35 +50,42 @@
         </tr>
         </thead>
         <tbody>
+
         <tr>
+            <th>번호</th>
+            <td><%=user.getNo()%></td>
             <th>이름</th>
-            <td>민혜준</td>
+            <td><%=StringEscapeUtils.escapeHtml4(user.getName())%></td>
+        </tr>
+        <tr>
             <th>아이디</th>
-            <td>mnoqc</td>
-        </tr>
-        <tr>
+            <td><%=user.getId()%></td>
             <th>비밀번호</th>
-            <td>zxcv1234</td>
-            <th>전화번호</th>
-            <td>010-1234-5678</td>
+            <td><%=user.getPwd()%></td>
         </tr>
         <tr>
+            <th>전화번호</th>
+            <td><%=user.getTel()%></td>
             <th>이메일</th>
-            <td>nmomnr@gmail.com</td>
-            <th>적립금</th>
-            <td>1,000,000 원</td>
+            <td><%=user.getEmail()%></td>
         </tr>
         <tr>
             <th>가입일</th>
-            <td>2024-09-13</td>
+            <td><%=user.getCreatedDate()%></td>
             <th>등급</th>
-            <td>GOLD</td>
+            <td><%=user.getGradeId()%></td>
+        </tr>
+        <tr>
+            <th>적립금</th>
+            <td><%=user.getPoint()%> 원</td>
+            <th></th>
+            <td></td>
         </tr>
         <tr>
             <th>정지여부</th>
-            <td>N</td>
+            <td><%=user.getIsBanned()%></td>
             <th>탈퇴여부</th>
-            <td>N</td>
+            <td><%=user.getIsSignOut()%></td>
         </tr>
         </tbody>
     </table>
@@ -76,6 +93,7 @@
     <div class="text-end my-2">
         <a href="#" class="btn btn-danger">회원삭제</a>
         <a href="#" class="btn btn-primary">회원수정</a>
+        <a href="user.jsp" class="btn btn-success">회원목록</a>
     </div>
 </div>
 <%@ include file="../../common/footer.jsp" %>

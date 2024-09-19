@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Review {
     private int no; // 작성한 리뷰 순번
+    private String title; // 작성한 리뷰 제목
     private String content; // 작성한 리뷰 내용
     private int rating; // 리뷰 평점
     private Date createdDate; // 리뷰 작성일
@@ -11,6 +12,14 @@ public class Review {
     private String isDeleted; // 리뷰 삭제여부
     private User userNo; // 작성한 유저 번호
     private Product productNo; // 작성한 상품 번호
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public Review() {}
 
@@ -82,6 +91,7 @@ public class Review {
     public String toString() {
         return "Review{" +
                 "no=" + no +
+                ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", rating=" + rating +
                 ", createdDate=" + createdDate +

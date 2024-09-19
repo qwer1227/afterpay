@@ -32,14 +32,25 @@ public class ReviewDao {
      * @param userNo
      * @return
      */
-//    public List<Review> getReviewsByUserNo(int userNo) {
-//        String sql = """
-//                SELECT REVIEW_TITLE
-//                    , REVIEW_CONTENT
-//                    , REVIEW_CREATED_DATE
-//                FROM REVIEWS
-//                WHERE USER_NO = ?
-//                    AND ISDELETED = 'N'
-//                """;
-//    }
+    public List<Review> getReviewsByUserNo(int userNo) {
+        String sql = """
+                SELECT REVIEW_TITLE
+                    , REVIEW_CONTENT
+                    , REVIEW_CREATED_DATE
+                FROM REVIEWS
+                WHERE USER_NO = ?
+                    AND ISDELETED = 'N'
+                ORDER BY REVIEW_CREATED_DATE DESC
+                """;
+
+        return DaoHelper.selectList(sql, rs -> {
+            Review review = new Review();
+
+            review.setTitle(rs.getString("REVIEW_TITLE"));
+            review.setContent(rs.getString("REVIEW_CONTENT"));
+            review.setCreatedDate(rs.getDate("REVIEW_CREATED_DATE"));
+
+            return review;
+        }, userNo);
+    }
 }

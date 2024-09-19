@@ -37,7 +37,7 @@
 %>
 <%@ include file="../common/nav.jsp" %>
 <div class="container">
-  <p>연락처</p>
+  <p>스톡키스트</p>
   <h3>고객 센터</h3>
   <h5>
     애프터페이의 제품 관련 문의 및 온라인 C/S 상담은 연락주시면 <br>

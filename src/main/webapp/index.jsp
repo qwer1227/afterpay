@@ -54,7 +54,7 @@
     <h3 >2024 Fall-Winter Collection</h3>
     <h5>New Arrivals</h5>
     <h5>
-      <a href="#">shop</a>
+      <a href="/index2.jsp">shop</a>
     </h5>
   </div>
 </div>

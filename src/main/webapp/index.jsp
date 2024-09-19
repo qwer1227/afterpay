@@ -12,6 +12,34 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .main-container {
+      width:100%;
+      margin:10px auto;
+      position: relative;
+    }
+    .main-container img {
+      width: 100%;
+      height: 20%;
+      vertical-align: middle;
+    }
+    .main-text {
+      position: absolute;
+      top: 90%;
+      left: 50%;
+      width: 100%;
+      transform: translate(-50%, -50%);
+      font-size: 20px;
+      text-align: center;
+      color: beige;
+    }
+    .sub-container {
+      height: 450px;
+    }
+    .sub-container a {
+      text-align: center;
+    }
+  </style>
 </head>
 <body class="d-flex flex-column min-vh-100 ">
 <%

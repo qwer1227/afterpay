@@ -5,7 +5,7 @@
       도움
     </li>
     <li>
-      <a href="">연락처</a>
+      <a href="/common/contactUs.jsp">연락처</a>
     </li>
     <li>
       <a href="">스톡키스트</a>

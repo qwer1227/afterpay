@@ -72,11 +72,11 @@
 //       */
 //    }
     int catNo = Utils.toInt(request.getParameter("cat_no"));
-    System.out.println("catNo : " + catNo);
+    int pageNo = Utils.toInt(request.getParameter("page"),1);
+
     ProductDao productDao = new ProductDao();
 
     List<Product> products = productDao.getAllProducts(catNo);
-    System.out.println(products);
   %>
   <table class="table">
     <colgroup>
@@ -95,46 +95,64 @@
     </thead>
     <tbody>
     <%
-      for (Product product : products) {
+      for (Product product : products ) {
     %>
       <tr>
         <%
-          if (product.getCategory().getNo() == 11) {
+          if (product.getCategory().getNo() == 10) {
+
+        %>
+        <td>남성전체</td>
+        <%
+        } else if (product.getCategory().getNo() == 20) {
+
+        %>
+        <td>여성전체</td>
+        <%
+          } else if (product.getCategory().getNo() == 11) {
+
         %>
         <td>남성상의</td>
         <%
           } else if (product.getCategory().getNo() == 21) {
+
         %>
         <td>여성상의</td>
         <%
           } else if (product.getCategory().getNo() == 12) {
+
         %>
         <td>남성하의</td>
         <%
           } else if (product.getCategory().getNo() == 22) {
+
         %>
         <td>여성하의</td>
         <%
           } else if (product.getCategory().getNo() == 13) {
+
         %>
         <td>남성슈즈</td>
         <%
           } else if (product.getCategory().getNo() == 23) {
+
         %>
         <td>여성슈즈</td>
         <%
         } else if (product.getCategory().getNo() == 14) {
+
         %>
         <td>남성가방</td>
         <%
         } else if (product.getCategory().getNo() == 24) {
+
         %>
         <td>여성가방</td>
         <%
           }
         %>
         <td><a href="detail.jsp"><%=product.getName()%></a></td>
-        <td><%=product.getPrice()%></td>
+        <td><%=Utils.toCurrency(product.getPrice())%></td>
         <td><%=product.getStatus()%></td>
       </tr>
     <%

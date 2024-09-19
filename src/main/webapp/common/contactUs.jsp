@@ -19,7 +19,17 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="css/style.css">
   <style>
+    p {
+      font-size: 30px;
+      font-weight: bolder;
+      padding: 0 0 10px;
+      text-align: center;
+      border-bottom: 1px solid #ccc;
+
+    }
     h3 {
+      font-weight: bolder;
+      font-size: 20px;
       text-align: center;
       margin-bottom: 20px;
     }
@@ -35,11 +45,12 @@
 %>
 <%@ include file="../common/nav.jsp" %>
 <div class="container">
+  <p>연락처</p>
   <h3>고객 센터</h3>
   <h5>
     애프터페이의 제품 관련 문의 및 온라인 C/S 상담은 연락주시면 <br>
     상담원이 친절하게 답변 드리겠습니다. <br>
-    영업시간 : 월 - 금 10:00 ~ 18:00 점심시간 : 12:30 ~ 14:00 <br>
+    영업시간 : 월 - 금 10:00 ~ 18:00 / 점심시간 : 12:30 ~ 14:00 <br>
     연락처 : 1577 - 1111
   </h5>
   <h3>비즈니스 및 마케팅 이메일</h3>

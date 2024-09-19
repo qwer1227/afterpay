@@ -63,19 +63,19 @@
     <div class="row">
       <div class="col" style="justify-content: center">
         <img src="../img/main2.png" alt="" style="width: 250px; height:350px;"/>
-        <a href="/product/list.jsp?cat_no=11&page=">남성 상의</a>
+        <a href="/product/list.jsp?cat_no=11&page=1">남성 상의</a>
       </div>
       <div class="col" style="justify-content: center">
         <img src="../img/main3.png" alt="" style="width: 250px; height:350px;"/>
-        <a href="/product/list.jsp?cat_no=21">여성 상의</a>
+        <a href="/product/list.jsp?cat_no=21&page=1">여성 상의</a>
       </div>
       <div class="col" style="justify-content: center">
         <img src="../img/main4.png" alt="" style="width: 250px; height:350px;"/>
-        <a href="/product/list.jsp?cat_no=24&page=">여성 가방</a>
+        <a href="/product/list.jsp?cat_no=24&page=1">여성 가방</a>
       </div>
       <div class="col" style="justify-content: center">
         <img src="../img/main5.png" alt="" style="width: 250px; height:350px;"/>
-        <a href="/product/list.jsp?cat_no=13&page=">남성 슈즈</a>
+        <a href="/product/list.jsp?cat_no=13&page=1">남성 슈즈</a>
       </div>
     </div>
   </div>

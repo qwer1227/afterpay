@@ -32,51 +32,21 @@
 <%@ include file="../common/nav.jsp" %>
 <div class="container">
   <%
-    /*
-      요청 Url
-        http://localhost/product/list.jsp?cat=11
-
-     */
-//    int catNo = Utils.toInt(request.getParameter("cat_no"));
-//    int pageNo = Utils.toInt(request.getParameter("page"),1);
-//
-//    ProductDao productDao = new ProductDao();
-//    int totalRows = 0;
-//    Pagination pagination = null;
-//    List<Product> products = null;
-//    if (catNo == 30) {
-//      totalRows = productDao.getAllTotalRows();
-//      pagination = new Pagination(pageNo, totalRows);
-//      products = productDao.getAllProducts(pagination.getBegin(), pagination.getEnd());
-//      /*
-//      select *
-//      from products;
-//       */
-//    } else if (catNo == 10 || catNo == 20) {
-//      totalRows = productDao.getAllTotalRowsByParentCatNo(catNo);
-//      pagination = new Pagination(pageNo, totalRows);
-//      products = productDao.getAllProductsByParentCatNo(catNo, pagination.getBegin(), pagination.getEnd());
-//      /*
-//      select *
-//      from products
-//      where parent_cat_no = ?
-//       */
-//    } else {
-//      totalRows = productDao.getAllTotalRowsByCatNo(catNo);
-//      pagination = new Pagination(pageNo, totalRows);
-//      products = productDao.getAllProductsByCatNo(catNo, pagination.getBegin(), pagination.getEnd());
-//       /*
-//      select *
-//      from products
-//      where cat_no = ?
-//       */
-//    }
     int catNo = Utils.toInt(request.getParameter("cat_no"));
     int pageNo = Utils.toInt(request.getParameter("page"),1);
-
     ProductDao productDao = new ProductDao();
 
-    List<Product> products = productDao.getAllProducts(catNo);
+    Pagination pagination = null;
+    List<Product> products = null;
+    if (catNo == 10 || catNo == 20) {
+      int totalRows = productDao.getTotalRows(catNo);
+      pagination = new Pagination(pageNo, totalRows);
+      products = productDao.getProducts(catNo, pagination.getBegin(), pagination.getEnd());
+    } else {
+      int totalRows = productDao.getTotalRowsByCatNo(catNo);
+      pagination = new Pagination(pageNo, totalRows);
+      products = productDao.getProductsByCatNo(catNo, pagination.getBegin(), pagination.getEnd());
+    }
   %>
   <table class="table">
     <colgroup>
@@ -98,60 +68,8 @@
       for (Product product : products ) {
     %>
       <tr>
-        <%
-          if (product.getCategory().getNo() == 10) {
-
-        %>
-        <td>남성전체</td>
-        <%
-        } else if (product.getCategory().getNo() == 20) {
-
-        %>
-        <td>여성전체</td>
-        <%
-          } else if (product.getCategory().getNo() == 11) {
-
-        %>
-        <td>남성상의</td>
-        <%
-          } else if (product.getCategory().getNo() == 21) {
-
-        %>
-        <td>여성상의</td>
-        <%
-          } else if (product.getCategory().getNo() == 12) {
-
-        %>
-        <td>남성하의</td>
-        <%
-          } else if (product.getCategory().getNo() == 22) {
-
-        %>
-        <td>여성하의</td>
-        <%
-          } else if (product.getCategory().getNo() == 13) {
-
-        %>
-        <td>남성슈즈</td>
-        <%
-          } else if (product.getCategory().getNo() == 23) {
-
-        %>
-        <td>여성슈즈</td>
-        <%
-        } else if (product.getCategory().getNo() == 14) {
-
-        %>
-        <td>남성가방</td>
-        <%
-        } else if (product.getCategory().getNo() == 24) {
-
-        %>
-        <td>여성가방</td>
-        <%
-          }
-        %>
-        <td><a href="detail.jsp"><%=product.getName()%></a></td>
+        <td><%=product.getCategory().getName()%></td>
+        <td><a href="detail.jsp?pno=<%=product.getNo()%>"><%=product.getName()%></a></td>
         <td><%=Utils.toCurrency(product.getPrice())%></td>
         <td><%=product.getStatus()%></td>
       </tr>
@@ -160,6 +78,31 @@
     %>
     </tbody>
   </table>
+  <%
+    if (pagination.getTotalRows() > 0) {
+  %>
+  <div>
+    <ul class="pagination justify-content-center">
+      <li class="page-item <%=pagination.isFirst() ? "disabled" : ""%>">
+        <a href="list.jsp?cat_no=<%=catNo%>&page=<%=pagination.getPrev() %>" class="page-link">이전</a>
+      </li>
+      <%
+        for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
+      %>
+      <li class="page-item <%=num == pageNo ? "active" : ""%>">
+        <a href="list.jsp?cat_no=<%=catNo%>&page=<%=num %>" class="page-link"><%=num %></a>
+      </li>
+      <%
+        }
+      %>
+      <li class="page-item <%=pagination.isLast() ? "disabled" : "" %>">
+        <a href="list.jsp?cat_no=<%=catNo%>&page=<%=pagination.getNext() %>" class="page-link">다음</a>
+      </li>
+    </ul>
+  </div>
+  <%
+    }
+  %>
 </div>
 <%@ include file="../common/footer.jsp" %>
 </body>

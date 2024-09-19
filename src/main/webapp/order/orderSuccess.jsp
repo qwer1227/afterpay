@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.jhta.afterpay.delivery.DeliveryDao" %><%--
   Created by IntelliJ IDEA.
   User: cola
   Date: 2024-09-16
@@ -30,7 +30,7 @@
         </div>
         <hr>
         <%-- 주문 정보 --%>
-        <div class="row border justify-content-md-center mb-5">
+        <div class="row border justify-content-md-center mb-5 border-dark">
             <ul class="list-unstyled p-3">
                 <li class="text-center">
                     <span><b>고객님의 주문이 정상적으로 완료되었습니다.</b></span>
@@ -45,8 +45,12 @@
                 </li>
             </ul>
         </div>
+<%
+    DeliveryDao deliveryDao = new DeliveryDao();
+
+%>
         <%-- 주문 상품 --%>
-        <div class="row border mb-5 p-3">
+        <div class="row border mb-5 p-3 border-dark">
             <h3 class="mb-3">주문상품</h3>
             <hr>
                 <div class="col-2">
@@ -72,7 +76,7 @@
                 </div>
         </div>
         <%-- 결제 정보 --%>
-        <div class="row border mb-3 p-3">
+        <div class="row border mb-3 p-3 border-dark">
             <h3 class="mt-3">결제정보</h3>
                 <ul class="list-unstyled">
                     <li>

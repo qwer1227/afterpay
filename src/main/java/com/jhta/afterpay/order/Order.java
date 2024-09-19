@@ -10,7 +10,7 @@ import java.util.List;
 public class Order {
     private int no;
     private Date orderDate;
-    private int status;
+    private String status;
     private int price;
     private int amount;
     private int deliveryPrice;
@@ -26,22 +26,6 @@ public class Order {
     public Order() {
     }
 
-    public Order(int no, Date orderDate, int status, int price
-                    , int amount, int deliveryPrice, int usePoint
-                    , int discountPrice, int paymentPrice, int deliveryStatus
-                    , Addr addr) {
-        this.no = no;
-        this.orderDate = orderDate;
-        this.status = status;
-        this.price = price;
-        this.amount = amount;
-        this.deliveryPrice = deliveryPrice;
-        this.usePoint = usePoint;
-        this.discountPrice = discountPrice;
-        this.paymentPrice = paymentPrice;
-        this.deliveryStatus = deliveryStatus;
-        this.addr = addr;
-    }
 
 
     public int getNo() {
@@ -60,11 +44,11 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

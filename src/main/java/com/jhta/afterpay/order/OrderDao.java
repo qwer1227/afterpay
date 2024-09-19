@@ -1,5 +1,6 @@
 package com.jhta.afterpay.order;
 
+import com.jhta.afterpay.addr.Addr;
 import com.jhta.afterpay.product.Product;
 import com.jhta.afterpay.user.User;
 import com.jhta.afterpay.util.DaoHelper;
@@ -47,22 +48,26 @@ public class OrderDao {
                 FROM ORDERS 
                 WHERE ORDER_NO = ?
                 """;
+            Order order = new Order();
+            User user = new User();
+            order.setUser(user);
+            Addr addr = new Addr();
+            order.setAddr(addr);
 
-        return DaoHelper.selectOne(sql, rs-> {
-            Order orderDto = new Order();
-            orderDto.setNo(rs.getInt("ORDER_NO"));
-            orderDto.setOrderDate(rs.getDate("ORDER_DATE"));
-            orderDto.setStatus(rs.getInt("ORDER_STATUS"));
-            orderDto.setPrice(rs.getInt("ORDER_PRICE"));
-            orderDto.setAmount(rs.getInt("ORDER_AMOUNT"));
-            orderDto.setDeliveryPrice(rs.getInt("DELIVERY_PRICE"));
-            orderDto.setUsePoint(rs.getInt("USE_POINT"));
-            orderDto.setDiscountPrice(rs.getInt("DISCOUNT_PRICE"));
-            orderDto.setPaymentPrice(rs.getInt("PAYMENT_PRICE"));
-            orderDto.setDepositPoint(rs.getInt("DEPOSIT_POINT"));
-            orderDto.getUser().setNo(rs.getInt("USER_NO"));
-            orderDto.getAddr().setNo(rs.getInt("ADDR_NO"));
-            return orderDto;
+        return DaoHelper.selectOne(sql, rs -> {
+            order.setNo(rs.getInt("ORDER_NO"));
+            order.setOrderDate(rs.getDate("ORDER_DATE"));
+            order.setStatus(rs.getString("ORDER_STATUS"));
+            order.setPrice(rs.getInt("ORDER_PRICE"));
+            order.setAmount(rs.getInt("ORDER_AMOUNT"));
+            order.setDeliveryPrice(rs.getInt("DELIVERY_PRICE"));
+            order.setUsePoint(rs.getInt("USE_POINT"));
+            order.setDiscountPrice(rs.getInt("ORDER_DISCOUNT_PRICE"));
+            order.setPaymentPrice(rs.getInt("PAYMENT_PRICE"));
+            order.setDepositPoint(rs.getInt("DEPOSIT_POINT"));
+            order.getUser().setNo(rs.getInt("USER_NO"));
+            order.getAddr().setNo(rs.getInt("ADDR_NO"));
+            return order;
         }, orderNo);
 
     }
@@ -73,23 +78,61 @@ public class OrderDao {
                 FROM ORDERS 
                 WHERE USER_NO = ?
                 """;
+        Order order = new Order();
+        User user = new User();
+        user.setNo(userNo);
+        order.setUser(user);
+        Addr addr = new Addr();
+        order.setAddr(addr);
 
         return DaoHelper.selectList(sql, rs-> {
-            Order orderDto = new Order();
-            orderDto.setNo(rs.getInt("ORDER_NO"));
-            orderDto.setOrderDate(rs.getDate("ORDER_DATE"));
-            orderDto.setStatus(rs.getInt("ORDER_STATUS"));
-            orderDto.setPrice(rs.getInt("ORDER_PRICE"));
-            orderDto.setAmount(rs.getInt("ORDER_AMOUNT"));
-            orderDto.setDeliveryPrice(rs.getInt("DELIVERY_PRICE"));
-            orderDto.setUsePoint(rs.getInt("USE_POINT"));
-            orderDto.setDiscountPrice(rs.getInt("DISCOUNT_PRICE"));
-            orderDto.setPaymentPrice(rs.getInt("PAYMENT_PRICE"));
-            orderDto.setDepositPoint(rs.getInt("DEPOSIT_POINT"));
-            orderDto.getUser().setNo(rs.getInt("USER_NO"));
-            orderDto.getAddr().setNo(rs.getInt("ADDR_NO"));
-            return orderDto;
+            order.setNo(rs.getInt("ORDER_NO"));
+            order.setOrderDate(rs.getDate("ORDER_DATE"));
+            order.setStatus(rs.getString("ORDER_STATUS"));
+            order.setPrice(rs.getInt("ORDER_PRICE"));
+            order.setAmount(rs.getInt("ORDER_AMOUNT"));
+            order.setDeliveryPrice(rs.getInt("DELIVERY_PRICE"));
+            order.setUsePoint(rs.getInt("USE_POINT"));
+            order.setDiscountPrice(rs.getInt("ORDER_DISCOUNT_PRICE"));
+            order.setPaymentPrice(rs.getInt("PAYMENT_PRICE"));
+            order.setDepositPoint(rs.getInt("DEPOSIT_POINT"));
+            order.getUser().setNo(rs.getInt("USER_NO"));
+            order.getAddr().setNo(rs.getInt("ADDR_NO"));
+            return order;
         }, userNo);
+    }
+
+    public List<Order> getAllOrderByUserNo(int userNo, int begin, int end) {
+        String sql = """
+                SELECT *
+                FROM (
+                       SELECT row_number() over (order by order_no desc) AS rownumber
+                            , order_no
+                            , payment_price
+                            , order_date
+                            , order_amount
+                            , order_status
+                       From ORDERS
+                       where user_no = ?
+                       order by order_no desc
+                       )  
+                WHERE rownumber BETWEEN ? AND ?
+                """;
+        Order order = new Order();
+        User user = new User();
+        user.setNo(userNo);
+        order.setUser(user);
+        Addr addr = new Addr();
+        order.setAddr(addr);
+
+        return DaoHelper.selectList(sql, rs-> {
+            order.setNo(rs.getInt("ORDER_NO"));
+            order.setOrderDate(rs.getDate("ORDER_DATE"));
+            order.setStatus(rs.getString("ORDER_STATUS"));
+            order.setAmount(rs.getInt("ORDER_AMOUNT"));
+            order.setPaymentPrice(rs.getInt("PAYMENT_PRICE"));
+            return order;
+        }, userNo, begin, end);
     }
 
     public Order getMostLatelyOrderNoByUserNo (int userNo) throws SQLException {

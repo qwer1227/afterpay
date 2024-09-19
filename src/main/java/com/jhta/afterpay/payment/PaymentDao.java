@@ -1,5 +1,6 @@
 package com.jhta.afterpay.payment;
 
+import com.jhta.afterpay.order.Order;
 import com.jhta.afterpay.util.DaoHelper;
 
 import java.util.List;
@@ -58,23 +59,24 @@ public class PaymentDao {
             payment.setCreatedDate(rs.getDate("CREATED_DATE"));
 
             return payment;
-        }
-        );
+        });
     }
 
-    public List<Payment> getAllPaymentsByOrderNo(int orderNo) {
+    public Payment getPaymentByOrderNo(int orderNo) {
         String sql= """
                 SELECT *
                 FROM PAYMENTS
                 WHERE ORDER_NO = ?
                 """;
-
-        return DaoHelper.selectList(sql
-             ,   rs -> {
-                    Payment payment = new Payment();
+        Payment payment = new Payment();
+        Order order =new Order();
+        payment.setOrder(order);
+        return DaoHelper.selectOne(sql
+                , rs -> {
                     payment.setNo(rs.getInt("PAYMENT_NO"));
-                    payment.getOrder().setNo(orderNo);
-                    return payment;
-                },orderNo);
+                    payment.setPrice(rs.getInt("PAYMENT_PRICE"));
+                    payment.getOrder().setNo(rs.getInt("ORDER_NO"));
+                    payment.setCreatedDate(rs.getDate("PAYMENT_DATE"));
+                    return payment;}, orderNo);
     }
 }

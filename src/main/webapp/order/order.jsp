@@ -16,19 +16,19 @@
 <%
 
     // 쿼리 파라미터
-    String address = request.getParameter("address");                               // 주소
-    String detailAddr = request.getParameter("detailAddress");                      // 상세주소
-    String tel = request.getParameter("tel");                                       // 전화번호
-    String zipcode = request.getParameter("zipcode");                               // 우편번호
-    String email = request.getParameter("email");                                   // 이메일
-    String recipient = request.getParameter("recipient");                           // 수령인
-    String userName = request.getParameter("userName");                             // 주문자명
-    int totalPrice = Integer.parseInt(request.getParameter("totalPrice"));          // 주문 가격
-    int discountPrice = Integer.parseInt(request.getParameter("discountPrice"));    // 할인 가격
-    int deliveryPrice = Integer.parseInt(request.getParameter("deliveryPrice"));    // 배송비
-    int paymentPrice = Integer.parseInt(request.getParameter("paymentPrice"));      // 결제 금액
-    String[] proNoArr = request.getParameterValues(request.getParameter("productNo")); // 상품 번호
-    String[] amountArr = request.getParameterValues(request.getParameter("amount"));    // 주문 상품 개수
+    String address = request.getParameter("address");                                       // 주소
+    String detailAddr = request.getParameter("detailAddress");                              // 상세주소
+    String tel = request.getParameter("tel");                                               // 전화번호
+    String zipcode = request.getParameter("zipcode");                                       // 우편번호
+    String email = request.getParameter("emailId") + "@" + request.getParameter("domain");  // 이메일
+    String recipient = request.getParameter("recipient");                                   // 수령인
+    String userName = request.getParameter("userName");                                     // 주문자명
+    int totalPrice = Integer.parseInt(request.getParameter("totalPrice"));                  // 주문 가격
+    int discountPrice = Integer.parseInt(request.getParameter("discountPrice"));            // 할인 가격
+    int deliveryPrice = Integer.parseInt(request.getParameter("deliveryPrice"));            // 배송비
+    int paymentPrice = Integer.parseInt(request.getParameter("paymentPrice"));              // 결제 금액
+    String[] proNoArr = request.getParameterValues(request.getParameter("productNo"));      // 상품 번호
+    String[] amountArr = request.getParameterValues(request.getParameter("amount"));        // 주문 상품 개수
 
 
     UserDao userDao = new UserDao();
@@ -42,43 +42,44 @@
 
     // 배송지 저장
     Addr addr = new Addr();
-
     addr.setAddr1(address);
     addr.setAddr2(detailAddr);
     addr.setTel(tel);
     addr.setZipCode(zipcode);
-    addr.setName("집");
+    addr.setName("기본 배송지");
     addr.setIsAddrHome("Y");
     addr.setUser(user);
 
-    addrDao.insertAddr(addr);
-
     List<Addr> addrs = addrDao.getAllAddrByUserNo(user.getNo());
 
-    Addr wantAddr = new Addr();
-
-    // 주소가 중복 저장된 경우에는 어떻게 ??
-    wantAddr.setUser(user);
+    // 입력받은 주소와 상세주소가 같은 배송지가 이미 있으면 저장하지 않는다.
     for (Addr findAddr : addrs) {
-        if(findAddr.getAddr1().equals(address) && findAddr.getAddr2().equals(detailAddr)) {
-            wantAddr.setNo(findAddr.getNo());
+        if(findAddr.getAddr1().equals(address)
+                && findAddr.getAddr2().equals(detailAddr)) {
+            break;
+        }
+        addrDao.insertAddr(addr);
+    }
+
+    // 새로 추가된 배송지 번호 가져오기
+    for (Addr findAddr : addrs) {
+        if(findAddr.getAddr1().equals(address)
+                && findAddr.getAddr2().equals(detailAddr)) {
+            addr.setNo(findAddr.getNo());
         }
     }
 
 
-
-
-
     // 주문정보 저장
     Order order = new Order();
-    order.setPrice(paymentPrice);
+    order.setPrice(totalPrice);
     order.setAmount(1);
     order.setDeliveryPrice(deliveryPrice);
     order.setUsePoint(1);
     order.setDiscountPrice(discountPrice);
     order.setPaymentPrice(paymentPrice);
     order.setDepositPoint(1);
-    order.setAddr(wantAddr);
+    order.setAddr(addr);
     order.setUser(user);
 
     orderDao.insertOrder(order);
@@ -87,8 +88,8 @@
 
     // 배송상품 저장
 
-    for (String proNo : proNoArr) {
-        int productNo = Integer.parseInt(proNo);
+//    for (String proNo : proNoArr) {
+//        int productNo = Integer.parseInt(proNo);
         Delivery delivery = new Delivery();
         Product product = new Product(); // productDao 필요
         Stock stock = new Stock(); // stockDao 필요
@@ -102,7 +103,7 @@
         delivery.setStock(stock);
 
         deliveryDao.insertDelivery(delivery);
-    }
+//    }
 
     // 결제정보 저장
     Payment payment = new Payment();
@@ -110,5 +111,5 @@
     payment.setOrder(payOrder);
     paymentDao.insertPayment(payment);
 
-    response.sendRedirect("/orderSuccess.jsp");
+    response.sendRedirect("orderSuccess.jsp");
 %>

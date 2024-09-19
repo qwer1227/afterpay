@@ -1,5 +1,7 @@
 package com.jhta.afterpay.delivery;
 
+import com.jhta.afterpay.order.Order;
+import com.jhta.afterpay.product.Product;
 import com.jhta.afterpay.util.DaoHelper;
 
 import java.util.List;
@@ -64,34 +66,41 @@ public class DeliveryDao {
                 """;
 
         return DaoHelper.selectOne(sql, rs -> {
-            Delivery dto = new Delivery();
-            dto.setNo(rs.getInt("DELIVERY_NO"));
-            dto.setPrice(rs.getInt("DELIVERY_PRODUCT_PRICE"));
-            dto.setAmount(rs.getInt("DELIVERY_PRODUCT_AMOUNT"));
-            dto.setStatus(rs.getString("DELIVERY_STATUS"));
-            dto.getProduct().setNo(rs.getInt("PRODUCT_NO"));
-            dto.getStock().setNo(rs.getInt("PRODUCT_STOCK_NO"));
-            dto.getOrder().setNo(rs.getInt("ORDER_NO"));
-            return dto;
+            Delivery delivery = new Delivery();
+            delivery.setNo(rs.getInt("DELIVERY_NO"));
+            delivery.setPrice(rs.getInt("DELIVERY_PRODUCT_PRICE"));
+            delivery.setAmount(rs.getInt("DELIVERY_PRODUCT_AMOUNT"));
+            delivery.setStatus(rs.getString("DELIVERY_STATUS"));
+            delivery.getProduct().setNo(rs.getInt("PRODUCT_NO"));
+            delivery.getStock().setNo(rs.getInt("PRODUCT_STOCK_NO"));
+            delivery.getOrder().setNo(rs.getInt("ORDER_NO"));
+            return delivery;
         });
     }
 
-    public List<Delivery> getAllDeliveryByOrderNo(int orderNo){
+    public Delivery getDeliveryByOrderNo(int orderNo){
         String sql = """
                 SELECT *
                 FROM ORDER_DELIVERY_PRODUCTS
-                WHERE USER_NO = ?
+                WHERE ORDER_NO = ?
                 """;
-        return DaoHelper.selectList(sql, rs -> {
-            Delivery dto = new Delivery();
-            dto.setNo(rs.getInt("DELIVERY_NO"));
-            dto.setPrice(rs.getInt("DELIVERY_PRODUCT_PRICE"));
-            dto.setAmount(rs.getInt("DELIVERY_PRODUCT_AMOUNT"));
-            dto.setStatus(rs.getString("DELIVERY_STATUS"));
-            dto.getProduct().setNo(rs.getInt("PRODUCT_NO"));
-            dto.getStock().setNo(rs.getInt("PRODUCT_STOCK_NO"));
-            dto.getOrder().setNo(rs.getInt("ORDER_NO"));
-            return dto;
+            Delivery delivery = new Delivery();
+            Product product = new Product();
+            delivery.setProduct(product);
+            Stock stock = new Stock();
+            delivery.setStock(stock);
+            Order order = new Order();
+            delivery.setOrder(order);
+        
+        return DaoHelper.selectOne(sql, rs -> {
+            delivery.setNo(rs.getInt("DELIVERY_NO"));
+            delivery.setPrice(rs.getInt("DELIVERY_PRODUCT_PRICE"));
+            delivery.setAmount(rs.getInt("DELIVERY_PRODUCT_AMOUNT"));
+            delivery.setStatus(rs.getString("DELIVERY_STATUS"));
+            delivery.getProduct().setNo(rs.getInt("PRODUCT_NO"));
+            delivery.getStock().setNo(rs.getInt("PRODUCT_STOCK_NO"));
+            delivery.getOrder().setNo(rs.getInt("ORDER_NO"));
+            return delivery;
         }, orderNo);
     }
 }

@@ -1,3 +1,12 @@
+<%@ page import="com.jhta.afterpay.order.OrderDao" %>
+<%@ page import="com.jhta.afterpay.order.Order" %>
+<%@ page import="com.jhta.afterpay.payment.PaymentDao" %>
+<%@ page import="com.jhta.afterpay.payment.Payment" %>
+<%@ page import="com.jhta.afterpay.delivery.DeliveryDao" %>
+<%@ page import="com.jhta.afterpay.delivery.Delivery" %>
+<%@ page import="com.jhta.afterpay.user.User" %>
+<%@ page import="com.jhta.afterpay.addr.AddrDao" %>
+<%@ page import="com.jhta.afterpay.addr.Addr" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <html>
 <head>
@@ -17,89 +26,93 @@
 </head>
 <body>
 <%@ include file="../common/nav.jsp" %>
+
+<%
+  // 조회할 상품 정보
+//  int orderNo = Integer.parseInt(request.getParameter("orderNo"));
+  OrderDao orderDao = new OrderDao();
+  Order order = orderDao.getOrderByNo(8);
+  AddrDao addrDao = new AddrDao();
+  User user = new User();
+  user.setNo(7);
+  order.setUser(user);
+
+  Addr addr = addrDao.getAddrByNo(order.getAddr().getNo());
+%>
 <div class="container ">
   <h3 class="mb-5 pt-3">주문상세조회</h3>
   <%-- 주문 정보 --%>
   <h4>주문정보</h4>
-  <div class="row border justify-content-md-center mb-5">
-    <div class="col-3 border-top border-5 bg-secondary bg-opacity-10 p-3 ps-4">
+  <div class="row border-top border-4 border-dark justify-content-md-center mb-5 ">
+    <div class="col-3 border-dark bg-secondary bg-opacity-10 p-3 ps-4">
       주문번호
     </div>
-    <div class="col-9 border-top border-5 p-3">
-      23123123023
+    <div class="col-9 p-3">
+      <%=order.getNo() %>
     </div>
-    <div class="col-3 border-top bg-secondary bg-opacity-10 p-3 ps-4">
-      주문일자
+    <div class="col-3 border bg-secondary bg-opacity-10 p-3 ps-4">
+      주문 일자
     </div>
     <div class="col-9 border-top p-3">
-      23123123023
+      <%=order.getOrderDate() %>
     </div>
     <div class="col-3 border-top bg-secondary bg-opacity-10 p-3 ps-4">
       주문자
     </div>
     <div class="col-9 border-top p-3">
-      23123123023
+      <%=order.getUser().getName() %>
     </div>
-    <div class="col-3 border-top bg-secondary bg-opacity-10 p-3 ps-4">
-      주문처리상태
+    <div class="col-3 border-top border-bottom  bg-secondary bg-opacity-10 p-3 ps-4">
+      주문처리 상태
     </div>
-    <div class="col-9 border-top p-3">
-      23123123023
-    </div>
-  </div>
-  <h4>결제정보</h4>
-  <div class="row border justify-content-md-center mb-5">
-    <div class="col-3 border-top border-5 bg-secondary bg-opacity-10 p-3 ps-4">
-      총 주문금액
-    </div>
-    <div class="col-9 border-top border-5 p-3">
-      23123123023
-    </div>
-    <div class="col-3 border-top bg-secondary bg-opacity-10 p-3 ps-4">
-      총 결제금액
-    </div>
-    <div class="col-9 border-top p-3">
-      23123123023
+    <div class="col-9 border-top border-bottom  p-3">
+      <%=order.getStatus()%>
     </div>
   </div>
+<%--  <h4>결제정보</h4>--%>
+<%--  <div class="row border justify-content-md-center mb-5">--%>
+<%--    <div class="col-3 border-top border-5 bg-secondary bg-opacity-10 p-3 ps-4">--%>
+<%--      총 주문금액--%>
+<%--    </div>--%>
+<%--    <div class="col-9 border-top border-5 p-3">--%>
+<%--      23123123023--%>
+<%--    </div>--%>
+<%--    <div class="col-3 border-top bg-secondary bg-opacity-10 p-3 ps-4">--%>
+<%--      총 결제금액--%>
+<%--    </div>--%>
+<%--    <div class="col-9 border-top p-3">--%>
+<%--      23123123023--%>
+<%--    </div>--%>
+<%--  </div>--%>
 
   <%-- 주문 상품 --%>
-  <div class="row border mb-5 p-3">
-    <h3 class="mb-3">주문상품</h3>
+  <h3 class="mb-3">주문상품</h3>
+  <div class="row mb-5 p-3 border-top border-4 border-dark">
     <hr>
-    <div class="col-2">
+    <div class="col-2 mb-2">
       <img src="sample.jpg" class="rounded float-start" style="width: 170px; height:130px;">
     </div>
     <div class="col-7">
       <ul class="list-unstyled">
-        <li>
-          <span>564546556</span>
-        </li>
-        <li>
-          옵션
-        </li>
-        <li>
-          수량:
-        </li>
-        <li>
-          상품구매금액:
-        </li>
+        <li>주문 상품명</li>
+        <li>옵션</li>
+        <li>수량:</li>
+        <li>상품 가격:</li>
       </ul>
-      <%--                    <p><%=products.get(0).getName() %>></p>--%>
-      <%--                <p>[옵션: <%= products.get(0).getStock().getSize()%>]</p>--%>
     </div>
+    <div class="border-bottom"></div>
   </div>
+<%
+    // 결제 정보 가져오기
+    PaymentDao paymentDao = new PaymentDao();
+    Payment payment = paymentDao.getPaymentByOrderNo(8);
+    payment.setOrder(order);
 
+%>
   <h4>최종 결제 정보</h4>
-  <div class="row border justify-content-md-center mb-5">
-    <div class="col-3 border-top border-5 bg-secondary bg-opacity-10 p-3 ps-4">
-      총 결제금액
-    </div>
-    <div class="col-9 border-top border-5 p-3">
-      23123123023
-    </div>
+  <div class="row justify-content-md-center mb-5 border-top border-4 border-dark">
     <div class="col-3 border-top bg-secondary bg-opacity-10 p-3 ps-4">
-      상품구매금액
+      총 주문금액
     </div>
     <div class="col-9 border-top p-3">
       23123123023
@@ -108,47 +121,52 @@
       배송비
     </div>
     <div class="col-9 border-top p-3">
-      23123123023
+      <%=payment.getOrder().getDeliveryPrice()%>
     </div>
-    <div class="col-3 border-top bg-secondary bg-opacity-10 p-3 ps-4">
+    <div class="col-3 border-top border-bottom bg-secondary bg-opacity-10 p-3 ps-4">
       결제예정금액
     </div>
-    <div class="col-9 border-top p-3">
-      23123123023
+    <div class="col-9 border-top border-bottom p-3">
+      <%=payment.getPrice() + payment.getOrder().getDeliveryPrice()%>
     </div>
   </div>
-
+<%
+    // 배송지 정보 가져오기
+    DeliveryDao deliveryDao = new DeliveryDao();
+    Delivery delivery = deliveryDao.getDeliveryByOrderNo(8);
+    delivery.setOrder(order);
+%>
   <h4>배송지정보</h4>
-  <div class="row border justify-content-md-center mb-3">
-    <div class="col-3 border-top border-5 bg-secondary bg-opacity-10 p-3 ps-4">
-      받으시는분
+  <div class="row border-top border-4 border-dark justify-content-md-center mb-3">
+    <div class="col-3 bg-secondary bg-opacity-10 p-3 ps-4">
+      받으시는 분
     </div>
-    <div class="col-9 border-top border-5 p-3">
-      23123123023
+    <div class="col-9 p-3">
+      <%=delivery.getRecipient() %>
     </div>
     <div class="col-3 border-top bg-secondary bg-opacity-10 p-3 ps-4">
       우편번호
     </div>
     <div class="col-9 border-top p-3">
-      23123123023
+      <%=delivery.getOrder().getAddr().getZipCode() %>
     </div>
     <div class="col-3 border-top bg-secondary bg-opacity-10 p-3 ps-4">
       주소
     </div>
     <div class="col-9 border-top p-3">
-      23123123023
+      <%=delivery.getOrder().getAddr().getAddr1() %>
     </div>
     <div class="col-3 border-top bg-secondary bg-opacity-10 p-3 ps-4">
       휴대전화
     </div>
     <div class="col-9 border-top p-3">
-      23123123023
+      <%=delivery.getOrder().getUser().getTel() %>
     </div>
-    <div class="col-3 border-top bg-secondary bg-opacity-10 p-3 ps-4">
-      배송메세지
+    <div class="col-3 border-top border-bottom bg-secondary bg-opacity-10 p-3 ps-4">
+      배송 메세지
     </div>
-    <div class="col-9 border-top p-3">
-      23123123023
+    <div class="col-9 border-top border-bottom p-3">
+      ddd
     </div>
   </div>
 <div class="row mb-3">

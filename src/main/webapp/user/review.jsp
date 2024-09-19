@@ -53,7 +53,18 @@
         <thead>
           <tr class="text-center">
             <th scope="col">
-              <input id="check-all" type="checkbox" style="zoom:1.8">
+              <input id="check-all" type="checkbox" name="all" onchange="checkAll()" style="zoom:1.8">
+              <script type="text/javascript">
+                function checkAll(){
+                  let isChecked = document.querySelector("[name=all]").checked;
+                  console.log('체크여부', isChecked);
+
+                  let checkBoxes = document.querySelectorAll("[name=reviewNo]");
+                  checkBoxes.forEach(function (el) {
+                      el.checked = isChecked;
+                  })
+                }
+              </script>
             </th>
               <th scope="col">No</th>
               <th scope="col">리뷰 제목</th>
@@ -71,7 +82,26 @@
         %>
           <tr class="text-center">
             <th scope="col">
-              <input type="checkbox" style="zoom:1.5">
+              <input type="checkbox" name="reviewNo" onchange="checkSelect()" style="zoom:1.5">
+              <script type="text/javascript">
+                function checkSelect() {
+                  let checkBoxes = document.querySelectorAll("[name=reviewNo]");
+                  let checkBoxesLength = checkBoxes.length;
+                  let checkedLength = 0;
+
+                  for (let el of checkBoxes) {
+                    if (el.checked) {
+                      checkedLength++;
+                    }
+                  }
+
+                  if (checkBoxesLength == checkedLength){
+                    document.querySelector("[name=all]").checked = true;
+                  } else {
+                    document.querySelector("[name=all]").checked = false;
+                  }
+                }
+              </script>
             </th>
             <th scope="row"><%=reviewCnt++%></th>
             <td class="text-start"><%=review.getTitle()%></td>

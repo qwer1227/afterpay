@@ -1,3 +1,7 @@
+<%@ page import="com.jhta.afterpay.user.dao.ReviewDao" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.jhta.afterpay.user.vo.Review" %>
+<%@ page import="com.jhta.afterpay.util.DaoHelper" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
@@ -27,6 +31,12 @@
   <div class="row">
     <div class="col-2">
       <%@include file="../common/user-nav.jsp"%>
+      <%
+          int userNo = 19;
+          ReviewDao reviewDao = new ReviewDao();
+          List<Review> reviewList = reviewDao.getReviewsByUserNo(userNo);
+          int reviewCnt = 1;
+      %>
     </div>
     <div class="col-10">
       <h2 class="m-4"><strong>REVIEW</strong></h2>
@@ -56,24 +66,21 @@
           </tr>
         </thead>
         <tbody>
+        <%
+          for(Review review : reviewList){
+        %>
           <tr class="text-center">
             <th scope="col">
               <input type="checkbox" style="zoom:1.5">
             </th>
-            <th scope="row">1</th>
-            <td class="text-start">튼튼해요</td>
-            <td>2024.09.10</td>
+            <th scope="row"><%=reviewCnt++%></th>
+            <td class="text-start"><%=review.getTitle()%></td>
+            <td><%=review.getCreatedDate()%></td>
             <td></td>
           </tr>
-            <tr>
-              <th scope="col" class="text-center">
-                    <input type="checkbox" style="zoom:1.5">
-              </th>
-              <th scope="row" class="text-center">2</th>
-              <td>배송은 좀 느린데, 옷은 이쁨</td>
-              <td class="text-center">2024.08.27</td>
-              <td></td>
-            </tr>
+        <%
+          }
+        %>
           </tbody>
         </table>
 

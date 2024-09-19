@@ -38,17 +38,17 @@
             <!--상품 사이즈-->
             <div class="mb-3">
                 <label class="form-label">S 사이즈 수량</label>
-                <input type="text" name="smallSize" value="S">
+                <input type="hidden" name="smallSize" value="S">
                 <input type="text" class="form-control" name="smallAmount">
             </div>
             <div class="mb-3">
                 <label class="form-label">M 사이즈 수량</label>
-                <input type="text" name="mediumSize" value="M">
+                <input type="hidden" name="mediumSize" value="M">
                 <input type="text" class="form-control" name="mediumAmount">
             </div>
             <div class="mb-3">
                 <label class="form-label">L 사이즈 수량</label>
-                <input type="text" name="largeSize" value="L">
+                <input type="hidden" name="largeSize" value="L">
                 <input type="text" class="form-control" name="largeAmount">
             </div>
             <div class="mb-3">

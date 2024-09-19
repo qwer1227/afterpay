@@ -2,12 +2,51 @@ package com.jhta.afterpay.product;
 
 import com.jhta.afterpay.util.DaoHelper;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.List;
 
 public class ProductDao {
 
+    public Product getProductByNo(int productNo) {
+        String sql = """
+                select p.product_no
+                    ,p.product_name
+                    ,p.product_price
+                    ,p.product_status
+                    ,p.product_created_date
+                    ,p.product_content
+                    ,p.product_total_rating
+                    ,p.product_view_cnt
+                    ,pc.cat_no
+                    ,pc.cat_name
+                from products p
+                join product_categories pc
+                on p.cat_no = pc.cat_no
+                where p.product_no = ?
+                """;
+
+        return DaoHelper.selectOne(sql, rs -> {
+            Product product = new Product();
+            product.setNo(rs.getInt("PRODUCT_NO"));
+            product.setName(rs.getString("PRODUCT_NAME"));
+            product.setPrice(rs.getInt("PRODUCT_PRICE"));
+            product.setStatus(rs.getString("PRODUCT_STATUS"));
+            product.setCreatedDate(rs.getDate("PRODUCT_CREATED_DATE"));
+            product.setContent(rs.getString("PRODUCT_CONTENT"));
+            product.setTotalRating(rs.getInt("PRODUCT_TOTAL_RATING"));
+            product.setViewCount(rs.getInt("PRODUCT_VIEW_CNT"));
+
+            Category category = new Category();
+            category.setName(rs.getString("CAT_NAME"));
+            product.setCategory(category);
+
+            return product;
+        }, productNo);
+    }
+
+    /**
+     * 상품 번호 조회
+     * @return 상품 번호
+     */
     public int getSequence() {
         String sql = """
                 SELECT PRODUCT_NO_SEQ.nextval FROM dual

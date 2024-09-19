@@ -1,3 +1,7 @@
+<%@ page import="com.jhta.afterpay.util.Utils" %>
+<%@ page import="com.jhta.afterpay.product.ProductDao" %>
+<%@ page import="com.jhta.afterpay.product.Product" %>
+<%@ page import="org.apache.commons.lang3.StringEscapeUtils" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <html>
 <head>
@@ -20,9 +24,16 @@
                 <h1 class="my-5">상품 상세 관리 페이지</h1>
             </div>
             <div class="col-5">
-                <img src="#" width="100%">
+                <img src="../../img/main2.png" width="100%">
             </div>
             <div class="col-7">
+                <%
+                    int productNo = Utils.toInt(request.getParameter("no"));
+
+                    // 요청파라미터로 전달받은 상품번호에 해당하는 상품 상세정보를 조회한다.
+                    ProductDao productDao = new ProductDao();
+                    Product product = productDao.getProductByNo(productNo);
+                %>
                 <table class="table table-bordered">
                     <colgroup>
                         <col width="15%">
@@ -41,15 +52,15 @@
                     <tbody>
                     <tr>
                         <th>번호</th>
-                        <td>10067</td>
+                        <td><%=product.getNo()%></td>
                         <th>이름</th>
-                        <td>풀 프린트 크로스 백 레코즈 블루</td>
+                        <td><%=StringEscapeUtils.escapeHtml4(product.getName())%></td>
                     </tr>
                     <tr>
                         <th>카테고리</th>
-                        <td>여성가방</td>
+                        <td><%=product.getCategory().getName()%></td>
                         <th>가격</th>
-                        <td>109,000</td>
+                        <td><%=Utils.toCurrency(product.getPrice())%></td>
                     </tr>
                     <tr>
                         <th>재고수량</th>
@@ -60,23 +71,21 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>가격</th>
-                        <td>109,000</td>
-                        <th>상태</th>
-                        <td>준비중</td>
+                        <th>평점</th>
+                        <td><%=product.getTotalRating()%></td>
+                        <th>조회수</th>
+                        <td><%=product.getViewCount()%></td>
                     </tr>
                     <tr>
                         <th>등록일자</th>
-                        <td>2024-09-19</td>
-                        <th>수정일자</th>
-                        <td>2024-09-19</td>
+                        <td><%=product.getCreatedDate()%></td>
+                        <th>상태</th>
+                        <td><%=product.getStatus()%></td>
                     </tr>
                     <tr>
                         <th>상품설명</th>
-                        <td colspan="3">카드 패브릭에 디지털 프린팅을 적용한 크로스백입니다.
-                            일상 생활에 적합한 크기로 디자인 되었으며, 가방 밑단의 입체 다트와 내부 포켓은 수납에 더욱 용이하도록 설계되었습니다.
-                            가방 측면부에 달린 스냅 버튼을 활용해 폴디드 형태로도 착용이 가능합니다.
-                            가방 전면부에는 아이보리 컬러의 애프터프레이 로고 스웨이드 패치가 있습니다. 폴리에스터 100% 단독 손세탁 권장 (표백제 및 회전식 건조 불가)
+                        <td colspan="3">
+                            <%=product.getHtmlContent()%>
                         </td>
                     </tr>
                     </tbody>

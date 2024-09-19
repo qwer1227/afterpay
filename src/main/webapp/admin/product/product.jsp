@@ -35,6 +35,7 @@
                 <ul class="list-group">
                     <li class="list-group-item"><a href="../product/product.jsp">상품관리</a></li>
                     <li class="list-group-item"><a href="../qna/qna.jsp">문의관리</a></li>
+                    <li class="list-group-item"><a href="../product/stock.jsp">상품재고현황</a></li>
                     <li class="list-group-item"><a href="#">정산관리</a></li>
                 </ul>
             </div>
@@ -72,7 +73,7 @@
                         <tr>
                             <td><%=product.getNo() %></td>
                             <td><%=product.getCategory().getName() %></td>
-                            <td><a href="detail.jsp"><%=product.getName() %></a></td>
+                            <td><a href="detail.jsp?no=<%=product.getNo() %>"><%=product.getName() %></a></td>
                             <td><%=product.getCreatedDate() %></td>
                             <td><%=product.getStatus()%></td>
                         </tr>

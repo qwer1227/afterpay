@@ -61,11 +61,8 @@
     </div>
   </div>
 </div>
-<<<<<<< HEAD
 
 <%@ include file="/common/footer.jsp" %>
-=======
-<%@ include file="common/footer.jsp" %>
->>>>>>> 1916f1e210cee1b462d9151eba7c18833043eb2c
+
 </body>
 </html>

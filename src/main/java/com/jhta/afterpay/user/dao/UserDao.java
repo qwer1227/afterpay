@@ -1,6 +1,7 @@
 package com.jhta.afterpay.user.dao;
 
 import com.jhta.afterpay.user.vo.Address;
+import com.jhta.afterpay.user.vo.Point;
 import com.jhta.afterpay.user.vo.User;
 import com.jhta.afterpay.util.DaoHelper;
 
@@ -39,14 +40,18 @@ public class UserDao {
             user.setTel(rs.getString("user_tel"));
             user.setIsBanned(rs.getString("isbanned"));
             user.setIsSignOut(rs.getString("issignout"));
-            user.setPoint(rs.getInt("point"));
             user.setCreatedDate(rs.getDate("created_date"));
             user.setGradeId(rs.getString("grade_id"));
+
+            Point point = new Point();
+            point.setPoint(rs.getInt("point"));
+            user.setPoint(point);
+
             return user;
         }, id);
     }
 
-    public User getUserByNo(int no) throws SQLException {
+    public User getUserByNo(int userNo){
         String sql = """
                 SELECT *
                 FROM USERS
@@ -63,14 +68,18 @@ public class UserDao {
             user.setTel(rs.getString("user_tel"));
             user.setIsBanned(rs.getString("isbanned"));
             user.setIsSignOut(rs.getString("issignout"));
-            user.setPoint(rs.getInt("point"));
             user.setCreatedDate(rs.getDate("created_date"));
             user.setGradeId(rs.getString("grade_id"));
+
+            Point point = new Point();
+            point.setPoint(rs.getInt("point"));
+            user.setPoint(point);
+
             return user;
-        }, no);
+        }, userNo);
     }
 
-    public void updateUserInfoByUserNo(User user) throws SQLException {
+    public void updateUserInfoByUserNo(User user) {
         String sql = """
                 UPDATE USERS
                 SET USER_EMAIL = ?
@@ -80,5 +89,14 @@ public class UserDao {
         DaoHelper.update(sql, user.getEmail()
                             , user.getTel()
                             , user.getNo());
+    }
+
+    public int getPointStatusByUserNo(int userNo) {
+        String sql = """
+                SELECT POINT
+                FROM USERS
+                WHERE USER_NO = ?
+                """;
+        return DaoHelper.selectOneInt(sql, userNo);
     }
 }

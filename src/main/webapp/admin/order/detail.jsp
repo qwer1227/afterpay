@@ -1,3 +1,7 @@
+<%@ page import="com.jhta.afterpay.util.Utils" %>
+<%@ page import="com.jhta.afterpay.user.UserDao" %>
+<%@ page import="com.jhta.afterpay.user.User" %>
+<%@ page import="org.apache.commons.lang3.StringEscapeUtils" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,18 +20,86 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/common/css/style.css">
 </head>
-<body class>
+<body>
 <%
-    String menu = "";
+    String menu = "회원 상세정보";
 %>
 <%@ include file="../../common/nav.jsp" %>
-<div>
-    내용
+<div class="container mt-4 mb-5">
+    <h1>회원 상세정보</h1>
+    <%
+        int userNo = Utils.toInt(request.getParameter("no"));
 
+        // 요청파라미터로 전달받은 회원번호에 해당하는 회원 상세정보를 조회한다.
+        UserDao userDao = new UserDao();
+        User user = userDao.getUserByNo(userNo);
+    %>
+    <table class="table table-bordered">
+        <colgroup>
+            <col width="15%">
+            <col width="35%">
+            <col width="15%">
+            <col width="35%">
+        </colgroup>
+        <thead class="table-dark">
+        <tr>
+            <th>항목</th>
+            <th>값</th>
+            <th>항목</th>
+            <th>값</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+            <th>번호</th>
+            <td><%=user.getNo()%></td>
+            <th>주문자명</th>
+            <td><%=StringEscapeUtils.escapeHtml4(user.getName())%></td>
+        </tr>
+        <tr>
+            <th>아이디</th>
+            <td><%=user.getId()%></td>
+            <th>주문일자</th>
+            <td><%=user.getPwd()%></td>
+        </tr>
+        <tr>
+            <th>주문상태</th>
+            <td><%=user.getTel()%></td>
+            <th>주문수량</th>
+            <td><%=user.getEmail()%></td>
+        </tr>
+        <tr>
+            <th>주문가격</th>
+            <td><%=user.getCreatedDate()%></td>
+            <th>배송비</th>
+            <td><%=user.getGradeId()%></td>
+        </tr>
+        <tr>
+            <th>사용적립금</th>
+            <td><%=user.getPoint()%> 원</td>
+            <th>할인가</th>
+            <td></td>
+        </tr>
+        <tr>
+            <th>결제금액</th>
+            <td><%=user.getIsBanned()%></td>
+            <th>배송상태</th>
+            <td><%=user.getIsSignOut()%></td>
+        </tr>
+        <tr>
+            <th>depositPoint</th>
+            <td><%=user.getIsBanned()%></td>
+            <th>주문상품</th>
+            <td><%=user.getIsSignOut()%></td>
+        </tr>
+        </tbody>
+    </table>
     <!--버튼-->
     <div class="text-end my-2">
         <a href="#" class="btn btn-danger">회원삭제</a>
         <a href="#" class="btn btn-primary">회원수정</a>
+        <a href="user.jsp" class="btn btn-success">회원목록</a>
     </div>
 </div>
 <%@ include file="../../common/footer.jsp" %>

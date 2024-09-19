@@ -24,10 +24,12 @@ public class PointHistoryDao {
                 """;
         return DaoHelper.selectList(sql, rs -> {
             PointHistory point = new PointHistory();
+
             point.setPoint(rs.getInt("history_point"));
             point.setHistoryDate(rs.getDate("history_date"));
             point.setContent(rs.getString("history_content"));
             point.setCurrentPoint(rs.getInt("history_current_point"));
+
             return point;
         }, userNo);
     }

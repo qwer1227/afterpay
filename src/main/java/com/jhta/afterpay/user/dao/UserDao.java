@@ -53,6 +53,7 @@ public class UserDao {
 
         return DaoHelper.selectOne(sql, rs -> {
             User user = new User();
+
             user.setNo(rs.getInt("user_no"));
             user.setEmail(rs.getString("user_email"));
             user.setId(rs.getString("user_id"));

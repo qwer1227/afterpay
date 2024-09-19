@@ -69,11 +69,6 @@
           <td class="fs-5 text-end"><%=user.getTotalUsedPoint()%> 원</td>
           <td class="fs-3"><%=user.getPoint()%> 원</td>
         </tr>
-        <tr>
-          <td colspan="4">
-            적립예정: 0 원 <- 여차하면 뺄수도
-          </td>
-        </tr>
       </table>
 
       <!-- 달력이 가운데오도록 차후에 변경 -->

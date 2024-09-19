@@ -1,3 +1,5 @@
+<%@ page import="com.jhta.afterpay.user.dao.UserDao" %>
+<%@ page import="com.jhta.afterpay.user.vo.User" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
@@ -21,6 +23,12 @@
   <div class="row">
     <div class="col-2">
       <%@include file="../common/user-nav.jsp"%>
+      <%
+        int userNo = 19;
+        UserDao userDao = new UserDao();
+        User user = userDao.getUserByNo(userNo);
+        String userPwd = user.getPwd();
+      %>
     </div>
     <div class="col-10">
       <h2 class="m-4"><strong>비밀번호 변경</strong></h2>
@@ -39,6 +47,11 @@
             <th scope="row" class="text-center">변경 전 비밀번호</th>
             <td class="text-start">
               <input type="text">
+<%--              <%--%>
+<%--                if (userPwd.equals('input에 입력한 값')){--%>
+<%--               --%>
+<%--                }  --%>
+<%--              %>--%>
             </td>
           </tr>
           <tr>

@@ -1,5 +1,6 @@
 package com.jhta.afterpay.user;
 
+
 import java.awt.*;
 import java.util.Date;
 
@@ -17,23 +18,6 @@ public class User {
     private String gradeId;
 
     public User() {
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "no=" + no +
-                ", email='" + email + '\'' +
-                ", id='" + id + '\'' +
-                ", pwd='" + pwd + '\'' +
-                ", name='" + name + '\'' +
-                ", tel='" + tel + '\'' +
-                ", isBanned='" + isBanned + '\'' +
-                ", isSignOut='" + isSignOut + '\'' +
-                ", point=" + point +
-                ", createdDate=" + createdDate +
-                ", gradeId='" + gradeId + '\'' +
-                '}';
     }
 
     public int getNo() {
@@ -123,4 +107,22 @@ public class User {
     public void setGradeId(String gradeId) {
         this.gradeId = gradeId;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "no=" + no +
+                ", email='" + email + '\'' +
+                ", id='" + id + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", name='" + name + '\'' +
+                ", tel='" + tel + '\'' +
+                ", isBanned='" + isBanned + '\'' +
+                ", isSignOut='" + isSignOut + '\'' +
+                ", point=" + point +
+                ", createdDate=" + createdDate +
+                ", gradeId='" + gradeId + '\'' +
+                '}';
+    }
+
 }

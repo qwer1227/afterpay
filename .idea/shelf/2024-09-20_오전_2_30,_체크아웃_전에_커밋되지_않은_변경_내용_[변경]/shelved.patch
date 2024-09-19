@@ -1,0 +1,207 @@
+Index: src/main/java/com/jhta/afterpay/user/User.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.jhta.afterpay.user;\r\n\r\nimport java.awt.*;\r\nimport java.util.Date;\r\n\r\npublic class User {\r\n    private int no;\r\n    private String email;\r\n    private String id;\r\n    private String pwd;\r\n    private String name;\r\n    private String tel;\r\n    private String isBanned;\r\n    private String isSignOut;\r\n    private int point;\r\n    private Date createdDate;\r\n    private String gradeId;\r\n\r\n    public User() {\r\n    }\r\n\r\n    @Override\r\n    public String toString() {\r\n        return \"User{\" +\r\n                \"no=\" + no +\r\n                \", email='\" + email + '\\'' +\r\n                \", id='\" + id + '\\'' +\r\n                \", pwd='\" + pwd + '\\'' +\r\n                \", name='\" + name + '\\'' +\r\n                \", tel='\" + tel + '\\'' +\r\n                \", isBanned='\" + isBanned + '\\'' +\r\n                \", isSignOut='\" + isSignOut + '\\'' +\r\n                \", point=\" + point +\r\n                \", createdDate=\" + createdDate +\r\n                \", gradeId='\" + gradeId + '\\'' +\r\n                '}';\r\n    }\r\n\r\n    public int getNo() {\r\n        return no;\r\n    }\r\n\r\n    public void setNo(int no) {\r\n        this.no = no;\r\n    }\r\n\r\n    public String getEmail() {\r\n        return email;\r\n    }\r\n\r\n    public void setEmail(String email) {\r\n        this.email = email;\r\n    }\r\n\r\n    public String getId() {\r\n        return id;\r\n    }\r\n\r\n    public void setId(String id) {\r\n        this.id = id;\r\n    }\r\n\r\n    public String getPwd() {\r\n        return pwd;\r\n    }\r\n\r\n    public void setPwd(String pwd) {\r\n        this.pwd = pwd;\r\n    }\r\n\r\n    public String getName() {\r\n        return name;\r\n    }\r\n\r\n    public void setName(String name) {\r\n        this.name = name;\r\n    }\r\n\r\n    public String getTel() {\r\n        return tel;\r\n    }\r\n\r\n    public void setTel(String tel) {\r\n        this.tel = tel;\r\n    }\r\n\r\n    public String getIsBanned() {\r\n        return isBanned;\r\n    }\r\n\r\n    public void setIsBanned(String isBanned) {\r\n        this.isBanned = isBanned;\r\n    }\r\n\r\n    public String getIsSignOut() {\r\n        return isSignOut;\r\n    }\r\n\r\n    public void setIsSignOut(String isSignOut) {\r\n        this.isSignOut = isSignOut;\r\n    }\r\n\r\n    public int getPoint() {\r\n        return point;\r\n    }\r\n\r\n    public void setPoint(int point) {\r\n        this.point = point;\r\n    }\r\n\r\n    public Date getCreatedDate() {\r\n        return createdDate;\r\n    }\r\n\r\n    public void setCreatedDate(Date createdDate) {\r\n        this.createdDate = createdDate;\r\n    }\r\n\r\n    public String getGradeId() {\r\n        return gradeId;\r\n    }\r\n\r\n    public void setGradeId(String gradeId) {\r\n        this.gradeId = gradeId;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/jhta/afterpay/user/User.java b/src/main/java/com/jhta/afterpay/user/User.java
+--- a/src/main/java/com/jhta/afterpay/user/User.java	(revision 3fe2ee3844b4e3724a1f9736839e4be16ffe040a)
++++ b/src/main/java/com/jhta/afterpay/user/User.java	(date 1726766955902)
+@@ -1,6 +1,5 @@
+ package com.jhta.afterpay.user;
+ 
+-import java.awt.*;
+ import java.util.Date;
+ 
+ public class User {
+@@ -19,23 +18,6 @@
+     public User() {
+     }
+ 
+-    @Override
+-    public String toString() {
+-        return "User{" +
+-                "no=" + no +
+-                ", email='" + email + '\'' +
+-                ", id='" + id + '\'' +
+-                ", pwd='" + pwd + '\'' +
+-                ", name='" + name + '\'' +
+-                ", tel='" + tel + '\'' +
+-                ", isBanned='" + isBanned + '\'' +
+-                ", isSignOut='" + isSignOut + '\'' +
+-                ", point=" + point +
+-                ", createdDate=" + createdDate +
+-                ", gradeId='" + gradeId + '\'' +
+-                '}';
+-    }
+-
+     public int getNo() {
+         return no;
+     }
+@@ -123,4 +105,21 @@
+     public void setGradeId(String gradeId) {
+         this.gradeId = gradeId;
+     }
+-}
++
++    @Override
++    public String toString() {
++        return "User{" +
++                "no=" + no +
++                ", email='" + email + '\'' +
++                ", id='" + id + '\'' +
++                ", pwd='" + pwd + '\'' +
++                ", name='" + name + '\'' +
++                ", tel='" + tel + '\'' +
++                ", isBanned='" + isBanned + '\'' +
++                ", isSignOut='" + isSignOut + '\'' +
++                ", point=" + point +
++                ", createdDate=" + createdDate +
++                ", gradeId='" + gradeId + '\'' +
++                '}';
++    }
++}
+\ No newline at end of file
+Index: .idea/artifacts/Gradle___com_jhta___afterpay_1_0_SNAPSHOT_war.xml
+===================================================================
+diff --git a/.idea/artifacts/Gradle___com_jhta___afterpay_1_0_SNAPSHOT_war.xml b/.idea/artifacts/Gradle___com_jhta___afterpay_1_0_SNAPSHOT_war.xml
+deleted file mode 100644
+--- a/.idea/artifacts/Gradle___com_jhta___afterpay_1_0_SNAPSHOT_war.xml	(revision 3fe2ee3844b4e3724a1f9736839e4be16ffe040a)
++++ /dev/null	(revision 3fe2ee3844b4e3724a1f9736839e4be16ffe040a)
+@@ -1,14 +0,0 @@
+-<component name="ArtifactManager">
+-  <artifact type="war" external-system-id="GRADLE" name="Gradle : com.jhta : afterpay-1.0-SNAPSHOT.war">
+-    <output-path>$PROJECT_DIR$/build/libs</output-path>
+-    <properties id="gradle-properties">
+-      <options external-project-path="$PROJECT_DIR$">
+-        <buildTaskPath>:war</buildTaskPath>
+-        <cleanTaskPath>:cleanWar</cleanTaskPath>
+-      </options>
+-    </properties>
+-    <root id="archive" name="afterpay-1.0-SNAPSHOT.war">
+-      <element id="artifact" artifact-name="Gradle : com.jhta : afterpay-1.0-SNAPSHOT.war (exploded)" />
+-    </root>
+-  </artifact>
+-</component>
+\ No newline at end of file
+Index: .idea/artifacts/Gradle___com_jhta___afterpay_1_0_SNAPSHOT_war__exploded_.xml
+===================================================================
+diff --git a/.idea/artifacts/Gradle___com_jhta___afterpay_1_0_SNAPSHOT_war__exploded_.xml b/.idea/artifacts/Gradle___com_jhta___afterpay_1_0_SNAPSHOT_war__exploded_.xml
+deleted file mode 100644
+--- a/.idea/artifacts/Gradle___com_jhta___afterpay_1_0_SNAPSHOT_war__exploded_.xml	(revision 3fe2ee3844b4e3724a1f9736839e4be16ffe040a)
++++ /dev/null	(revision 3fe2ee3844b4e3724a1f9736839e4be16ffe040a)
+@@ -1,32 +0,0 @@
+-<component name="ArtifactManager">
+-  <artifact type="exploded-war" external-system-id="GRADLE" name="Gradle : com.jhta : afterpay-1.0-SNAPSHOT.war (exploded)">
+-    <output-path>$PROJECT_DIR$/build/libs/exploded/afterpay-1.0-SNAPSHOT.war</output-path>
+-    <properties id="gradle-properties">
+-      <options external-project-path="$PROJECT_DIR$">
+-        <buildTaskPath>:war_exploded</buildTaskPath>
+-        <cleanTaskPath>:cleanWar_exploded</cleanTaskPath>
+-        <manifest>TWFuaWZlc3QtVmVyc2lvbjogMS4wDQoNCg==</manifest>
+-      </options>
+-    </properties>
+-    <root id="root">
+-      <element id="directory" name="META-INF">
+-        <element id="file-copy" path="$PROJECT_DIR$/build/libs/exploded/afterpay-1.0-SNAPSHOT.war/META-INF/MANIFEST.MF" />
+-      </element>
+-      <element id="javaee-facet-resources" facet="afterpay.main/web/Web Gradle : afterpay-1.0-SNAPSHOT.war" />
+-      <element id="directory" name="WEB-INF">
+-        <element id="directory" name="classes">
+-          <element id="module-output" name="afterpay.main" />
+-          <element id="dir-copy" path="$PROJECT_DIR$/build/resources/main" />
+-        </element>
+-        <element id="directory" name="lib">
+-          <element id="library" level="project" name="Gradle: com.oracle.database.jdbc:ojdbc11:23.5.0.24.07" />
+-          <element id="library" level="project" name="Gradle: commons-codec:commons-codec:1.17.1" />
+-          <element id="library" level="project" name="Gradle: org.apache.commons:commons-fileupload2-jakarta-servlet6:2.0.0-M2" />
+-          <element id="library" level="project" name="Gradle: org.apache.commons:commons-lang3:3.17.0" />
+-          <element id="library" level="project" name="Gradle: org.apache.commons:commons-fileupload2-core:2.0.0-M2" />
+-          <element id="library" level="project" name="Gradle: commons-io:commons-io:2.15.1" />
+-        </element>
+-      </element>
+-    </root>
+-  </artifact>
+-</component>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"VcsDirectoryMappings\">\r\n    <mapping directory=\"$PROJECT_DIR$\" vcs=\"Git\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+--- a/.idea/vcs.xml	(revision 3fe2ee3844b4e3724a1f9736839e4be16ffe040a)
++++ b/.idea/vcs.xml	(date 1726757190318)
+@@ -2,5 +2,6 @@
+ <project version="4">
+   <component name="VcsDirectoryMappings">
+     <mapping directory="$PROJECT_DIR$" vcs="Git" />
++    <mapping directory="$PROJECT_DIR$/afterpay" vcs="Git" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n          </set>\r\n        </option>\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+--- a/.idea/gradle.xml	(revision 3fe2ee3844b4e3724a1f9736839e4be16ffe040a)
++++ b/.idea/gradle.xml	(date 1726757190349)
+@@ -4,7 +4,11 @@
+   <component name="GradleSettings">
+     <option name="linkedExternalProjectsSettings">
+       <GradleProjectSettings>
++        <option name="delegatedBuild" value="true" />
++        <option name="testRunner" value="GRADLE" />
++        <option name="distributionType" value="DEFAULT_WRAPPED" />
+         <option name="externalProjectPath" value="$PROJECT_DIR$" />
++        <option name="gradleJvm" value="21" />
+         <option name="modules">
+           <set>
+             <option value="$PROJECT_DIR$" />
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"FrameworkDetectionExcludesConfiguration\">\r\n    <file type=\"web\" url=\"file://$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_21\" default=\"true\" project-jdk-name=\"21\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/out\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 3fe2ee3844b4e3724a1f9736839e4be16ffe040a)
++++ b/.idea/misc.xml	(date 1726757190363)
+@@ -3,7 +3,10 @@
+   <component name="FrameworkDetectionExcludesConfiguration">
+     <file type="web" url="file://$PROJECT_DIR$" />
+   </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="21" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_19" project-jdk-name="21" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
++  <component name="ProjectType">
++    <option name="id" value="jpab" />
++  </component>
+ </project>
+\ No newline at end of file
+Index: .idea/jpa-buddy.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/jpa-buddy.xml b/.idea/jpa-buddy.xml
+new file mode 100644
+--- /dev/null	(date 1726757190367)
++++ b/.idea/jpa-buddy.xml	(date 1726757190367)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="JpaBuddyIdeaProjectConfig">
++    <option name="renamerInitialized" value="true" />
++  </component>
++</project>
+\ No newline at end of file

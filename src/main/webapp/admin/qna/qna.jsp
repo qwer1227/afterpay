@@ -22,7 +22,7 @@
         <div class="col-2 pt-5">
             <!-- 메뉴목록 -->
             <ul class="list-group">
-                <li class="list-group-item"><a href="#">관리자메인</a></li>
+                <li class="list-group-item"><a href="../home.jsp">관리자메인</a></li>
                 <li class="list-group-item"><a href="#">회원관리</a></li>
                 <li class="list-group-item"><a href="#">주문관리</a></li>
                 <li class="list-group-item"><a href="#">적립금관리</a></li>

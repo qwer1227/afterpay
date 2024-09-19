@@ -27,13 +27,13 @@
             <div class="col-2 pt-5">
                 <!-- 메뉴목록 -->
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="#">관리자메인</a></li>
+                    <li class="list-group-item"><a href="../home.jsp">관리자메인</a></li>
                     <li class="list-group-item"><a href="#">회원관리</a></li>
                     <li class="list-group-item"><a href="#">주문관리</a></li>
                     <li class="list-group-item"><a href="#">적립금관리</a></li>
                 </ul>
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="#">상품관리</a></li>
+                    <li class="list-group-item"><a href="../product/product.jsp">상품관리</a></li>
                     <li class="list-group-item"><a href="../qna/qna.jsp">문의관리</a></li>
                     <li class="list-group-item"><a href="#">정산관리</a></li>
                 </ul>
@@ -53,7 +53,7 @@
                     Pagination pagination = new Pagination(pageNo, totalRows);
 
                     // 요청한 페이지에 맞는 데이터를 조회한다.
-                    List<Product> products = productDao.getProducts(pagination.getBegin(), pagination.getEnd());
+                    List<Product> products = productDao.getAllProducts(pagination.getBegin(), pagination.getEnd());
                 %>
                 <table class="table">
                     <thead>
@@ -62,7 +62,6 @@
                             <th>상품카테고리</th>
                             <th>상품이름</th>
                             <th>상품등록일</th>
-                            <th>상품재고</th>
                             <th>상품상태</th>
                         </tr>
                     </thead>
@@ -73,9 +72,8 @@
                         <tr>
                             <td><%=product.getNo() %></td>
                             <td><%=product.getCategory().getName() %></td>
-                            <td><%=product.getName() %></td>
+                            <td><a href="detail.jsp"><%=product.getName() %></a></td>
                             <td><%=product.getCreatedDate() %></td>
-                            <td>100개</td>
                             <td><%=product.getStatus()%></td>
                         </tr>
                     <%
@@ -111,9 +109,7 @@
                 %>
                 <!--버튼-->
                 <div class="text-end my-2">
-                    <a href="#" class="btn btn-danger">상품삭제</a>
-                    <a href="#" class="btn btn-primary">상품수정</a>
-                    <a href="#" class="btn btn-success">상품등록</a>
+                    <a href="form.jsp" class="btn btn-success">상품등록</a>
                 </div>
             </div>
         </div>

@@ -6,6 +6,7 @@
       crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <html>
 <head>
     <title>Title</title>
@@ -24,27 +25,30 @@
         font-size: 12px;
     }
 </style>
+</script>
 <body>
     <form class="border bg-light p-3" method="post" action="insert.jsp">
         <div class="mb-3">
             <label class="form-label">이름*</label>
-            <input class="form-control" type="text" name="name" placeholder="이름을 작성해주세요 예)홍길동">
+            <input class="form-control" type="text" name="user_name" id="user_name" placeholder="이름을 작성해주세요 예)홍길동" required>
+            <div class="check_font" id="name_check"></div>
         </div>
         <div class="mb-3">
             <label class="form-label">아이디*</label>
-            <input class="form-control" type="text" name="id" placeholder="아이디를 입력해주세요 예)abc1234">
+            <input class="form-control" type="text" name="user_id" id="user_id" placeholder="아이디를 입력해주세요 예)abc1234" required>
         </div>
         <div class="mb-3">
             <label class="form-label">비밀번호*</label>
-            <input class="form-control" type="password" name="pwd" placeholder="대,소문자 및 특수문자 8~16자 이내">
+            <input class="form-control" type="password" name="user_pw" id="user_pw" placeholder="대,소문자 및 특수문자 8~16자 이내" required>
+            <div class="check_font" id="pwd_check"></div>
         </div>
         <div class="mb-3">
             <label class="form-label">비밀번호 확인*</label>
-            <input class="form-control" type="password" name="pwdvali" placeholder="한 번 더 입력해주세요">
+            <input class="form-control" type="password" name="user_pw_vali" id="user_pw_vali" placeholder="한 번 더 입력해주세요" required>
         </div>
         <div class="mb-3">
             <label class="form-label">이메일*</label>
-            <input class="form-control" type="email" name="email" placeholder="이메일을 입력해주세요 예)abc@gmail.com">
+            <input class="form-control" type="email" name="user_email" id="user_email" placeholder="이메일을 입력해주세요 예)abc@gmail.com" required>
         </div>
         <div class="mb-3">
             <ul>
@@ -314,8 +318,58 @@
             <p class="check"><span>이용약관에 동의하십니까?</span><input id="agree_service_check0" name="agree_service_check[]" fw-filter="/1/" fw-label="이용약관 동의" fw-msg="이용약관에 동의 하세요" class="ec-base-chk" value="1" type="checkbox"><label for="agree_service_check0"> 동의함</label></p>
         </div>
         <div class="text-end">
-            <button type="submit" class="btn btn-primary">가입하기</button>
+            <button type="submit" class="btn btn-primary" id="signup-button">가입하기</button>
         </div>
     </form>
 </body>
+<script>
+    //모든 공백 체크 정규식
+    var empJ = /\s/;
+    //아이디 정규식
+    var idJ = /^[a-z0-9]{4,16}$/;
+    // 비밀번호 정규식
+    var pwJ = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*_?&])[A-Za-z\d@$!%_*?&]{8,16}$/;
+    // 이름 정규식
+    var nameJ = /^[가-힣]{2,6}$/;
+    // 이메일 검사 정규식
+    var mailJ = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    // 휴대폰 번호 정규식
+    var phoneJ = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
+
+    //비밀번호 유효성 검사
+    //1-1 정규식체크
+    $("#user_pw").blur(function() {
+        if (pwJ.test($(this).val())) {
+            // console.log('비밀번호 유효');
+            // $('#pwd_check').text('').css('color', '');
+            $("#pwd_check").text('');
+        } else {
+            $('#pwd_check').text('비밀번호를 입력해주세요');
+            $('#pwd_check').css('color', 'red');
+        }
+    });
+
+    $("#user_name").blur(function() {
+        if (nameJ.test($(this).val())) {
+            console.log(nameJ.test($(this).val()));
+            $("#name_check").text('');
+        } else {
+            $('#name_check').text('이름을 확인해주세요');
+            $('#name_check').css('color', 'red');
+        }
+    });
+
+    $("#signup_button").click(function(e) {
+        var username = $("#user_name").val();
+        if (!nameJ.test(username)) {
+            // 유효하지 않으면 가입을 막고 에러 메시지 표시
+            e.preventDefault(); // 기본 클릭 이벤트(폼 제출 등)를 막음
+            $('#user_name').text('비밀번호를 입력해주세요');
+            $('#user_name').css('color', 'red');
+        } else {
+            // 유효하면 다음 동작 수행 (예: 폼 제출)
+            console.log("가입 성공!");
+        }
+    });
+</script>
 </html>

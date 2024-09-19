@@ -46,7 +46,7 @@
               <input id="check-all" type="checkbox" style="zoom:1.8">
             </th>
               <th scope="col">No</th>
-              <th scope="col">문의 제목</th>
+              <th scope="col">리뷰 제목</th>
               <th scope="col">작성일</th>
               <th scope="col" class="text-end">
                 <button id="check-del" class="btn btn-lg">

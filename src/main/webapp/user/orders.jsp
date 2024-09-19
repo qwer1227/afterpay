@@ -32,7 +32,7 @@
 <%
   int userNo = Utils.toInt(request.getParameter("no"));
   OrderDao orderDao = new OrderDao();
-  List<Order> order = orderDao.getOrderByNo(userNo);
+//  List<Order> order = orderDao.getOrderByNo(userNo);
   ProductDao productDao = new ProductDao();
 %>
 <div class="container">

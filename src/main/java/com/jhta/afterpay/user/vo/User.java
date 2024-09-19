@@ -11,7 +11,9 @@ public class User {
     private String tel;
     private String isBanned;
     private String isSignOut;
-    private Point point;
+    private int point;
+    private int totalPoint;
+    private int totalUsedPoint;
     private Date createdDate;
     private String gradeId;
 
@@ -27,11 +29,28 @@ public class User {
                 ", isBanned='" + isBanned + '\'' +
                 ", isSignOut='" + isSignOut + '\'' +
                 ", point=" + point +
+                ", totalPoint=" + totalPoint +
+                ", totalUsedPoint=" + totalUsedPoint +
                 ", createdDate=" + createdDate +
                 ", gradeId='" + gradeId + '\'' +
                 '}';
     }
 
+    public int getTotalPoint() {
+        return totalPoint;
+    }
+
+    public void setTotalPoint(int totalPoint) {
+        this.totalPoint = totalPoint;
+    }
+
+    public int getTotalUsedPoint() {
+        return totalUsedPoint;
+    }
+
+    public void setTotalUsedPoint(int totalUsedPoint) {
+        this.totalUsedPoint = totalUsedPoint;
+    }
 
     public User() {
     }
@@ -100,11 +119,11 @@ public class User {
         this.isSignOut = isSignOut;
     }
 
-    public Point getPoint() {
+    public int getPoint() {
         return point;
     }
 
-    public void setPoint(Point point) {
+    public void setPoint(int point) {
         this.point = point;
     }
 

@@ -66,7 +66,7 @@
       </div>
       <!-- 우측 정보수정하기 버튼 -->
       <div class="p-2 ms-auto">
-        <a href="info.jsp?no=<%=user.getNo()%>">
+        <a href="info.jsp">
           <button class="btn btn-primary" type="submit">
             정보 수정
           </button>

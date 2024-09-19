@@ -28,11 +28,14 @@
   UserDao userDao = new UserDao();
   AddressDao addressDao = new AddressDao();
 
-  int no = Utils.toInt(request.getParameter("no"));
-  User user = userDao.getUserByNo(no);
+  // 세션에서 사용자 번호 가져온다.
+  int userNo = 19;
+  User user = userDao.getUserByNo(userNo);
 %>
 
 <div class="container">
+  <form action="update.jsp" method="post">
+
   <div class="row">
     <div class="col-2">
       <%@include file="../common/user-nav.jsp"%>
@@ -58,11 +61,10 @@
           </tr>
           <tr>
             <th scope="row" class="text-center">연락처</th>
-            <td class="text-start">
-              <form action="">
-                <input type="text" value="<%=user.getTel()%>">
-              </form>
+            <td>
+                <input type="text" name="tel" value="<%=user.getTel()%>">
             </td>
+          </tr>
           </tr>
           <tr>
             <th scope="row" class="text-center">주소</th>
@@ -77,25 +79,24 @@
           <tr>
             <th scope="row" class="text-center">이메일</th>
             <td>
-              <form action="">
-                <input type="text" value="<%=user.getEmail()%>">
-              </form>
+              <input type="text" name="email" value="<%=user.getEmail()%>">
             </td>
           </tr>
           <tr>
             <th scope="row" class="text-center">가입일</th>
-            <td>2024.09.09</td>
+            <td><%=user.getCreatedDate()%></td>
           </tr>
         </tbody>
       </table>
 
       <div class="text-end">
-        <a href="update.jsp" type="submit" class="btn btn-outline-primary">
+        <button type="submit" class="btn btn-outline-primary">
             수정 저장
-        </a>
+        </button>
       </div>
     </div>
   </div>
+  </form>
 </div>
 <%@include file="../common/footer.jsp"%>
 </body>

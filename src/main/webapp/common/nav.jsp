@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 
 <%
-  String loginedUserId = (String) session.getAttribute("USERID");
+  String loginedUserNo = (String) session.getAttribute("USERNO");
 %>
 
 <nav class="navbar bg-body-tertiary fixed-top">

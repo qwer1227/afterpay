@@ -10,7 +10,8 @@
   //4. 수정된 정보가 반영된 User객체를 UserDao의 updateUserInfoByNo로 전달하여 db 반영
   //5. info.jsp를 재요청하는 URL을 응답으로 전송
 
-  int userNo = Utils.toInt(request.getParameter("no"));
+  // 세션에서 사용자 번호를 가져온다.
+  int userNo = 19;
   String tel = request.getParameter("tel");
   String email = request.getParameter("email");
 
@@ -19,7 +20,8 @@
 
   user.setTel(tel);
   user.setEmail(email);
-  userDao.updateUserInfoByNo(user);
+  userDao.updateUser(user);
 
-  response.sendRedirect("info.jsp?no=" + userNo);
+
+  response.sendRedirect("info.jsp");
 %>

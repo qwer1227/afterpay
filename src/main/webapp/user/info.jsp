@@ -22,7 +22,7 @@
 <%@include file="../common/nav.jsp"%>
 <%
   // 파라미터값을 전달받아 해당하는 정보를 받아 회원정보 폼에 각 값을 나타낸다.
-  int userNo = Utils.toInt(request.getParameter("no"));
+  int userNo = 19;
   UserDao userDao = new UserDao();
   User user = userDao.getUserByNo(userNo);
 %>
@@ -71,16 +71,16 @@
           </tr>
           <tr>
             <th scope="row" class="text-center">가입일</th>
-            <td>2024.09.09</td>
+            <td><%=user.getCreatedDate()%></td>
           </tr>
         </tbody>
       </table>
 
       <div class="text-end">
-        <a href="modify-form.jsp?no=<%=user.getNo()%>" type="submit" class="btn btn-outline-secondary">
+        <a href="modify-info-form.jsp" type="submit" class="btn btn-outline-secondary">
             회원정보 수정
         </a>
-        <a href="modify-pwd-form.jsp?no=<%=user.getNo()%>" type="submit" class="btn btn-outline-warning">
+        <a href="modify-pwd-form.jsp" type="submit" class="btn btn-outline-warning">
             비밀번호 변경
         </a>
         <!-- 성민님이 작업한 회원탈퇴로 이동 -->

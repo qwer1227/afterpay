@@ -1,14 +1,10 @@
 package com.jhta.afterpay.user.dao;
 
-import com.jhta.afterpay.user.vo.Address;
-import com.jhta.afterpay.user.vo.Point;
+import com.jhta.afterpay.user.vo.PointHistory;
 import com.jhta.afterpay.user.vo.User;
 import com.jhta.afterpay.util.DaoHelper;
 
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserDao {
 
@@ -42,10 +38,7 @@ public class UserDao {
             user.setIsSignOut(rs.getString("issignout"));
             user.setCreatedDate(rs.getDate("created_date"));
             user.setGradeId(rs.getString("grade_id"));
-
-            Point point = new Point();
-            point.setPoint(rs.getInt("point"));
-            user.setPoint(point);
+            user.setPoint(rs.getInt("point"));
 
             return user;
         }, id);
@@ -70,16 +63,15 @@ public class UserDao {
             user.setIsSignOut(rs.getString("issignout"));
             user.setCreatedDate(rs.getDate("created_date"));
             user.setGradeId(rs.getString("grade_id"));
-
-            Point point = new Point();
-            point.setPoint(rs.getInt("point"));
-            user.setPoint(point);
+            user.setTotalUsedPoint(rs.getInt("total_used_point"));
+            user.setTotalPoint(rs.getInt("total_point"));
+            user.setPoint(rs.getInt("point"));
 
             return user;
         }, userNo);
     }
 
-    public void updateUserInfoByUserNo(User user) {
+    public void updateUser(User user) {
         String sql = """
                 UPDATE USERS
                 SET USER_EMAIL = ?

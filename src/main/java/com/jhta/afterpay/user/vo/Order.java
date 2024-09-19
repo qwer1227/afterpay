@@ -9,10 +9,10 @@ public class Order {
     private int price;          // 주문 가격
     private int amount;         // 주문 수량
     private int deliveryPrice;  // 운송비
-    private Point usedPoint;    // 사용자 사용 포인트
+    private PointHistory usedPoint;    // 사용자 사용 포인트
     private int totalDiscountPrice; // 총 할인 금액
     private int paymentPrice;   // 총 결제 금액
-    private Point depositPoint; // 적립 예정 금액
+    private PointHistory depositPoint; // 적립 예정 금액
     private int userNo;        // 사용자 번호
     private Address addrNo;     // 배송지 번호
     private String message;     // 배송 요청메세지
@@ -86,11 +86,11 @@ public class Order {
         this.deliveryPrice = deliveryPrice;
     }
 
-    public Point getUsedPoint() {
+    public PointHistory getUsedPoint() {
         return usedPoint;
     }
 
-    public void setUsedPoint(Point usedPoint) {
+    public void setUsedPoint(PointHistory usedPoint) {
         this.usedPoint = usedPoint;
     }
 
@@ -110,11 +110,11 @@ public class Order {
         this.paymentPrice = paymentPrice;
     }
 
-    public Point getDepositPoint() {
+    public PointHistory getDepositPoint() {
         return depositPoint;
     }
 
-    public void setDepositPoint(Point depositPoint) {
+    public void setDepositPoint(PointHistory depositPoint) {
         this.depositPoint = depositPoint;
     }
 

@@ -18,7 +18,7 @@
         text-align: center;
     }
     button {
-
+        width: 25%;
     }
     </style>
 </head>

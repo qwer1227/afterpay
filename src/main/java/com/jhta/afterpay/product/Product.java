@@ -12,6 +12,7 @@ public class Product {
     private String status;
     private int totalRating;
     private Category category;
+    private Image image;
 
     public Product() {}
 
@@ -87,6 +88,14 @@ public class Product {
         this.category = category;
     }
 
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -99,6 +108,7 @@ public class Product {
                 ", status='" + status + '\'' +
                 ", totalRating=" + totalRating +
                 ", category=" + category +
+                ", image=" + image +
                 '}';
     }
 }

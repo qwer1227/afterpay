@@ -99,32 +99,32 @@ public class ProductDao {
         }, catNo, begin, end);
     }
 
-    public Product getProductImage(int productNo) {
-        String sql = """
-                SELECT P.PRODUCT_NO
-                    , IMG.IMG_NO
-                    , IMG.IMG_NAME
-                    , IMG.ISTHUMB
-                FROM PRODUCTS P, PRODUCT_IMGS IMG
-                WHERE P.PRODUCT_NO = IMG.PRODUCT_NO
-                AND IMG.ISTHUMB = 'Y'
-                AND P.PRODUCT_NO = ?
-                """;
-
-        return DaoHelper.selectOne(sql, rs -> {
-            Product product = new Product();
-            product.setNo(rs.getInt("PRODUCT_NO"));
-
-            Image image = new Image();
-            image.setNo(rs.getInt("IMG_NO"));
-            image.setName(rs.getString("IMG_NAME"));
-            image.setThumb(rs.getString("ISTHUMB"));
-
-            product.setImage(image);
-            return product;
-
-        }, productNo);
-    }
+//    public Product getProductImage(int productNo) {
+//        String sql = """
+//                SELECT P.PRODUCT_NO
+//                    , IMG.IMG_NO
+//                    , IMG.IMG_NAME
+//                    , IMG.ISTHUMB
+//                FROM PRODUCTS P, PRODUCT_IMGS IMG
+//                WHERE P.PRODUCT_NO = IMG.PRODUCT_NO
+//                AND IMG.ISTHUMB = 'Y'
+//                AND P.PRODUCT_NO = ?
+//                """;
+//
+//        return DaoHelper.selectOne(sql, rs -> {
+//            Product product = new Product();
+//            product.setNo(rs.getInt("PRODUCT_NO"));
+//
+//            Image image = new Image();
+//            image.setNo(rs.getInt("IMG_NO"));
+//            image.setName(rs.getString("IMG_NAME"));
+//            image.setThumb(rs.getString("ISTHUMB"));
+//
+//            product.setImage(image);
+//            return product;
+//
+//        }, productNo);
+//    }
 
 }
 

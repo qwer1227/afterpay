@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e17b7f1-0b1e-4240-8675-e60a521ee202" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/wish/list.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jhta/afterpay/product/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jhta/afterpay/product/Product.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jhta/afterpay/product/ProductDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jhta/afterpay/product/ProductDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/index2.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index2.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/product/list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/product/list.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +62,6 @@
 }</component>
   <component name="ProjectId" id="2lxWdvlZWQz6QBbrHgwiHL3zeyH" />
   <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
@@ -97,6 +97,7 @@
       <recent name="C:\Users\jhta\Documents\GitHub\afterpay\src\main\webapp" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jhta\Documents\GitHub\afterpay\src\main\webapp\wish" />
       <recent name="C:\Users\jhta\Documents\GitHub\afterpay\src\main\java\com\jhta\afterpay\Product" />
       <recent name="C:\Users\jhta\Documents\GitHub\afterpay\src\main\webapp\common" />
     </key>
@@ -222,7 +223,8 @@
       <workItem from="1726306564636" duration="1038000" />
       <workItem from="1726675477031" duration="1456000" />
       <workItem from="1726715668066" duration="9126000" />
-      <workItem from="1726725843414" duration="10986000" />
+      <workItem from="1726725843414" duration="12423000" />
+      <workItem from="1726790807832" duration="2841000" />
     </task>
     <servers />
   </component>

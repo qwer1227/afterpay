@@ -12,7 +12,6 @@ import java.util.List;
  * JDBC를 활용한 데이터베이스 엑세스 작업을 지원하는 클래스입니다.
  */
 public class DaoHelper {
-	
 
 	private static final String url = "jdbc:oracle:thin:@54.180.232.31:1521:xe";
 	private static final String username = "afterpay";
@@ -28,7 +27,7 @@ public class DaoHelper {
 	
 	private DaoHelper() {}
 	
-	public static Connection getConnection() throws SQLException {
+	private static Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(url, username, password);
 	}
 	
@@ -312,5 +311,6 @@ public class DaoHelper {
 				pstmt.setDate(index++, v);
 			}
 		}
-	}
+
+	}	
 }

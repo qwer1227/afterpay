@@ -12,7 +12,6 @@
     </li>
     <li>
       <a href="/common/memberShip.jsp">멤버십</a>
-
     </li>
   </ul>
   <ul>
@@ -27,7 +26,6 @@
     </li>
     <li>
       <a href="/common/sizeGuide.jsp">사이즈 가이드</a>
-
     </li>
   </ul>
   <ul>
@@ -43,12 +41,8 @@
   </ul>
 </div>
 <div class="footer-home py-3" >
-<<<<<<< HEAD
   <a class="navbar-brand" href="index.jsp">AFTER PAY</a>
 </div>
-=======
   <a class="navbar-brand" href="../index.jsp">AFTER PAY</a>
 </div>
 
-
->>>>>>> 74eae2c6a7285b8d5bc9e465096ac4691ffc6eb5

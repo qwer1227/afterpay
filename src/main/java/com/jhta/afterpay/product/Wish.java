@@ -4,8 +4,11 @@ public class Wish {
     private int no;
     private int productNo;
     private int userNo;
+    private Product product;
+    private User user;
 
     public Wish() {}
+
 
     public int getNo() {
         return no;
@@ -31,6 +34,22 @@ public class Wish {
         this.userNo = userNo;
     }
 
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "Wish{" +
@@ -38,5 +57,10 @@ public class Wish {
                 ", productNo=" + productNo +
                 ", userNo=" + userNo +
                 '}';
+
+               "no=" + no +
+               ", product=" + product +
+               ", user=" + user +
+               '}';
     }
 }

@@ -1,6 +1,8 @@
 package com.jhta.afterpay.product;
 
+
 import java.awt.*;
+
 import java.util.Date;
 
 public class User {
@@ -18,6 +20,7 @@ public class User {
 
     public User() {
     }
+
 
     public int getNo() {
         return no;

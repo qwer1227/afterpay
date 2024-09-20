@@ -2,12 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<<<<<<< HEAD
-
-=======
->>>>>>> 74eae2c6a7285b8d5bc9e465096ac4691ffc6eb5
   <title>AfterPay</title>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
@@ -18,7 +13,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/common/css/style.css">
-
   <style>
     .main-container {
       width:100%;
@@ -47,16 +41,12 @@
       text-align: center;
     }
   </style>
-
 </head>
-<<<<<<< HEAD
-
-<body>
-<%@ include file="/common/nav.jsp" %>
-
-=======
->>>>>>> 74eae2c6a7285b8d5bc9e465096ac4691ffc6eb5
 <body class="d-flex flex-column min-vh-100 ">
+<%
+  String menu = "홈";
+%>
+
 <%@ include file="common/nav.jsp" %>
 <div class="main-container">
   <div>
@@ -66,7 +56,6 @@
     <h3 >2024 Fall-Winter Collection</h3>
     <h5>New Arrivals</h5>
     <h5>
-      <a href="#">shop</a>
       <a href="/index2.jsp">shop</a>
     </h5>
   </div>
@@ -76,19 +65,6 @@
     <div class="row">
       <div class="col" style="justify-content: center">
         <img src="../img/main2.png" alt="" style="width: 250px; height:350px;"/>
-        <a href="/product/men-list.jsp">남성 상의</a>
-      </div>
-      <div class="col" style="justify-content: center">
-        <img src="../img/main3.png" alt="" style="width: 250px; height:350px;"/>
-        <a href="/product/women-list.jsp">여성 상의</a>
-      </div>
-      <div class="col" style="justify-content: center">
-        <img src="../img/main4.png" alt="" style="width: 250px; height:350px;"/>
-        <p style="text-align: center">가방</p>
-      </div>
-      <div class="col" style="justify-content: center">
-        <img src="../img/main5.png" alt="" style="width: 250px; height:350px;"/>
-        <p style="text-align: center">슈즈</p>
         <a href="/product/list.jsp?cat_no=11&page=1">남성 상의</a>
       </div>
       <div class="col" style="justify-content: center">
@@ -106,13 +82,6 @@
     </div>
   </div>
 </div>
-<<<<<<< HEAD
-
 <%@ include file="common/footer.jsp" %>
-
-
-=======
-<%@ include file="common/footer.jsp" %>
->>>>>>> 74eae2c6a7285b8d5bc9e465096ac4691ffc6eb5
 </body>
 </html>

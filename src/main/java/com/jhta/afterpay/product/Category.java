@@ -10,6 +10,7 @@ public class Category {
 
     public Category(int no) {
         this.no = no;
+    }
 
     public int getNo() {
         return no;
@@ -44,4 +45,3 @@ public class Category {
                 '}';
     }
 }
-

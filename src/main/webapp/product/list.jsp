@@ -50,15 +50,13 @@
   %>
   <table class="table">
     <colgroup>
-      <col width="*">
       <col width="10%">
+      <col width="*%">
       <col width="15%">
-      <col width="10%">
       <col width="10%">
     </colgroup>
     <thead>
       <tr>
-        <th>이미지</th>
         <th>카테고리</th>
         <th>상품명</th>
         <th>가격</th>

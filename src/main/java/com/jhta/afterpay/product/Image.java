@@ -5,8 +5,10 @@ public class Image {
     private String name;
     private String thumb;
     private int productNo;
-
+    private Product product;
+    
     public Image() {}
+
 
     public int getNo() {
         return no;
@@ -40,6 +42,14 @@ public class Image {
         this.productNo = productNo;
     }
 
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
     @Override
     public String toString() {
         return "Image{" +
@@ -47,6 +57,8 @@ public class Image {
                 ", name='" + name + '\'' +
                 ", thumb='" + thumb + '\'' +
                 ", productNo=" + productNo +
+
+                ", product=" + product +
                 '}';
     }
 }

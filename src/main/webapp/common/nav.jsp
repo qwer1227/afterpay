@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 
-
 <%
   String loginedUserNo = (String) session.getAttribute("USERNO");
 %>
@@ -103,7 +102,6 @@
               <li><a class="dropdown-item" href="/product/list.jsp?cat_no=12">하의</a></li>
               <li><a class="dropdown-item" href="/product/list.jsp?cat_no=13">슈즈</a></li>
               <li><a class="dropdown-item" href="/product/list.jsp?cat_no=14">가방</a></li>
-
             </ul>
           </li>
           <li class="nav-item dropdown">

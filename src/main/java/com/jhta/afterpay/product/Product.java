@@ -12,7 +12,6 @@ public class Product {
     private String status;
     private int totalRating;
     private Category category;
-
     private String defaultImage;
 
     public Product() {}
@@ -56,6 +55,7 @@ public class Product {
     public String getHtmlContent() {
         return content.replace(System.lineSeparator(), "<br>");
     }
+
 
     public int getViewCount() {
         return viewCount;

@@ -1,7 +1,6 @@
 package com.jhta.afterpay.util;
 
 public class Pagination {
-
 	private final int rowsPerPage;
 	private final int pagesPerPage;
 	private final int pageNo;
@@ -146,5 +145,4 @@ public class Pagination {
 		return pageNo + 1;
 	}
 }
-
 

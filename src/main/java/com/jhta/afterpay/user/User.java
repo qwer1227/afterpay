@@ -1,4 +1,4 @@
-package com.jhta.afterpay.user.vo;
+package com.jhta.afterpay.user;
 
 src/main/java/com/jhta/afterpay/user/User.java
 import java.awt.*;
@@ -145,22 +145,5 @@ public class User {
 
     public void setGradeId(String gradeId) {
         this.gradeId = gradeId;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "no=" + no +
-                ", email='" + email + '\'' +
-                ", id='" + id + '\'' +
-                ", pwd='" + pwd + '\'' +
-                ", name='" + name + '\'' +
-                ", tel='" + tel + '\'' +
-                ", isBanned='" + isBanned + '\'' +
-                ", isSignOut='" + isSignOut + '\'' +
-                ", point=" + point +
-                ", createdDate=" + createdDate +
-                ", gradeId='" + gradeId + '\'' +
-                '}';
     }
 }

@@ -1,12 +1,7 @@
-package com.jhta.afterpay.user.dao;
+package com.jhta.afterpay.user;
 
-import com.jhta.afterpay.user.vo.Product;
-import com.jhta.afterpay.user.vo.Review;
-import com.jhta.afterpay.user.vo.User;
 import com.jhta.afterpay.util.DaoHelper;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ReviewDao {

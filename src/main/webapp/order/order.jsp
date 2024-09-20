@@ -94,6 +94,7 @@
         Product product = new Product(); // productDao 필요
         Stock stock = new Stock(); // stockDao 필요
         stock.setNo(1);
+//        product.setNo(proNo);
         product.setNo(10000);
         delivery.setProduct(product);
         delivery.setOrder(payOrder);

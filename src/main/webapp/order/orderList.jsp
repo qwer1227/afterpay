@@ -26,11 +26,12 @@
 <%@ include file="../common/nav.jsp" %>
 <%
     OrderDao orderDao = new OrderDao();
-    int pageNo = Utils.toInt(request.getParameter("page"), 1);
-    List<Order> orders = orderDao.getAllOrderByUserNo(7); // 세션이용
+
     // 요청한 페이지 번호를 조회한다. 페이지 번호가 없으면 1을 반환한다.
+    int pageNo = Utils.toInt(request.getParameter("page"), 1);
 
     // 총 게시글 개수를 조회한다.
+    List<Order> orders = orderDao.getAllOrderByUserNo(7); // 세션이용
     int totalRows = orders.size();
 
     // 페이징처리에 필요한 정보를 제공하는 Pagination 객체를 생성한다.

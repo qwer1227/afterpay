@@ -26,10 +26,17 @@
 
 <%
     // 장바구니 배송 상품 목록
+
 //    String[] products = request.getParameterValues("productNo");
 //    int[] productNoArr = new int[products.length];
 //    for(int i=0; i<productNoArr.length; i++) {
 //        productNoArr[i] = Integer.parseInt(products[i]);
+//    }
+
+//    String[] amount = request.getParameterValues("amount");
+//    int[] amountArr = new int[amount.length];
+//    for(int i=0; i<amountArr.length; i++) {
+//        amountArr[i] = Integer.parseInt(amount[i]);
 //    }
 
     UserDao userDao = new UserDao();
@@ -48,9 +55,12 @@
     <div class="row text-center mb-5">
         <h3>주문 결제</h3>
     </div>
-<%--    상품 정보--%>
 
+<%--    상품 정보   --%>
     <div class="row mb-5 p-3">
+        <%
+//            for (int productNo : productNoArr) {
+        %>
         <div class="col-2">
             <img src="sample.jpg" class="rounded float-start" style="width: 170px; height:130px;">
         </div>
@@ -63,6 +73,9 @@
         <div class="col-3">
             가격
         </div>
+        <%
+//            }
+        %>
     </div>
 
     <form action="order.jsp" method="post">

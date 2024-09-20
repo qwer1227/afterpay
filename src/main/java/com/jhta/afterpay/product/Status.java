@@ -1,16 +1,11 @@
 package com.jhta.afterpay.product;
 
-public class Category {
+public class Status {
+
     private int no;
     private String name;
-    private int parentNo;
 
-    public Category() {
-    }
-
-    public Category(int no) {
-        this.no = no;
-    }
+    public Status() {}
 
     public int getNo() {
         return no;
@@ -28,20 +23,11 @@ public class Category {
         this.name = name;
     }
 
-    public int getParentNo() {
-        return parentNo;
-    }
-
-    public void setParentNo(int parentNo) {
-        this.parentNo = parentNo;
-    }
-
     @Override
     public String toString() {
-        return "Category{" +
+        return "Status{" +
                 "no=" + no +
                 ", name='" + name + '\'' +
-                ", parentNo=" + parentNo +
                 '}';
     }
 }

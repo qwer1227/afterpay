@@ -1,3 +1,8 @@
+<%@ page import="com.jhta.afterpay.product.Product" %>
+<%@ page import="com.jhta.afterpay.product.ProductDao" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.jhta.afterpay.util.Utils" %>
+<%@ page import="com.jhta.afterpay.util.Pagination" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <html>
 <head>
@@ -22,19 +27,35 @@
             <div class="col-2 pt-5">
                 <!-- 메뉴목록 -->
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="#">관리자메인</a></li>
+                    <li class="list-group-item"><a href="../home.jsp">관리자메인</a></li>
                     <li class="list-group-item"><a href="#">회원관리</a></li>
                     <li class="list-group-item"><a href="#">주문관리</a></li>
                     <li class="list-group-item"><a href="#">적립금관리</a></li>
                 </ul>
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="#">상품관리</a></li>
+                    <li class="list-group-item"><a href="../product/product.jsp">상품관리</a></li>
                     <li class="list-group-item"><a href="../qna/qna.jsp">문의관리</a></li>
+                    <li class="list-group-item"><a href="../product/stock.jsp">상품재고현황</a></li>
                     <li class="list-group-item"><a href="#">정산관리</a></li>
                 </ul>
             </div>
             <div class="col-9 my-1">
                 <!--상품목록-->
+                <%
+                    ProductDao productDao = new ProductDao();
+
+                    // 요청한 페이지 번호를 조회한다.
+                    int pageNo = Utils.toInt(request.getParameter("page"), 1);
+
+                    // 총 데이터 갯수를 조회한다.
+                    int totalRows = productDao.getTotalRows();
+
+                    // Pagination 객체를 생성한다.
+                    Pagination pagination = new Pagination(pageNo, totalRows);
+
+                    // 요청한 페이지에 맞는 데이터를 조회한다.
+                    List<Product> products = productDao.getAllProducts(pagination.getBegin(), pagination.getEnd());
+                %>
                 <table class="table">
                     <thead>
                         <tr>
@@ -42,110 +63,54 @@
                             <th>상품카테고리</th>
                             <th>상품이름</th>
                             <th>상품등록일</th>
-                            <th>상품재고</th>
                             <th>상품상태</th>
                         </tr>
                     </thead>
                     <tbody>
+                    <%
+                        for (Product product :products) {
+                    %>
                         <tr>
-                            <td>1</td>
-                            <td>남성상의</td>
-                            <td>다미에 프린티드 트리거 재킷 브라운 체크</td>
-                            <td>2024-09-13</td>
-                            <td>100개</td>
-                            <td>판매중</td>
+                            <td><%=product.getNo() %></td>
+                            <td><%=product.getCategory().getName() %></td>
+                            <td><a href="detail.jsp?no=<%=product.getNo() %>"><%=product.getName() %></a></td>
+                            <td><%=product.getCreatedDate() %></td>
+                            <td><%=product.getStatus()%></td>
                         </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>남성상의</td>
-                            <td>다미에 프린티드 트리거 재킷 브라운 체크</td>
-                            <td>2024-09-13</td>
-                            <td>100개</td>
-                            <td>판매중</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>남성상의</td>
-                            <td>다미에 프린티드 트리거 재킷 브라운 체크</td>
-                            <td>2024-09-13</td>
-                            <td>100개</td>
-                            <td>판매중</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>남성상의</td>
-                            <td>다미에 프린티드 트리거 재킷 브라운 체크</td>
-                            <td>2024-09-13</td>
-                            <td>100개</td>
-                            <td>판매중</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>남성상의</td>
-                            <td>다미에 프린티드 트리거 재킷 브라운 체크</td>
-                            <td>2024-09-13</td>
-                            <td>100개</td>
-                            <td>판매중</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>남성상의</td>
-                            <td>다미에 프린티드 트리거 재킷 브라운 체크</td>
-                            <td>2024-09-13</td>
-                            <td>100개</td>
-                            <td>판매중</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>남성상의</td>
-                            <td>다미에 프린티드 트리거 재킷 브라운 체크</td>
-                            <td>2024-09-13</td>
-                            <td>100개</td>
-                            <td>판매중</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>남성상의</td>
-                            <td>다미에 프린티드 트리거 재킷 브라운 체크</td>
-                            <td>2024-09-13</td>
-                            <td>100개</td>
-                            <td>판매중</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>남성상의</td>
-                            <td>다미에 프린티드 트리거 재킷 브라운 체크</td>
-                            <td>2024-09-13</td>
-                            <td>100개</td>
-                            <td>판매중</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>남성상의</td>
-                            <td>다미에 프린티드 트리거 재킷 브라운 체크</td>
-                            <td>2024-09-13</td>
-                            <td>100개</td>
-                            <td>판매중</td>
-                        </tr>
+                    <%
+                        }
+                    %>
                     </tbody>
                 </table>
                 <!--페이지네이션 -->
+                <%
+                    if(pagination.getTotalPages() > 0) {
+                %>
                 <div>
                     <ul class="pagination justify-content-center">
-                        <li class="page-item"><a href="#" class="page-link">이전</a></li>
-                        <li class="page-item"><a href="#" class="page-link">1</a></li>
-                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-                        <li class="page-item"><a href="#" class="page-link">3</a></li>
-                        <li class="page-item"><a href="#" class="page-link">4</a></li>
-                        <li class="page-item"><a href="#" class="page-link">5</a></li>
-                        <li class="page-item"><a href="#" class="page-link">다음</a></li>
+                        <li class="page-item <%=pagination.isFirst() ? "disabled" : "" %>">
+                            <a class="page-link" href="product.jsp?page=<%pagination.getPrev(); %>">이전</a>
+                        </li>
+                <%
+                    for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
+                 %>
+                        <li class="page-item <%=pageNo == num? "active" : "" %>">
+                            <a href="product.jsp?page=<%=num %>" class="page-link"><%=num %></a>
+                        </li>
+                <%
+                    }
+                %>
+                        <li class="page-item <%=pagination.isLast() ? "disabled" : ""%>">
+                            <a class="page-link" href="product.jsp?page=<%=pagination.getNext() %>" >다음</a>
+                        </li>
                     </ul>
                 </div>
+                <%
+                    }
+                %>
                 <!--버튼-->
                 <div class="text-end my-2">
-                    <a href="#" class="btn btn-danger">상품삭제</a>
-                    <a href="#" class="btn btn-primary">상품수정</a>
-                    <a href="#" class="btn btn-success">상품등록</a>
+                    <a href="form.jsp" class="btn btn-success">상품등록</a>
                 </div>
             </div>
         </div>

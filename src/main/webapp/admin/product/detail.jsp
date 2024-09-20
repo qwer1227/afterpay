@@ -2,6 +2,9 @@
 <%@ page import="com.jhta.afterpay.product.ProductDao" %>
 <%@ page import="com.jhta.afterpay.product.Product" %>
 <%@ page import="org.apache.commons.lang3.StringEscapeUtils" %>
+<%@ page import="com.jhta.afterpay.product.Stock" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.jhta.afterpay.product.StockDao" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <html>
 <head>
@@ -33,6 +36,10 @@
                     // 요청파라미터로 전달받은 상품번호에 해당하는 상품 상세정보를 조회한다.
                     ProductDao productDao = new ProductDao();
                     Product product = productDao.getProductByNo(productNo);
+
+                    // 재고값
+                    StockDao stockDao = new StockDao();
+                    List<Stock> stocks = stockDao.getStocksByNo(productNo);
                 %>
                 <table class="table table-bordered">
                     <colgroup>
@@ -64,11 +71,17 @@
                     </tr>
                     <tr>
                         <th>재고수량</th>
+                        <%
+                            for(Stock stock : stocks) {
+                        %>
                         <td colspan="3">
-                            <p>S : 10</p>
-                            <p>M : 10</p>
-                            <p>L : 10</p>
+                            <p><%=stock.getSize()%> : <%=stock.getAmount() %></p>
+                            <p><%=stock.getSize()%> : <%=stock.getAmount() %></p>
+                            <p><%=stock.getSize()%> : <%=stock.getAmount() %></p>
                         </td>
+                        <%
+                            }
+                        %>
                     </tr>
                     <tr>
                         <th>평점</th>

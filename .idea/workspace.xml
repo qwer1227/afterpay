@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e17b7f1-0b1e-4240-8675-e60a521ee202" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jhta/afterpay/product/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jhta/afterpay/product/Product.java" afterDir="false" />
-    </list>
+    <list default="true" id="9e17b7f1-0b1e-4240-8675-e60a521ee202" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -223,7 +219,7 @@
       <workItem from="1726675477031" duration="1456000" />
       <workItem from="1726715668066" duration="9126000" />
       <workItem from="1726725843414" duration="12423000" />
-      <workItem from="1726790807832" duration="4465000" />
+      <workItem from="1726790807832" duration="4638000" />
     </task>
     <servers />
   </component>

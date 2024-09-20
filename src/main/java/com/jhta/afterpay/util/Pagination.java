@@ -1,7 +1,6 @@
 package com.jhta.afterpay.util;
 
 public class Pagination {
-	
 	private final int rowsPerPage;
 	private final int pagesPerPage;
 	private final int pageNo;
@@ -9,8 +8,10 @@ public class Pagination {
 	
 	private int totalPages;
 	private int total;
+	private int totalBlocks;
 	
-	public Pagination (int pageNo, int totalRows) {
+	public Pagination(int pageNo, int totalRows) {
+
 		this.rowsPerPage = 10;
 		this.pagesPerPage = 5;
 		this.pageNo = pageNo;
@@ -48,7 +49,7 @@ public class Pagination {
 	}
 	
 	/**
-	 * 총 페이지블록 번호를 반환한다.
+
 	 * @return 총 페이지 블록번호
 	 */
 	public int getTotalPageBlocks() {
@@ -60,25 +61,34 @@ public class Pagination {
 	 * @return 현재 페이지 블록번호
 	 */
 	public int getCurrentPageBlock() {
+
 		return Utils.ceil(pageNo, pagesPerPage);
 	}
 	
 	/**
-	 * 현재 페이지번호에 맞는 페이지 내비게이션의 시작번호로 반환한다.
-	 * @return 페이지 시작번호
-	 */
-	public int getBeginPage() {
-		return (getCurrentPageBlock() - 1) * pagesPerPage + 1;
+	 * 현재 페이지번호에 맞는 페이지 내비게이션의 끝페이지번호를 반환한다.
+
+		return Utils.ceil(pageNo, pagesPerPage);	
+	
 	}
 	
 	/**
-	 * 현재 페이지번호에 맞는 페이지 내비게이션의 끝페이지번호를 반환한다.
+	 * 현재 페이지번호에 맞는 페이지 내비게이션의 시작번호를 반환한다.
+	 * @return 페이지 시작번호
+	 */
+	public int getBeginPage() {
+		return (getCurrentPageBlock() - 1)*pagesPerPage + 1;
+	}
+	
+	/**
+	 * 현재 페이지번호에 맞는 페이지 내비게이션의 끝 페이지번호를 반환한다.
 	 * @return 페이지 끝번호
 	 */
 	public int getEndPage() {
 		return getCurrentPageBlock() == getTotalPageBlocks()
 				? getTotalPages()
 				: getCurrentPageBlock() * pagesPerPage;
+				: getCurrentPageBlock()*pagesPerPage;
 	}
 	
 	/**
@@ -86,6 +96,7 @@ public class Pagination {
 	 * @return 조회범위 시작값
 	 */
 	public int getBegin() {
+
 		return (pageNo -1)*rowsPerPage + 1;
 	}
 	
@@ -99,6 +110,11 @@ public class Pagination {
 	
 	/**
 	 * 현재 페이지가 첫번째 페이지인지 여부를 반환한다,
+		return (pageNo - 1)*rowsPerPage + 1;
+	}
+	
+	/**
+	 * 현재 페이지가 첫번째 페이지인지 여부를 반환한다.
 	 * @return 현재 페이지가 첫번째 페이지이면 true를 반환한다.
 	 */
 	public boolean isFirst() {
@@ -107,13 +123,18 @@ public class Pagination {
 	
 	/**
 	 * 현재 페이지가 마지막 페이지인지 여부를 반환한다.
+
 	 * @return 마지막 페이지이면 true를 반환한다.
+
+	 * @return 마지막 페이지라면 true를 반환한다.
+
 	 */
 	public boolean isLast() {
 		return pageNo >= getTotalPages();
 	}
 	
 	/**
+
 	 * 현재페이지의 이전 페이지번호를 반환한다.
 	 * @return 이전 페이지 번호
 	 */

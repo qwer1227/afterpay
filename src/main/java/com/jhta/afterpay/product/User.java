@@ -1,26 +1,21 @@
-package com.jhta.afterpay.user;
+package com.jhta.afterpay.product;
 
-<<<<<<< HEAD
-=======
-import java.awt.*;
->>>>>>> 74eae2c6a7285b8d5bc9e465096ac4691ffc6eb5
 import java.util.Date;
 
 public class User {
     private int no;
     private String email;
     private String id;
-    private String pwd;
+    private String password;
     private String name;
     private String tel;
     private String isBanned;
-    private String isSignOut;
+    private String isSignout;
     private int point;
     private Date createdDate;
     private String gradeId;
 
-    public User() {
-    }
+    public User() {}
 
     public int getNo() {
         return no;
@@ -46,12 +41,12 @@ public class User {
         this.id = id;
     }
 
-    public String getPwd() {
-        return pwd;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getName() {
@@ -78,12 +73,12 @@ public class User {
         this.isBanned = isBanned;
     }
 
-    public String getIsSignOut() {
-        return isSignOut;
+    public String getIsSignout() {
+        return isSignout;
     }
 
-    public void setIsSignOut(String isSignOut) {
-        this.isSignOut = isSignOut;
+    public void setIsSignout(String isSignout) {
+        this.isSignout = isSignout;
     }
 
     public int getPoint() {
@@ -116,11 +111,11 @@ public class User {
                 "no=" + no +
                 ", email='" + email + '\'' +
                 ", id='" + id + '\'' +
-                ", pwd='" + pwd + '\'' +
+                ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", tel='" + tel + '\'' +
                 ", isBanned='" + isBanned + '\'' +
-                ", isSignOut='" + isSignOut + '\'' +
+                ", isSignout='" + isSignout + '\'' +
                 ", point=" + point +
                 ", createdDate=" + createdDate +
                 ", gradeId='" + gradeId + '\'' +

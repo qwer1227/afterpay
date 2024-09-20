@@ -1,7 +1,7 @@
-package com.jhta.afterpay.user.dao;
+package com.jhta.afterpay.user;
 
-import com.jhta.afterpay.user.vo.Qna;
-import com.jhta.afterpay.user.vo.User;
+import com.jhta.afterpay.user.Qna;
+import com.jhta.afterpay.user.User;
 import com.jhta.afterpay.util.DaoHelper;
 
 import java.util.List;

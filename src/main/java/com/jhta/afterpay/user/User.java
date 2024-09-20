@@ -1,4 +1,4 @@
-package com.jhta.afterpay.user.vo;
+package com.jhta.afterpay.user;
 
 import java.util.Date;
 
@@ -16,6 +16,7 @@ public class User {
     private int totalUsedPoint;
     private Date createdDate;
     private String gradeId;
+
 
     @Override
     public String toString() {
@@ -142,4 +143,5 @@ public class User {
     public void setGradeId(String gradeId) {
         this.gradeId = gradeId;
     }
+
 }

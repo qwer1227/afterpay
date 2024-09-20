@@ -1,7 +1,8 @@
-package com.jhta.afterpay.user.dao;
+package com.jhta.afterpay.user;
 
-import com.jhta.afterpay.user.vo.PointHistory;
-import com.jhta.afterpay.user.vo.User;
+import com.jhta.afterpay.user.User;
+import com.jhta.afterpay.user.PointHistory;
+import com.jhta.afterpay.user.User;
 import com.jhta.afterpay.util.DaoHelper;
 
 import java.sql.SQLException;

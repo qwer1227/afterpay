@@ -30,20 +30,18 @@
             </label>
         </div>
         <div class="mb-3">
-            <ul>
-                <li>
-                    <select>
-                        <option value="010">010</option>
-                        <option value="011">011</option>
-                        <option value="012">012</option>
-                        <option value="013">013</option>
-                    </select>
+            <label>전화번호
+                        <select>
+                            <option value="010">010</option>
+                            <option value="011">011</option>
+                            <option value="012">012</option>
+                            <option value="013">013</option>
+                        </select>
                     -
                     <input name="" type="text">
                     -
                     <input name="" type="text">
-                </li>
-            </ul>
+            </label>
         </div>
         <div class="mb-3">
             <label class="form-label">이메일</label>
@@ -61,22 +59,22 @@
         <div class="mb-3">
             <label class="form-label">정지 여부</label>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="status" value="stopYes">
+                <input class="form-check-input" type="radio" name="banStatus" value="banYes">
                 <label class="form-check-label">Y</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="status" value="stopNo">
+                <input class="form-check-input" type="radio" name="banStatus" value="banNo">
                 <label class="form-check-label">N</label>
             </div>
         </div>
         <div class="mb-3">
             <label class="form-label">탈퇴 여부</label>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="status" value="quitYes">
+                <input class="form-check-input" type="radio" name="signOutStatus" value="signOutYes">
                 <label class="form-check-label">Y</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="status" value="quitNo">
+                <input class="form-check-input" type="radio" name="signOutstatus" value="signOutNo">
                 <label class="form-check-label">N</label>
             </div>
         </div>

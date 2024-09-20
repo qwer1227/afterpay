@@ -31,10 +31,10 @@
             <div class="col-2 pt-5">
                 <!-- 메뉴목록 -->
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="#">관리자메인</a></li>
-                    <li class="list-group-item"><a href="#">회원관리</a></li>
-                    <li class="list-group-item"><a href="#">주문관리</a></li>
-                    <li class="list-group-item"><a href="#">적립금관리</a></li>
+                    <li class="list-group-item"><a href="../home.jsp">관리자메인</a></li>
+                    <li class="list-group-item"><a href="user.jsp">회원관리</a></li>
+                    <li class="list-group-item"><a href="../order/order.jsp">주문관리</a></li>
+                    <li class="list-group-item"><a href="../mileage/mileage.jsp">적립금관리</a></li>
                 </ul>
                 <ul class="list-group">
                     <li class="list-group-item"><a href="#">상품관리</a></li>
@@ -82,7 +82,7 @@
                             <td><%=user.getCreatedDate()%></td>
                             <td><%=user.getGradeId()%></td>
                             <td><%=user.getIsBanned()%></td>
-                            <td><a href="#">상세조회</a></td>
+                            <td><a href="detail.jsp?no=<%=user.getNo() %>">상세조회</a></td>
                         </tr>
                     <%
                         }
@@ -117,8 +117,8 @@
                 %>
                 <!--버튼-->
                 <div class="text-end my-2">
-                    <a href="#" class="btn btn-danger">회원삭제</a>
-                    <a href="#" class="btn btn-success">회원등록</a>
+                    <a href="delete.jsp" class="btn btn-danger">회원삭제</a>
+                    <a href="form.jsp" class="btn btn-success">회원등록</a>
                 </div>
             </div>
         </div>

@@ -2,6 +2,8 @@
 <%@ page import="com.jhta.afterpay.user.UserDao" %>
 <%@ page import="com.jhta.afterpay.user.User" %>
 <%@ page import="org.apache.commons.lang3.StringEscapeUtils" %>
+<%@ page import="com.jhta.afterpay.order.OrderDao" %>
+<%@ page import="com.jhta.afterpay.order.Order" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,13 +28,13 @@
 %>
 <%@ include file="../../common/nav.jsp" %>
 <div class="container mt-4 mb-5">
-    <h1>회원 상세정보</h1>
+    <h1>주문 상세정보</h1>
     <%
-        int userNo = Utils.toInt(request.getParameter("no"));
+        int orderNo = Utils.toInt(request.getParameter("no"));
 
         // 요청파라미터로 전달받은 회원번호에 해당하는 회원 상세정보를 조회한다.
-        UserDao userDao = new UserDao();
-        User user = userDao.getUserByNo(userNo);
+        OrderDao orderDao = new OrderDao();
+        Order order = orderDao.getOrderByNo(orderNo);
     %>
     <table class="table table-bordered">
         <colgroup>
@@ -53,13 +55,13 @@
 
         <tr>
             <th>번호</th>
-            <td><%=user.getNo()%></td>
+            <td><%=order.getNo()%></td>
             <th>주문자명</th>
-            <td><%=StringEscapeUtils.escapeHtml4(user.getName())%></td>
+            <td><%=StringEscapeUtils.escapeHtml4(order.getUser().getName())%></td>
         </tr>
         <tr>
-            <th>아이디</th>
-            <td><%=user.getId()%></td>
+            <th>주문자아이디</th>
+            <td><%=order.getUser().getId()%></td>
             <th>주문일자</th>
             <td><%=user.getPwd()%></td>
         </tr>

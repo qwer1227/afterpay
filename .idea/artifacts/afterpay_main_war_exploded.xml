@@ -1,0 +1,21 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="afterpay.main:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/afterpay_main_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="afterpay.main" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Gradle: com.oracle.database.jdbc:ojdbc11:23.5.0.24.07" />
+          <element id="library" level="project" name="Gradle: commons-codec:commons-codec:1.17.1" />
+          <element id="library" level="project" name="Gradle: org.apache.commons:commons-fileupload2-jakarta-servlet6:2.0.0-M2" />
+          <element id="library" level="project" name="Gradle: org.apache.commons:commons-lang3:3.17.0" />
+          <element id="library" level="project" name="Gradle: org.apache.commons:commons-fileupload2-core:2.0.0-M2" />
+          <element id="library" level="project" name="Gradle: commons-io:commons-io:2.15.1" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="afterpay.main/web/Web Gradle : afterpay-1.0-SNAPSHOT.war" />
+    </root>
+  </artifact>
+</component>

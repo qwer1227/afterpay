@@ -107,9 +107,9 @@ public class UserDao {
                         , U.USER_NO
                         , U.USER_ID
                         , U.USER_NAME
-                        , U.USER_CREATED_DATE
-                        , U.USER_GRADE_ID
-                        , U.USER_ISBANNED
+                        , U.CREATED_DATE
+                        , U.GRADE_ID
+                        , U.ISBANNED
                         FROM USERS U
                     )
                     WHERE ROWNUMBER BETWEEN ? AND ?
@@ -122,7 +122,7 @@ public class UserDao {
             user.setName(rs.getString("user_name"));
             user.setCreatedDate(rs.getDate("created_date"));
             user.setGradeId(rs.getString("grade_id"));
-            user.setIsBanned(rs.getString("isbanned"));
+            user.setIsBanned(rs.getString("ISBANNED"));
             return user;
 
         }, begin, end);

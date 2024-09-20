@@ -7,8 +7,8 @@ public class Stock {
     private int amount;
     private int productNo;
 
-    public Stock() {
-    }
+    public Stock() {}
+
 
     public int getNo() {
         return no;

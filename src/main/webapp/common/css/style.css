@@ -1,3 +1,4 @@
+
 .footer a {
     text-decoration-line:none;
 }
@@ -50,4 +51,9 @@
 }
 .nav-box {
     margin: 10px;
+
+}
+
+h5 {
+    font-size: 1rem;
 }

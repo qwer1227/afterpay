@@ -1,11 +1,9 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <nav class="navbar bg-body-tertiary fixed-top">
   <div class="container-fluid">
-<<<<<<< HEAD
+
     <a class="navbar-brand" href="../index.jsp">AFTER PAY</a>
-=======
-    <a class="navbar-brand" href="/index.jsp">AFTER PAY</a>
->>>>>>> 2f6ce2ea2dbb413c8326faeabcfcb78d6ac1f3b2
+
     <div class="nav-box">
       <button type="button" class="btn btn-outline-secondary">
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-heart fs-5" viewBox="0 0 16 16">
@@ -18,17 +16,17 @@
         </svg>
       </button>
       <button type="button" class="btn btn-outline-secondary">
-<<<<<<< HEAD
         <svg xmlns="http://www.w3.org/2000/svg"fill="currentColor" class="bi bi-person fs-5" viewBox="0 0 16 16">
           <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
         </svg>
-=======
         <a href="/user/mypage.jsp">
           <svg xmlns="http://www.w3.org/2000/svg"fill="currentColor" class="bi bi-person fs-5" viewBox="0 0 16 16">
             <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
           </svg>
         </a>
->>>>>>> 2f6ce2ea2dbb413c8326faeabcfcb78d6ac1f3b2
+        <svg xmlns="http://www.w3.org/2000/svg"fill="currentColor" class="bi bi-person fs-5" viewBox="0 0 16 16">
+          <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+        </svg>
       </button>
     </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
@@ -49,11 +47,12 @@
               남성
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">전체보기</a></li>
-              <li><a class="dropdown-item" href="#">상의</a></li>
-              <li><a class="dropdown-item" href="#">하의</a></li>
-              <li><a class="dropdown-item" href="#">가방</a></li>
-              <li><a class="dropdown-item" href="#">슈즈</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat_no=10">전체보기</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat_no=11">상의</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat_no=12">하의</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat_no=13">슈즈</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat_no=14">가방</a></li>
+
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -61,11 +60,11 @@
               여성
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">전체보기</a></li>
-              <li><a class="dropdown-item" href="#">상의</a></li>
-              <li><a class="dropdown-item" href="#">하의</a></li>
-              <li><a class="dropdown-item" href="#">가방</a></li>
-              <li><a class="dropdown-item" href="#">슈즈</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat_no=20">전체보기</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat_no=21">상의</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat_no=22">하의</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat_no=23">슈즈</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat_no=24">가방</a></li>
             </ul>
           </li>
           <li class="nav-item">

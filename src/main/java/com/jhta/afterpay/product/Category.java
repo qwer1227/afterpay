@@ -4,7 +4,7 @@ public class Category {
     private int no;
     private String name;
     private int parentNo;
-
+    
     public Category() {
     }
 

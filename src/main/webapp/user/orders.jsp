@@ -55,7 +55,7 @@
           <thead>
           <tr>
             <th scope="col">
-              <input id="check-all" type="checkbox" style="zoom:1.8">
+              <input id="check-all" type="checkbox" name="all" onchange="checkAll()" style="zoom:1.8">
             </th>
             <th scope="col"></th>
             <th scope="col"></th>
@@ -70,7 +70,7 @@
           <tbody>
           <tr class="align-middle">
             <th scope="row">
-              <input class="form-check-input" type="checkbox" style="zoom: 1.5" value="check-item">
+              <input class="form-check-input" type="checkbox" name="orderNo" onchange="checkSelect()" style="zoom: 1.5" value="check-item">
             </th>
             <td>
               <img src="/img/main2.png" class="rounded mx-auto d-block" width="170">
@@ -108,11 +108,40 @@
             </li>
           </ul>
         </nav>
-
       </div>
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  function checkAll(){
+    let isChecked = document.querySelector("[name=all]").checked;
+    console.log('체크여부', isChecked);
+
+    let checkBoxes = document.querySelectorAll("[name=orderNo]");
+    checkBoxes.forEach(function (el) {
+      el.checked = isChecked;
+    })
+  }
+
+  function checkSelect() {
+    let checkBoxes = document.querySelectorAll("[name=orderNo]");
+    let checkBoxesLength = checkBoxes.length;
+    let checkedLength = 0;
+
+    for (let el of checkBoxes) {
+      if (el.checked) {
+        checkedLength++;
+      }
+    }
+
+    if (checkBoxesLength == checkedLength){
+      document.querySelector("[name=all]").checked = true;
+    } else {
+      document.querySelector("[name=all]").checked = false;
+    }
+  }
+</script>
 <%@include file="../common/footer.jsp"%>
 </body>
 </html>

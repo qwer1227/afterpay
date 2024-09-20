@@ -36,7 +36,7 @@
       <div class="tab-content" id="nav-tabContent">
         <div class="hstack gap-3">
           <div class="p-2">
-            <input type="checkbox" style="zoom:1.8">
+            <input type="checkbox" type="checkbox" name="all" onchange="checkAll()"style="zoom:1.8">
           </div>
           <div class="p-3">
             <button class="btn btn-lg">
@@ -61,7 +61,7 @@
               </colgroup>
               <tr>
                 <td>
-                  <input class="form-check-input" type="checkbox" style="zoom:1.5" value="check-item">
+                  <input type="checkbox" name="wishNo" onchange="checkSelect()" style="zoom:1.5" value="check-item">
                 </td>
                 <td>
                   <img src="../img/main3.png" class="rounded mx-auto d-block" width="170">
@@ -82,7 +82,7 @@
 
               <tr>
                 <td>
-                  <input class="form-check-input" type="checkbox" style="zoom:1.5" value="check-item">
+                  <input type="checkbox" name="wishNo" onchange="checkSelect()" style="zoom:1.5" value="check-item">
                 </td>
                 <td>
                   <img src="../img/main3.png" class="rounded mx-auto d-block" width="170">
@@ -129,6 +129,36 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  function checkAll(){
+    let isChecked = document.querySelector("[name=all]").checked;
+    console.log('체크여부', isChecked);
+
+    let checkBoxes = document.querySelectorAll("[name=wishNo]");
+    checkBoxes.forEach(function (el) {
+      el.checked = isChecked;
+    })
+  }
+
+  function checkSelect() {
+    let checkBoxes = document.querySelectorAll("[name=wishNo]");
+    let checkBoxesLength = checkBoxes.length;
+    let checkedLength = 0;
+
+    for (let el of checkBoxes) {
+      if (el.checked) {
+        checkedLength++;
+      }
+    }
+
+    if (checkBoxesLength == checkedLength){
+      document.querySelector("[name=all]").checked = true;
+    } else {
+      document.querySelector("[name=all]").checked = false;
+    }
+  }
+</script>
 <%@include file="../common/footer.jsp"%>
 </body>
 </html>

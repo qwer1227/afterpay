@@ -6,24 +6,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" >
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
-    <link href="/common/css/style.css" rel="stylesheet" >
-    <title>AFTER PAY</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
+  <link href="/common/css/style.css" rel="stylesheet" >
+  <title>AFTER PAY</title>
 </head>
 <style>
-    h2{
-        text-align: center;
-    }
-    #check-all{
-        margin-left: 15px;
-    }
-    #check-del{
-        margin-right: 20px;
-    }
+  h2{
+    text-align: center;
+  }
+  #check-all{
+    margin-left: 15px;
+  }
+  #check-del{
+    margin-right: 20px;
+  }
 </style>
 <body>
 <%@include file="../common/nav.jsp"%>
@@ -54,17 +54,6 @@
           <tr class="text-center">
             <th scope="col">
               <input id="check-all" type="checkbox" name="all" onchange="checkAll()" style="zoom:1.8">
-              <script type="text/javascript">
-                function checkAll(){
-                  let isChecked = document.querySelector("[name=all]").checked;
-                  console.log('체크여부', isChecked);
-
-                  let checkBoxes = document.querySelectorAll("[name=reviewNo]");
-                  checkBoxes.forEach(function (el) {
-                      el.checked = isChecked;
-                  })
-                }
-              </script>
             </th>
               <th scope="col">No</th>
               <th scope="col">리뷰 제목</th>
@@ -83,25 +72,6 @@
           <tr class="text-center">
             <th scope="col">
               <input type="checkbox" name="reviewNo" onchange="checkSelect()" style="zoom:1.5">
-              <script type="text/javascript">
-                function checkSelect() {
-                  let checkBoxes = document.querySelectorAll("[name=reviewNo]");
-                  let checkBoxesLength = checkBoxes.length;
-                  let checkedLength = 0;
-
-                  for (let el of checkBoxes) {
-                    if (el.checked) {
-                      checkedLength++;
-                    }
-                  }
-
-                  if (checkBoxesLength == checkedLength){
-                    document.querySelector("[name=all]").checked = true;
-                  } else {
-                    document.querySelector("[name=all]").checked = false;
-                  }
-                }
-              </script>
             </th>
             <th scope="row"><%=reviewCnt++%></th>
             <td class="text-start"><%=review.getTitle()%></td>
@@ -115,25 +85,55 @@
         </table>
 
       <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
+        <ul class="pagination justify-content-center">
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
         </nav>
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  function checkAll(){
+    let isChecked = document.querySelector("[name=all]").checked;
+    console.log('체크여부', isChecked);
+
+    let checkBoxes = document.querySelectorAll("[name=reviewNo]");
+    checkBoxes.forEach(function (el) {
+      el.checked = isChecked;
+    })
+  }
+
+  function checkSelect() {
+    let checkBoxes = document.querySelectorAll("[name=reviewNo]");
+    let checkBoxesLength = checkBoxes.length;
+    let checkedLength = 0;
+
+    for (let el of checkBoxes) {
+      if (el.checked) {
+        checkedLength++;
+      }
+    }
+
+    if (checkBoxesLength == checkedLength){
+      document.querySelector("[name=all]").checked = true;
+    } else {
+      document.querySelector("[name=all]").checked = false;
+    }
+  }
+</script>
 <%@include file="../common/footer.jsp"%>
 </body>
 </html>

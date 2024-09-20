@@ -57,8 +57,6 @@
           <div class="card">
             <div class="card-header">적립금 현황</div>
             <div class="card-body pb-1">
-
-
               <table class="table table-borderless">
                 <colgroup>
                   <col width="10%">
@@ -84,27 +82,25 @@
         </div>
       </div>
 
+      <div class="row mb-3">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">적립금 변경 이력</div>
+            <div class="card-body">
+              <div class="d-flex justify-content-center">
+                <form class="row row-cols-lg-auto g-3 align-items-center mb-3">
+                  <div class="col-12">
+                    <div class="input-group">
+                      <div class="input-group-text">날짜</div>
+                      <input type="month" class="form-control" name="month">
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <button type="button" class="btn btn-primary" onclick="changePointHistory()">조회</button>
+                  </div>
+                </form>
 
-      <!-- 달력이 가운데오도록 차후에 변경 -->
-     <div class="row mb-3">
-       <div class="col-12">
-         <div class="card">
-           <div class="card-header">적립금 변경 이력</div>
-           <div class="card-body">
-             <div class="d-flex justify-content-center">
-               <form class="row row-cols-lg-auto g-3 align-items-center mb-3">
-                 <div class="col-12">
-                   <div class="input-group">
-                     <div class="input-group-text">날짜</div>
-                     <input type="month" class="form-control" name="month">
-                   </div>
-                 </div>
-                 <div class="col-12">
-                   <button type="button" class="btn btn-primary" onclick="changePointHistory()">조회</button>
-                 </div>
-               </form>
-
-             </div>
+              </div>
             <table  class="table ">
               <tr>
                 <th>적립일</th>

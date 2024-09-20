@@ -1,6 +1,6 @@
-<%@ page import="product.WishDao" %>
+<%@ page import="com.jhta.afterpay.product.WishDao" %>
 <%@ page import="java.util.List" %>
-<%@ page import="product.Wish" %>
+<%@ page import="com.jhta.afterpay.product.Wish" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,12 +56,10 @@
         <%
           for (Wish wish : wishes) {
         %>
-          <td><a href="../product/detail.jsp?productNo=<%=wish.getProduct().getNo()%>"><%=wish.getProduct().getName() %></a></td>
+          <td><a href="../product/detail.jsp?pno=<%=wish.getProduct().getNo()%>"><%=wish.getProduct().getName() %></a></td>
           <td><%=wish.getProduct().getPrice() %></td>
           <td class="text-end">
-            <a href="delete-wish.jsp?wishNo=<%=wish.getNo() %>" class="btn btn-outline-danger btn-sm">
-              삭제
-            </a>
+            <a href="delete-wish.jsp?wno=<%=wish.getNo() %>" class="btn btn-outline-danger btn-sm">삭제</a>
           </td>
         <%
           }

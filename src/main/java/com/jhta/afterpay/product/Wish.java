@@ -1,4 +1,4 @@
-package product;
+package com.jhta.afterpay.product;
 
 public class Wish {
     private int no;

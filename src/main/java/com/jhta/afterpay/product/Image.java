@@ -1,10 +1,10 @@
-package product;
+package com.jhta.afterpay.product;
 
 public class Image {
     private int no;
     private String name;
     private String thumb;
-    private int productNo;
+    private Product product;
 
     public int getNo() {
         return no;
@@ -30,12 +30,12 @@ public class Image {
         this.thumb = thumb;
     }
 
-    public int getProductNo() {
-        return productNo;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductNo(int productNo) {
-        this.productNo = productNo;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     @Override
@@ -44,7 +44,7 @@ public class Image {
                 "no=" + no +
                 ", name='" + name + '\'' +
                 ", thumb='" + thumb + '\'' +
-                ", productNo=" + productNo +
+                ", product=" + product +
                 '}';
     }
 }

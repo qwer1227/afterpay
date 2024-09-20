@@ -1,4 +1,4 @@
-package product;
+package com.jhta.afterpay.product;
 
 import com.jhta.afterpay.util.DaoHelper;
 
@@ -99,6 +99,33 @@ public class ProductDao {
             return review;
         }, productNo);
     }
+
+    /**
+     * 상품 번호로 상품의 모든 이미지를 반환한다.
+     * @param productNo 상품 번호
+     * @return 해당 상품의 모든 이미지
+     */
+    public List<Image> getAllImagesByNo(int productNo) {
+        String sql = """
+            select *
+            from product_imgs
+            where product_no = ?    
+        """;
+
+        return DaoHelper.selectList(sql, rs -> {
+            Image image = new Image();
+            image.setNo(rs.getInt("img_no"));
+            image.setName(rs.getString("img_name"));
+            image.setThumb(rs.getString("isthumb"));
+
+            Product product = new Product();
+            product.setNo(rs.getInt("product_no"));
+            image.setProduct(product);
+
+            return image;
+        }, productNo);
+    }
+
     public int getTotalRows(int catNo) {
         String sql = """
                 SELECT COUNT(*)

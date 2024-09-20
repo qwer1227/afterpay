@@ -1,4 +1,4 @@
-package product;
+package com.jhta.afterpay.product;
 
 import java.util.Date;
 

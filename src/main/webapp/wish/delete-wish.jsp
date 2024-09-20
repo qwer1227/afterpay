@@ -1,4 +1,4 @@
-<%@ page import="product.WishDao" %>
+<%@ page import="com.jhta.afterpay.product.WishDao" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <%--
   요청 파라미터 정보

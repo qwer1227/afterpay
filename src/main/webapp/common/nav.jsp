@@ -37,11 +37,11 @@
               남성
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">전체보기</a></li>
-              <li><a class="dropdown-item" href="#">상의</a></li>
-              <li><a class="dropdown-item" href="#">하의</a></li>
-              <li><a class="dropdown-item" href="#">가방</a></li>
-              <li><a class="dropdown-item" href="#">슈즈</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat_no=10">전체보기</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat_no=11">상의</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat_no=12">하의</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat_no=13">슈즈</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat_no=14">가방</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -49,11 +49,11 @@
               여성
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">전체보기</a></li>
-              <li><a class="dropdown-item" href="#">상의</a></li>
-              <li><a class="dropdown-item" href="#">하의</a></li>
-              <li><a class="dropdown-item" href="#">가방</a></li>
-              <li><a class="dropdown-item" href="#">슈즈</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat_no=20">전체보기</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat_no=21">상의</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat_no=22">하의</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat_no=23">슈즈</a></li>
+              <li><a class="dropdown-item" href="/product/list.jsp?cat_no=24">가방</a></li>
             </ul>
           </li>
           <li class="nav-item">

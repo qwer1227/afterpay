@@ -1,4 +1,4 @@
-package product;
+package com.jhta.afterpay.product;
 
 import com.jhta.afterpay.util.DaoHelper;
 

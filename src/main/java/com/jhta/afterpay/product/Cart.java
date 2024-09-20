@@ -1,4 +1,4 @@
-package product;
+package com.jhta.afterpay.product;
 
 public class Cart {
     private int no;

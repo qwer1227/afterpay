@@ -48,6 +48,14 @@ public class Product {
         this.content = content;
     }
 
+    /**
+     * 텍스트의 줄바꿈문자를 br 태그로 변환해서 반환하는 메소드다.
+     * @return br태그가 포함된 문자열
+     */
+    public String getHtmlContent() {
+        return content.replace(System.lineSeparator(), "<br>");
+    }
+
     public int getViewCount() {
         return viewCount;
     }

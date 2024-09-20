@@ -1,12 +1,14 @@
 package com.jhta.afterpay.product;
 
 public class Stock {
+
     private int no;
     private String size;
     private int amount;
     private int productNo;
 
     public Stock() {}
+
 
     public int getNo() {
         return no;

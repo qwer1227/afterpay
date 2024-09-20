@@ -1,6 +1,5 @@
 package com.jhta.afterpay.user;
 
-src/main/java/com/jhta/afterpay/user/User.java
 import java.awt.*;
 
 import java.util.Date;
@@ -146,4 +145,8 @@ public class User {
     public void setGradeId(String gradeId) {
         this.gradeId = gradeId;
     }
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 }

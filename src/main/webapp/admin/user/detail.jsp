@@ -77,7 +77,11 @@
         </tr>
         <tr>
             <th>적립금</th>
+<<<<<<< Updated upstream
             <td><%=user.getPoint()%> 원</td>
+=======
+            <td><%=user.getTotalPoint()%> 원</td>
+>>>>>>> Stashed changes
             <th></th>
             <td></td>
         </tr>
@@ -91,8 +95,13 @@
     </table>
     <!--버튼-->
     <div class="text-end my-2">
+<<<<<<< Updated upstream
         <a href="delete.jsp" class="btn btn-danger">회원삭제</a>
         <a href="modify-form.jsp" class="btn btn-primary">회원수정</a>
+=======
+        <a href="#" class="btn btn-danger">회원삭제</a>
+        <a href="#" class="btn btn-primary">회원수정</a>
+>>>>>>> Stashed changes
         <a href="user.jsp" class="btn btn-success">회원목록</a>
     </div>
 </div>

@@ -1,6 +1,6 @@
-<%@ page import="com.jhta.afterpay.user.vo.User" %>
+<%@ page import="com.jhta.afterpay.user.User" %>
 <%@ page import="com.jhta.afterpay.util.DaoHelper" %>
-<%@ page import="com.jhta.afterpay.user.dao.UserDao" %>
+<%@ page import="com.jhta.afterpay.user.UserDao" %>
 <%@ page import="org.apache.commons.codec.digest.DigestUtils" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <%--

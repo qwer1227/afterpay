@@ -134,34 +134,34 @@ public class OrderDao {
         }, userNo, begin, end);
     }
 
-    public Order getMostLatelyOrderNoByUserNo (int userNo) throws SQLException {
-     String sql = """
-             SELECT ORDER_NO
-              FROM (
-                      SELECT ORDER_NO
-                      FROM ORDERS
-                      WHERE USER_NO = ?
-                      ORDER BY ORDER_DATE DESC
-              )
-              WHERE ROWNUM = 1
-             """;
-        Connection con = DaoHelper.getConnection();
-        PreparedStatement pstmt = con.prepareStatement(sql);
-        pstmt.setInt(1, userNo);
-        ResultSet rs =  pstmt.executeQuery();
-        Order order = null;
-
-        while(rs.next()){
-            order = new Order();
-            order.setNo(rs.getInt("ORDER_NO"));
-        }
-
-        rs.close();
-        pstmt.close();
-        con.close();
-
-        return order;
-    }
+//    public Order getMostLatelyOrderNoByUserNo (int userNo) throws SQLException {
+//     String sql = """
+//             SELECT ORDER_NO
+//              FROM (
+//                      SELECT ORDER_NO
+//                      FROM ORDERS
+//                      WHERE USER_NO = ?
+//                      ORDER BY ORDER_DATE DESC
+//              )
+//              WHERE ROWNUM = 1
+//             """;
+//        Connection con = DaoHelper.getConnection();
+//        PreparedStatement pstmt = con.prepareStatement(sql);
+//        pstmt.setInt(1, userNo);
+//        ResultSet rs =  pstmt.executeQuery();
+//        Order order = null;
+//
+//        while(rs.next()){
+//            order = new Order();
+//            order.setNo(rs.getInt("ORDER_NO"));
+//        }
+//
+//        rs.close();
+//        pstmt.close();
+//        con.close();
+//
+//        return order;
+//    }
 }
     /**
      * 전체 주문 수를 조회해서 반환한다.

@@ -56,6 +56,8 @@ public class Wish {
                 "no=" + no +
                 ", productNo=" + productNo +
                 ", userNo=" + userNo +
+                ", product=" + product +
+                ", user=" + user +
                 '}';
 
                "no=" + no +

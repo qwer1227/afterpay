@@ -6,7 +6,11 @@ public class Image {
     private String thumb;
     private int productNo;
     private Product product;
+<<<<<<< Updated upstream
     
+=======
+
+>>>>>>> Stashed changes
     public Image() {}
 
 

@@ -11,7 +11,11 @@ public class Review {
     private Date updatedDate; // 리뷰 수정일
     private String isDeleted; // 리뷰 삭제여부
     private User userNo; // 작성한 유저 번호
+<<<<<<< Updated upstream
 //    private Product productNo; // 작성한 상품 번호
+=======
+    private int productNo; // 작성한 상품 번호
+>>>>>>> Stashed changes
 
     public String getTitle() {
         return title;
@@ -79,6 +83,7 @@ public class Review {
         this.userNo = userNo;
     }
 
+<<<<<<< Updated upstream
 //    public Product getProductNo() {
 //        return productNo;
 //    }
@@ -86,6 +91,15 @@ public class Review {
 //    public void setProductNo(Product productNo) {
 //        this.productNo = productNo;
 //    }
+=======
+    public int getProductNo() {
+        return productNo;
+    }
+
+    public void setProductNo(int productNo) {
+        this.productNo = productNo;
+    }
+>>>>>>> Stashed changes
 
     @Override
     public String toString() {

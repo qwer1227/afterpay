@@ -48,7 +48,7 @@
                     int pageNo = Utils.toInt(request.getParameter("page"), 1);
 
                     // 총 데이터 갯수를 조회한다.
-                    int totalRows = productDao.getTotalRows();
+                    int totalRows = productDao.getAllTotalRows();
 
                     // Pagination 객체를 생성한다.
                     Pagination pagination = new Pagination(pageNo, totalRows);

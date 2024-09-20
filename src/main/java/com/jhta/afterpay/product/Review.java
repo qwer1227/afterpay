@@ -12,7 +12,11 @@ public class Review {
     private User user;
     private Product product;
     private String title;
+<<<<<<< Updated upstream
     
+=======
+
+>>>>>>> Stashed changes
     public Review() {}
 
     public int getNo() {
@@ -91,6 +95,7 @@ public class Review {
     public String
     toString() {
         return "Review{" +
+<<<<<<< Updated upstream
                "no=" + no +
                ", content='" + content + '\'' +
                ", rating=" + rating +
@@ -101,5 +106,17 @@ public class Review {
                ", product=" + product +
                ", title='" + title + '\'' +
                '}';
+=======
+                "no=" + no +
+                ", content='" + content + '\'' +
+                ", rating=" + rating +
+                ", createdDate=" + createdDate +
+                ", updatedDate=" + updatedDate +
+                ", isDeleted='" + isDeleted + '\'' +
+                ", user=" + user +
+                ", product=" + product +
+                ", title='" + title + '\'' +
+                '}';
+>>>>>>> Stashed changes
     }
 }

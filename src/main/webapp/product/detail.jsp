@@ -35,6 +35,10 @@
    //int catNo = Integer.parseInt(request.getParameter("cat_no")); // 상품 카테고리 번호
    int productNo = Integer.parseInt(request.getParameter("pno")); // 상품 번호
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
   // 2. 상품의 정보 가져오기
   // 상품 번호로 상품(productNo=?)의 모든 정보 반환
   ProductDao productDao = new ProductDao();
@@ -91,7 +95,11 @@
               </table>
             </div>
             <div class="card-footer text-end">
+<<<<<<< Updated upstream
               <a href="../wish/wish.jsp" class="btn btn-outline-primary btn-sm">위시 리스트 추가</a>
+=======
+              <a href="../wish/list.jsp" class="btn btn-outline-primary btn-sm">위시 리스트 추가</a>
+>>>>>>> Stashed changes
             </div>
           </div>
 

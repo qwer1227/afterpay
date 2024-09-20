@@ -31,14 +31,25 @@
             <div class="col-2 pt-5">
                 <!-- 메뉴목록 -->
                 <ul class="list-group">
+<<<<<<< Updated upstream
                     <li class="list-group-item"><a href="../home.jsp">관리자메인</a></li>
                     <li class="list-group-item"><a href="user.jsp">회원관리</a></li>
                     <li class="list-group-item"><a href="../order/order.jsp">주문관리</a></li>
                     <li class="list-group-item"><a href="../mileage/mileage.jsp">적립금관리</a></li>
+=======
+                    <li class="list-group-item"><a href="#">관리자메인</a></li>
+                    <li class="list-group-item"><a href="#">회원관리</a></li>
+                    <li class="list-group-item"><a href="#">주문관리</a></li>
+                    <li class="list-group-item"><a href="#">적립금관리</a></li>
+>>>>>>> Stashed changes
                 </ul>
                 <ul class="list-group">
                     <li class="list-group-item"><a href="#">상품관리</a></li>
                     <li class="list-group-item"><a href="#">문의관리</a></li>
+<<<<<<< Updated upstream
+=======
+                    <li class="list-group-item"><a href="../product/stock.jsp">상품재고현황</a></li>
+>>>>>>> Stashed changes
                     <li class="list-group-item"><a href="#">정산관리</a></li>
                 </ul>
             </div>
@@ -82,7 +93,11 @@
                             <td><%=user.getCreatedDate()%></td>
                             <td><%=user.getGradeId()%></td>
                             <td><%=user.getIsBanned()%></td>
+<<<<<<< Updated upstream
                             <td><a href="detail.jsp?no=<%=user.getNo() %>">상세조회</a></td>
+=======
+                            <td><a href="detail.jsp?no=<%=user.getNo()%>">상세조회</a></td>
+>>>>>>> Stashed changes
                         </tr>
                     <%
                         }
@@ -117,7 +132,11 @@
                 %>
                 <!--버튼-->
                 <div class="text-end my-2">
+<<<<<<< Updated upstream
                     <a href="delete.jsp" class="btn btn-danger">회원삭제</a>
+=======
+                    <a href="#" class="btn btn-danger">회원삭제</a>
+>>>>>>> Stashed changes
                     <a href="form.jsp" class="btn btn-success">회원등록</a>
                 </div>
             </div>

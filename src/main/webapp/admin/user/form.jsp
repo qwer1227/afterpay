@@ -30,7 +30,11 @@
             </label>
         </div>
         <div class="mb-3">
+<<<<<<< Updated upstream
             <label>전화번호
+=======
+                    <label>전화번호
+>>>>>>> Stashed changes
                         <select>
                             <option value="010">010</option>
                             <option value="011">011</option>
@@ -41,7 +45,11 @@
                     <input name="" type="text">
                     -
                     <input name="" type="text">
+<<<<<<< Updated upstream
             </label>
+=======
+                </label>
+>>>>>>> Stashed changes
         </div>
         <div class="mb-3">
             <label class="form-label">이메일</label>
@@ -70,11 +78,19 @@
         <div class="mb-3">
             <label class="form-label">탈퇴 여부</label>
             <div class="form-check form-check-inline">
+<<<<<<< Updated upstream
                 <input class="form-check-input" type="radio" name="signOutStatus" value="signOutYes">
                 <label class="form-check-label">Y</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="signOutstatus" value="signOutNo">
+=======
+                <input class="form-check-input" type="radio" name="signOutStatus" value="signOutSYes">
+                <label class="form-check-label">Y</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="signOutStatus" value="signOutSNo">
+>>>>>>> Stashed changes
                 <label class="form-check-label">N</label>
             </div>
         </div>

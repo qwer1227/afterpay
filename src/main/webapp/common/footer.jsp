@@ -41,8 +41,15 @@
   </ul>
 </div>
 <div class="footer-home py-3" >
+<<<<<<< Updated upstream
   <a class="navbar-brand" href="index.jsp">AFTER PAY</a>
 </div>
   <a class="navbar-brand" href="../index.jsp">AFTER PAY</a>
 </div>
 
+=======
+  <a class="navbar-brand" href="../index.jsp">AFTER PAY</a>
+</div>
+
+
+>>>>>>> Stashed changes

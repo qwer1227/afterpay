@@ -2,7 +2,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<<<<<<< Updated upstream
   <title>AfterPay</title>
+=======
+>>>>>>> Stashed changes
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
@@ -64,7 +67,11 @@
   <div class="sub-container">
     <div class="row">
       <div class="col" style="justify-content: center">
+<<<<<<< Updated upstream
         <img src="../img/main2.png" alt="" style="width: 250px; height:350px;"/>
+=======
+        <img src="../img/main5.png" alt="" style="width: 250px; height:350px;"/>
+>>>>>>> Stashed changes
         <a href="/product/list.jsp?cat_no=11&page=1">남성 상의</a>
       </div>
       <div class="col" style="justify-content: center">

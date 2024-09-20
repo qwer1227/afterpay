@@ -16,10 +16,19 @@
   // int userNo = (Integer) session.getAttribute("USERNO");
   int userNo = 8;
 
+<<<<<<< Updated upstream
   // 3. 위시리스트의 상품 삭제하기
 //  WishDao wishDao = new WishDao();
 //  wishDao.deleteWishByNo(wishNo);
 
   // 4. 위시리스트 상품 삭제 후, 위시리스트 목록으로 이동하는 URL을 요청한다.
     response.sendRedirect("wish.jsp?userNo=" + userNo);
+=======
+//  3. 위시리스트의 상품 삭제하기
+  WishDao wishDao = new WishDao();
+  wishDao.deleteWishByNo(wishNo);
+
+  // 4. 위시리스트 상품 삭제 후, 위시리스트 목록으로 이동하는 URL을 요청한다.
+    response.sendRedirect("list.jsp?userNo=" + userNo);
+>>>>>>> Stashed changes
 %>

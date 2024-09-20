@@ -41,10 +41,6 @@
                 </ul>
             </div>
             <div class="col-10 my-1">
-                <%
-                    StockDao stockDao = new StockDao();
-                    List<Stock> stockList = stockDao.getAllStocks();
-                %>
                 <table class="table">
                     <thead>
                         <tr class="table-dark">
@@ -57,20 +53,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <%
-                        for(Stock stock : stockList) {
-                    %>
+
                         <tr>
-                            <td><%=stock.getNo() %></td>
+                            <td></td>
                             <td>어포지션 하프 패널 풀오버 후디 베이지</td>
-                            <td><%=stock.getAmount()%></td>
+                            <td></td>
                             <td>5 개</td>
                             <td>20 개</td>
                             <td>55 개</td>
                         </tr>
-                    <%
-                        }
-                    %>
+
                     </tbody>
                 </table>
             </div>

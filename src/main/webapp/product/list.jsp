@@ -52,28 +52,39 @@
     <colgroup>
       <col width="10%">
       <col width="*%">
+<<<<<<< Updated upstream
       <col width="15%">
+=======
+>>>>>>> Stashed changes
       <col width="10%">
     </colgroup>
     <thead>
+<<<<<<< Updated upstream
       <tr>
         <th>카테고리</th>
         <th>상품명</th>
         <th>가격</th>
         <th>상태</th>
       </tr>
+=======
+    <tr>
+      <th>카테고리</th>
+      <th>상품명</th>
+      <th>가격</th>
+      <th>상태</th>
+    </tr>
+>>>>>>> Stashed changes
     </thead>
     <tbody>
     <%
       for (Product product : products ) {
     %>
-      <tr>
-        <td></td>
-        <td><%=product.getCategory().getName()%></td>
-        <td><a href="detail.jsp?pno=<%=product.getNo()%>"><%=product.getName()%></a></td>
-        <td><%=Utils.toCurrency(product.getPrice())%></td>
-        <td><%=product.getStatus()%></td>
-      </tr>
+    <tr>
+      <td><%=product.getCategory().getName()%></td>
+      <td><a href="detail.jsp?pno=<%=product.getNo()%>"><%=product.getName()%></a></td>
+      <td><%=Utils.toCurrency(product.getPrice())%></td>
+      <td><%=product.getStatus()%></td>
+    </tr>
     <%
       }
     %>
@@ -108,3 +119,4 @@
 <%@ include file="../common/footer.jsp" %>
 </body>
 </html>
+

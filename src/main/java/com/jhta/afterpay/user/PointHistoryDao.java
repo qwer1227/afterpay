@@ -1,6 +1,9 @@
 package com.jhta.afterpay.user;
 
+<<<<<<< Updated upstream
 import com.jhta.afterpay.user.PointHistory;
+=======
+>>>>>>> Stashed changes
 import com.jhta.afterpay.util.DaoHelper;
 
 import java.util.List;

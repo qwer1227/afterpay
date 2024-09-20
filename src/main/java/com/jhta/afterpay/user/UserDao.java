@@ -6,21 +6,36 @@ import com.jhta.afterpay.user.User;
 import com.jhta.afterpay.util.DaoHelper;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class UserDao {
 
-    public void InsertUser(User user) throws SQLException {
+    /**
+     * 전체 회원 수를 조회해서 반환한다.
+     * @return 회원 수
+     */
+    public int getTotalRows() {
+        String sql = """
+                select count(*)
+                from users
+                """;
+
+        return DaoHelper.selectOneInt(sql);
+    }
+
+
+    public void InsertUser(User user) {
         String sql = """
                 insert into users
-                (user_no,user_email,user_id,user_password,user_name,user_tel)
+                (user_no,user_name,user_id,user_password,user_tel,user_email)
                 values
                 (user_no_seq.nextval,?,?,?,?,?)
                 """;
 
-        DaoHelper.insert(sql, user.getEmail(), user.getId(), user.getPwd(), user.getName(), user.getTel());
+        DaoHelper.insert(sql,user.getName(),user.getId(),user.getPwd(),user.getTel(),user.getEmail());
     }
 
-    public User getUserById(String id) throws SQLException {
+    public User getUserById(String id) {
         String sql = """
                 select *
                 from users
@@ -81,8 +96,8 @@ public class UserDao {
                 WHERE USER_NO = ?
                 """;
         DaoHelper.update(sql, user.getEmail()
-                            , user.getTel()
-                            , user.getNo());
+                , user.getTel()
+                , user.getNo());
     }
 
     public int getPointStatusByUserNo(int userNo) {
@@ -93,4 +108,40 @@ public class UserDao {
                 """;
         return DaoHelper.selectOneInt(sql, userNo);
     }
+
+    /**
+     * 전체 회원 조회
+     * @param begin 첫 페이지
+     * @param end   끝 페이지
+     * @return
+     */
+    public List<User> getAllUsers(int begin, int end) {
+        String sql = """
+                SELECT *
+                FROM(
+                    SELECT ROW_NUMBER() OVER (ORDER BY USER_NO DESC) ROWNUMBER
+                        , U.USER_NO
+                        , U.USER_ID
+                        , U.USER_NAME
+                        , U.CREATED_DATE
+                        , U.GRADE_ID
+                        , U.ISBANNED
+                        FROM USERS U
+                    )
+                    WHERE ROWNUMBER BETWEEN ? AND ?
+                """;
+
+        return DaoHelper.selectList(sql, rs -> {
+            User user = new User();
+            user.setNo(rs.getInt("user_no"));
+            user.setId(rs.getString("user_id"));
+            user.setName(rs.getString("user_name"));
+            user.setCreatedDate(rs.getDate("created_date"));
+            user.setGradeId(rs.getString("grade_id"));
+            user.setIsBanned(rs.getString("ISBANNED"));
+            return user;
+
+        }, begin, end);
+    }
 }
+

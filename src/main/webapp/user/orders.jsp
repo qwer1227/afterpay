@@ -1,9 +1,9 @@
-<%@ page import="com.jhta.afterpay.user.vo.Order" %>
-<%@ page import="com.jhta.afterpay.user.dao.OrderDao" %>
+<%@ page import="com.jhta.afterpay.user.Order" %>
+<%@ page import="com.jhta.afterpay.user.OrderDao" %>
 <%@ page import="com.jhta.afterpay.util.Utils" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.jhta.afterpay.user.dao.ProductDao" %>
-<%@ page import="com.jhta.afterpay.user.vo.Product" %>
+<%@ page import="com.jhta.afterpay.user.ProductDao" %>
+<%@ page import="com.jhta.afterpay.user.Product" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
@@ -59,11 +59,7 @@
             </th>
             <th scope="col"></th>
             <th scope="col"></th>
-            <th scope="col" class="text-end">
-              <button id="check-del" class="btn btn-lg">
-                <i class="bi bi-trash"></i>
-              </button>
-            </th>
+            <th scope="col"></th>
           </tr>
           </thead>
 

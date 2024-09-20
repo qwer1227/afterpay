@@ -79,4 +79,3 @@ public class Delivery {
     public void setRecipient(String recipient) {
         this.recipient = recipient;
     }
-}

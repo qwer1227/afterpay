@@ -12,6 +12,7 @@ public class Product {
     private String status;
     private int totalRating;
     private Category category;
+
     private String defaultImage;
 
     public Product() {}
@@ -120,3 +121,4 @@ public class Product {
                 '}';
     }
 }
+

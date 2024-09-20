@@ -7,4 +7,5 @@ public class Qna {
     private String title;
     private Date createdDate;
     private Date repliedDate;
+
 }

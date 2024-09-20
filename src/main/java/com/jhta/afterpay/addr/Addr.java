@@ -84,4 +84,4 @@ public class Addr {
     public void setUser(User user) {
         this.user = user;
     }
-}
+

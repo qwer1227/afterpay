@@ -14,4 +14,4 @@ public class Stock {
     public void setNo(int no) {
         this.no = no;
     }
-}
+

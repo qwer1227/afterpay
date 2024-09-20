@@ -1,5 +1,6 @@
 package com.jhta.afterpay.product;
 
+import java.awt.*;
 import java.util.Date;
 
 public class User {
@@ -15,7 +16,8 @@ public class User {
     private Date createdDate;
     private String gradeId;
 
-    public User() {}
+    public User() {
+    }
 
     public int getNo() {
         return no;
@@ -111,11 +113,11 @@ public class User {
                 "no=" + no +
                 ", email='" + email + '\'' +
                 ", id='" + id + '\'' +
-                ", password='" + password + '\'' +
+                ", pwd='" + pwd + '\'' +
                 ", name='" + name + '\'' +
                 ", tel='" + tel + '\'' +
                 ", isBanned='" + isBanned + '\'' +
-                ", isSignout='" + isSignout + '\'' +
+                ", isSignOut='" + isSignOut + '\'' +
                 ", point=" + point +
                 ", createdDate=" + createdDate +
                 ", gradeId='" + gradeId + '\'' +

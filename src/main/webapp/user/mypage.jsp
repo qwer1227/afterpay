@@ -80,7 +80,7 @@
   <div class="row mb-3 ">
     <div class="col-12">
       <div class="btn-group btn-group-lg w-100" role="group" aria-label="Basic outlined example">
-        <a type="button" class="btn btn-outline-secondary" href="point.jsp">
+        <a type="button" class="btn btn-outline-secondary" href="point-history.jsp">
           <strong>적립금</strong><br/>
           <%=pointStatus%> 원
         </a>

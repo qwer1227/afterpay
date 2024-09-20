@@ -12,7 +12,7 @@ public class Product {
     private String status;
     private int totalRating;
     private Category category;
-    private String defaultImage
+    private String defaultImage;
 
     public Product() {}
 
@@ -46,6 +46,14 @@ public class Product {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    /**
+     * 텍스트의 줄바꿈문자를 br 태그로 변환해서 반환하는 메소드다.
+     * @return br태그가 포함된 문자열
+     */
+    public String getHtmlContent() {
+        return content.replace(System.lineSeparator(), "<br>");
     }
 
     public int getViewCount() {
@@ -108,7 +116,7 @@ public class Product {
                 ", status='" + status + '\'' +
                 ", totalRating=" + totalRating +
                 ", category=" + category +
-                ", image=" + image +
+                ", defaultImage='" + defaultImage + '\'' +
                 '}';
     }
 }

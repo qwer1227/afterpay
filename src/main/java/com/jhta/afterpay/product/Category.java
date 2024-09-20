@@ -1,12 +1,16 @@
 package com.jhta.afterpay.product;
 
-
 public class Category {
     private int no;
     private String name;
     private int parentNo;
+    
+    public Category() {
+    }
 
-    public Category() {}
+    public Category(int no) {
+        this.no = no;
+    }
 
     public int getNo() {
         return no;

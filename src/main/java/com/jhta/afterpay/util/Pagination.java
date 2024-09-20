@@ -5,6 +5,10 @@ public class Pagination {
 	private final int pagesPerPage;
 	private final int pageNo;
 	private final int totalRows;
+	private int totalPages;
+	private int total;
+	private int totalBlocks;
+
 
 	public Pagination(int pageNo, int totalRows) {
 		this.rowsPerPage = 10;

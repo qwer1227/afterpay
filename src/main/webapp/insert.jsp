@@ -38,10 +38,10 @@
 
 <%
     //요청파라미터값 저장
-    String id = request.getParameter("id");
-    String name = request.getParameter("name");
-    String pwd = request.getParameter("pwd");
-    String email = request.getParameter("email");
+    String id = request.getParameter("user_id");
+    String name = request.getParameter("user_name");
+    String pwd = request.getParameter("user_pw");
+    String email = request.getParameter("user_email");
     String phone = request.getParameter("phone");
 
     //이미 생성된 아이디로 생성을 막기위해

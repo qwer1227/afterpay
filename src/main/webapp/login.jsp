@@ -29,6 +29,7 @@
     session.setAttribute("USERNO", user.getNo());
     session.setAttribute("USERID", user.getId());
     session.setAttribute("USERNAME", user.getName());
+    session.setAttribute("GRADE",user.getGradeId());
 
     response.sendRedirect("/index.jsp");
 

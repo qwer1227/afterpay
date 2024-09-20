@@ -26,6 +26,10 @@
   }
 </style>
 <body>
+<%
+   String userId = (String) session.getAttribute("USERID");
+   String grade = (String) session.getAttribute("GRADE");
+%>
 <%@include file="../common/nav.jsp"%>
 <%
   /*

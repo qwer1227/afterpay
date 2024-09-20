@@ -1,3 +1,4 @@
+
 .footer a {
     text-decoration-line:none;
 }
@@ -50,4 +51,34 @@
 }
 .nav-box {
     margin: 10px;
+}
+
+h5 {
+    font-size: 1rem;
+}
+.main-container {
+    width:100%;
+    margin:10px auto;
+    position: relative;
+}
+.main-container img {
+    width: 100%;
+    height: 20%;
+    vertical-align: middle;
+}
+.main-text {
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    text-align: center;
+    color: beige;
+}
+.sub-container {
+    height: 450px;
+}
+.sub-container a {
+    text-align: center;
 }

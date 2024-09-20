@@ -57,9 +57,6 @@
 =======
 >>>>>>> 74eae2c6a7285b8d5bc9e465096ac4691ffc6eb5
 <body class="d-flex flex-column min-vh-100 ">
-<%
-  String menu = "홈";
-%>
 <%@ include file="common/nav.jsp" %>
 <div class="main-container">
   <div>

@@ -312,5 +312,5 @@ public class DaoHelper {
 				pstmt.setDate(index++, v);
 			}
 		}
-	}	
+	}
 }

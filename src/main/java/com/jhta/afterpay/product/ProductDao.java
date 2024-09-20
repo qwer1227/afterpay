@@ -26,21 +26,36 @@ public class ProductDao {
                 """;
 
         return DaoHelper.selectOne(sql, rs -> {
+            Product product = new Product();
+            product.setNo(rs.getInt("PRODUCT_NO"));
+            product.setName(rs.getString("PRODUCT_NAME"));
+            product.setPrice(rs.getInt("PRODUCT_PRICE"));
+            product.setStatus(rs.getString("PRODUCT_STATUS"));
+            product.setCreatedDate(rs.getDate("PRODUCT_CREATED_DATE"));
+            product.setContent(rs.getString("PRODUCT_CONTENT"));
+            product.setTotalRating(rs.getInt("PRODUCT_TOTAL_RATING"));
+            product.setViewCount(rs.getInt("PRODUCT_VIEW_CNT"));
 
+            Category category = new Category();
+            category.setName(rs.getString("CAT_NAME"));
+            product.setCategory(category);
 
-    public int getTotalRows(int catNo) {
-        String sql = """
+            return product;
+        }, productNo);
+    }
+        public int getTotalRows(int catNo) {
+            String sql = """
                 SELECT COUNT(*)
                 FROM PRODUCTS
                 WHERE CAT_NO IN (SELECT CAT_NO
                                  FROM PRODUCT_CATEGORIES
                                  WHERE PARENT_CAT_NO = ?)
                 """;
-        return DaoHelper.selectOneInt(sql, catNo);
-    }
+            return DaoHelper.selectOneInt(sql, catNo);
+        }
 
-    public List<Product> getProducts(int catNo, int begin, int end) {
-        String sql = """
+        public List<Product> getProducts(int catNo, int begin, int end) {
+            String sql = """
             SELECT *
             FROM (
                   SELECT ROW_NUMBER() OVER (ORDER BY PRODUCT_NO asc) RN
@@ -59,25 +74,21 @@ public class ProductDao {
             WHERE RN BETWEEN ? AND ?
             """;
 
-        return DaoHelper.selectList(sql, rs -> {
-            Product product = new Product();
-            product.setNo(rs.getInt("PRODUCT_NO"));
-            product.setName(rs.getString("PRODUCT_NAME"));
-            product.setPrice(rs.getInt("PRODUCT_PRICE"));
-            product.setStatus(rs.getString("PRODUCT_STATUS"));
-            product.setCreatedDate(rs.getDate("PRODUCT_CREATED_DATE"));
-            product.setContent(rs.getString("PRODUCT_CONTENT"));
-            product.setTotalRating(rs.getInt("PRODUCT_TOTAL_RATING"));
-            product.setViewCount(rs.getInt("PRODUCT_VIEW_CNT"));
+            return DaoHelper.selectList(sql, rs -> {
+                Product product = new Product();
+                product.setNo(rs.getInt("PRODUCT_NO"));
+                product.setName(rs.getString("PRODUCT_NAME"));
+                product.setPrice(rs.getInt("PRODUCT_PRICE"));
+                product.setStatus(rs.getString("PRODUCT_STATUS"));
 
-            Category category = new Category();
-            category.setNo(rs.getInt("CAT_NO"));
-            category.setName(rs.getString("CAT_NAME"));
-            product.setCategory(category);
+                Category category = new Category();
+                category.setNo(rs.getInt("CAT_NO"));
+                category.setName(rs.getString("CAT_NAME"));
+                product.setCategory(category);
 
-            return product;
-        }, productNo);
-    }
+                return product;
+            }, catNo, begin, end);
+        }
 
     /**
      * 상품 번호 조회
@@ -169,18 +180,18 @@ public class ProductDao {
         }, begin, end);
     }
 
-    /**
-     * 전체 상품갯수를 조회해서 반환한다.
-     * @return 상품 갯수
-     */
-    public int getTotalRows() {
-        String sql = """
-                select count(*)
-                from products
-                """;
-
-        return DaoHelper.selectOneInt(sql);
-    }
+//    /**
+//     * 전체 상품갯수를 조회해서 반환한다.
+//     * @return 상품 갯수
+//     */
+//    public int getTotalRows() {
+//        String sql = """
+//                select count(*)
+//                from products
+//                """;
+//
+//        return DaoHelper.selectOneInt(sql);
+//    }
 
     /**
      * 상품 전체를 조회를 한다.
@@ -197,9 +208,9 @@ public class ProductDao {
             where p.cat_no = pc.cat_no
             """;
 
+        List<Product> products = new ArrayList<>();
 
-
-        }, catNo, begin, end);
+        return products;
     }
 
     public int getTotalRowsByCatNo(int catNo) {

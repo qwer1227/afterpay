@@ -69,7 +69,6 @@ public class OrderDao {
             order.getAddr().setNo(rs.getInt("ADDR_NO"));
             return order;
         }, orderNo);
-
     }
 
     public List<Order> getAllOrderByUserNo(int userNo) {

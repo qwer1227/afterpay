@@ -63,8 +63,10 @@
               </colgroup>
 <%--              주문내역 상품 보여주기--%>
               <%
+                int amount = 0;
+                int totalPrice = 0;
                 for (Cart cart: carts) {
-                  // Stock, Product Dao 필요
+                  // Stock, Product 필요
               %>
               <tr>
                 <td>
@@ -122,7 +124,7 @@
         </div>
       </div>
     </div>
-    </form>
+  </form>
   </div>
 </div>
 <%@include file="../common/footer.jsp"%>

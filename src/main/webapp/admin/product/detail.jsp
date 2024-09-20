@@ -38,8 +38,8 @@
                     Product product = productDao.getProductByNo(productNo);
 
                     // 재고값
-                    StockDao stockDao = new StockDao();
-                    List<Stock> stocks = stockDao.getStocksByNo(productNo);
+                    //StockDao stockDao = new StockDao();
+                    //List<Stock> stocks = stockDao.getStocksByNo(productNo);
                 %>
                 <table class="table table-bordered">
                     <colgroup>
@@ -71,17 +71,10 @@
                     </tr>
                     <tr>
                         <th>재고수량</th>
-                        <%
-                            for(Stock stock : stocks) {
-                        %>
+
                         <td colspan="3">
-                            <p><%=stock.getSize()%> : <%=stock.getAmount() %></p>
-                            <p><%=stock.getSize()%> : <%=stock.getAmount() %></p>
-                            <p><%=stock.getSize()%> : <%=stock.getAmount() %></p>
+
                         </td>
-                        <%
-                            }
-                        %>
                     </tr>
                     <tr>
                         <th>평점</th>

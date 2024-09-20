@@ -1,4 +1,4 @@
-package com.jhta.afterpay.user.vo;
+package com.jhta.afterpay.user;
 
 import java.util.Date;
 

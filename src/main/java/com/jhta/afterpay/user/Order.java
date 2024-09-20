@@ -1,4 +1,4 @@
-package com.jhta.afterpay.user.vo;
+package com.jhta.afterpay.user;
 
 import java.util.Date;
 
@@ -14,7 +14,6 @@ public class Order {
     private int paymentPrice;   // 총 결제 금액
     private PointHistory depositPoint; // 적립 예정 금액
     private int userNo;        // 사용자 번호
-    private Address addrNo;     // 배송지 번호
     private String message;     // 배송 요청메세지
 
     public Order() {}
@@ -33,7 +32,6 @@ public class Order {
                 ", paymentPrice=" + paymentPrice +
                 ", depositPoint=" + depositPoint +
                 ", userNo=" + userNo +
-                ", addrNo=" + addrNo +
                 ", message='" + message + '\'' +
                 '}';
     }
@@ -124,14 +122,6 @@ public class Order {
 
     public void setUserNo(int userNo) {
         this.userNo = userNo;
-    }
-
-    public Address getAddrNo() {
-        return addrNo;
-    }
-
-    public void setAddrNo(Address addrNo) {
-        this.addrNo = addrNo;
     }
 
     public String getMessage() {

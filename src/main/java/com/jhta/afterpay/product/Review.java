@@ -11,6 +11,7 @@ public class Review {
     private String isDeleted;
     private User user;
     private Product product;
+    private String title;
 
     public Review() {}
 
@@ -78,8 +79,17 @@ public class Review {
         this.product = product;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     @Override
-    public String toString() {
+    public String
+    toString() {
         return "Review{" +
                 "no=" + no +
                 ", content='" + content + '\'' +
@@ -89,6 +99,7 @@ public class Review {
                 ", isDeleted='" + isDeleted + '\'' +
                 ", user=" + user +
                 ", product=" + product +
+                ", title='" + title + '\'' +
                 '}';
     }
 }

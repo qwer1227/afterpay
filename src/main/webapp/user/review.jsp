@@ -1,6 +1,6 @@
-<%@ page import="com.jhta.afterpay.user.dao.ReviewDao" %>
+<%@ page import="com.jhta.afterpay.user.ReviewDao" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.jhta.afterpay.user.vo.Review" %>
+<%@ page import="com.jhta.afterpay.user.Review" %>
 <%@ page import="com.jhta.afterpay.util.DaoHelper" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>

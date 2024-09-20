@@ -1,9 +1,9 @@
 <%@ page import="com.jhta.afterpay.util.Utils" %>
-<%@ page import="com.jhta.afterpay.user.dao.PointHistoryDao" %>
-<%@ page import="com.jhta.afterpay.user.vo.PointHistory" %>
+<%@ page import="com.jhta.afterpay.user.PointHistoryDao" %>
+<%@ page import="com.jhta.afterpay.user.PointHistory" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.jhta.afterpay.user.dao.UserDao" %>
-<%@ page import="com.jhta.afterpay.user.vo.User" %>
+<%@ page import="com.jhta.afterpay.user.UserDao" %>
+<%@ page import="com.jhta.afterpay.user.User" %>
 <%@ page import="java.util.Date" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>

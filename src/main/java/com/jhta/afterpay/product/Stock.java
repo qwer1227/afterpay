@@ -6,7 +6,6 @@ public class Stock {
     private String size;
     private int amount;
     private int productNo;
-    private String item;
 
     public Stock() {}
 

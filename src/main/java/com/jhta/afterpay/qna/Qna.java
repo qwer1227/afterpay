@@ -14,15 +14,6 @@ public class Qna {
     private String repliedContent;
     private String isQnaDeleted;
     private User userNo;
-    private String isReplied;
-
-    public String getIsReplied() {
-        return isReplied;
-    }
-
-    public void setIsReplied(String isReplied) {
-        this.isReplied = isReplied;
-    }
 
     @Override
     public String toString() {
@@ -36,7 +27,6 @@ public class Qna {
                 ", repliedContent='" + repliedContent + '\'' +
                 ", isQnaDeleted='" + isQnaDeleted + '\'' +
                 ", userNo=" + userNo +
-                ", isReplied='" + isReplied + '\'' +
                 '}';
     }
 

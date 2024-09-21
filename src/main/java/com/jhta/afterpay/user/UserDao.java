@@ -1,5 +1,6 @@
 package com.jhta.afterpay.user;
 
+import com.jhta.afterpay.order.Order;
 import com.jhta.afterpay.user.User;
 import com.jhta.afterpay.user.PointHistory;
 import com.jhta.afterpay.user.User;
@@ -22,7 +23,6 @@ public class UserDao {
 
         return DaoHelper.selectOneInt(sql);
     }
-
 
     public void InsertUser(User user) {
         String sql = """

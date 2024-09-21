@@ -1,5 +1,5 @@
-<%@ page import="com.jhta.afterpay.user.QnaDao" %>
-<%@ page import="com.jhta.afterpay.user.Qna" %>
+<%@ page import="com.jhta.afterpay.qna.QnaDao" %>
+<%@ page import="com.jhta.afterpay.qna.Qna" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
@@ -45,29 +45,19 @@
           <col width="5%">
           <col width="10%">
           <col width="*">
-          <col width="10%">
           <col width="15%">
+          <col width="10%">
           <col width="5%">
         </colgroup>
         <thead>
         <tr class="text-center">
           <th scope="col">
             <input id="check-all" type="checkbox" name="all" onchange="checkAll()" style="zoom:1.8">
-            <script type="text/javascript">
-              function checkAll(){
-                let isChecked = document.querySelector("[name=all]").checked;
-                console.log('체크여부', isChecked);
-
-                let checkBoxes = document.querySelectorAll("[name=qnaNo]");
-                checkBoxes.forEach(function (el) {
-                  el.checked = isChecked;
-                })
-              }
-            </script>
           </th>
           <th scope="col">No</th>
           <th scope="col">문의 제목</th>
           <th scope="col">작성일</th>
+          <th scope="col">답변상태</th>
           <th scope="col" class="text-end">
             <button id="check-del" class="btn btn-lg">
               <i class="bi bi-trash"></i>
@@ -82,29 +72,13 @@
           %>
           <th scope="col">
             <input type="checkbox" name="qnaNo" onchange="checkSelect()" style="zoom:1.5">
-            <script type="text/javascript">
-              function checkSelect() {
-                let checkBoxes = document.querySelectorAll("[name=qnaNo]");
-                let checkBoxesLength = checkBoxes.length;
-                let checkedLength = 0;
-
-                for (let el of checkBoxes) {
-                  if (el.checked) {
-                    checkedLength++;
-                  }
-                }
-
-                if (checkBoxesLength == checkedLength){
-                  document.querySelector("[name=all]").checked = true;
-                } else {
-                  document.querySelector("[name=all]").checked = false;
-                }
-              }
-            </script>
           </th>
           <th scope="row"><%=qnaCnt++%></th>
-          <td class="text-start"><%=qna.getTitle()%></td>
+          <td class="text-start">
+            <a href="detail.jsp" style="text-decoration-line: none"><%=qna.getTitle()%></a>
+          </td>
           <td><%=qna.getCreatedDate()%></td>
+          <td><%=qna.getRepliedContent() == null ? "답변대기" : "답변완료"%></td>
           <td></td>
           <%
             }
@@ -114,7 +88,7 @@
       </table>
 
       <div class="text-end">
-        <a href="" type="button" class="btn btn-primary">
+        <a href="form.jsp" type="button" class="btn btn-primary">
           문의글 작성
         </a>
       </div>
@@ -138,6 +112,36 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  function checkAll(){
+    let isChecked = document.querySelector("[name=all]").checked;
+    console.log('체크여부', isChecked);
+
+    let checkBoxes = document.querySelectorAll("[name=qnaNo]");
+    checkBoxes.forEach(function (el) {
+      el.checked = isChecked;
+    })
+  }
+
+  function checkSelect() {
+    let checkBoxes = document.querySelectorAll("[name=qnaNo]");
+    let checkBoxesLength = checkBoxes.length;
+    let checkedLength = 0;
+
+    for (let el of checkBoxes) {
+      if (el.checked) {
+        checkedLength++;
+      }
+    }
+
+    if (checkBoxesLength == checkedLength){
+      document.querySelector("[name=all]").checked = true;
+    } else {
+      document.querySelector("[name=all]").checked = false;
+    }
+  }
+</script>
 <%@include file="../common/footer.jsp"%>
 </body>
 </html>

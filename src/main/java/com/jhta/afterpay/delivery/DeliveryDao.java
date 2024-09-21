@@ -2,33 +2,32 @@ package com.jhta.afterpay.delivery;
 
 import com.jhta.afterpay.order.Order;
 import com.jhta.afterpay.product.Product;
+import com.jhta.afterpay.product.Stock;
 import com.jhta.afterpay.util.DaoHelper;
 
 import java.util.List;
 
 public class DeliveryDao {
-    public void insertDelivery (Delivery delivery){
+    public void insertDelivery(Delivery delivery) {
         String sql = """
                 INSERT INTO ORDER_DELIVERY_PRODUCTS
-                (DELIVERY_NO, DELIVERY_PRODUCT_PRICE, DELIVERY_PRODUCT_AMOUNT
-                , PRODUCT_NO, PRODUCT_STOCK_NO, ORDER_NO
-                , RECIPIENT)
+                (DELIVERY_NO
+                , DELIVERY_PRODUCT_PRICE, DELIVERY_PRODUCT_AMOUNT
+                , PRODUCT_NO, PRODUCT_STOCK_NO
+                , ORDER_NO, RECIPIENT)
                 VALUES
                 (DELIVERY_NO_SEQ.NEXTVAL
                 , ?, ?, ?
                 , ?, ?, ?)
                 """;
         DaoHelper.insert(sql
-                            , delivery.getPrice()
-                            , delivery.getAmount()
-                            , delivery.getProduct().getNo()
-                            , delivery.getStock().getNo()
-                            , delivery.getOrder().getNo()
-                            , delivery.getRecipient()
+                , delivery.getPrice(), delivery.getAmount()
+                , delivery.getProduct().getNo(), delivery.getStock().getNo()
+                , delivery.getOrder().getNo(), delivery.getRecipient()
         );
     }
 
-    public void updateDelivery (Delivery delivery){
+    public void updateDelivery(Delivery delivery) {
         String sql = """
                 UPDATE ORDER_DELIVERY_PRODUCTS
                 SET DELIVERY_NO = ?,
@@ -41,16 +40,16 @@ public class DeliveryDao {
                 """;
 
         DaoHelper.update(sql, delivery.getNo()
-                            , delivery.getPrice()
-                            , delivery.getAmount()
-                            , delivery.getStatus()
-                            , delivery.getProduct().getNo()
-                            , delivery.getStock().getNo()
-                            , delivery.getOrder().getNo()
+                , delivery.getPrice()
+                , delivery.getAmount()
+                , delivery.getStatus()
+                , delivery.getProduct().getNo()
+                , delivery.getStock().getNo()
+                , delivery.getOrder().getNo()
         );
     }
 
-    public void deleteDelivery (int deliveryNo){
+    public void deleteDelivery(int deliveryNo) {
         String sql = """
                 DELETE FROM ORDER_DELIVERY_PRODUCTS
                 WHERE DELIVERY_NO = ?
@@ -58,7 +57,7 @@ public class DeliveryDao {
         DaoHelper.delete(sql, deliveryNo);
     }
 
-    public Delivery getDeliveryByNo (int deliveryNo){
+    public Delivery getDeliveryByNo(int deliveryNo) {
         String sql = """
                 SELECT *
                 FROM ORDER_DELIVERY_PRODUCTS
@@ -78,20 +77,20 @@ public class DeliveryDao {
         });
     }
 
-    public Delivery getDeliveryByOrderNo(int orderNo){
+    public Delivery getDeliveryByOrderNo(int orderNo) {
         String sql = """
                 SELECT *
                 FROM ORDER_DELIVERY_PRODUCTS
                 WHERE ORDER_NO = ?
                 """;
-            Delivery delivery = new Delivery();
-            Product product = new Product();
-            delivery.setProduct(product);
-            Stock stock = new Stock();
-            delivery.setStock(stock);
-            Order order = new Order();
-            delivery.setOrder(order);
-        
+        Delivery delivery = new Delivery();
+        Product product = new Product();
+        delivery.setProduct(product);
+        Stock stock = new Stock();
+        delivery.setStock(stock);
+        Order order = new Order();
+        delivery.setOrder(order);
+
         return DaoHelper.selectOne(sql, rs -> {
             delivery.setNo(rs.getInt("DELIVERY_NO"));
             delivery.setPrice(rs.getInt("DELIVERY_PRODUCT_PRICE"));

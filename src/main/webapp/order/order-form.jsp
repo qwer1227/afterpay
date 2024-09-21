@@ -5,6 +5,10 @@
 <%@ page import="com.jhta.afterpay.user.User" %>
 <%@ page import="com.jhta.afterpay.addr.Addr" %>
 <%@ page import="com.jhta.afterpay.addr.AddrDao" %>
+<%@ page import="com.jhta.afterpay.util.Utils" %>
+<%@ page import="com.jhta.afterpay.product.StockDao" %>
+<%@ page import="com.jhta.afterpay.product.Stock" %>
+<%@ page import="com.jhta.afterpay.product.ProductDao" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,31 +29,28 @@
 <%@ include file="../common/nav.jsp" %>
 
 <%
-    // 장바구니 배송 상품 목록
+    // 장바구니에서 전달 받은 상품 재고 번호
+    String[] stockNo = request.getParameterValues("stockNo");
+    int[] stockNoArr = new int[stockNo.length];
+    for(int i=0; i<stockNoArr.length; i++) {
+        stockNoArr[i] = Utils.toInt(stockNo[i]);
+    }
 
-//    String[] products = request.getParameterValues("productNo");
-//    int[] productNoArr = new int[products.length];
-//    for(int i=0; i<productNoArr.length; i++) {
-//        productNoArr[i] = Integer.parseInt(products[i]);
-//    }
+    // 장바구니에서 전달 받은 각 상품 주문 수량
+    String[] amount = request.getParameterValues("amount");
+    int[] amountArr = new int[amount.length];
+    for(int i=0; i<amountArr.length; i++) {
+        amountArr[i] = Utils.toInt(amount[i]);
+    }
 
-//    String[] amount = request.getParameterValues("amount");
-//    int[] amountArr = new int[amount.length];
-//    for(int i=0; i<amountArr.length; i++) {
-//        amountArr[i] = Integer.parseInt(amount[i]);
-//    }
+    // 상품 이미지 조회
+    String[] thumbArr = request.getParameterValues("thumb");
 
+    // 주문 회원 조회
     UserDao userDao = new UserDao();
-//    User user = userDao.getUserById();
+    User user = userDao.getUserById("hong");
 
-    Product product = new Product();
-    product.setPrice(100000);
-    product.setNo(10000);
 
-    List<Product> products = new ArrayList<>();
-    products.add(product);
-    products.size();
-    int totalPrice = 10000;
 %>
 <div id="main" class="container">
     <div class="row text-center mb-5">
@@ -59,22 +60,31 @@
 <%--    상품 정보   --%>
     <div class="row mb-5 p-3">
         <%
-//            for (int productNo : productNoArr) {
+            StockDao stockDao = new StockDao();
+            ProductDao productDao = new ProductDao();
+            int totalPrice = 0;
+            for (int i=0; i<stockNoArr.length; i++) {
+                Stock stock = stockDao.getStockByNo(stockNoArr[i]);
+                int productNo = stock.getProductNo();
+                Product product = productDao.getProductByNo(productNo);
+                totalPrice += amountArr[i] * product.getPrice();
+                String thumb = thumbArr[i];
         %>
         <div class="col-2">
-            <img src="sample.jpg" class="rounded float-start" style="width: 170px; height:130px;">
+            <img src="<%=thumb%>>" class="rounded float-start" style="width: 170px; height:130px;">
         </div>
         <div class="col-7">
+            <input type="hidden" name="stockNo" value="<%=stock.getNo()%>">
             <ul class="list-unstyled">
-                <li>상품명</li>
-                <li>이름</li>
+                <li><%=product.getNo() %></li>
+                <li><%=stock.getSize() %></li>
             </ul>
         </div>
         <div class="col-3">
-            가격
+            <%=product.getPrice()%>
         </div>
         <%
-//            }
+            }
         %>
     </div>
 
@@ -127,26 +137,29 @@
             --%>
         </div>
         <div id="price" class="row border-bottom border-2 border-dark">
+            <%
+
+            %>
             <h4>결제 정보</h4>
             <ul class="list-unstyled p-4">
                 <li>
                     <label class="col-10">합계 금액</label>
                     <input type="hidden" name="totalPrice" value="<%=totalPrice%>">
-                    <%=110000%>
+                    <%=totalPrice%>
                 </li>
                 <li>
                     <label class="col-10">할인 금액</label>
                     <input type="hidden" name="discountPrice" value="<%=totalPrice%>">
-                    <span><%=110000%></span>
+                    <span> <%=totalPrice%></span>
                 <li>
                     <label class="col-10">배송비</label>
                     <input type="hidden" name="deliveryPrice" value="<%=totalPrice%>">
-                    <span><%=110000%></span>
+                    <span><%=3000%></span>
                 </li>
                 <li>
                     <label class="col-10"><strong>결제 금액</strong></label>
-                    <input type="hidden" name="paymentPrice" value="<%=totalPrice%>">
-                    <strong><%=110000%></strong>
+                    <input type="hidden" name="paymentPrice" value="<%=totalPrice + 3000%>">
+                    <strong> <%=totalPrice + 3000%></strong>
                 </li>
             </ul>
         </div>

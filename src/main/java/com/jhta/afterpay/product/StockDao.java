@@ -12,8 +12,8 @@ public class StockDao {
                       ,product_stock_size
                      , product_stock_amount
                 FROM product_stocks
-                WHERE product_no IN (SELECT product_no\s
-                                     FROM product_stocks\s
+                WHERE product_no IN (SELECT product_no
+                                     FROM product_stocks
                                      WHERE product_no = ?)
                 ORDER BY product_stock_size DESC;
                 """;
@@ -26,6 +26,24 @@ public class StockDao {
             return stock;
         }, productNo);
     }
+
+    public Stock getStockByNo(int no) {
+        String sql = """
+                SELECT *
+                FROM product_stocks
+                where product_stock_no = ?
+                """;
+
+        return DaoHelper.selectOne(sql, rs-> {
+                    Stock stock = new Stock();
+                    stock.setNo(no);
+                    stock.setAmount(rs.getInt("product_stock_amount"));
+                    stock.setSize(rs.getString("product_stock_size"));
+                    stock.setProductNo(rs.getInt("product_no"));
+                    return stock;
+                }, no);
+    }
+
 
 
 

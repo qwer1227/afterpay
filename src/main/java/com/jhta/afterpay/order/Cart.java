@@ -1,6 +1,6 @@
 package com.jhta.afterpay.order;
 
-import com.jhta.afterpay.delivery.Stock;
+import com.jhta.afterpay.product.Stock;
 import com.jhta.afterpay.product.Product;
 import com.jhta.afterpay.user.User;
 

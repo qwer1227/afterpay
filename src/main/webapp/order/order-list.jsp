@@ -81,7 +81,7 @@
                     for (Order order : orders) {
                 %>
                 <tr>
-                    <td><a href="orderDetail.jsp?orderNo=<%=order.getNo()%>&page=<%=pageNo %>"><%=order.getNo()%></a></td>
+                    <td><a href="order-detail.jsp?orderNo=<%=order.getNo()%>&page=<%=pageNo %>"><%=order.getNo()%></a></td>
                     <td>\100,000</td>
                     <td>ㅇㅇㅇ</td>
                     <td>2024-09-13</td>
@@ -103,14 +103,14 @@
             <div>
                 <ul class="pagination justify-content-center">
                     <li class="page-item <%=pagination.isFirst() ? "disabled" : "" %>">
-                        <a href="orderList.jsp?page=<%=pagination.getPrev() %>" class="page-link">이전</a>
+                        <a href="order-list.jsp?page=<%=pagination.getPrev() %>" class="page-link">이전</a>
                     </li>
 
                     <%
                         for (int num = beginPage; num <= endPage; num++) {
                     %>
                     <li class="page-item">
-                        <a href="orderList.jsp?page=<%=num %>"
+                        <a href="order-list.jsp?page=<%=num %>"
                            class="page-link <%=pageNo == num ? "active" : "" %>"><%=num %>
                         </a>
                     </li>
@@ -118,7 +118,7 @@
                         }
                     %>
                     <li class="page-item <%=pagination.isLast() ? "disabled" : "" %>">
-                        <a href="orderList.jsp?page=<%=pagination.getNext() %>" class="page-link">다음</a>
+                        <a href="order-list.jsp?page=<%=pagination.getNext() %>" class="page-link">다음</a>
                     </li>
                 </ul>
             </div>

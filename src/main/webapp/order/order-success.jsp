@@ -98,11 +98,11 @@
     </div>
     <div class="row mb-3">
         <div class="col d-flex justify-content-end">
-           <button onclick="location.href='orderDetail.jsp'" class="btn btn-white text-black border border-2">주문확인하기</button>
+           <button onclick="location.href='order-detail.jsp'" class="btn btn-white text-black border border-2">주문확인하기</button>
         </div>
         <div class="col-2"></div>
         <div class="col d-flex justify-content-start d-grid">
-            <button onclick="location.href='orderList.jsp'" class="btn btn-dark text-white d-grid" type="button">쇼핑계속하기</button>
+            <button onclick="location.href='order-list.jsp'" class="btn btn-dark text-white d-grid" type="button">쇼핑계속하기</button>
         </div>
     </div>
 <%@ include file="../common/footer.jsp" %>

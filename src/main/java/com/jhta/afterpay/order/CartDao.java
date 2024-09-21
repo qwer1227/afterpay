@@ -1,6 +1,6 @@
 package com.jhta.afterpay.order;
 
-import com.jhta.afterpay.delivery.Stock;
+import com.jhta.afterpay.product.Stock;
 import com.jhta.afterpay.product.Product;
 import com.jhta.afterpay.user.User;
 import com.jhta.afterpay.util.DaoHelper;
@@ -11,7 +11,7 @@ public class CartDao {
 
     public void insertCart(Cart cart) {
         String sql = """
-                INSERT INTO cart
+                INSERT INTO carts
                 (cart_no
                 , cart_amount, product_stock_no
                 , product_no, user_no)   
@@ -26,9 +26,9 @@ public class CartDao {
     }
 
     public void deleteCart(Cart cart) {
-        String sql= """
+        String sql = """
                 Delete 
-                from cart 
+                from carts
                 where cart_no = ?
                 """;
         DaoHelper.delete(sql, cart.getNo());
@@ -37,10 +37,10 @@ public class CartDao {
     public Cart getCartByNo(int no) {
         String sql = """
                 SELECT *
-                FROM cart
+                FROM carts
                 WHERE user_no = ?
                 """;
-        return DaoHelper.selectOne(sql, rs ->{
+        return DaoHelper.selectOne(sql, rs -> {
             Cart cart = new Cart();
             Product product = new Product();
             cart.setProduct(product);
@@ -52,7 +52,7 @@ public class CartDao {
             cart.setAmount(rs.getInt("cart_amount"));
             cart.getProduct().setNo(rs.getInt("product_no"));
             cart.getUser().setNo(rs.getInt("user_no"));
-            cart.getStock().setNo(rs.getInt("stock_no"));
+            cart.getStock().setNo(rs.getInt("product_stock_no"));
             return cart;
         }, no);
     }
@@ -60,11 +60,12 @@ public class CartDao {
     public List<Cart> getAllCartsByUserNo(int userNo) {
         String sql = """
                 SELECT *
-                FROM cart
+                FROM carts
                 WHERE user_no = ?
                 """;
 
-        return DaoHelper.selectList(sql, rs ->{
+        return DaoHelper.selectList(sql, rs -> {
+            // Product, User, Stock 객체 생성
             Cart cart = new Cart();
             Product product = new Product();
             cart.setProduct(product);
@@ -72,11 +73,12 @@ public class CartDao {
             cart.setUser(user);
             Stock stock = new Stock();
             cart.setStock(stock);
+
             cart.setNo(rs.getInt("cart_no"));
             cart.setAmount(rs.getInt("cart_amount"));
             cart.getProduct().setNo(rs.getInt("product_no"));
             cart.getUser().setNo(rs.getInt("user_no"));
-            cart.getStock().setNo(rs.getInt("stock_no"));
+            cart.getStock().setNo(rs.getInt("product_stock_no"));
             return cart;
         }, userNo);
     }

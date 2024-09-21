@@ -12,7 +12,8 @@ public class Product {
     private String status;
     private int totalRating;
     private Category category;
-    private String defaultImage;
+
+    private Image image;
 
     public Product() {}
 
@@ -96,12 +97,12 @@ public class Product {
         this.category = category;
     }
 
-    public String getDefaultImage() {
-        return defaultImage;
+    public Image getImage() {
+        return image;
     }
 
-    public void setDefaultImage(String defaultImage) {
-        this.defaultImage = defaultImage;
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     @Override
@@ -116,7 +117,7 @@ public class Product {
                 ", status='" + status + '\'' +
                 ", totalRating=" + totalRating +
                 ", category=" + category +
-                ", defaultImage='" + defaultImage + '\'' +
+                ", image=" + image +
                 '}';
     }
 }

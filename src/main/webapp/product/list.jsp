@@ -1,10 +1,7 @@
 <%@ page import="java.util.List" %>
-<%@ page import="com.jhta.afterpay.product.Product" %>
-<%@ page import="com.jhta.afterpay.product.ProductDao" %>
 <%@ page import="com.jhta.afterpay.util.Utils" %>
-<%@ page import="com.jhta.afterpay.product.Category" %>
 <%@ page import="com.jhta.afterpay.util.Pagination" %>
-
+<%@ page import="com.jhta.afterpay.product.*" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +19,10 @@
   <style>
     a {
       text-decoration-line: none;
+    }
+    img {
+      width: 100px;
+      height: 100px;
     }
   </style>
 </head>
@@ -50,13 +51,15 @@
   %>
   <table class="table">
     <colgroup>
+      <col width="*">
       <col width="10%">
-      <col width="*%">
+      <col width="30%">
       <col width="10%">
       <col width="10%">
     </colgroup>
     <thead>
     <tr>
+      <th>이미지</th>
       <th>카테고리</th>
       <th>상품명</th>
       <th>가격</th>
@@ -64,10 +67,15 @@
     </tr>
     </thead>
     <tbody>
+    <tr>
     <%
       for (Product product : products ) {
     %>
-    <tr>
+      <td>
+        <a href="detail.jsp?pno=<%=product.getNo()%>">
+        <img src="../common/images/<%=product.getImage().getName()%>" alt="">
+        </a>
+      </td>
       <td><%=product.getCategory().getName()%></td>
       <td><a href="detail.jsp?pno=<%=product.getNo()%>"><%=product.getName()%></a></td>
       <td><%=Utils.toCurrency(product.getPrice())%></td>

@@ -1,6 +1,5 @@
-package com.jhta.afterpay.qna;
+package com.jhta.afterpay.user;
 
-import com.jhta.afterpay.user.User;
 import com.jhta.afterpay.util.DaoHelper;
 
 import java.util.List;

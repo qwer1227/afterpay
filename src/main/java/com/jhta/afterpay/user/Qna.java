@@ -1,6 +1,4 @@
-package com.jhta.afterpay.qna;
-
-import com.jhta.afterpay.user.User;
+package com.jhta.afterpay.user;
 
 import java.util.Date;
 

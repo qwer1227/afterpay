@@ -24,9 +24,10 @@ public class QnaDao {
 
         return DaoHelper.selectList(sql, rs -> {
             Qna qna = new Qna();
-            qna.getNo()
-        })
+            qna.setNo(rs.getInt("QNA_NO"));
 
+            return qna;
+        });
     }
 
     /**

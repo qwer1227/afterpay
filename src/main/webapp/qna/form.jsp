@@ -1,5 +1,5 @@
-<%@ page import="com.jhta.afterpay.user.QnaDao" %>
-<%@ page import="com.jhta.afterpay.user.Qna" %>
+<%@ page import="com.jhta.afterpay.qna.QnaDao" %>
+<%@ page import="com.jhta.afterpay.qna.Qna" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
@@ -27,18 +27,6 @@
       <hr style="border:solid 1px gray;"/>
       <form class="border bg-light p-3" method="post" action="qna-insert.jsp">
         <div class="mb-3">
-          <label class="form-label">문의 카테고리</label>
-          <select class="form-select" name="catNo">
-            <option>문의 카테고리를 선택하세요</option>
-            <option value="11">상품 문의</option>
-            <option value="12">반품 문의</option>
-            <option value="13">환불 문의</option>
-            <option value="14">취소 문의</option>
-            <option value="21">배송 문의</option>
-            <option value="22">기타 문의</option>
-          </select>
-        </div>
-        <div class="mb-3">
           <label class="form-label">문의 제목</label>
           <input type="text" class="form-control" name="title">
         </div>
@@ -47,9 +35,9 @@
           <textarea class="form-control" rows="5" name="description"></textarea>
         </div>
         <div class="text-end">
-          <a href="" type="button" class="btn btn-primary">
+          <button type="button" class="btn btn-primary">
             문의하기
-          </a>
+          </button>
         </div>
       </form>
     </div>

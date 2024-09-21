@@ -1,3 +1,6 @@
+<%@ page import="com.jhta.afterpay.qna.QnaDao" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.jhta.afterpay.qna.Qna" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
@@ -17,6 +20,11 @@
 </style>
 <body>
 <%@include file="../common/nav.jsp"%>
+<%
+  int userNo = 19;
+  QnaDao qnaDao = new QnaDao();
+  List<Qna> qnaList = qnaDao.getQnaByUserNo(userNo);
+%>
 <div class="container">
   <div class="row">
     <div class="col-2">
@@ -28,52 +36,99 @@
       <table class="table table-borderless">
         <colgroup>
           <col width="10%">
-          <col width="*">
+          <col width="40%">
+          <col width="10%">
+          <col width="40%">
         </colgroup>
-        <thead>
-        <tr>
-          <th scope="col"></th>
-          <th scope="col"></th>
-        </tr>
-        </thead>
         <tbody>
-        <tr>
-          <th scope="row" class="text-center">카테고리</th>
-          <td class="text-start">상품문의</td>
-        </tr>
-        <tr>
-          <th scope="row" class="text-center">문의 제목</th>
-          <td class="text-start">배송언제?</td>
-        </tr>
-        <tr>
-          <th scope="row" class="text-center">답변 상태</th>
-          <td class="text-start">답변완료</td>
-        </tr>
-        <tr>
-          <th scope="row" class="text-center">상품 설명
-          <td class="text-start">
-            <textarea class="form-control" rows="5" name="description"></textarea>
-          </td>
-        </tr>
+          <%
+            for (Qna qna : qnaList) {
+          %>
+          <tr>
+            <th scope="row" class="text-center">문의 제목</th>
+            <td class="text-start"><%=qna.getTitle()%></td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-center">문의 일자</th>
+            <td class="text-start"><%=qna.getCreatedDate()%></td>
+            <th scope="row" class="text-center">답변 상태</th>
+            <%
+              if (qna.getRepliedContent() == null) {
+            %>
+            <td class="text-start">
+              <span class="badge text-bg-secondary">답변대기</span>
+            </td>
+            <%
+              } else {
+            %>
+            <td class="text-start">
+              <span class="badge text-bg-primary">답변완료</span>
+            </td>
+            <%
+              }
+            %>
+          </tr>
+          <tr>
+            <th scope="row" class="text-center">상세 문의</th>
+          </tr>
+          <tr>
+            <th class="text-start" colspan="4">
+              <%
+                if (qna.getRepliedContent() == null){
+              %>
+              <textarea class="form-control" rows="5" name="description">
+                <%=qna.getContent()%>
+              </textarea>
+              <%
+                } else {
+              %>
+              <div class="card">
+                <div class="card-body">
+                  <%=qna.getContent()%>
+                </div>
+              </div>
+              <%
+                }
+              %>
+            </th>
+          </tr>
         </tbody>
       </table>
 
-      <!-- 답변 상태가 "답변완료"면 수정 불가하게 -->
+
       <div class="text-end">
-        <a href="form.jsp" type="button" class="btn btn-outline-warning">
+        <a href="user-qna.jsp" type="button" class="btn btn-primary">
+          목록
+        </a>
+        <%
+          if (qna.getRepliedContent() == null){
+        %>
+        <a href="form.jsp" type="button" class="btn btn-warning">
           수정
         </a>
-        <a href="delete.jsp" type="button" class="btn btn-outline-danger">
+        <a href="delete.jsp" type="button" class="btn btn-danger">
           삭제
         </a>
+        <%
+          }
+        %>
       </div>
 
-      <!-- 답변 상태가 "답변완료"면 노출 -->
+      <br>
+
+      <%
+          if (qna.getRepliedContent() != null){
+      %>
       <div class="m-3 card">
-        <div class="card-header">문의 답변</div>
-        <div class="card-body">추석연휴로 인해 배송지연이 있습니다. 순차적으로 배송될 예정입니다.</div>
+        <div class="card-header text-center">문의 답변</div>
+        <div class="card-body">
+          <%=qna.getRepliedContent()%>
+        </div>
       </div>
-
+      <%
+          }
+        }
+      %>
     </div>
   </div>
 </div>

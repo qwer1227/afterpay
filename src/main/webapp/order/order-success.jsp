@@ -1,10 +1,13 @@
-<%@ page import="com.jhta.afterpay.delivery.DeliveryDao" %><%--
-  Created by IntelliJ IDEA.
-  User: cola
-  Date: 2024-09-16
-  Time: 오후 12:52
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="com.jhta.afterpay.delivery.DeliveryDao" %>
+<%@ page import="com.jhta.afterpay.order.OrderDao" %>
+<%@ page import="com.jhta.afterpay.order.Order" %>
+<%@ page import="com.jhta.afterpay.delivery.Delivery" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.jhta.afterpay.product.Stock" %>
+<%@ page import="com.jhta.afterpay.product.StockDao" %>
+<%@ page import="com.jhta.afterpay.product.Product" %>
+<%@ page import="com.jhta.afterpay.product.ProductDao" %>
+<%@ page import="com.jhta.afterpay.util.Utils" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <html>
 <head>
@@ -23,6 +26,11 @@
     <link rel="stylesheet" href="/common/css/style.css">
 </head>
 <body>
+<%
+    // 가장 최근 주문내역 가져오기
+    OrderDao orderDao = new OrderDao();
+    Order order = orderDao.getMostLatelyOrderNoByUserNo(7);
+%>
 <%@ include file="../common/nav.jsp" %>
     <div class="container ">
         <div class="bg-dark text-white text-center">
@@ -37,17 +45,30 @@
                 </li>
                 <li>
                     <label class="col-10">주문번호</label>
-                    <span>564546556</span>
+                    <span><%=order.getNo()%></span>
                 </li>
                 <li>
                     <label class="col-10">결제금액</label>
-                    <span>564546556</span>
+                    <span><%=Utils.toCurrency(order.getPaymentPrice())%></span>
                 </li>
             </ul>
         </div>
 <%
     DeliveryDao deliveryDao = new DeliveryDao();
+    StockDao stockDao = new StockDao();
+    ProductDao productDao = new ProductDao();
+    int totalPrice = 0;
+    int deliveryPrice = 3000;
 
+    // 주문내역중 가장 최근 주문 가져오기
+
+    List<Delivery> deliveries = deliveryDao.getAllDeliveryByOrderNo(order.getNo());
+    for (Delivery delivery : deliveries) {
+        int stockNo = delivery.getStock().getNo();
+        Stock stock = stockDao.getStockByNo(stockNo);
+        int productNo  = delivery.getProduct().getNo();
+        Product product = productDao.getProductByNo(productNo);
+        totalPrice += delivery.getAmount() * product.getPrice();
 %>
         <%-- 주문 상품 --%>
         <div class="row border mb-5 p-3 border-dark">
@@ -62,17 +83,18 @@
                             <span>564546556</span>
                         </li>
                         <li>
-                            옵션
+                            [옵션:<%=stock.getSize()%>]
                         </li>
                         <li>
-                            수량:
+                            수량: <%=delivery.getAmount()%>
                         </li>
                         <li>
-                            상품구매금액:
+                            상품구매금액: <%=Utils.toCurrency(delivery.getAmount() * product.getPrice())%>
                         </li>
                     </ul>
-<%--                    <p><%=products.get(0).getName() %>></p>--%>
-                    <%--                <p>[옵션: <%= products.get(0).getStock().getSize()%>]</p>--%>
+<%
+    }
+%>
                 </div>
         </div>
         <%-- 결제 정보 --%>
@@ -81,25 +103,27 @@
                 <ul class="list-unstyled">
                     <li>
                         <label class="col-10">주문상품</label>
-                        <span>\199,000</span>
+                        <span><%=Utils.toCurrency(totalPrice)%></span>
                     </li>
                     <li>
                         <label class="col-10">배송비</label>
-                        <span>\3000</span>
+                        <span><%=Utils.toCurrency(deliveryPrice)%></span>
                     </li>
                     <li>
                         <div class="bg-secondary bg-opacity-25">
                             <label class="col-10"><strong>결제금액</strong></label>
-                            <span><strong>\202,000</strong></span>
+                            <span><strong><%=Utils.toCurrency(deliveryPrice + totalPrice)%></strong></span>
                         </div>
                     </li>
                 </ul>
         </div>
     </div>
     <div class="row mb-3">
+        <form action="order-detail.jsp?orderNo=<%=order.getNo()%>" method="get">
         <div class="col d-flex justify-content-end">
            <button onclick="location.href='order-detail.jsp'" class="btn btn-white text-black border border-2">주문확인하기</button>
         </div>
+        </form>
         <div class="col-2"></div>
         <div class="col d-flex justify-content-start d-grid">
             <button onclick="location.href='order-list.jsp'" class="btn btn-dark text-white d-grid" type="button">쇼핑계속하기</button>

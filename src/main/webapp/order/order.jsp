@@ -31,6 +31,7 @@
     int deliveryPrice = Integer.parseInt(request.getParameter("deliveryPrice"));            // 배송비
     int paymentPrice = Integer.parseInt(request.getParameter("paymentPrice"));              // 결제 금액
     String[] proNoArr = request.getParameterValues(request.getParameter("productNo"));      // 상품 번호
+    String message = request.getParameter("message");
     int totalAmount = Utils.toInt(request.getParameter("totalAmount"));                     // 주문 상품 전체 개수
 
     // 주문 상품 개수
@@ -99,6 +100,7 @@
     order.setDepositPoint(1);
     order.setAddr(addr);
     order.setUser(user);
+    order.setDeliveryMessage(message);
 
     orderDao.insertOrder(order);
 
@@ -113,6 +115,7 @@
         stock.setNo(1);
         product.setNo(productNo);
 
+        delivery.setProduct(product);
         delivery.setPrice(product.getPrice());
         delivery.setOrder(payOrder);
         delivery.setAmount(amountArr[i]);

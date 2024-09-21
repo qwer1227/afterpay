@@ -19,6 +19,7 @@ public class OrderDao {
                     (ORDER_NO
                     , ORDER_PRICE, ORDER_AMOUNT , DELIVERY_PRICE 
                     , USE_POINT , ORDER_DISCOUNT_PRICE, PAYMENT_PRICE
+                    , DELIVERY_MESSAGE
                     , DEPOSIT_POINT, USER_NO, ADDR_NO)
                     VALUES
                     (ORDER_NO_SEQ.NEXTVAL
@@ -29,6 +30,7 @@ public class OrderDao {
         DaoHelper.insert(sql
                 , order.getPrice(), order.getAmount(), order.getDeliveryPrice()
                 , order.getUsePoint(), order.getDiscountPrice(), order.getPaymentPrice()
+                , order.getDeliveryMessage()
                 , order.getDepositPoint(), order.getUser().getNo(), order.getAddr().getNo()
         );
     }
@@ -65,6 +67,7 @@ public class OrderDao {
             order.setDiscountPrice(rs.getInt("ORDER_DISCOUNT_PRICE"));
             order.setPaymentPrice(rs.getInt("PAYMENT_PRICE"));
             order.setDepositPoint(rs.getInt("DEPOSIT_POINT"));
+            order.setDeliveryMessage(rs.getString("DELIVERY_MESSAGE"));
             order.getUser().setNo(rs.getInt("USER_NO"));
             order.getAddr().setNo(rs.getInt("ADDR_NO"));
             return order;
@@ -95,6 +98,7 @@ public class OrderDao {
             order.setDiscountPrice(rs.getInt("ORDER_DISCOUNT_PRICE"));
             order.setPaymentPrice(rs.getInt("PAYMENT_PRICE"));
             order.setDepositPoint(rs.getInt("DEPOSIT_POINT"));
+            order.setDeliveryMessage(rs.getString("DELIVERY_MESSAGE"));
             order.getUser().setNo(rs.getInt("USER_NO"));
             order.getAddr().setNo(rs.getInt("ADDR_NO"));
             return order;

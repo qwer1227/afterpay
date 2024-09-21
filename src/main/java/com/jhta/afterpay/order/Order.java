@@ -21,12 +21,10 @@ public class Order {
     private int depositPoint;
     private Addr addr;
     private User user;
-    private List<Product> Products;
+    private String deliveryMessage;
 
     public Order() {
     }
-
-
 
     public int getNo() {
         return no;
@@ -132,11 +130,11 @@ public class Order {
         this.user = user;
     }
 
-    public List<Product> getProducts() {
-        return Products;
+    public String getDeliveryMessage() {
+        return deliveryMessage;
     }
 
-    public void setProducts(List<Product> products) {
-        Products = products;
+    public void setDeliveryMessage(String deliveryMessage) {
+        this.deliveryMessage = deliveryMessage;
     }
 }

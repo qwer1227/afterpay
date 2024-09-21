@@ -32,14 +32,14 @@
     // 장바구니에서 전달 받은 상품 재고 번호
     String[] stockNo = request.getParameterValues("stockNo");
     int[] stockNoArr = new int[stockNo.length];
-    for(int i=0; i<stockNoArr.length; i++) {
+    for (int i = 0; i < stockNoArr.length; i++) {
         stockNoArr[i] = Utils.toInt(stockNo[i]);
     }
 
     // 장바구니에서 전달 받은 각 상품 주문 수량
     String[] amount = request.getParameterValues("amount");
     int[] amountArr = new int[amount.length];
-    for(int i=0; i<amountArr.length; i++) {
+    for (int i = 0; i < amountArr.length; i++) {
         amountArr[i] = Utils.toInt(amount[i]);
     }
 
@@ -53,49 +53,56 @@
 
 %>
 <div id="main" class="container">
-    <div class="row text-center mb-5">
-        <h3>주문 결제</h3>
-    </div>
-
-<%--    상품 정보   --%>
-    <div class="row mb-5 p-3">
-        <%
-            StockDao stockDao = new StockDao();
-            ProductDao productDao = new ProductDao();
-            int totalPrice = 0;
-            for (int i=0; i<stockNoArr.length; i++) {
-                Stock stock = stockDao.getStockByNo(stockNoArr[i]);
-                int productNo = stock.getProductNo();
-                Product product = productDao.getProductByNo(productNo);
-                totalPrice += amountArr[i] * product.getPrice();
-                String thumb = thumbArr[i];
-        %>
-        <div class="col-2">
-            <img src="<%=thumb%>>" class="rounded float-start" style="width: 170px; height:130px;">
-        </div>
-        <div class="col-7">
-            <input type="hidden" name="stockNo" value="<%=stock.getNo()%>">
-            <ul class="list-unstyled">
-                <li><%=product.getNo() %></li>
-                <li><%=stock.getSize() %></li>
-            </ul>
-        </div>
-        <div class="col-3">
-            <%=product.getPrice()%>
-        </div>
-        <%
-            }
-        %>
-    </div>
-
     <form action="order.jsp" method="post">
+        <div class="row text-center mb-5">
+            <h3>주문 결제</h3>
+        </div>
+
+        <%--    상품 정보   --%>
+        <div class="row mb-5 p-3">
+            <%
+                StockDao stockDao = new StockDao();
+                ProductDao productDao = new ProductDao();
+                int totalPrice = 0;
+                for (int i = 0; i < stockNoArr.length; i++) {
+                    Stock stock = stockDao.getStockByNo(stockNoArr[i]);
+                    int productNo = stock.getProductNo();
+                    Product product = productDao.getProductByNo(productNo);
+                    totalPrice += amountArr[i] * product.getPrice();
+                    String thumb = thumbArr[i];
+                    int amount1 = amountArr[i];
+            %>
+            <div class="col-2">
+                <img src="<%=thumb%>>" class="rounded float-start" style="width: 170px; height:130px;">
+            </div>
+            <div class="col-7">
+                <input type="hidden" name="amount" value="<%=amount1%>">
+                <input type="hidden" name="stockNo" value="<%=stock.getNo()%>">
+                <ul class="list-unstyled">
+                    <li>상품명: <%=product.getName() %>
+                    </li>
+                    <li>사이즈: <%=stock.getSize() %>
+                    </li>
+                    <li>수량: <%=amount1 %>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-3">
+                <%=Utils.toCurrency(product.getPrice())%>
+            </div>
+            <%
+                }
+            %>
+        </div>
+
+
         <input type="hidden" name="products" value="">
         <div id="delivery" class="row border-bottom border-top border-2 p-3 border-dark">
             <h4>배송 정보</h4>
             <ul class="list-unstyled p-4">
                 <li class="mt-1"><label>이름</label><input type="text" name="userName" class="form-control"/></li>
                 <li class="mt-2 mb-2"><input type="button" id="addrListBtn" value="배송지 고르기" onclick="openAddrs()"
-                                        class="btn btn-primary"></li>
+                                             class="btn btn-primary"></li>
                 <li class="mt-1">
                     <div class="col-12 input-group m-1">
                         <input type="hidden" name="addrNo" value="" disabled>
@@ -108,8 +115,9 @@
                 <li class="mt-1"><label>주소</label><input type="text" id="sample6_address" name="address"
                                                          placeholder="주소" class="form-control" required><br></li>
                 <li><label>상세주소</label> <input type="text" id="sample6_detailAddress" name="detailAddress"
-                                                            placeholder="상세주소" class="form-control"></li>
-                <li><input type="hidden" id="sample6_extraAddress" name="cham" placeholder="참고항목" class="form-control"></li>
+                                               placeholder="상세주소" class="form-control"></li>
+                <li><input type="hidden" id="sample6_extraAddress" name="cham" placeholder="참고항목" class="form-control">
+                </li>
                 <li class="mt-1"><label>휴대폰번호</label><input type="text" class="form-control" name="tel" required/></li>
                 <li class="mt-1">
                     <%--@declare id="email"--%><label for="email">이메일주소</label>
@@ -132,34 +140,36 @@
         <label class="mt-3"><h4>적립금 사용하기</h4></label><br>
         <div class="border-bottom mb-1 p-4 border-dark">
             <input type="text" name="point" value="" class="form-control"/>
-            <%--
-                            <label>보유한 적립금: </label><span><%=user.getPoint() %></span>
-            --%>
+            <%
+                if (user.getPoint() != 0) {
+            %>
+                            <label>보유한 적립금: </label><span><%=Utils.toCurrency(user.getPoint())%></span>
+            <%
+                }
+            %>
         </div>
         <div id="price" class="row border-bottom border-2 border-dark">
-            <%
-
-            %>
             <h4>결제 정보</h4>
             <ul class="list-unstyled p-4">
                 <li>
                     <label class="col-10">합계 금액</label>
                     <input type="hidden" name="totalPrice" value="<%=totalPrice%>">
-                    <%=totalPrice%>
+                    <%=Utils.toCurrency((totalPrice)%>
                 </li>
                 <li>
                     <label class="col-10">할인 금액</label>
                     <input type="hidden" name="discountPrice" value="<%=totalPrice%>">
-                    <span> <%=totalPrice%></span>
+                    <span> <%=Utils.toCurrency(totalPrice)%></span>
                 <li>
                     <label class="col-10">배송비</label>
-                    <input type="hidden" name="deliveryPrice" value="<%=totalPrice%>">
-                    <span><%=3000%></span>
+                    <input type="hidden" name="deliveryPrice" value="<%=3000%>">
+                    <span><%=Utils.toCurrency(3000)%></span>
                 </li>
                 <li>
                     <label class="col-10"><strong>결제 금액</strong></label>
                     <input type="hidden" name="paymentPrice" value="<%=totalPrice + 3000%>">
-                    <strong> <%=totalPrice + 3000%></strong>
+                    <strong><%=Utils.toCurrency(totalPrice + 3000)%>
+                    </strong>
                 </li>
             </ul>
         </div>
@@ -220,7 +230,7 @@
         window.name = "orderForm";
 
         // window.open("open할 window", "자식창 이름", "팝업창 옵션");
-        openWin = window.open('addrList.jsp', '_blank', 'width=1000, height=600, top=50, left=50, scrollbars=yes')
+        openWin = window.open('addr-list.jsp', '_blank', 'width=1000, height=600, top=50, left=50, scrollbars=yes')
     }
 
     // 도메인 직접 입력 or domain option 선택
@@ -229,7 +239,7 @@
     // select 옵션 변경 시
     domainListEl.addEventListener('change', (event) => {
         // option에 있는 도메인 선택 시
-        if(event.target.value !== "type") {
+        if (event.target.value !== "type") {
             // 선택한 도메인을 input에 입력하고 disabled
             domainInputEl.value = event.target.value
             domainInputEl.disabled = true

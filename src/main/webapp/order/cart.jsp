@@ -5,6 +5,7 @@
 <%@ page import="com.jhta.afterpay.product.Stock" %>
 <%@ page import="com.jhta.afterpay.product.StockDao" %>
 <%@ page import="com.jhta.afterpay.product.ProductDao" %>
+<%@ page import="com.jhta.afterpay.util.Utils" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
@@ -110,7 +111,7 @@
                                         </p>
                                         <p>
                                             <input type="hidden" name="price" value="<%=product.getPrice()%>">
-                                            <%=product.getPrice()%>
+                                            <%=Utils.toCurrency(product.getPrice())%>
                                         </p>
                                     </td>
                                     <td class="align-middle text-end">
@@ -144,12 +145,12 @@
                                         <strong><%=totalAmount%></strong>
                                     </td>
                                     <td>
-                                        <input type="hidden" name="" value="">
-                                        <strong>3000 원</strong>
+                                        <input type="hidden" name="deliveryPrice" value="<%=3000%>">
+                                        <strong><%=Utils.toCurrency(3000)%></strong>
                                     </td>
                                     <td>
                                         <input type="hidden" name="totalPrice" value="<%=totalPrice%>">
-                                        <strong><%=totalPrice%></strong>
+                                        <strong><%=Utils.toCurrency(totalPrice)%></strong>
                                     </td>
                                     <td></td>
                                 </tr>

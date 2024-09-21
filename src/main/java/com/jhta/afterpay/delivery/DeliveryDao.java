@@ -2,6 +2,7 @@ package com.jhta.afterpay.delivery;
 
 import com.jhta.afterpay.order.Order;
 import com.jhta.afterpay.product.Product;
+import com.jhta.afterpay.product.ProductDao;
 import com.jhta.afterpay.product.Stock;
 import com.jhta.afterpay.util.DaoHelper;
 
@@ -77,7 +78,7 @@ public class DeliveryDao {
         });
     }
 
-    public Delivery getDeliveryByOrderNo(int orderNo) {
+    public List<Delivery> getAllDeliveryByOrderNo(int orderNo) {
         String sql = """
                 SELECT *
                 FROM ORDER_DELIVERY_PRODUCTS
@@ -91,11 +92,12 @@ public class DeliveryDao {
         Order order = new Order();
         delivery.setOrder(order);
 
-        return DaoHelper.selectOne(sql, rs -> {
+        return DaoHelper.selectList(sql, rs -> {
             delivery.setNo(rs.getInt("DELIVERY_NO"));
             delivery.setPrice(rs.getInt("DELIVERY_PRODUCT_PRICE"));
             delivery.setAmount(rs.getInt("DELIVERY_PRODUCT_AMOUNT"));
             delivery.setStatus(rs.getString("DELIVERY_STATUS"));
+            delivery.setRecipient(rs.getString("RECIPIENT"));
             delivery.getProduct().setNo(rs.getInt("PRODUCT_NO"));
             delivery.getStock().setNo(rs.getInt("PRODUCT_STOCK_NO"));
             delivery.getOrder().setNo(rs.getInt("ORDER_NO"));

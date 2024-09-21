@@ -6,39 +6,39 @@ import java.util.List;
 
 public class ProductDao {
 
-//    /**
-//     * 상품 번호로 상품의 모든 정보를 반환한다.
-//     * @param productNo 상품 번호
-//     * @return 해당 상품의 모든 정보
-//     */
-//    public Product getProductByNo(int productNo) {
-//        String sql = """
-//            select *
-//            from products p, product_categories c
-//            where p.product_no = ?
-//            and p.cat_no = c.cat_no
-//        """;
-//
-//        return DaoHelper.selectOne(sql, rs -> {
-//            Product product = new Product();
-//            product.setNo(rs.getInt("product_no"));
-//            product.setName(rs.getString("product_name"));
-//            product.setPrice(rs.getInt("product_price"));
-//            product.setContent(rs.getString("product_content"));
-//            product.setViewCount(rs.getInt("product_view_cnt"));
-//            product.setCreatedDate(rs.getDate("product_created_date"));
-//            product.setStatus(rs.getString("product_status"));
-//            product.setTotalRating(rs.getInt("product_total_rating"));
-//
-//            Category category = new Category();
-//            category.setNo(rs.getInt("cat_no"));
-//            category.setName(rs.getString("cat_name"));
-//            category.setParentNo(rs.getInt("parent_cat_no"));
-//            product.setCategory(category);
-//
-//            return product;
-//        }, productNo);
-//    }
+    /**
+     * 상품 번호로 상품의 모든 정보를 반환한다.
+     * @param productNo 상품 번호
+     * @return 해당 상품의 모든 정보
+     */
+    public Product getAllProductByNo(int productNo) {
+        String sql = """
+            select *
+            from products p, product_categories c
+            where p.product_no = ?
+            and p.cat_no = c.cat_no
+        """;
+
+        return DaoHelper.selectOne(sql, rs -> {
+            Product product = new Product();
+            product.setNo(rs.getInt("product_no"));
+            product.setName(rs.getString("product_name"));
+            product.setPrice(rs.getInt("product_price"));
+            product.setContent(rs.getString("product_content"));
+            product.setViewCount(rs.getInt("product_view_cnt"));
+            product.setCreatedDate(rs.getDate("product_created_date"));
+            product.setStatus(rs.getString("product_status"));
+            product.setTotalRating(rs.getInt("product_total_rating"));
+
+            Category category = new Category();
+            category.setNo(rs.getInt("cat_no"));
+            category.setName(rs.getString("cat_name"));
+            category.setParentNo(rs.getInt("parent_cat_no"));
+            product.setCategory(category);
+
+            return product;
+        }, productNo);
+    }
 
     /**
      * 상품 번호로 상품의 재고 상황을 반환한다.
@@ -319,6 +319,7 @@ public class ProductDao {
     public List<Product> searchAllProducts() {
         String sql = """
             select p.product_no
+                , pc.cat_no
                 , pc.cat_name
                 , p.product_name
                 , p.product_created_date
@@ -327,9 +328,19 @@ public class ProductDao {
             where p.cat_no = pc.cat_no
             """;
 
-        List<Product> products = new ArrayList<>();
+            return DaoHelper.selectList(sql, rs -> {
+                Product product = new Product();
+                product.setNo(rs.getInt("PRODUCT_NO"));
+                product.setName(rs.getString("PRODUCT_NAME"));
+                product.setCreatedDate(rs.getDate("PRODUCT_CREATED_DATE"));
+                product.setStatus(rs.getString("PRODUCT_STATUS"));
 
-        return products;
+                Category category = new Category();
+                category.setNo(rs.getInt("CAT_NO"));
+                category.setName(rs.getString("CAT_NAME"));
+                product.setCategory(category);
+                return product;
+        });
     }
 
     public int getTotalRowsByCatNo(int catNo) {

@@ -100,7 +100,7 @@
             <!--버튼-->
             <div class="text-end my-2">
                 <a href="#" class="btn btn-danger">상품삭제</a>
-                <a href="#" class="btn btn-primary">상품수정</a>
+                <a href="modify-form.jsp?no=<%=product.getNo() %>" class="btn btn-primary">상품수정</a>
                 <a href="product.jsp" class="btn btn-success">상품목록</a>
             </div>
         </div>

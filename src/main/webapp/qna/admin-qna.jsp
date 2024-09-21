@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/common/css/style.css">
 </head>
 <body>
-<%@ include file="../../common/nav.jsp" %>
+<%@ include file="../common/nav.jsp" %>
 <div class="container">
     <div class="row">
         <div class="text-center">
@@ -22,15 +22,15 @@
         <div class="col-2 pt-5">
             <!-- 메뉴목록 -->
             <ul class="list-group">
-                <li class="list-group-item"><a href="../home.jsp">관리자메인</a></li>
+                <li class="list-group-item"><a href="../admin/home.jsp">관리자메인</a></li>
                 <li class="list-group-item"><a href="#">회원관리</a></li>
                 <li class="list-group-item"><a href="#">주문관리</a></li>
                 <li class="list-group-item"><a href="#">적립금관리</a></li>
             </ul>
             <ul class="list-group">
-                <li class="list-group-item"><a href="../product/product.jsp">상품관리</a></li>
-                <li class="list-group-item"><a href="../qna/qna.jsp">문의관리</a></li>
-                <li class="list-group-item"><a href="../product/stock.jsp">상품재고현황</a></li>
+                <li class="list-group-item"><a href="../admin/product/product.jsp">상품관리</a></li>
+                <li class="list-group-item"><a href="admin-qna.jsp">문의관리</a></li>
+                <li class="list-group-item"><a href="../admin/product/stock.jsp">상품재고현황</a></li>
                 <li class="list-group-item"><a href="#">정산관리</a></li>
             </ul>
         </div>
@@ -135,6 +135,6 @@
     </div>
 </div>
 
-<%@ include file="../../common/footer.jsp" %>
+<%@ include file="../common/footer.jsp" %>
 </body>
 </html>

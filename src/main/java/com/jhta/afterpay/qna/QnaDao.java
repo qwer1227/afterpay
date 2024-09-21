@@ -8,6 +8,33 @@ import java.util.List;
 
 public class QnaDao {
 
+    public List<Qna> getAllQna() {
+        String sql = """
+                select qna_no
+                    ,qna_title
+                    ,qna_content
+                    ,qna_cnt
+                    ,qna_created_date = sysdate
+                    ,qna_replied_date = sysdate
+                    ,qna_replied_content
+                from qnas
+                """;
+
+        return DaoHelper.selectList(sql, rs -> {
+            Qna qna = new Qna();
+            qna.setNo(rs.getInt("QNA_NO"));
+            qna.setTitle(rs.getString("QNA_TITLE"));
+            qna.setContent(rs.getString("QNA_CONTENT"));
+            qna.setCnt(rs.getInt("QNA_CNT"));
+            qna.setCreatedDate(rs.getDate("QNA_CREATED_DATE"));
+            qna.setRepliedDate(rs.getDate("QNA_REPLY_DATE"));
+            qna.setRepliedContent(rs.getString("QNA_REPLY_CONTENT"));
+
+
+            return qna;
+        });
+    }
+
     /**
      * 사용자가 삭제하지 않은 문의 게시글 목록 조회
      * @param userNo

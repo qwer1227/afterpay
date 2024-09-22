@@ -103,4 +103,72 @@ public class DeliveryDao {
             return delivery;
         }, orderNo);
     }
+
+    /**
+     * 사용자의 주문내역들 조회
+     * @param userNo
+     * @return
+     */
+    public List<Delivery> getDeliveriesByUserNo(int userNo) {
+        String sql = """
+                SELECT D.DELIVERY_PRODUCT_PRICE
+                    , D.DELIVERY_PRODUCT_AMOUNT
+                    , D.DELIVERY_STATUS
+                    , D.PRODUCT_NO
+                    , D.PRODUCT_STOCK_NO
+                    , D.ORDER_NO
+                    , S.PRODUCT_STOCK_SIZE
+                    , O.USER_NO
+                    , O.ORDER_DATE
+                    , P.PRODUCT_NAME
+                FROM ORDER_DELIVERY_PRODUCTS D JOIN PRODUCT_STOCKS S
+                    ON D.PRODUCT_STOCK_NO = S.PRODUCT_STOCK_NO
+                        JOIN ORDERS O
+                    ON O.ORDER_NO = D.ORDER_NO
+                        JOIN PRODUCTS P
+                    ON P.PRODUCT_NO = D.PRODUCT_NO
+                WHERE O.USER_NO = ?
+                """;
+
+        return DaoHelper.selectList(sql, rs -> {
+            Delivery delivery = new Delivery();
+
+            delivery.setPrice(rs.getInt("DELIVERY_PRODUCT_PRICE"));
+            delivery.setAmount(rs.getInt("DELIVERY_PRODUCT_AMOUNT"));
+            delivery.setStatus(rs.getString("DELIVERY_STATUS"));
+
+            Product product = new Product();
+            product.setNo(rs.getInt("PRODUCT_NO"));
+            product.setName(rs.getString("PRODUCT_NAME"));
+            delivery.setProduct(product);
+
+            Stock stock = new Stock();
+            stock.setNo(rs.getInt("PRODUCT_STOCK_NO"));
+            stock.setSize(rs.getString("PRODUCT_STOCK_SIZE"));
+            delivery.setStock(stock);
+
+            Order order = new Order();
+            order.setNo(rs.getInt("ORDER_NO"));
+            order.setOrderDate(rs.getDate("ORDER_DATE"));
+            delivery.setOrder(order);
+
+            return delivery;
+        }, userNo);
+    }
+
+    /**
+     * 사용자의 주문내역 총 갯수 조회
+     * @param userNo
+     * @return
+     */
+    public int getAllTotalRowsByUserNo(int userNo) {
+        String sql = """
+                SELECT COUNT(*)
+                FROM ORDER_DELIVERY_PRODUCTS D JOIN ORDERS O
+                    ON D.ORDER_NO = O.ORDER_NO
+                WHERE O.USER_NO = ?
+                """;
+
+        return DaoHelper.selectOneInt(sql, userNo);
+    }
 }

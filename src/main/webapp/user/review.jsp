@@ -74,7 +74,12 @@
               <input type="checkbox" name="reviewNo" onchange="checkSelect()" style="zoom:1.5">
             </th>
             <th scope="row"><%=reviewCnt++%></th>
-            <td class="text-start"><%=review.getTitle()%></td>
+            <td class="text-start">
+              <!-- 상품 상세페이지의 리뷰로 페이지 이동 -->
+              <a href="" style="text-decoration-line: none">
+                <%=review.getTitle()%>
+              </a>
+            </td>
             <td><%=review.getCreatedDate()%></td>
             <td></td>
           </tr>

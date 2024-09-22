@@ -1,6 +1,9 @@
 <%@ page import="com.jhta.afterpay.product.StockDao" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.jhta.afterpay.product.Stock" %>
+<%@ page import="com.jhta.afterpay.util.Utils" %>
+<%@ page import="com.jhta.afterpay.product.ProductDao" %>
+<%@ page import="com.jhta.afterpay.product.Product" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <html>
 <head>
@@ -36,8 +39,8 @@
                 <ul class="list-group">
                     <li class="list-group-item"><a href="../product/product.jsp">상품관리</a></li>
                     <li class="list-group-item"><a href="../../qna/admin-qna.jsp">문의관리</a></li>
-                    <li class="list-group-item"><a href="../product/stock.jsp">상품재고현황</a></li>
-                    <li class="list-group-item"><a href="#">정산관리</a></li>
+                    <li class="list-group-item"><a href="stock.jsp">상품재고현황</a></li>
+                    <li class="list-group-item"><a href="../settlement/settlement.jsp">정산관리</a></li>
                 </ul>
             </div>
             <div class="col-10 my-1">
@@ -53,16 +56,26 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <%
+                            ProductDao productDao = new ProductDao();
 
+                            StockDao stockDao = new StockDao();
+                            List<Stock> stocks = stockDao.getAllStocks();
+                        %>
+                        <%
+                            for (Stock stock : stocks) {
+                        %>
                         <tr>
-                            <td></td>
+                            <td><%=stock.getProduct().getNo()%></td>
                             <td>어포지션 하프 패널 풀오버 후디 베이지</td>
                             <td></td>
                             <td>5 개</td>
                             <td>20 개</td>
                             <td>55 개</td>
                         </tr>
-
+                        <%
+                            }
+                        %>
                     </tbody>
                 </table>
             </div>

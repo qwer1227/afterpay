@@ -1,12 +1,27 @@
 package com.jhta.afterpay.product;
 
 import com.jhta.afterpay.util.DaoHelper;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class ProductDao {
 
 
+
+    /**
+     * 해당 상품을 삭제한다.
+     *
+     * @param productNo 상품번호
+     * @return
+     */
+    public void deleteProduct(int productNo) {
+        String sql = """
+                DELETE FROM PRODUCTS
+                WHERE PRODUCT_NO = ?
+                """;
+
+        DaoHelper.delete(sql, productNo);
+    }
 
     /**
      * 상품 정보를 수정한다.
@@ -21,10 +36,11 @@ public class ProductDao {
                     ,PRODUCT_CONTENT = ?
                     ,CAT_NO = ?
                     ,PRODUCT_STATUS = ?
+                    ,ISDELETED = ?
                 WHERE PRODUCT_NO = ?
                 """;
 
-        DaoHelper.update(sql, product.getName(), product.getPrice(), product.getContent(), product.getCategory().getNo(), product.getStatus(), product.getNo());
+        DaoHelper.update(sql, product.getName(), product.getPrice(), product.getContent(), product.getCategory().getNo(), product.getStatus(), product.getDeleted(), product.getNo());
      }
 
     /**
@@ -50,6 +66,7 @@ public class ProductDao {
             product.setCreatedDate(rs.getDate("product_created_date"));
             product.setStatus(rs.getString("product_status"));
             product.setTotalRating(rs.getInt("product_total_rating"));
+            product.setDeleted(rs.getString("isdeleted"));
 
             Category category = new Category();
             category.setNo(rs.getInt("cat_no"));
@@ -408,32 +425,4 @@ public class ProductDao {
             return product;
         }, catNo, begin, end);
     }
-
-//    public Product getProductImage(int productNo) {
-//        String sql = """
-//                SELECT P.PRODUCT_NO
-//                    , IMG.IMG_NO
-//                    , IMG.IMG_NAME
-//                    , IMG.ISTHUMB
-//                FROM PRODUCTS P, PRODUCT_IMGS IMG
-//                WHERE P.PRODUCT_NO = IMG.PRODUCT_NO
-//                AND IMG.ISTHUMB = 'Y'
-//                AND P.PRODUCT_NO = ?
-//                """;
-//
-//        return DaoHelper.selectOne(sql, rs -> {
-//            Product product = new Product();
-//            product.setNo(rs.getInt("PRODUCT_NO"));
-//
-//            Image image = new Image();
-//            image.setNo(rs.getInt("IMG_NO"));
-//            image.setName(rs.getString("IMG_NAME"));
-//            image.setThumb(rs.getString("ISTHUMB"));
-//
-//            product.setImage(image);
-//            return product;
-//
-//        }, productNo);
-//    }
-
 }

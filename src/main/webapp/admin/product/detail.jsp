@@ -38,8 +38,8 @@
                     Product product = productDao.getProductByNo(productNo);
 
                     // 재고값
-                    //StockDao stockDao = new StockDao();
-                    //List<Stock> stocks = stockDao.getStocksByNo(productNo);
+                    StockDao stockDao = new StockDao();
+                    List<Stock> stocks = stockDao.getAllStocksByNo(productNo);
                 %>
                 <table class="table table-bordered">
                     <colgroup>
@@ -69,13 +69,20 @@
                         <th>가격</th>
                         <td><%=Utils.toCurrency(product.getPrice())%></td>
                     </tr>
+                    <%
+                        for (Stock stock : stocks) {
+                            if("S".equals(stock.getSize()) || "M".equals(stock.getSize()) || "L".equals(stock.getSize())) {
+                    %>
                     <tr>
-                        <th>재고수량</th>
-
+                        <th>재고상황</th>
                         <td colspan="3">
-
+                            <%=stock.getSize()%> : <%=stock.getAmount()%>
                         </td>
                     </tr>
+                    <%
+                            }
+                        }
+                    %>
                     <tr>
                         <th>평점</th>
                         <td><%=product.getTotalRating()%></td>
@@ -99,7 +106,7 @@
             </div>
             <!--버튼-->
             <div class="text-end my-2">
-                <a href="#" class="btn btn-danger">상품삭제</a>
+                <a href="delete.jsp?no=<%=product.getNo() %>" class="btn btn-danger">상품삭제</a>
                 <a href="modify-form.jsp?no=<%=product.getNo() %>" class="btn btn-primary">상품수정</a>
                 <a href="product.jsp" class="btn btn-success">상품목록</a>
             </div>

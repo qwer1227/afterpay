@@ -13,6 +13,7 @@ public class Product {
     private int totalRating;
     private Category category;
     private String defaultImage;
+    private String deleted;
 
     public Product() {}
 
@@ -114,6 +115,14 @@ public class Product {
         this.defaultImage = defaultImage;
     }
 
+    public String getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(String deleted) {
+        this.deleted = deleted;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -127,6 +136,7 @@ public class Product {
                 ", totalRating=" + totalRating +
                 ", category=" + category +
                 ", defaultImage='" + defaultImage + '\'' +
+                ", deleted='" + deleted + '\'' +
                 '}';
     }
 }

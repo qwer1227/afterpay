@@ -6,13 +6,28 @@ import java.util.List;
 
 public class StockDao {
 
+    public Stock getAllStockByNoAndSize(int productNo, int size) {
+            String sql = """
+                    select product_stock_amount
+                    from (select product_stock_amount, product_stock_size
+                          from product_stocks
+                          where product_no = ?)
+                    where product_stock_size = '?'
+                    """;
+
+            return DaoHelper.selectOne(sql, rs ->{
+                Stock stock = new Stock();
+                stock.setAmount(rs.getInt("product_stock_amount"));
+                return stock;
+            }, productNo, size);
+    }
 
     /**
      * 상품번호로 재고 수량 전체 조회하기
      * @param productNo 상품번호
      * @return 재고수량
      */
-    public List<Stock> getAllStocksByNo(int productNo) {
+    public List<Stock> getStocksByNo(int productNo) {
         String sql = """
                 SELECT ,product_no
                       ,product_stock_size
@@ -31,5 +46,60 @@ public class StockDao {
             stock.setAmount(rs.getInt("PRODUCT_STOCK_AMOUNT"));
             return stock;
         }, productNo);
+    }
+
+    /**
+     * 상품 번호로 상품의 재고 상황을 반환한다.
+     * @param productNo 상품 번호
+     * @return 해당 상품의 재고번호, 재고사이즈, 재고량
+     */
+    public List<Stock> getAllStocksByNo(int productNo) {
+        String sql = """
+            select s.product_stock_no
+                    , s.product_stock_size
+                    , s.product_stock_amount
+                    , s.product_no
+            from products p, product_stocks s
+            where p.product_no = ?
+            and p.product_no = s.product_no
+            order by s.product_stock_size desc
+        """;
+
+        return DaoHelper.selectList(sql, rs -> {
+            Stock stock = new Stock();
+            stock.setNo(rs.getInt("product_stock_no"));
+            stock.setSize(rs.getString("product_stock_size"));
+            stock.setAmount(rs.getInt("product_stock_amount"));
+            stock.setProductNo(rs.getInt("product_no"));
+            return stock;
+        }, productNo);
+    }
+
+    public List<Stock> getAllStocks() {
+        String sql = """
+                SELECT
+                    p.product_no
+                    ,p.product_name
+                    ,ps.product_stock_no
+                    ,ps.product_stock_size
+                    ,ps.product_stock_amount
+                FROM products p
+                JOIN product_stocks ps ON p.product_no = ps.product_no
+                ORDER BY p.product_no, ps.product_stock_size DESC
+            """;
+
+        return DaoHelper.selectList(sql, rs -> {
+           Stock stock = new Stock();
+           stock.setNo(rs.getInt("PRODUCT_STOCK_NO"));
+           stock.setSize(rs.getString("PRODUCT_STOCK_SIZE"));
+           stock.setAmount(rs.getInt("PRODUCT_STOCK_AMOUNT"));
+
+           Product product = new Product();
+           product.setNo(rs.getInt("PRODUCT_NO"));
+           product.setName(rs.getString("PRODUCT_NAME"));
+           stock.setProduct(product);
+
+           return stock;
+        });
     }
 }

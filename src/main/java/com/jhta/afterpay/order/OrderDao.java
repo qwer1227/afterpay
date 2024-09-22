@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDao {
@@ -162,4 +163,98 @@ public class OrderDao {
 //
 //        return order;
 //    }
+
+//    public List<Order> getOrdersInfoByUserNo(int userNo) {
+//        String sql = """
+//                SELECT O.USER_NO
+//                    , O.ORDER_NO
+//                    , O.ORDER_DATE
+//                    , O.ORDER_STATUS
+//                    , D.DELIVERY_PRODUCT_PRICE
+//                    , D.DELIVERY_PRODUCT_AMOUNT
+//                    , D.DELIVERY_STATUS
+//                    , P.PRODUCT_NO
+//                    , P.PRODUCT_NAME
+//                    , I.IMG_NAME
+//                FROM ORDERS O JOIN ORDER_DELIVERY_PRODUCTS D
+//                        ON O.ORDER_NO = D.ORDER_NO
+//                    JOIN PRODUCTS P
+//                        ON D.PRODUCT_NO = P.PRODUCT_NO
+//                    JOIN PRODUCT_IMGS I
+//                        ON P.PRODUCT_NO = I.PRODUCT_NO
+//                    JOIN PRODUCT_STOCKS S
+//                        ON P.PRODUCT_NO = S.PRODUCT_NO
+//                WHERE O.USER_NO = ?
+//                """;
+//        return DaoHelper.selectList(sql, rs -> {
+//            Order order = new Order();
+//
+//            order.setNo(rs.getInt("ORDER_NO"));
+//            order.setOrderDate(rs.getDate("ORDER_DATE"));
+//            order.setStatus(rs.getString("ORDER_STATUS"));
+//            order.setPaymentPrice(rs.getInt("DELIVERY_PRODUCT_PRICE"));
+//            order.setAmount(rs.getInt("DELIVERY_PRODUCT_AMOUNT"));
+//            order.setDeliveryStatus(rs.getString("DELIVERY_STATUS"));
+//
+//            User user = new User();
+//            user.setNo(rs.getInt("USER_NO"));
+//            order.setUser(user);
+//
+//            Product product = new Product();
+//            product.setNo(rs.getInt("PRODUCT_NO"));
+//            product.setName(rs.getString("PRODUCT_NAME"));
+//            product.setDefaultImage(rs.getString("IMG_NAME"));
+//            order.setProducts(product);
+//
+//            return order;
+//        }, userNo);
+//    }
+
+    public int getAllTotalRowsByUserNo(int userNo) {
+        String sql = """
+                SELECT COUNT(*)
+                FROM ORDERS
+                WHERE USER_NO = ?
+                """;
+
+        return DaoHelper.selectOneInt(sql, userNo);
+    }
+
+    public List<Order> getAllOrderByUserNo(int begin, int end) {
+        String sql = """
+                SELECT ROW_NUMBER() OVER (ORDER BY ORDER_NO DESC) ROWNUMBER
+                        , ORDER_NO
+                        , ORDER_DATE
+                        , ORDER_STATUS
+                        , ORDER_PRICE
+                        , ORDER_AMOUNT
+                        , DELIVERY_PRICE
+                        , USE_POINT
+                        , ORDER_DISCOUNT_PRICE
+                        , PAYMENT_PRICE
+                        , USER_NO
+                FROM ORDERS
+                WHERE ROWNUMBER BETWEEN ? AND ?
+                    AND USER_NO = ?
+                """;
+
+        return DaoHelper.selectList(sql, rs -> {
+            Order order = new Order();
+            order.setNo(rs.getInt("ORDER_NO"));
+            order.setOrderDate(rs.getDate("ORDER_DATE"));
+            order.setStatus(rs.getString("ORDER_STATUS"));
+            order.setPrice(rs.getInt("ORDER_PRICE"));
+            order.setAmount(rs.getInt("ORDER_AMOUNT"));
+            order.setDeliveryPrice(rs.getInt("DELIVERY_PRICE"));
+            order.setUsePoint(rs.getInt("USE_POINT"));
+            order.setDiscountPrice(rs.getInt("ORDER_DISCOUNT_PRICE"));
+            order.setPaymentPrice(rs.getInt("PAYMENT_PRICE"));
+
+            User user = new User();
+            user.setNo(rs.getInt("USER_NO"));
+            order.setUser(user);
+
+            return order;
+        }, begin, end);
+    }
 }

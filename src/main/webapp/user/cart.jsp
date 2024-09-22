@@ -91,7 +91,7 @@
                     <input type="checkbox" name="cartNo" onchange="checkSelect()" style="zoom:1.5" value="check-item">
                   </td>
                   <td>
-                    <img src="../img/<%=images.get(0).getName()%>" class="rounded mx-auto d-block" width="150">
+                    <img src="/img/<%=images%>" class="rounded mx-auto d-block" width="150">
                   </td>
                   <td class="align-top">
                     <p></p>

@@ -8,10 +8,10 @@ public class CategoryDao {
 
     public List<Category> getAllCategories() {
         String sql = """
-                select cat_no
-                    ,cat_name
-                    ,parent_cat_no
-                from product_categories
+                SELECT CAT_NO
+                    ,CAT_NAME
+                    ,PARENT_CAT_NO
+                FROM PRODUCT_CATEGORIES
                 """;
 
         return DaoHelper.selectList(sql, rs ->{

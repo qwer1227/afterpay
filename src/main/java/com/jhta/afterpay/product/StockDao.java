@@ -6,7 +6,13 @@ import java.util.List;
 
 public class StockDao {
 
-    public List<Stock> getStocksByNo(int productNo) {
+
+    /**
+     * 상품번호로 재고 수량 전체 조회하기
+     * @param productNo 상품번호
+     * @return 재고수량
+     */
+    public List<Stock> getAllStocksByNo(int productNo) {
         String sql = """
                 SELECT ,product_no
                       ,product_stock_size
@@ -26,7 +32,4 @@ public class StockDao {
             return stock;
         }, productNo);
     }
-
-
-
 }

@@ -6,6 +6,27 @@ import java.util.List;
 
 public class ProductDao {
 
+
+
+    /**
+     * 상품 정보를 수정한다.
+     * @param product 기존상품
+     */
+     public void updateAllProduct(Product product) {
+        String sql = """
+                UPDATE PRODUCTS
+                SET
+                    PRODUCT_NAME = ?
+                    ,PRODUCT_PRICE = ?
+                    ,PRODUCT_CONTENT = ?
+                    ,CAT_NO = ?
+                    ,PRODUCT_STATUS = ?
+                WHERE PRODUCT_NO = ?
+                """;
+
+        DaoHelper.update(sql, product.getName(), product.getPrice(), product.getContent(), product.getCategory().getNo(), product.getStatus(), product.getNo());
+     }
+
     /**
      * 상품 번호로 상품의 모든 정보를 반환한다.
      * @param productNo 상품 번호
@@ -162,7 +183,8 @@ public class ProductDao {
             return product;
         }, productNo);
     }
-        public int getTotalRows(int catNo) {
+
+    public int getTotalRows(int catNo) {
             String sql = """
                 SELECT COUNT(*)
                 FROM PRODUCTS
@@ -171,7 +193,7 @@ public class ProductDao {
                                  WHERE PARENT_CAT_NO = ?)
                 """;
             return DaoHelper.selectOneInt(sql, catNo);
-        }
+    }
 
         public List<Product> getProducts(int catNo, int begin, int end) {
             String sql = """

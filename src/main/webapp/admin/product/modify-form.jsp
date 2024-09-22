@@ -22,12 +22,12 @@
             List<Product> products = productDao.searchAllProducts();
             List<Category> categories = categoryDao.getAllCategories();
 
-            int productNo = Utils.toInt(request.getParameter("productNo"));
+            int productNo = Utils.toInt(request.getParameter("no"));
 
             Product product = productDao.getAllProductByNo(productNo);
 
         %>
-        <form class="border bg-light p-3" method="post" action="update.jsp">
+        <form class="border bg-light p-3" method="post" action="update.jsp?no=<%=productNo%>">
             <div class="text-center">
                 <h1>상품 수정</h1>
             </div>
@@ -38,7 +38,7 @@
                     <%
                         for (Category cat : categories) {
                     %>
-                    <option value="<%=cat.getNo()%>" <%=product.hasCategory(cat.getNo())%>></option>
+                    <option value="<%=cat.getNo()%>" <%=product.hasCategory(cat.getNo()) ? "selected" : ""%>> <%=cat.getName()%></option>
                     <%
                         }
                     %>
@@ -46,46 +46,30 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">상품 이름</label>
-                <input type="text" class="form-control" name="name">
+                <input type="text" class="form-control" name="name" value="<%=product.getName()%>">
             </div>
             <div class="mb-3">
                 <label class="form-label">상품 가격</label>
-                <input type="text" class="form-control" name="price">
-            </div>
-            <!--상품 사이즈-->
-            <div class="mb-3">
-                <label class="form-label">S 사이즈 수량</label>
-                <input type="hidden" name="smallSize" value="S">
-                <input type="text" class="form-control" name="smallAmount">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">M 사이즈 수량</label>
-                <input type="hidden" name="mediumSize" value="M">
-                <input type="text" class="form-control" name="mediumAmount">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">L 사이즈 수량</label>
-                <input type="hidden" name="largeSize" value="L">
-                <input type="text" class="form-control" name="largeAmount">
+                <input type="text" class="form-control" name="price" value="<%=product.getPrice()%>">
             </div>
             <div class="mb-3">
                 <label class="form-label">상품 상태</label>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="status" value="준비중">
+                    <input class="form-check-input" type="radio" name="status" value="준비중"  <%=product.hasStatus("준비중") ? "checked" : ""%>>
                     <label class="form-check-label">준비중</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="status" value="판매중">
+                    <input class="form-check-input" type="radio" name="status" value="판매중"  <%=product.hasStatus("판매중") ? "checked" : ""%>>
                     <label class="form-check-label">판매중</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="status" value="품절">
+                    <input class="form-check-input" type="radio" name="status" value="품절"  <%=product.hasStatus("품절") ? "checked" : ""%>>
                     <label class="form-check-label">품절</label>
                 </div>
             </div>
             <div class="mb-3">
                 <label class="form-label">상품 설명</label>
-                <textarea class="form-control" rows="5" name="description"></textarea>
+                <textarea class="form-control" rows="5" name="description"><%=product.getHtmlContent()%></textarea>
             </div>
             <div class="mb-3">
                 <label class="form-label">상품 사진</label>

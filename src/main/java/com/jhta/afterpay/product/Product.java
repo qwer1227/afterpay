@@ -100,6 +100,11 @@ public class Product {
     public boolean hasCategory(int catNo) {
         return catNo == category.getNo();
     }
+    
+    // 상품상태 유무 체크
+    public boolean hasStatus(String status) {
+        return status != null && status.equals(this.status);
+    }
 
     public String getDefaultImage() {
         return defaultImage;

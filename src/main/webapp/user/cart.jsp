@@ -82,7 +82,7 @@
                 <%
                   for (Cart cart : cartList){
                     ProductDao productDao = new ProductDao();
-                    String image = productDao.getProductImage(cart.getProduct().getNo());
+                    List<Image> images = productDao.getAllImagesByNo(cart.getProduct().getNo());
                     totalPrice += (cart.getProduct().getPrice() * cart.getAmount());
                     totalAmount += cart.getAmount();
                 %>
@@ -91,11 +91,13 @@
                     <input type="checkbox" name="cartNo" onchange="checkSelect()" style="zoom:1.5" value="check-item">
                   </td>
                   <td>
-                    <img src="../img/<%=image%>" class="rounded mx-auto d-block" width="150">
+                    <img src="../img/<%=images.get(0).getName()%>" class="rounded mx-auto d-block" width="150">
                   </td>
                   <td class="align-top">
                     <p></p>
-                    <p style="font-size: 20px"><strong><%=cart.getProduct().getName()%></strong></p>
+                    <p style="font-size: 20px">
+                      <strong><%=cart.getProduct().getName()%></strong>
+                    </p>
                     <p>사이즈: <strong><%=cart.getStock().getSize()%></strong></p>
                     <p>수량: <strong><%=cart.getAmount()%> 개</strong></p>
                     <p>가격: <strong><%=Utils.toCurrency(cart.getProduct().getPrice() * cart.getAmount())%> 원</strong></p>

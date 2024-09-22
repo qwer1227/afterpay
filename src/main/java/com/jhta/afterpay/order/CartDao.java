@@ -82,6 +82,11 @@ public class CartDao {
         }, userNo);
     }
 
+    /**
+     * 사용자가 장바구니에 담은 상품정보 조회
+     * @param userNo
+     * @return
+     */
     public List<Cart> getCartsInfoByUserNo(int userNo) {
         String sql = """
                 SELECT C.CART_NO

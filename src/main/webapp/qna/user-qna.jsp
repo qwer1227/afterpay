@@ -37,7 +37,6 @@
           int userNo = 19;
           QnaDao qnaDao = new QnaDao();
           List<Qna> qnaList = qnaDao.getQnaListByUserNo(userNo);
-          Qna qna = new Qna();
           int qnaCnt = 1;
         %>
       </div>
@@ -67,8 +66,10 @@
           <%
             if (qnaList.isEmpty()){
           %>
-          <tr class="text-center">
-            <td colspan="5"> 등록된 문의가 없습니다.</td>
+          <tr>
+            <td colspan="5" class="text-center">
+              등록된 문의가 없습니다.
+            </td>
           </tr>
           <%
             }

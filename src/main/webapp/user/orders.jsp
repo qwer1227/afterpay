@@ -30,7 +30,6 @@
 <%
   int userNo = Utils.toInt(request.getParameter("no"));
   OrderDao orderDao = new OrderDao();
-//  List<Order> order = orderDao.getOrderByNo(userNo);
 
 %>
 <div class="container">

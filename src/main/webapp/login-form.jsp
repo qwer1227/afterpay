@@ -49,5 +49,8 @@
         <button type="submit" class="btn btn-primary">로그인</button>
     </div>
     </form>
+    <form action="findid-form.jsp">
+        <button type="submit" class="btn btn-primary">아이디찾기</button>
+    </form>
 </body>
 </html>

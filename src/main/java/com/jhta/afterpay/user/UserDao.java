@@ -23,6 +23,44 @@ public class UserDao {
         return DaoHelper.selectOneInt(sql);
     }
 
+    public User getUserIdByEmailAndName(String email, String name) throws SQLException {
+        String sql = """
+                select *
+                from users
+                where user_email = ? and user_name = ?
+                """;
+
+        return DaoHelper.selectOne(sql, rs -> {
+            User user = new User();
+            user.setId(rs.getString("user_id"));
+            return user;
+        }, email,name);
+    }
+
+    public User getUserByEmailAndNameAndId(String email, String name, String id) throws SQLException {
+        String sql = """
+                select *
+                from users
+                where user_email = ? and user_name = ? and user_id = ?
+                """;
+
+        return DaoHelper.selectOne(sql, rs -> {
+            User user = new User();
+            user.setNo(rs.getInt("user_no"));
+            user.setEmail(rs.getString("user_email"));
+            user.setId(rs.getString("user_id"));
+            user.setPwd(rs.getString("user_password"));
+            user.setName(rs.getString("user_name"));
+            user.setTel(rs.getString("user_tel"));
+            user.setIsBanned(rs.getString("isbanned"));
+            user.setIsSignOut(rs.getString("issignout"));
+            user.setCreatedDate(rs.getDate("created_date"));
+            user.setGradeId(rs.getString("grade_id"));
+            user.setPoint(rs.getInt("point"));
+            return user;
+        }, email,name,id);
+    }
+
 
     public void InsertUser(User user) {
         String sql = """

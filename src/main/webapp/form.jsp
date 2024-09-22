@@ -6,7 +6,7 @@
       crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="./regist.js"></script>
 <html>
 <head>
     <title>Title</title>
@@ -27,28 +27,26 @@
 </style>
 </script>
 <body>
-    <form class="border bg-light p-3" method="post" action="insert.jsp">
+    <form class="border bg-light p-3" method="post" action="insert.jsp" onsubmit="return sendit(this.form)">
         <div class="mb-3">
             <label class="form-label">이름*</label>
-            <input class="form-control" type="text" name="user_name" id="user_name" placeholder="이름을 작성해주세요 예)홍길동" required>
-            <div class="check_font" id="name_check"></div>
+            <input class="form-control" type="text" name="user_name" id="user_name" placeholder="이름을 작성해주세요 예)홍길동" >
         </div>
         <div class="mb-3">
             <label class="form-label">아이디*</label>
-            <input class="form-control" type="text" name="user_id" id="user_id" placeholder="아이디를 입력해주세요 예)abc1234" required>
+            <input class="form-control" type="text" name="user_id" id="user_id" placeholder="아이디를 입력해주세요 예)abc1234" >
         </div>
         <div class="mb-3">
             <label class="form-label">비밀번호*</label>
-            <input class="form-control" type="password" name="user_pw" id="user_pw" placeholder="대,소문자 및 특수문자 8~16자 이내" required>
-            <div class="check_font" id="pwd_check"></div>
+            <input class="form-control" type="password" name="user_pw" id="user_pw" placeholder="대,소문자 및 특수문자 8~16자 이내" >
         </div>
         <div class="mb-3">
             <label class="form-label">비밀번호 확인*</label>
-            <input class="form-control" type="password" name="user_pw_vali" id="user_pw_vali" placeholder="한 번 더 입력해주세요" required>
+            <input class="form-control" type="password" name="user_pw_vali" id="user_pw_vali" placeholder="한 번 더 입력해주세요" >
         </div>
         <div class="mb-3">
             <label class="form-label">이메일*</label>
-            <input class="form-control" type="email" name="user_email" id="user_email" placeholder="이메일을 입력해주세요 예)abc@gmail.com" required>
+            <input class="form-control" type="email" name="user_email" id="user_email" placeholder="이메일을 입력해주세요 예)abc@gmail.com" >
         </div>
         <div class="mb-3">
             <ul>
@@ -66,11 +64,18 @@
                 </li>
             </ul>
         </div>
-        <div class="agreeArea">
-            <p>이용약관</p>
-            <div class="content">
-                <div>
-                    <p>
+
+        <div class="text-end">
+            <button type="submit" class="btn btn-primary" id="signup-button">가입하기</button>
+        </div>
+    </form>
+</body>
+</html>
+<div class="agreeArea">
+    <p>이용약관</p>
+    <div class="content">
+        <div>
+            <p>
                         <span style="font-family: Arial,Helvetica,sans-serif;">제1조(목적)
 <br>이 약관은 (주)비저너리 회사(전자상거래 사업자)가 운영하는 애프터프레이 공식 온라인 스토어(이하&nbsp;“몰”이라 한다)에서 제공하는 인터넷 관련 서비스(이하&nbsp;“서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리․의무 및 책임사항을 규정함을 목적으로 합니다.
 <br>※「PC통신,&nbsp;무선 등을 이용하는 전자상거래에 대해서도 그 성질에 반하지 않는 한 이 약관을 준용합니다.」
@@ -312,64 +317,8 @@
 <br>제24조(재판권 및 준거법)
 <br>&nbsp; ① “몰”과 이용자 간에 발생한 전자상거래 분쟁에 관한 소송은 제소 당시의 이용자의 주소에 의하고,&nbsp;주소가 없는 경우에는 거소를 관할하는 지방법원의 전속관할로 합니다.&nbsp;다만,&nbsp;제소 당시 이용자의 주소 또는 거소가 분명하지 않거나 외국 거주자의 경우에는 민사소송법상의 관할법원에 제기합니다.
 <br>&nbsp; ② “몰”과 이용자 간에 제기된 전자상거래 소송에는 한국법을 적용합니다.</span>
-                    </p>
-                </div>
-            </div>
-            <p class="check"><span>이용약관에 동의하십니까?</span><input id="agree_service_check0" name="agree_service_check[]" fw-filter="/1/" fw-label="이용약관 동의" fw-msg="이용약관에 동의 하세요" class="ec-base-chk" value="1" type="checkbox"><label for="agree_service_check0"> 동의함</label></p>
+            </p>
         </div>
-        <div class="text-end">
-            <button type="submit" class="btn btn-primary" id="signup-button">가입하기</button>
-        </div>
-    </form>
-</body>
-<script>
-    //모든 공백 체크 정규식
-    var empJ = /\s/;
-    //아이디 정규식
-    var idJ = /^[a-z0-9]{4,16}$/;
-    // 비밀번호 정규식
-    var pwJ = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*_?&])[A-Za-z\d@$!%_*?&]{8,16}$/;
-    // 이름 정규식
-    var nameJ = /^[가-힣]{2,6}$/;
-    // 이메일 검사 정규식
-    var mailJ = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    // 휴대폰 번호 정규식
-    var phoneJ = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
-
-    //비밀번호 유효성 검사
-    //1-1 정규식체크
-    $("#user_pw").blur(function() {
-        if (pwJ.test($(this).val())) {
-            // console.log('비밀번호 유효');
-            // $('#pwd_check').text('').css('color', '');
-            $("#pwd_check").text('');
-        } else {
-            $('#pwd_check').text('비밀번호를 입력해주세요');
-            $('#pwd_check').css('color', 'red');
-        }
-    });
-
-    $("#user_name").blur(function() {
-        if (nameJ.test($(this).val())) {
-            console.log(nameJ.test($(this).val()));
-            $("#name_check").text('');
-        } else {
-            $('#name_check').text('이름을 확인해주세요');
-            $('#name_check').css('color', 'red');
-        }
-    });
-
-    $("#signup_button").click(function(e) {
-        var username = $("#user_name").val();
-        if (!nameJ.test(username)) {
-            // 유효하지 않으면 가입을 막고 에러 메시지 표시
-            e.preventDefault(); // 기본 클릭 이벤트(폼 제출 등)를 막음
-            $('#user_name').text('비밀번호를 입력해주세요');
-            $('#user_name').css('color', 'red');
-        } else {
-            // 유효하면 다음 동작 수행 (예: 폼 제출)
-            console.log("가입 성공!");
-        }
-    });
-</script>
-</html>
+    </div>
+    <p class="check"><span>이용약관에 동의하십니까?</span><input id="agree_service_check0" name="agree_service_check[]" fw-filter="/1/" fw-label="이용약관 동의" fw-msg="이용약관에 동의 하세요" class="ec-base-chk" value="1" type="checkbox"><label for="agree_service_check0"> 동의함</label></p>
+</div>

@@ -37,6 +37,7 @@
           int userNo = 19;
           QnaDao qnaDao = new QnaDao();
           List<Qna> qnaList = qnaDao.getQnaListByUserNo(userNo);
+          Qna qna = new Qna();
           int qnaCnt = 1;
         %>
       </div>
@@ -64,20 +65,31 @@
           </thead>
           <tbody>
           <%
-            for (Qna qna : qnaList) {
+            if (qnaList.isEmpty()){
+          %>
+          <tr class="text-center">
+            <td colspan="5"> 등록된 문의가 없습니다.</td>
+          </tr>
+          <%
+            }
+          %>
+          <%
+            for (Qna qnas : qnaList) {
           %>
           <tr class="text-center">
             <th scope="col">
-              <input type="checkbox" name="qnaNo" value="<%=qna.getNo()%>" onchange="checkSelect()" style="zoom:1.5">
+              <input type="checkbox" name="qnaNo" value="<%=qnas.getNo()%>" onchange="checkSelect()" style="zoom:1.5">
             </th>
             <th scope="row"><%=qnaCnt++%></th>
             <td class="text-start">
-              <a href="detail.jsp?no=<%=qna.getNo()%>" style="text-decoration-line: none">
-                <%=qna.getTitle()%>
+              <a href="detail.jsp?no=<%=qnas.getNo()%>" style="text-decoration-line: none">
+                <%=qnas.getTitle()%>
               </a>
             </td>
-            <td><%=qna.getCreatedDate()%></td>
-            <td><%=qna.getRepliedContent() == null ? "답변대기" : "답변완료"%></td>
+            <td><%=qnas.getCreatedDate()%></td>
+            <td>
+              <%=qnas.getRepliedContent() == null ? "답변대기" : "답변완료"%>
+            </td>
           </tr>
           <%
             }
@@ -86,19 +98,24 @@
         </table>
 
         <div class="row">
+          <%
+            if(!qnaList.isEmpty()){
+          %>
           <div class="text-start">
-          <a href="delete.jsp?no=<%=qnaDao.getQnaByUserNo(userNo).getNo()%>" class="btn btn-lg">
+          <a href="delete.jsp?no=" class="btn btn-lg">
             <i class="bi bi-trash"></i>
             <span class="fs-6">선택삭제</span>
           </a>
           </div>
+          <%
+            }
+          %>
           <div class="text-end">
           <a href="form.jsp" type="button" class="btn btn-primary">
             문의글 작성
           </a>
         </div>
         </div>
-
         <nav aria-label="Page navigation example">
           <ul class="pagination justify-content-center">
             <%

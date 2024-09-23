@@ -19,14 +19,14 @@ public class Order {
     private int paymentPrice;
     private int deliveryStatus;
     private int depositPoint;
+    private String tel;
+    private String email;
     private Addr addr;
     private User user;
-    private List<Product> Products;
+    private String deliveryMessage;
 
     public Order() {
     }
-
-
 
     public int getNo() {
         return no;
@@ -132,11 +132,27 @@ public class Order {
         this.user = user;
     }
 
-    public List<Product> getProducts() {
-        return Products;
+    public String getDeliveryMessage() {
+        return deliveryMessage;
     }
 
-    public void setProducts(List<Product> products) {
-        Products = products;
+    public void setDeliveryMessage(String deliveryMessage) {
+        this.deliveryMessage = deliveryMessage;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

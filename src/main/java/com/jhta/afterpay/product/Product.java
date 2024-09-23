@@ -14,6 +14,7 @@ public class Product {
     private Category category;
     private String defaultImage;
     private Image image;
+    private String deleted;
 
     public Product() {}
 
@@ -103,14 +104,6 @@ public class Product {
 
     public void setDefaultImage(String defaultImage) {
         this.defaultImage = defaultImage;
-    }
-
-    public Image getImage() {
-        return image;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
     }
 
     @Override

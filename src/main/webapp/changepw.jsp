@@ -21,5 +21,5 @@
     String sha256Pwd = DigestUtils.sha256Hex(changePw);
     userDao.UpdatePwdToPrev(sha256Pwd, id);
 
-    response.sendRedirect("./login-form.jsp");
+    response.sendRedirect("../login-form.jsp");
 %>

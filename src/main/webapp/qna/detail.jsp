@@ -76,9 +76,7 @@
                 <%
                   if (qna.getRepliedContent() == null){
                 %>
-                <textarea class="form-control" rows="5" name="description">
-                  <%=qna.getContent()%>
-                </textarea>
+                <textarea class="form-control" rows="5" name="description"><%=qna.getContent()%></textarea>
                 <%
                   } else {
                 %>

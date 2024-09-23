@@ -22,6 +22,20 @@ public class QnaDao {
     }
 
     /**
+     * 사용자가 삭제하지 않은 전체 문의객수 조회해서 반환
+     * @return
+     */
+    public int getNotDeleteTotalRows() {
+        String sql = """
+                SELECT COUNT(*)
+                FROM QNAS
+                WHERE ISQNADELETED = 'N'
+                """;
+
+        return DaoHelper.selectOneInt(sql);
+    }
+
+    /**
      * 페이지처리가 되는 문의 전체 조회 기능
      * @param begin 첫번째 페이지
      * @param end   마지막 페이지
@@ -168,11 +182,14 @@ public class QnaDao {
     public void updateQna(Qna qna) {
         String sql = """
                 UPDATE QNAS
-                SET QNA_CONTENT = ?
+                SET 
+                    QNA_CONTENT = ?
+                    , ISQNADELETED = ?
                 WHERE QNA_NO = ?
                 """;
         DaoHelper.update(sql
                         , qna.getContent()
+                        , qna.getIsQnaDeleted()
                         , qna.getNo());
     }
 
@@ -203,14 +220,22 @@ public class QnaDao {
                         , qnaNo);
     }
 
-    public int getAllTotalRowsByUserNo(int userNo) {
+    public void deleteQnas(Qna qna) {
+        String sql = """
+                UPDATE QNAS
+                SET ISQNADELETED = 'Y'
+                WHERE QNA_NO = ?
+                """;
+        DaoHelper.update(sql,qna.getNo());
+    }
+
+    public int getAllTotalRowsByUserNo() {
         String sql = """
                 SELECT COUNT(*)
                 FROM QNAS
-                WHERE USER_NO = ?
                 """;
 
-        return DaoHelper.selectOneInt(sql, userNo);
+        return DaoHelper.selectOneInt(sql);
     }
 
     /**
@@ -235,7 +260,6 @@ public class QnaDao {
                     WHERE Q.USER_NO = U.USER_NO
                     )
                     WHERE ROWNUMBER BETWEEN ? AND ?
-                        AND USER_NO = ?
                 """;
 
         return DaoHelper.selectList(sql, rs -> {

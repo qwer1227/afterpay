@@ -8,6 +8,15 @@ public class Wish {
     private int userNo;
     private Product product;
     private User user;
+    private Stock stock;
+
+    public Stock getStock() {
+        return stock;
+    }
+
+    public void setStock(Stock stock) {
+        this.stock = stock;
+    }
 
     public Wish() {}
 

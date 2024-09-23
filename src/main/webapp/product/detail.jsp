@@ -153,7 +153,7 @@
 
   <div class="row mb-3">
     <div class="col-12">
-      <div class="card">
+      <div class="card" id="review">
         <div class="card-header">
           리뷰 목록 <a href="review-form.jsp" class="btn btn-outline-primary float-end btn-sm">리뷰 작성하기</a>
         </div>

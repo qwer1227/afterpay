@@ -45,8 +45,8 @@
         <h2 class="m-4"><strong>취소/교환/환불</strong></h2>
         <hr style="border:solid 1px gray;"/>
           <%
-          if (orderList.isEmpty()){
-        %>
+            if (orderList.isEmpty()){
+          %>
         <div class="text-center m-5">
           <strong>취소/반품/환불 내역이 없습니다.</strong><br>
         </div>

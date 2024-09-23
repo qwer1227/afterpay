@@ -1,5 +1,6 @@
 package com.jhta.afterpay.user;
 
+import com.jhta.afterpay.product.Product;
 import com.jhta.afterpay.util.DaoHelper;
 
 import java.util.List;
@@ -82,7 +83,9 @@ public class ReviewDao {
             review.setTitle(rs.getString("review_title"));
             review.setContent(rs.getString("review_content"));
             review.setCreatedDate(rs.getDate("review_created_date"));
-            review.setProductNo(rs.getInt("product_no"));
+            Product product = new Product();
+            product.setNo(rs.getInt("product_no"));
+            review.setProduct(product);
             review.setIsDeleted(rs.getString("isdeleted"));
             review.setRating(rs.getInt("review_rating"));
             return review;
@@ -96,5 +99,81 @@ public class ReviewDao {
                 WHERE REVIEW_NO = ?
                 """;
         DaoHelper.update(sql, reviewNo);
+    }
+
+    /**
+     * 리뷰번호로 해당 리뷰 조회
+     * @param reviewNo
+     * @return
+     */
+    public Review getReviewByReviewNo(int reviewNo) {
+        String sql = """
+                SELECT REVIEW_NO
+                    , REVIEW_TITLE
+                    , REVIEW_CONTENT
+                    , REVIEW_CREATED_DATE
+                    , ISDELETED
+                    , USER_NO
+                    , PRODUCT_NO
+                    , REVIEW_RATING
+                    , PRODUCT_NO
+                FROM REVIEWS
+                WHERE REVIEW_NO = ?
+                    AND PRODUCT_NO = ?
+                """;
+        return DaoHelper.selectOne(sql, rs -> {
+            Review review = new Review();
+            review.setNo(rs.getInt("review_no"));
+            review.setTitle(rs.getString("review_title"));
+            review.setContent(rs.getString("review_content"));
+            review.setCreatedDate(rs.getDate("review_created_date"));
+            review.setIsDeleted(rs.getString("isdeleted"));
+            review.setRating(rs.getInt("review_rating"));
+
+            User user = new User();
+            user.setNo(rs.getInt("user_no"));
+            review.setUser(user);
+
+            Product product = new Product();
+            product.setNo(rs.getInt("product_no"));
+            review.setProduct(product);
+
+            return review;
+        }, reviewNo);
+    }
+
+    public Review getReviewByProductNo(int productNo) {
+        String sql = """
+                SELECT REVIEW_NO
+                    , REVIEW_TITLE
+                    , REVIEW_CONTENT
+                    , REVIEW_CREATED_DATE
+                    , ISDELETED
+                    , USER_NO
+                    , PRODUCT_NO
+                    , REVIEW_RATING
+                    , PRODUCT_NO
+                FROM REVIEWS
+                WHERE PRODUCT_NO = ?
+                """;
+        return DaoHelper.selectOne(sql, rs -> {
+            Review review = new Review();
+            review.setNo(rs.getInt("review_no"));
+            review.setTitle(rs.getString("review_title"));
+            review.setContent(rs.getString("review_content"));
+            review.setCreatedDate(rs.getDate("review_created_date"));
+            review.setIsDeleted(rs.getString("isdeleted"));
+            review.setRating(rs.getInt("review_rating"));
+
+            User user = new User();
+            user.setNo(rs.getInt("user_no"));
+            review.setUser(user);
+
+            Product product = new Product();
+            product.setNo(rs.getInt("product_no"));
+            review.setProduct(product);
+
+            return review;
+        }, productNo);
     }
 }

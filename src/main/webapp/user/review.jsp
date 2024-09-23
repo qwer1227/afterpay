@@ -100,7 +100,7 @@
           if (!reviewList.isEmpty()){
         %>
           <div scope="col" class="text-start">
-            <button type="submit" class="btn btn-lg">
+            <button type="submit" class="btn btn-lg" onclick="deleteQna()">
               <i class="bi bi-trash"></i><span class="fs-6">선택 삭제</span>
             </button>
           </div>

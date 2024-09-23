@@ -2,6 +2,7 @@ package com.jhta.afterpay.delivery;
 
 import com.jhta.afterpay.order.Order;
 import com.jhta.afterpay.product.Product;
+import com.jhta.afterpay.product.Review;
 import com.jhta.afterpay.product.Stock;
 import com.jhta.afterpay.util.DaoHelper;
 
@@ -110,7 +111,7 @@ public class DeliveryDao {
      * @param userNo
      * @return
      */
-    public List<Delivery> getDeliveriesByUserNo(int userNo) {
+    public List<Delivery> getAllDeliveryByOrderNo(int userNo) {
         String sql = """
                 SELECT D.DELIVERY_PRODUCT_PRICE
                     , D.DELIVERY_PRODUCT_AMOUNT

@@ -1,3 +1,16 @@
+<%@ page import="com.jhta.afterpay.order.OrderDao" %>
+<%@ page import="com.jhta.afterpay.util.Utils" %>
+<%@ page import="com.jhta.afterpay.order.Order" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.jhta.afterpay.util.Pagination" %>
+<%@ page import="com.jhta.afterpay.delivery.DeliveryDao" %>
+<%@ page import="com.jhta.afterpay.delivery.Delivery" %>
+<%@ page import="com.jhta.afterpay.product.ProductDao" %>
+<%@ page import="com.jhta.afterpay.product.Image" %>
+<%@ page import="com.jhta.afterpay.user.ReviewDao" %>
+<%@ page import="com.jhta.afterpay.user.Review" %>
+<%@ page import="com.jhta.afterpay.product.WishDao" %>
+<%@ page import="com.jhta.afterpay.product.Wish" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
@@ -8,124 +21,157 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
   <link href="/common/css/style.css" rel="stylesheet" >
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <title>AFTER PAY_Shopping List</title>
+  <title>AFTER PAY</title>
 </head>
 <style>
   h2{
     text-align: center;
   }
-  #cart-info{
-    height: 120px;
+  #check-all{
+    margin-left: 15px;
+  }
+  #check-del{
+    margin-right: 20px;
   }
 </style>
 <body>
 <%@include file="../common/nav.jsp"%>
+<%
+  int userNo = 19;
+  WishDao wishDao = new WishDao();
+  List<Wish> wishList = wishDao.getWishesByUserNo(userNo);
+%>
 <div class="container">
-  <div class="row">
-    <!-- 메뉴 nav 사용 -->
-    <div class="col-2">
-      <%@include file="../common/user-nav.jsp"%>
-    </div>
-
-    <!-- 컨텐츠 -->
-    <div class="col-10">
-      <h2 class="m-4"><strong>위시리스트</strong></h2>
-      <!-- Tab Contents -->
-      <div class="tab-content" id="nav-tabContent">
-        <div class="hstack gap-3">
-          <div class="p-2">
-            <input type="checkbox" type="checkbox" name="all" onchange="checkAll()"style="zoom:1.8">
-          </div>
-          <div class="p-3">
-            <button class="btn btn-lg">
-              <i class="bi bi-cart4"></i>
-            </button>
-          </div>
-          <div class="p-3 ms-auto">
-            <button class="btn btn-lg">
-              <i class="bi bi-trash"></i>
-            </button>
-          </div>
-        </div>
-
-        <div class="tab-pane fade show active" id="nav-wishlist" role="tabpanel" aria-labelledby="nav-home-tab">
-          <div class="table-responsive">
-            <table class="table align-middle">
-              <colgroup>
-                <col width="1%">
-                <col width="15%">
-                <col width="*">
-                <col width="15%">
-              </colgroup>
-              <tr>
-                <td>
-                  <input type="checkbox" name="wishNo" onchange="checkSelect()" style="zoom:1.5" value="check-item">
-                </td>
-                <td>
-                  <img src="../img/main3.png" class="rounded mx-auto d-block" width="170">
-                </td>
-                <td class="align-top">
-                  <p></p>
-                  <p style="font-size: 20px"><strong>상품명</strong></p>
-                  <p>사이즈</p>
-                  <p>수량</p>
-                  <p>가격</p>
-                </td>
-                <td class="align-middle text-end">
-                  <button class="btn btn-outline-primary">장바구니</button>
-                  <p></p>
-                  <button class="btn btn-outline-success">주문하기</button>
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  <input type="checkbox" name="wishNo" onchange="checkSelect()" style="zoom:1.5" value="check-item">
-                </td>
-                <td>
-                  <img src="../img/main3.png" class="rounded mx-auto d-block" width="170">
-                </td>
-                <td class="align-top">
-                  <p></p>
-                  <p style="font-size: 20px"><strong>상품명</strong></p>
-                  <p>사이즈</p>
-                  <p>수량</p>
-                  <p>가격</p>
-                </td>
-                <td class="align-middle text-end">
-                  <button class="btn btn-outline-primary">장바구니</button>
-                  <p></p>
-                  <button class="btn btn-outline-success">주문하기</button>
-                </td>
-              </tr>
-            </table>
-          </div>
-        </div>
-
-        <!-- Item Total Info -->
-        <div class="text-center mt-4 mb-5">
-          <div class="row fs-5" id="cart-info">
-            <!-- cart -->
-            <table border="1">
-              <tr class="fs-5">
-                <td>총 선택 갯수</td>
-                <td>배송비</td>
-                <td>총 결제 금액</td>
-                <td rowspan="2"><a href="" type="submit"><button class="btn btn-outline-success btn-lg">지금 주문하기</button></a></td>
-              </tr>
-              <tr>
-                <td><strong>1 개</strong></td>
-                <td><strong>3000 원</strong></td>
-                <td><strong>20000 원</strong></td>
-                <td></td>
-              </tr>
-            </table>
-          </div>
-        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-2">
+        <%@include file="../common/user-nav.jsp"%>
       </div>
+      <div class="col-10">
+        <h2 class="m-4"><strong>위시리스트</strong></h2>
+        <hr style="border:solid 1px gray;"/>
+        <%
+          if (wishList.isEmpty()){
+        %>
+        <div class="text-center m-5">
+          <strong>위시리스트 내역이 없습니다.</strong><br>
+          <br>
+          <a href="" type="button" class="btn btn-lg bg-light border-dark-subtle">지금 바로 쇼핑하러 가기</a>
+        </div>
+        <%
+          } else {
+        %>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="hstack gap-3">
+            <div class="p-2">
+              <input type="checkbox" name="all" style="zoom:1.8" onclick="checkAll()">
+            </div>
+            <div class="p-3 ms-auto">
+              <button class="btn btn-lg">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </div>
 
+          <div class="tab-pane fade show active " id="nav-cart" role="tabpanel"
+               aria-labelledby="nav-home-tab">
+            <div class="table-responsive">
+              <table class="table align-middle mt-2 md-2">
+                <colgroup>
+                  <col width="1%">
+                  <col width="15%">
+                  <col width="*">
+                  <col width="15%">
+                </colgroup>
+
+                <tbody>
+                <%
+                  for (Wish wish : wishList){
+                    int productNo = wish.getProductNo();
+                    ProductDao productDao = new ProductDao();
+                    List<Image> images = productDao.getAllImagesByNo(productNo);
+                  }
+                %>
+                <tr>
+                  <td>
+                    <input type="checkbox" name="stockNo" style="zoom: 1.5" onchange="checkSelect()" value="<%=wish.getStock().getNo()%>">
+                  </td>
+                  <td>
+                    <input type="hidden" name="thumb">
+                    <img src="../common/images/<%=images.get(0).getName()%>" class="rounded mx-auto d-block" width="170">
+                  </td>
+                  <td class="align-top">
+                    <p></p>
+                    <p style="font-size: 20px">
+                      <input type="hidden" name="name" value="<%=wish.getName()%>">
+                      <strong><%=wish.getName()%></strong>
+                    </p>
+                    <p>
+                      <input type="hidden" name="size" value="<%=wish.getSize()%>">
+                      사이즈: <strong><%=wish.getSize()%></strong>
+                    </p>
+                    <p>
+                      <input type="hidden" name="amount" value="<%=wish.getAmount()%>">
+                      수량: <strong><%=wish.getAmount()%> 개</strong>
+                    </p>
+                    <p>
+                      <input type="hidden" name="price" value="<%=wish.getPrice()%>">
+                      <Strong><%=Utils.toCurrency(wish.getPrice())%> 원</strong>
+                    </p>
+                  </td>
+                  <td class="align-middle text-end">
+                    <a href="../product/detail.jsp?pno=<%=wish.getNo()%>" class="btn btn-outline-primary">
+                      상세보기
+                    </a>
+                  </td>
+                </tr>
+                <%
+                  }
+                %>
+                </tbody>
+              </table>
+            </div>
+        <%
+          if (wishDao.getAllTotalRowsByUserNo(userNo) > 10) {
+        %>
+        <nav aria-label="Page navigation example m-3">
+          <ul class="pagination justify-content-center">
+            <%
+              int pageNo = Utils.toInt(request.getParameter("page"), 1);
+              int totalRows = wishDao.getAllTotalRowsByUserNo(userNo);
+              Pagination pagination = new Pagination(pageNo, totalRows);
+              if (pagination.getTotalRows() > 0) {
+                int beginPage = pagination.getBeginPage();
+                int endPage = pagination.getEndPage();
+            %>
+            <li class="page-item <%=pagination.isFirst() ? "disabled" : ""%>">
+              <a class="page-link" href="wish-list.jsp?page=<%=pagination.getPrev()%>" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <%
+              for (int num = beginPage; num <= endPage; num++){
+            %>
+            <li class="page-item">
+              <a class="page-link <%=pageNo == num ? "active" : ""%>" href="wish-list.jsp?page=<%=num%>"><%=num%></a>
+            </li>
+            <%
+              }
+            %>
+            <li class="page-item">
+              <a class="page-link <%=pagination.isLast() ? "disabled" : ""%>" href="wish-list.jsp?page=<%=pagination.getNext()%>" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+            <%
+              }
+            %>
+          </ul>
+        </nav>
+        <%
+          }
+        %>
+      </div>
     </div>
   </div>
 </div>

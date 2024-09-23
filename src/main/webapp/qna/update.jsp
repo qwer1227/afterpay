@@ -12,5 +12,5 @@
   qna.setContent(description);
   qnaDao.updateQna(qna);
 
-  response.sendRedirect("detail.jsp?no=" + qnaNo);
+  response.sendRedirect("user-qna.jsp");
 %>

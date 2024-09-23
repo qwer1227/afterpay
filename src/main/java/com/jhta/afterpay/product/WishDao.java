@@ -1,5 +1,6 @@
 package com.jhta.afterpay.product;
 
+import com.jhta.afterpay.user.User;
 import com.jhta.afterpay.util.DaoHelper;
 
 import java.util.List;
@@ -61,5 +62,55 @@ public class WishDao {
 
             return wish;
         }, userNo);
+    }
+
+    public Wish getWishByUserNo(int userNo) {
+        String sql = """
+                SELECT P.PRODUCT_NO
+                    , P.PRODUCT_NAME
+                    , P.PRODUCT_PRICE
+                    , S.PRODUCT_STOCK_NO
+                    , S.PRODUCT_STOCK_SIZE
+                    , S.PRODUCT_STOCK_AMOUNT
+                    , W.WISH_NO
+                    , W.USER_NO
+                FROM WISHES W JOIN PRODUCTS P
+                    ON W.PRODUCT_NO = P.PRODUCT_NO
+                        JOIN PRODUCT_STOCKS S
+                    ON P.PRODUCT_NO = S.PRODUCT_NO
+                WHERE USER_NO = ?
+                """;
+        return DaoHelper.selectOne(sql, rs -> {
+            Wish wish = new Wish();
+            wish.setNo(rs.getInt("wish_no"));
+
+            Product product = new Product();
+            product.setNo(rs.getInt("product_no"));
+            product.setName(rs.getString("product_name"));
+            product.setPrice(rs.getInt("product_price"));
+            wish.setProduct(product);
+
+            Stock stock = new Stock();
+            stock.setNo(rs.getInt("product_stock_no"));
+            stock.setSize(rs.getString("product_stock_size"));
+            stock.setAmount(rs.getInt("product_stock_amount"));
+            wish.setStock(stock);
+
+            User user = new User();
+            user.setNo(rs.getInt("user_no"));
+            wish.setUser(user);
+
+            return wish;
+        });
+    }
+
+    public int getAllTotalRowsByUserNo(int userNo){
+        String sql = """
+                SELECT COUNT(*)
+                FROM WISHES
+                WHERE USER_NO = ?
+                """;
+
+        return DaoHelper.selectOneInt(sql, userNo);
     }
 }

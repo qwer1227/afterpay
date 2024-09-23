@@ -143,5 +143,49 @@ public class UserDao {
 
         }, begin, end);
     }
+
+    public User getUserByPrevPw(String pw)throws SQLException{
+        String sql = """
+                select *
+                from users
+                where user_password = ?
+                """;
+
+        return DaoHelper.selectOne(sql, rs -> {
+            User user = new User();
+            user.setNo(rs.getInt("user_no"));
+            user.setEmail(rs.getString("user_email"));
+            user.setId(rs.getString("user_id"));
+            user.setPwd(rs.getString("user_password"));
+            user.setName(rs.getString("user_name"));
+            user.setTel(rs.getString("user_tel"));
+            user.setIsBanned(rs.getString("isbanned"));
+            user.setIsSignOut(rs.getString("issignout"));
+            user.setCreatedDate(rs.getDate("created_date"));
+            user.setGradeId(rs.getString("grade_id"));
+            user.setPoint(rs.getInt("point"));
+            return user;
+        },pw);
+    }
+
+    public void DeletedByUserId(String type, String id){
+        String sql = """
+                update users
+                set issignout = ?
+                where user_id = ?
+                """;
+
+        DaoHelper.update(sql,type,id);
+
+    }
+
+    public void UpdatePwdToPrev(String pw,String id){
+        String sql = """
+                update users
+                set user_password = ?
+                where user_id = ?
+                """;
+        DaoHelper.update(sql,pw,id);
+    }
 }
 

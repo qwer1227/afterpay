@@ -70,7 +70,7 @@
                 <col width="10%">
                 <col width="*">
                 <col width="15%">
-                <col width="10%">
+                <col width="15%">
               </colgroup>
               <thead>
               <tr class="text-center">
@@ -114,7 +114,19 @@
                   <%=reviews.getCreatedDate()%>
                 </td>
                 <td>
-                  <%=reviews.getRating()%>
+                  <%
+                    int rating = reviews.getRating();
+                    for (int x = 1; x <= rating; x++){
+                  %>
+                  <i class="bi bi-star-fill"></i>
+                  <%
+                    }
+                    for (int y = 0; y < 5 - rating; y++){
+                  %>
+                  <i class="bi bi-star"></i>
+                  <%
+                    }
+                  %>
                 </td>
               </tr>
               <%

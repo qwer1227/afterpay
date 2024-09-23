@@ -31,15 +31,15 @@
             <div class="col-2 pt-5">
                 <!-- 메뉴목록 -->
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="#">관리자메인</a></li>
-                    <li class="list-group-item"><a href="#">회원관리</a></li>
-                    <li class="list-group-item"><a href="#">주문관리</a></li>
-                    <li class="list-group-item"><a href="#">적립금관리</a></li>
+                    <li class="list-group-item"><a href="../../../../../../../카카오톡%20받은%20파일/afterpay/src/main/webapp/admin/home.jsp">관리자메인</a></li>
+                    <li class="list-group-item"><a href="user.jsp">회원관리</a></li>
+                    <li class="list-group-item"><a href="../../../../../../../카카오톡%20받은%20파일/afterpay/src/main/webapp/admin/order/order.jsp">주문관리</a></li>
+                    <li class="list-group-item"><a href="../../../../../../../카카오톡%20받은%20파일/afterpay/src/main/webapp/admin/mileage/mileage.jsp">적립금관리</a></li>
                 </ul>
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="#">상품관리</a></li>
-                    <li class="list-group-item"><a href="#">문의관리</a></li>
-                    <li class="list-group-item"><a href="../product/stock.jsp">상품재고현황</a></li>
+                    <li class="list-group-item"><a href="../../../../../../../카카오톡%20받은%20파일/afterpay/src/main/webapp/admin/product/product.jsp">상품관리</a></li>
+                    <li class="list-group-item"><a href="../../../../../../../카카오톡%20받은%20파일/afterpay/src/main/webapp/admin/qna/qna.jsp">문의관리</a></li>
+                    <li class="list-group-item"><a href="../../../../../../../카카오톡%20받은%20파일/afterpay/src/main/webapp/admin/product/stock.jsp">상품재고현황</a></li>
                     <li class="list-group-item"><a href="#">정산관리</a></li>
                 </ul>
             </div>
@@ -124,6 +124,6 @@
             </div>
         </div>
     </div>
-<%@ include file="../../common/footer.jsp" %>
+<%@ include file="../../../../../../../카카오톡 받은 파일/afterpay/src/main/webapp/common/footer.jsp" %>
 </body>
 </html>

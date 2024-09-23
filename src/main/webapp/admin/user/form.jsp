@@ -14,7 +14,6 @@
         <div class="text-center">
             <h1>새 회원등록</h1>
         </div>
-
         <div class="mb-3">
             <label class="form-label">이름</label>
             <input type="text" class="form-control" name="name">
@@ -30,18 +29,8 @@
             </label>
         </div>
         <div class="mb-3">
-                    <label>전화번호
-                        <select>
-                            <option value="010">010</option>
-                            <option value="011">011</option>
-                            <option value="012">012</option>
-                            <option value="013">013</option>
-                        </select>
-                    -
-                    <input name="" type="text">
-                    -
-                    <input name="" type="text">
-                </label>
+            <label class="form-label">전화번호</label>
+            <input class="form-control" type="tel" name="tel">
         </div>
         <div class="mb-3">
             <label class="form-label">이메일</label>
@@ -51,30 +40,30 @@
             <label class="form-label">등급</label>
             <select class="form-select" name="gradeId">
                 <option>회원 등급을 선택하세요</option>
-                <option value="11">브론즈</option>
-                <option value="12">실버</option>
-                <option value="13">골드</option>
+                <option value="BRONZE">브론즈</option>
+                <option value="SILVER">실버</option>
+                <option value="GOLD">골드</option>
             </select>
         </div>
         <div class="mb-3">
             <label class="form-label">정지 여부</label>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="banStatus" value="banYes">
+                <input class="form-check-input" type="radio" name="isBanned" value="Y">
                 <label class="form-check-label">Y</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="banStatus" value="banNo">
+                <input class="form-check-input" type="radio" name="isBanned" value="N">
                 <label class="form-check-label">N</label>
             </div>
         </div>
         <div class="mb-3">
             <label class="form-label">탈퇴 여부</label>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="signOutStatus" value="signOutSYes">
+                <input class="form-check-input" type="radio" name="isSignOut" value="Y">
                 <label class="form-check-label">Y</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="signOutStatus" value="signOutSNo">
+                <input class="form-check-input" type="radio" name="isSignOut" value="N">
                 <label class="form-check-label">N</label>
             </div>
         </div>

@@ -96,6 +96,6 @@
         <a href="user.jsp" class="btn btn-success">회원목록</a>
     </div>
 </div>
-<%@ include file="../../common/footer.jsp" %>
+<%@ include file="../../../../../../../카카오톡 받은 파일/afterpay/src/main/webapp/common/footer.jsp" %>
 </body>
 </html>

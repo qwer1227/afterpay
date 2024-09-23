@@ -27,12 +27,12 @@ public class UserDao {
     public void InsertUser(User user) {
         String sql = """
                 insert into users
-                (user_no,user_name,user_id,user_password,user_tel,user_email)
+                (user_no,user_name,user_id,user_password,user_tel,user_email,grade_id,isBanned,isSignOut)
                 values
-                (user_no_seq.nextval,?,?,?,?,?)
+                (user_no_seq.nextval,?,?,?,?,?,?,?,?)
                 """;
 
-        DaoHelper.insert(sql,user.getName(),user.getId(),user.getPwd(),user.getTel(),user.getEmail());
+        DaoHelper.insert(sql,user.getName(),user.getId(),user.getPwd(),user.getTel(),user.getEmail(),user.getGradeId(),user.getIsBanned(),user.getIsSignOut());
     }
 
     public User getUserById(String id) {

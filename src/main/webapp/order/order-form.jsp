@@ -1,3 +1,4 @@
+<%@ page import="com.jhta.afterpay.product.Product" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.jhta.afterpay.user.UserDao" %>
@@ -26,6 +27,7 @@
 <%@ include file="../common/nav.jsp" %>
 
 <%
+
     // 전달 받은 상품 재고 번호
     String[] stockNo = request.getParameterValues("stockNo");
     int[] stockNoArr = new int[stockNo.length];
@@ -69,11 +71,11 @@
                     int productNo = stock.getProductNo();
                     List<Image> images = productDao.getAllImagesByNo(productNo);
                     Product product = productDao.getProductByNo(productNo);
-                    totalPrice += amountArr[i] * 20000;
+                    totalPrice += amountArr[i] * product.getPrice();
                     int amount1 = amountArr[i];
             %>
             <div class="col-2">
-                <img src="../common/images/<%=images.get(0).getName()%>" class="rounded float-start" style="width: 170px; height:130px;">
+                <img src="../common/images/<%=images.get(0).getName()%>" class="rounded float-start" style="width: 130px; height:150px;">
             </div>
             <div class="col-7">
                 <input type="hidden" name="amount" value="<%=amount1%>">
@@ -140,26 +142,26 @@
                 </li>
                 <li class="mt-1">
                     <%--@declare id="email"--%><label for="email">이메일 주소</label>
-                    <div class="row">
-                        <div class="col-2">
-                            <input type="text" id="emailId" class="form-control" name="emailId" required/>
+                        <div class="row">
+                            <div class="col-2">
+                                <input type="text" id="emailId" class="form-control" name="emailId" required/>
+                            </div>
+                            <div class="col-auto">
+                                @
+                            </div>
+                            <div class="col-2">
+                                <input type="text" id="domain-txt" class="form-control" name="domain" value="직접입력" required/>
+                            </div>
+                            <div class="col-1">
+                                <select id="domain-list">
+                                    <optgroup>
+                                        <option value="naver.com">naver.com</option>
+                                        <option value="gmail.com">gmail.com</option>
+                                        <option value="type" selected>직접입력</option>
+                                    </optgroup>
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-auto">
-                            @
-                        </div>
-                        <div class="col-2">
-                            <input type="text" id="domain-txt" class="form-control" name="domain" value="직접입력" required/>
-                        </div>
-                        <div class="col-1">
-                            <select id="domain-list">
-                                <optgroup>
-                                    <option value="naver.com">naver.com</option>
-                                    <option value="gmail.com">gmail.com</option>
-                                    <option value="type" selected>직접입력</option>
-                                </optgroup>
-                            </select>
-                        </div>
-                    </div>
                 </li>
                 <li class="mt-1"><label>배송 메세지</label><input type="text" name="message" class="form-control" value=""/></li>
                 <li class="mt-1"><label>수령인</label><input type="text" name="recipient" class="form-control" value="<%=user.getName()%>"/></li>
@@ -231,7 +233,7 @@
             </table>
         </div>
         <div class="row d-flex justify-content-center mb-3 p-5">
-            <input type="submit" id="payButton" onclick="checkForm()" class="btn btn-dark text-white" value="지금 결제하기">
+            <input type="submit" id="payButton" class="btn btn-dark text-white" value="지금 결제하기">
         </div>
     </form>
 </div>
@@ -280,18 +282,6 @@
         }
     })
 
-    const tel2 = document.getElementById('tel2');
-    const tel3 = document.getElementById('tel3');
-    const email = document.getElementById('email');
-    const len2 = tel2.length;
-    const len3 = tel3.length;
-
-    function checkForm() {
-        if (tel2.length != 4 || tel3.length !=4) {
-            alert('휴대폰 번호의 첫자리를 제외한 나머지 자리는 4자리씩 입렵해주세요');
-            form.tel2.focus();
-        }
-    }
 </script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="post.js"></script>

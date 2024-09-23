@@ -1,3 +1,8 @@
+<%@ page import="com.jhta.afterpay.qna.QnaDao" %>
+<%@ page import="com.jhta.afterpay.util.Utils" %>
+<%@ page import="com.jhta.afterpay.util.Pagination" %>
+<%@ page import="com.jhta.afterpay.qna.Qna" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <html>
 <head>
@@ -14,28 +19,34 @@
 </head>
 <body>
 <%@ include file="../common/nav.jsp" %>
-<div class="container">
-    <div class="row">
-        <div class="text-center">
-            <h1 class="my-5">QNA</h1>
+<div class="container mb-5" style="margin-top: 100px;">
+    <div class="row mb-3">
+        <div class="col-9 offset-2">
+            <h1 class="text-center">고객문의 게시판</h1>
         </div>
-        <div class="col-2 pt-5">
+    </div>
+    <div class="row mb-3">
+        <div class="col-2">
             <!-- 메뉴목록 -->
-            <ul class="list-group">
-                <li class="list-group-item"><a href="../admin/home.jsp">관리자메인</a></li>
-                <li class="list-group-item"><a href="#">회원관리</a></li>
-                <li class="list-group-item"><a href="#">주문관리</a></li>
-                <li class="list-group-item"><a href="#">적립금관리</a></li>
-            </ul>
-            <ul class="list-group">
-                <li class="list-group-item"><a href="../admin/product/product.jsp">상품관리</a></li>
-                <li class="list-group-item"><a href="admin-qna.jsp">문의관리</a></li>
-                <li class="list-group-item"><a href="../admin/product/stock.jsp">상품재고현황</a></li>
-                <li class="list-group-item"><a href="#">정산관리</a></li>
-            </ul>
+            <%@include file="../admin/admin-nav.jsp"%>
         </div>
-        <div class="col-9 my-1">
-            <!--상품목록-->
+        <div class="col-10">
+            <!--문의목록-->
+            <%
+                QnaDao qnaDao = new QnaDao();
+
+                // 요청페이지 번호를 조회한다.
+                int pageNo = Utils.toInt(request.getParameter("page"), 1);
+
+                // 총 데이터 갯수를 조회한다.
+                int totalRows = qnaDao.getAllTotalRows();
+
+                // Pagination 객체를 생성해서 페이지 번호와 데이터 총 갯수를 인수로 받는다.
+                Pagination pagination = new Pagination(pageNo, totalRows);
+
+                // 요청 페이지에 맞는 데이터를 조회한다.
+                List<Qna> qnas = qnaDao.getAllQna(pagination.getBegin(), pagination.getEnd());
+            %>
             <table class="table">
                 <thead>
                 <tr>
@@ -45,87 +56,53 @@
                     <th>답변일자</th>
                     <th>답변상태</th>
                     <th>조회수</th>
+                    <th>작성자</th>
                 </tr>
                 </thead>
                 <tbody>
+                <%
+                    for (Qna qna : qnas) {
+                %>
                 <tr>
-                    <td>1</td>
-                    <td>상품배송이 지연되었습니다.</td>
-                    <td>2024.09-13</td>
-                    <td>2024-09-13</td>
+                    <td><%=qna.getNo()%></td>
+                    <td><a href="detail.jsp?no=<%=qna.getNo()%>"><%=qna.getTitle()%></a></td>
+                    <td><%=qna.getCreatedDate()%>></td>
+                    <td><%=qna.getRepliedDate()%></td>
                     <td>답변대기중</td>
-                    <td>0</td>
+                    <td><%=qna.getCnt()%></td>
+                    <td><%=qna.getUser().getName()%></td>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>상품배송이 지연되었습니다.</td>
-                    <td>2024.09-13</td>
-                    <td>2024-09-13</td>
-                    <td>답변대기중</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>상품배송이 지연되었습니다.</td>
-                    <td>2024.09-13</td>
-                    <td>2024-09-13</td>
-                    <td>답변대기중</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>상품배송이 지연되었습니다.</td>
-                    <td>2024.09-13</td>
-                    <td>2024-09-13</td>
-                    <td>답변대기중</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>상품배송이 지연되었습니다.</td>
-                    <td>2024.09-13</td>
-                    <td>2024-09-13</td>
-                    <td>답변대기중</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>상품배송이 지연되었습니다.</td>
-                    <td>2024.09-13</td>
-                    <td>2024-09-13</td>
-                    <td>답변대기중</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>상품배송이 지연되었습니다.</td>
-                    <td>2024.09-13</td>
-                    <td>2024-09-13</td>
-                    <td>답변대기중</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>상품배송이 지연되었습니다.</td>
-                    <td>2024.09-13</td>
-                    <td>2024-09-13</td>
-                    <td>답변대기중</td>
-                    <td>0</td>
-                </tr>
+                <%
+                    }
+                %>
                 </tbody>
             </table>
             <!--페이지네이션 -->
+            <%
+                if (pagination.getTotalPages() > 0) {
+            %>
             <div>
                 <ul class="pagination justify-content-center">
-                    <li class="page-item"><a href="#" class="page-link">이전</a></li>
-                    <li class="page-item"><a href="#" class="page-link">1</a></li>
-                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                    <li class="page-item"><a href="#" class="page-link">3</a></li>
-                    <li class="page-item"><a href="#" class="page-link">4</a></li>
-                    <li class="page-item"><a href="#" class="page-link">5</a></li>
-                    <li class="page-item"><a href="#" class="page-link">다음</a></li>
+                    <li class="page-item <%=pagination.isFirst() ? "disabled" : ""%>">
+                        <a href="admin-qna.jsp?page=<%=pagination.getPrev() %>" class="page-link">이전</a>
+                    </li>
+                    <%
+                        for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
+                    %>
+                    <li class="page-item <%=pageNo == num ? "active" : ""%>">
+                        <a href="admin-qna.jsp?page=<%=num %>" class="page-link"><%=num %></a>
+                    </li>
+                    <%
+                        }
+                    %>
+                    <li class="page-item <%=pagination.isLast()? "disabled" : ""%>">
+                        <a href="admin-qna.jsp?page=<%=pagination.getNext()%>" class="page-link">다음</a>
+                    </li>
                 </ul>
             </div>
+            <%
+                }
+            %>
             <!--버튼-->
             <div class="text-end my-2">
                 <a href="#" class="btn btn-danger">글삭제</a>

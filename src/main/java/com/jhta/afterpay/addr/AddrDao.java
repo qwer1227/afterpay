@@ -64,10 +64,11 @@ public class AddrDao {
                 FROM ADDRESSES
                 WHERE ADDR_NO = ?
                 """;
+
+        return DaoHelper.selectOne(sql, rs-> {
             Addr addr = new Addr();
             User user = new User();
             addr.setUser(user);
-        return DaoHelper.selectOne(sql, rs-> {
             addr.setNo(rs.getInt("ADDR_NO"));
             addr.setName(rs.getString("ADDR_NAME"));
             addr.setTel(rs.getString("ADDR_TEL"));

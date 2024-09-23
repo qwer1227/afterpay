@@ -15,7 +15,7 @@ public class WishDao {
             insert into wishes
             (wish_no, product_no, user_no)
             values
-            (wish_no_seq, ?, ?)    
+            (wish_no_seq.nextval, ?, ?)    
         """;
 
         DaoHelper.insert(sql, wish.getProduct().getNo(), wish.getUser().getNo());
@@ -25,13 +25,13 @@ public class WishDao {
      * 위시리시트 번호로 위시리스트의 상품을 삭제한다.
      * @param wishNo 위시리스트 번호
      */
-    public void deleteWishByNo(int wishNo) {
+    public void deleteWishByNo(int wishNo, int userNo) {
         String sql = """
            delete from wishes
-           where wish_no = ?     
+           where wish_no = ? and user_no = ?     
         """;
 
-        DaoHelper.delete(sql, wishNo);
+        DaoHelper.delete(sql, wishNo, userNo);
     }
 
     /**

@@ -13,6 +13,8 @@ public class Product {
     private int totalRating;
     private Category category;
     private String defaultImage;
+    private Image image;
+    private String deleted;
 
     public Product() {}
 

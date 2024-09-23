@@ -154,8 +154,8 @@ public class ProductDao {
                     from product_imgs
                     where product_no = ?    
                 """;
-            
-       
+
+
 
         return DaoHelper.selectList(sql, rs -> {
             Image image = new Image();

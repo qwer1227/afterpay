@@ -103,4 +103,51 @@ public class AddrDao {
             return addr;
         }, userNo);
     }
+
+    /**
+     * 집주소로 설정된 사용자의 주소 조회
+     * @param userNo
+     * @return
+     */
+    public Addr getHomeAddrByUserNo(int userNo) {
+        String sql = """
+                SELECT *
+                FROM ADDRESSES
+                WHERE USER_NO = ?
+                    AND ISADDR_HOME = 'Y'
+                """;
+        Addr addr = new Addr();
+        User user = new User();
+        addr.setUser(user);
+        return DaoHelper.selectOne(sql, rs-> {
+            addr.setNo(rs.getInt("ADDR_NO"));
+            addr.setName(rs.getString("ADDR_NAME"));
+            addr.setTel(rs.getString("ADDR_TEL"));
+            addr.setZipCode(rs.getString("ZIP_CODE"));
+            addr.setAddr1(rs.getString("ADDR_1"));
+            addr.setAddr2(rs.getString("ADDR_2"));
+            addr.setIsAddrHome(rs.getString("ISADDR_HOME"));
+            addr.getUser().setNo(rs.getInt("USER_NO"));
+            return addr;
+        }, userNo);
+    }
+
+    /**
+     * 배송주소 번호로 조회해 해당하는 주소의 정보 수정
+     * @param addr
+     */
+    public void updateAddrByAddrNo(Addr addr) {
+        String sql = """
+                UPDATE ADDRESSES
+                SET ZIP_CODE = ?
+                    , ADDR_1 = ?
+                    , ADDR_2 = ?
+                WHERE ADDR_NO = ?
+                """;
+        DaoHelper.update(sql
+                , addr.getZipCode()
+                , addr.getAddr1()
+                , addr.getAddr2()
+                , addr.getNo());
+    }
 }

@@ -98,6 +98,11 @@ public class Product {
         this.category = category;
     }
 
+    // 카테고리 번호 유무 체크
+    public boolean hasCategory(int catNo) {
+        return catNo == category.getNo();
+    }
+
     public String getDefaultImage() {
         return defaultImage;
     }

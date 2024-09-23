@@ -1,3 +1,4 @@
+<%@ page import="com.jhta.afterpay.product.Product" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.jhta.afterpay.user.UserDao" %>

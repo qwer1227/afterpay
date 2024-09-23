@@ -6,7 +6,6 @@ import com.jhta.afterpay.util.DaoHelper;
 import java.util.List;
 
 
-
 public class QnaDao {
 
     /**
@@ -17,6 +16,20 @@ public class QnaDao {
         String sql = """
                 SELECT COUNT(*)
                 FROM QNAS
+                """;
+
+        return DaoHelper.selectOneInt(sql);
+    }
+
+    /**
+     * 사용자가 삭제하지 않은 전체 문의객수 조회해서 반환
+     * @return
+     */
+    public int getNotDeleteTotalRows() {
+        String sql = """
+                SELECT COUNT(*)
+                FROM QNAS
+                WHERE ISQNADELETED = 'N'
                 """;
 
         return DaoHelper.selectOneInt(sql);
@@ -99,6 +112,41 @@ public class QnaDao {
     }
 
     /**
+     * 사용자번호와 동일한 문의내용 조회
+     * @param userNo
+     * @return
+     */
+    public Qna getQnaByUserNo(int userNo) {
+        String sql = """
+                SELECT *
+                FROM QNAS
+                WHERE USER_NO = ?
+                    AND ISQNADELETED = 'N'
+                ORDER BY QNA_CREATED_DATE DESC
+                """;
+
+        return DaoHelper.selectOne(sql, rs -> {
+            Qna qna = new Qna();
+
+            qna.setNo(rs.getInt("qna_no"));
+            qna.setTitle(rs.getString("qna_title"));
+            qna.setContent(rs.getString("qna_content"));
+            qna.setCnt(rs.getInt("qna_cnt"));
+            qna.setCreatedDate(rs.getDate("qna_created_date"));
+            qna.setRepliedDate(rs.getDate("qna_replied_date"));
+            qna.setRepliedContent(rs.getString("qna_replied_content"));
+            qna.setIsQnaDeleted(rs.getString("isqnadeleted"));
+
+
+            User user = new User();
+            user.setNo(rs.getInt("user_no"));
+            qna.setUser(user);
+
+            return qna;
+        }, userNo);
+    }
+
+    /**
      * 문의 번호와 일치하는 문의내역 조회
      * @param qnaNo
      * @return
@@ -140,10 +188,11 @@ public class QnaDao {
                 WHERE QNA_NO = ?
                 """;
         DaoHelper.update(sql
-                , qna.getContent()
-                , qna.getIsQnaDeleted()
-                , qna.getNo());
+                        , qna.getContent()
+                        , qna.getIsQnaDeleted()
+                        , qna.getNo());
     }
+
     /**
      * 문의내용 추가
      * @param qna
@@ -168,7 +217,7 @@ public class QnaDao {
                 WHERE QNA_NO = ?
                 """;
         DaoHelper.update(sql
-                , qnaNo);
+                        , qnaNo);
     }
 
     public void deleteQnas(Qna qna) {
@@ -180,14 +229,14 @@ public class QnaDao {
         DaoHelper.update(sql,qna.getNo());
     }
 
-    public int getAllTotalRowsByUserNo(int userNo) {
+    public int getAllTotalRowsByUserNo() {
         String sql = """
                 SELECT COUNT(*)
                 FROM QNAS
-                WHERE USER_NO = ?
+                WHERE ISQNADELETED = 'N'
                 """;
 
-        return DaoHelper.selectOneInt(sql, userNo);
+        return DaoHelper.selectOneInt(sql);
     }
 
     /**
@@ -210,9 +259,9 @@ public class QnaDao {
                         ,U.USER_NAME
                     FROM QNAS Q, USERS U
                     WHERE Q.USER_NO = U.USER_NO
+                        AND ISQNADELETED = 'N'
                     )
                     WHERE ROWNUMBER BETWEEN ? AND ?
-                        AND USER_NO = ?
                 """;
 
         return DaoHelper.selectList(sql, rs -> {

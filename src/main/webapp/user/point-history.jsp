@@ -5,6 +5,7 @@
 <%@ page import="com.jhta.afterpay.user.UserDao" %>
 <%@ page import="com.jhta.afterpay.user.User" %>
 <%@ page import="java.util.Date" %>
+<%@ page import="com.jhta.afterpay.util.Pagination" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
@@ -91,17 +92,24 @@
                 <form class="row row-cols-lg-auto g-3 align-items-center mb-3">
                   <div class="col-12">
                     <div class="input-group">
-                      <div class="input-group-text">날짜</div>
+                      <div class="input-group-text">조회월</div>
                       <input type="month" class="form-control" name="month">
                     </div>
                   </div>
                   <div class="col-12">
+                    <!-- 조회월에 맞춰 적립금 내역이 달라지게 구현 -->
                     <button type="button" class="btn btn-primary" onclick="changePointHistory()">조회</button>
                   </div>
                 </form>
 
               </div>
-            <table  class="table ">
+            <table  class="table text-center m-3">
+              <colgroup>
+                <col width="20%">
+                <col width="*">
+                <col width="15%">
+                <col width="25%">
+              </colgroup>
               <tr>
                 <th>적립일</th>
                 <th>내용</th>
@@ -157,31 +165,51 @@
               %>
             </table>
 
+              <!-- 적립금 내역이 10개 이상이면 페이지네이션 기능 실행 -->
+              <%
+                if (pointDao.getAllTotalRowsByUserNo(userNo) > 10){
+              %>
+            <nav aria-label="Page navigation example m-3">
+                <ul class="pagination justify-content-center">
+                  <%
+                    int pageNo = Utils.toInt(request.getParameter("page"), 1);
+                    int totalRows = pointDao.getAllTotalRowsByUserNo(userNo);
+                    Pagination pagination = new Pagination(pageNo, totalRows);
+                    if (pagination.getTotalRows() > 0) {
+                      int beginPage = pagination.getBeginPage();
+                      int endPage = pagination.getEndPage();
+                  %>
+                  <li class="page-item <%=pagination.isFirst() ? "disabled" : ""%>">
+                    <a class="page-link" href="user-qna.jsp?page=<%=pagination.getPrev()%>" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <%
+                    for (int num = beginPage; num <= endPage; num++){
+                  %>
+                  <li class="page-item">
+                    <a class="page-link <%=pageNo == num ? "active" : ""%>" href="user-qna.jsp?page=<%=num%>"><%=num%></a>
+                  </li>
+                  <%
+                    }
+                  %>
+                  <li class="page-item">
+                    <a class="page-link <%=pagination.isLast() ? "disabled" : ""%>" href="user-qna.jsp?page=<%=pagination.getNext()%>" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                  <%
+                    }
+                  %>
+                </ul>
+              </nav>
+              <%
+                }
+              %>
            </div>
          </div>
        </div>
      </div>
-
-
-
-
-      <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
     </div>
   </div>
 </div>

@@ -22,7 +22,6 @@
     <link rel="stylesheet" href="/common/css/style.css">
 </head>
 <body>
-<body>
 <%@ include file="../../common/nav.jsp" %>
 
 <div class="container mb-5" style="margin-top: 100px;">

@@ -26,10 +26,6 @@
   }
 </style>
 <body>
-<%
-   String userId = (String) session.getAttribute("USERID");
-   String grade = (String) session.getAttribute("GRADE");
-%>
 <%@include file="../common/nav.jsp"%>
 <%
   /*
@@ -39,8 +35,7 @@
   * 2. 사용자 정보 값 조회
   *
   */
-
-  int userNo = 19;
+  int userNo = (Integer)session.getAttribute("USERNO");
   UserDao userDao = new UserDao();
   ReviewDao reviewDao = new ReviewDao();
   User user = userDao.getUserByNo(userNo);

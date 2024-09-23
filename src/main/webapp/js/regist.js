@@ -3,6 +3,7 @@ function sendit(){
     const userid = document.getElementById('user_id');
     const userpw = document.getElementById('user_pw');
     const userpw_vali = document.getElementById('user_pw_vali');
+    const prevpw = document.getElementById('prev_pw');
     const name = document.getElementById('user_name');
     const email = document.getElementById('user_email');
 
@@ -43,7 +44,7 @@ function sendit(){
     }
 
     if(!expPwText.test(userpw.value)){
-        alert('비밀번호 형식확인  \n 소문자,대문자,특수문자,숫자 1개씩 꼽 입력');
+        alert('비밀번호 형식확인  \n 소문자,대문자,특수문자,숫자 1개씩 입력');
         userpw.focus();
         return false
     }

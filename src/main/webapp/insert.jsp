@@ -44,14 +44,23 @@
     String email = request.getParameter("user_email");
     String phone = request.getParameter("phone");
 
-    //이미 생성된 아이디로 생성을 막기위해
-    UserDao userDao = new UserDao();
-    User savedUser = userDao.getUserById(id);
 
-    if (savedUser != null) {
+    UserDao userDao = new UserDao();
+
+    User savedId = userDao.getUserById(id);
+    //이미 생성된 아이디로 생성을 막기위해
+    if (savedId != null) {
         response.sendRedirect("form.jsp?error");
         return;
     }
+
+    User saverEmail = userDao.getUserByEmail(email);
+    //이미 생성된 이메일로 생성을 막기위해
+    if (saverEmail != null) {
+        response.sendRedirect("form.jsp?error");
+        return;
+    }
+
 
     //비밀번호 암호화
     String sha256Pwd = DigestUtils.sha256Hex(pwd);

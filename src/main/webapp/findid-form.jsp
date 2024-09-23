@@ -6,19 +6,33 @@
       crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
+<script src="js/findid.js"></script>
 <html>
 <head>
     <title>아이디 찾기</title>
 </head>
 <body>
-<form class="border bg-light p-3" method="post" action="findid.jsp">
+<%
+    String message = null;
+    if (request.getParameter("error") != null) {
+        message = "해당하는 정보가 존재하지 않습니다.";
+%>
+
+<div class="alert alert-danger">
+    <%= message%>
+</div>
+
+<%
+    }
+%>
+<form class="border bg-light p-3" method="post" action="findid.jsp" onsubmit="return sendit(this.form)">
     <div class="mb-3">
         <label class="form-label">이름</label>
-        <input class="form-control" type="text" name="name" placeholder="이름을 입력해주세요">
+        <input class="form-control" type="text" name="name" id="user_name" placeholder="이름을 입력해주세요">
     </div>
     <div class="mb-3">
         <label class="form-label">이메일</label>
-        <input class="form-control" type="email" name="email" placeholder="이메일을 입력해주세요">
+        <input class="form-control" type="email" name="email" id="user_email" placeholder="이메일을 입력해주세요">
     </div>
     <div class="text-end">
         <button type="submit" class="btn btn-primary">아이디 찾기</button>

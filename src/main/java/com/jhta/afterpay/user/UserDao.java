@@ -12,6 +12,7 @@ public class UserDao {
 
     /**
      * 전체 회원 수를 조회해서 반환한다.
+     *
      * @return 회원 수
      */
     public int getTotalRows() {
@@ -34,7 +35,7 @@ public class UserDao {
             User user = new User();
             user.setId(rs.getString("user_id"));
             return user;
-        }, email,name);
+        }, email, name);
     }
 
     public User getUserByEmailAndNameAndId(String email, String name, String id) throws SQLException {
@@ -58,9 +59,61 @@ public class UserDao {
             user.setGradeId(rs.getString("grade_id"));
             user.setPoint(rs.getInt("point"));
             return user;
-        }, email,name,id);
+        }, email, name, id);
     }
 
+    public User getUserByPrevPw(String pw) throws SQLException {
+        String sql = """
+                select *
+                from users
+                where user_password = ?
+                """;
+
+        return DaoHelper.selectOne(sql, rs -> {
+            User user = new User();
+            user.setNo(rs.getInt("user_no"));
+            user.setEmail(rs.getString("user_email"));
+            user.setId(rs.getString("user_id"));
+            user.setPwd(rs.getString("user_password"));
+            user.setName(rs.getString("user_name"));
+            user.setTel(rs.getString("user_tel"));
+            user.setIsBanned(rs.getString("isbanned"));
+            user.setIsSignOut(rs.getString("issignout"));
+            user.setCreatedDate(rs.getDate("created_date"));
+            user.setGradeId(rs.getString("grade_id"));
+            user.setPoint(rs.getInt("point"));
+            return user;
+        }, pw);
+    }
+
+    public void UpdatePwdToPrev(String pw, String id) {
+        String sql = """
+                update users
+                set user_password = ?
+                where user_id = ?
+                """;
+        DaoHelper.update(sql, pw, id);
+    }
+
+    public void UpdatePw(String pw, String id, String email, String name) {
+        String sql = """
+                update users
+                set user_password = ?
+                where user_id = ? and user_email = ? and user_name = ?
+                """;
+        DaoHelper.update(sql, pw, id, email, name);
+    }
+
+    public void DeletedByUserId(String type, String id) {
+        String sql = """
+                update users
+                set issignout = ?
+                where user_id = ?
+                """;
+
+        DaoHelper.update(sql, type, id);
+
+    }
 
     public void InsertUser(User user) {
         String sql = """
@@ -70,7 +123,32 @@ public class UserDao {
                 (user_no_seq.nextval,?,?,?,?,?)
                 """;
 
-        DaoHelper.insert(sql,user.getName(),user.getId(),user.getPwd(),user.getTel(),user.getEmail());
+        DaoHelper.insert(sql, user.getName(), user.getId(), user.getPwd(), user.getTel(), user.getEmail());
+    }
+
+    public User getUserByEmail(String email) {
+        String sql = """
+                select *
+                from users
+                where user_email = ?
+                """;
+
+        return DaoHelper.selectOne(sql, rs -> {
+            User user = new User();
+            user.setNo(rs.getInt("user_no"));
+            user.setEmail(rs.getString("user_email"));
+            user.setId(rs.getString("user_id"));
+            user.setPwd(rs.getString("user_password"));
+            user.setName(rs.getString("user_name"));
+            user.setTel(rs.getString("user_tel"));
+            user.setIsBanned(rs.getString("isbanned"));
+            user.setIsSignOut(rs.getString("issignout"));
+            user.setCreatedDate(rs.getDate("created_date"));
+            user.setGradeId(rs.getString("grade_id"));
+            user.setPoint(rs.getInt("point"));
+
+            return user;
+        }, email);
     }
 
     public User getUserById(String id) {
@@ -98,7 +176,7 @@ public class UserDao {
         }, id);
     }
 
-    public User getUserByNo(int userNo){
+    public User getUserByNo(int userNo) {
         String sql = """
                 SELECT *
                 FROM USERS
@@ -149,6 +227,7 @@ public class UserDao {
 
     /**
      * 전체 회원 조회
+     *
      * @param begin 첫 페이지
      * @param end   끝 페이지
      * @return

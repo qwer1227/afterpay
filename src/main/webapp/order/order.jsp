@@ -17,13 +17,6 @@
 <%@ page import="com.jhta.afterpay.product.ProductDao" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <%
-
-    // 로그인하지 않은 경우, 로그인 폼으로 이동한다.
-    if (session.getAttribute("USERID") == null) {
-        response.sendRedirect("login-form.jsp");
-        return;
-    }
-
     // 쿼리 파라미터
     String address = request.getParameter("address");                                       // 주소
     String detailAddr = request.getParameter("detailAddress");                              // 상세주소
@@ -71,7 +64,7 @@
     StockDao stockDao = new StockDao();
 
     // 주문 회원 정보
-    User user = userDao.getUserById("hong"); // 회원ID는 세션값으로 구할 예정
+    User user = userDao.getUserById("momo"); // 회원ID는 세션값으로 구할 예정
     user.setEmail(email);
     user.setTel(tel);
     user.setName(userName);
@@ -84,6 +77,7 @@
     addr.setTel(tel);
     addr.setZipCode(zipcode);
     addr.setUser(user);
+    addr.setIsAddrHome("N");
 
     List<Addr> addrs = addrDao.getAllAddrByUserNo(user.getNo());
 
@@ -94,9 +88,11 @@
             break;
         }
         addr.setName("새 배송지");
+        addr.setIsAddrHome("N");
         addrDao.insertAddr(addr);
     }
 
+    addrs = addrDao.getAllAddrByUserNo(user.getNo());
     // 새로 추가된 배송지 번호 가져오기
     for (Addr findAddr : addrs) {
         if(findAddr.getAddr1().equals(address)

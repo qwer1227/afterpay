@@ -31,8 +31,8 @@
 <%
     // 장바구니 목록 가져오기
     CartDao cartDao = new CartDao();
-    int userNo = 7;
-    List<Cart> carts = cartDao.getAllCartsByUserNo(7);
+    int userNo = 19;
+    List<Cart> carts = cartDao.getAllCartsByUserNo(19);
 
     int totalRows = carts.size();
     int pageNo = Utils.toInt(request.getParameter("page"), 1);

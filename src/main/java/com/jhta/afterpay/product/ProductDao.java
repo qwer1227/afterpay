@@ -452,7 +452,7 @@ public class ProductDao {
                                        WHERE PARENT_CAT_NO = ?)
                       ORDER BY PRODUCT_VIEW_CNT DESC
                 )
-                WHERE ROWNUM <= 5
+                WHERE ROWNUM <= 4
                 """;
 
         return DaoHelper.selectList(sql, rs -> {
@@ -496,7 +496,7 @@ public class ProductDao {
                       AND P.CAT_NO = ?
                       AND IMG.ISTHUMB = 'Y'
                 )
-                WHERE ROWNUM <= 5
+                WHERE ROWNUM <= 4
                 ORDER BY PRODUCT_VIEW_CNT DESC
                 """;
 

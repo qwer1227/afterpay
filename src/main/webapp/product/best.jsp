@@ -16,13 +16,11 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/common/css/style.css">
     <style>
-        .choicebtn {
-            margin-top: 300px;
-            text-align: center;
-        }
-
-        #btn, #btn2 {
-            width: 25%;
+        #thumbnail-image-box img {
+            margin-top: 200px;
+            width: 300px;
+            height: 450px;
+            opacity: 0.5;
         }
     </style>
 </head>
@@ -31,14 +29,31 @@
     String menu = "홈";
 %>
 <%@ include file="../common/nav.jsp" %>
-<div class="choicebtn">
-    <button id="btn" type="button" class="btn btn-outline-primary btn-lg"
-            onclick="location.href='/product/bestlist.jsp?cat_no=10'">남성 베스트
-    </button>
-    <button id="btn2" type="button" class="btn btn-outline-danger btn-lg"
-            onclick="location.href='/product/bestlist.jsp?cat_no=20'">여성 베스트
-    </button>
+<div id="thumbnail-image-box" class="row">
+    <div class="col" style="text-align: center; padding-left: 500px;">
+        <a href="/product/bestlist.jsp?cat_no=10" class="text-dark text-decoration-none">
+            <img src="/img/main6.png" onmouseenter="fn1(event)" onmouseleave="fn2(event)">
+            <p>남성 베스트</p>
+        </a>
+    </div>
+    <div class="col" style="text-align: center; padding-right: 500px">
+        <a href="/product/bestlist.jsp?cat_no=20" class="text-dark text-decoration-none">
+            <img src="/img/main4.png" onmouseenter="fn1(event)" onmouseleave="fn2(event)">
+            <p>여성 베스트</p>
+        </a>
+    </div>
 </div>
 <%@ include file="../common/footer.jsp" %>
 </body>
+<script>
+    function fn1(event) {
+        let thumbImg = event.target;
+        thumbImg.style.opacity = "1.0";
+    }
+
+    function fn2(event) {
+        let thumbImg = event.target;
+        thumbImg.style.opacity = "0.5";
+    }
+</script>
 </html>

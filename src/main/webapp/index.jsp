@@ -52,10 +52,10 @@
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100 ">
-<%@ include file="common/nav.jsp" %>
+<%@ include file="/common/nav.jsp" %>
 <div class="main-container" style="min-width:1140px;">
     <div>
-        <img src="../img/main.png" alt=""/>
+        <img src="/img/main.png" alt=""/>
     </div>
     <div class="main-text">
         <h5 style="font-size: 20px">2024 가을-겨울 컬렉션</h5>
@@ -70,31 +70,31 @@
         <div class="row">
             <div class="col">
                 <a href="/product/list.jsp?cat_no=11&page=1" class="text-dark text-decoration-none">
-                    <img src="../img/main2.png" alt="" style="width: 250px; height:350px;"/><br>
+                    <img src="/img/main2.png" alt="" style="width: 250px; height:350px;"/><br>
                     <p>남성 상의</p>
                 </a>
             </div>
             <div class="col">
                 <a href="/product/list.jsp?cat_no=21&page=1" class="text-dark text-decoration-none">
-                    <img src="../img/main3.png" alt="" style="width: 250px; height:350px;"/><br>
+                    <img src="/img/main3.png" alt="" style="width: 250px; height:350px;"/><br>
                     <p>여성 상의</p>
                 </a>
             </div>
             <div class="col">
                 <a href="/product/list.jsp?cat_no=24&page=1" class="text-dark text-decoration-none">
-                    <img src="../img/main4.png" alt="" style="width: 250px; height:350px;"/><br>
+                    <img src="/img/main4.png" alt="" style="width: 250px; height:350px;"/><br>
                     <p>여성 가방</p>
                 </a>
             </div>
             <div class="col">
                 <a href="/product/list.jsp?cat_no=13&page=1" class="text-dark text-decoration-none">
-                    <img src="../img/main5.png" alt="" style="width: 250px; height:350px;"/><br>
+                    <img src="/img/main5.png" alt="" style="width: 250px; height:350px;"/><br>
                     <p>남성 슈즈</p>
                 </a>
             </div>
         </div>
     </div>
 </div>
-<%@ include file="common/footer.jsp" %>
+<%@ include file="/common/footer.jsp" %>
 </body>
 </html>

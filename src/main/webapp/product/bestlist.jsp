@@ -23,7 +23,7 @@
 <%
     String menu = "홈";
 %>
-<%@ include file="../common/nav.jsp" %>
+<%@ include file="/common/nav.jsp" %>
 <div class="container pt-3">
     <div class="row mb-3">
         <%
@@ -66,7 +66,7 @@
             }
         %>
     </div>
-    <%@ include file="../common/footer.jsp" %>
+    <%@ include file="/common/footer.jsp" %>
 </body>
 </html>
 

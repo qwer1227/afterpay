@@ -1,6 +1,6 @@
-<%@ page import="com.jhta.afterpay.order.CartDao" %>
+<%@ page import="com.jhta.afterpay.user.CartDao" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.jhta.afterpay.order.Cart" %>
+<%@ page import="com.jhta.afterpay.user.Cart" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>

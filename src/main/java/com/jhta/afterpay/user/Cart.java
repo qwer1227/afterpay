@@ -1,8 +1,7 @@
-package com.jhta.afterpay.order;
+package com.jhta.afterpay.user;
 
-import com.jhta.afterpay.delivery.Stock;
 import com.jhta.afterpay.product.Product;
-import com.jhta.afterpay.user.User;
+import com.jhta.afterpay.product.Stock;
 
 public class Cart {
     private int no;

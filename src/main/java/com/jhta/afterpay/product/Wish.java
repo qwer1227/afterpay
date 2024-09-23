@@ -1,5 +1,7 @@
 package com.jhta.afterpay.product;
 
+import com.jhta.afterpay.user.User;
+
 public class Wish {
     private int no;
     private int productNo;

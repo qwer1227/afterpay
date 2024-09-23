@@ -1,6 +1,5 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.jhta.afterpay.util.Utils" %>
-<%@ page import="com.jhta.afterpay.util.Pagination" %>
 <%@ page import="com.jhta.afterpay.product.*" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
@@ -18,7 +17,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/common/css/style.css">
+    <link rel="stylesheet" href="../common/css/style.css">
 </head>
 <body class="d-flex flex-column min-vh-100 ">
 <%
@@ -29,19 +28,11 @@
     <div class="row mb-3">
         <%
             int catNo = Utils.toInt(request.getParameter("cat_no"));
-            int pageNo = Utils.toInt(request.getParameter("page"), 1);
             ProductDao productDao = new ProductDao();
 
-            Pagination pagination = null;
             List<Product> products = null;
             if (catNo == 10 || catNo == 20) {
-                int totalRows = productDao.getTotalRows(catNo);
-                pagination = new Pagination(pageNo, totalRows, 8);
-                products = productDao.getProducts(catNo, pagination.getBegin(), pagination.getEnd());
-            } else {
-                int totalRows = productDao.getTotalRowsByCatNo(catNo);
-                pagination = new Pagination(pageNo, totalRows, 8);
-                products = productDao.getProductsByCatNo(catNo, pagination.getBegin(), pagination.getEnd());
+                products = productDao.getBestProducts(catNo);
             }
         %>
         <%
@@ -52,7 +43,7 @@
                 <div class="card-body">
                     <div>
                         <a href="hit.jsp?pno=<%=product.getNo()%>">
-                            <img src="/common/images/<%=product.getImage().getName()%>" class="img-thumbnail" alt="">
+                            <img src="../common/images/<%=product.getImage().getName()%>" class="img-thumbnail" alt="">
                         </a>
                     </div>
                     <h5 class="card-title" style="height: 60px; min-height: 60px;"><a
@@ -70,33 +61,6 @@
                     </div>
                 </div>
             </div>
-
-        </div>
-        <%
-            }
-        %>
-        <%
-            if (pagination.getTotalRows() > 0) {
-        %>
-        <div>
-            <ul class="pagination justify-content-center">
-                <li class="page-item <%=pagination.isFirst() ? "disabled" : ""%>">
-                    <a href="list.jsp?cat_no=<%=catNo%>&page=<%=pagination.getPrev() %>" class="page-link">이전</a>
-                </li>
-                <%
-                    for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
-                %>
-                <li class="page-item <%=num == pageNo ? "active" : ""%>">
-                    <a href="list.jsp?cat_no=<%=catNo%>&page=<%=num %>" class="page-link"><%=num %>
-                    </a>
-                </li>
-                <%
-                    }
-                %>
-                <li class="page-item <%=pagination.isLast() ? "disabled" : "" %>">
-                    <a href="list.jsp?cat_no=<%=catNo%>&page=<%=pagination.getNext() %>" class="page-link">다음</a>
-                </li>
-            </ul>
         </div>
         <%
             }
@@ -105,4 +69,5 @@
     <%@ include file="/common/footer.jsp" %>
 </body>
 </html>
+
 

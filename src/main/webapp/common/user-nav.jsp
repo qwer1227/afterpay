@@ -13,5 +13,3 @@
   <a href="../user/info.jsp" class="mb-1 p-2 list-group-item-action btn btn-outline">회원정보 수정</a>
   <a href="../index.jsp" class="mb-1 p-2 list-group-item-action btn btn-outline">로그아웃</a>
 </div>
-</body>
-</html>

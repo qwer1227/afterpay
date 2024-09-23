@@ -111,6 +111,22 @@ public class Product {
         this.defaultImage = defaultImage;
     }
 
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public String getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(String deleted) {
+        this.deleted = deleted;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -124,6 +140,8 @@ public class Product {
                 ", totalRating=" + totalRating +
                 ", category=" + category +
                 ", defaultImage='" + defaultImage + '\'' +
+                ", image=" + image +
+                ", deleted='" + deleted + '\'' +
                 '}';
     }
 }

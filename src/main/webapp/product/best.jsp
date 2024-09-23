@@ -38,7 +38,7 @@
     </div>
     <div class="col" style="text-align: center; padding-right: 500px">
         <a href="/product/bestlist.jsp?cat_no=20" class="text-dark text-decoration-none">
-            <img src="/img/main4.png" onmouseenter="fn1(event)" onmouseleave="fn2(event)">
+            <img src="/img/main7.png" onmouseenter="fn1(event)" onmouseleave="fn2(event)">
             <p>여성 베스트</p>
         </a>
     </div>

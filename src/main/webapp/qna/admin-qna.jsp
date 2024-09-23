@@ -35,7 +35,7 @@
             <ul class="list-group">
                 <li class="list-group-item"><a href="../admin/product/product.jsp">상품관리</a></li>
                 <li class="list-group-item"><a href="admin-qna.jsp">문의관리</a></li>
-                <li class="list-group-item"><a href="../admin/product/stock.jsp">상품재고현황</a></li>
+                <li class="list-group-item"><a href="../admin/stock/stock.jsp">상품재고현황</a></li>
                 <li class="list-group-item"><a href="#">정산관리</a></li>
             </ul>
         </div>

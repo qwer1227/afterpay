@@ -4,6 +4,7 @@
 <%@ page import="com.jhta.afterpay.util.Utils" %>
 <%@ page import="com.jhta.afterpay.product.ProductDao" %>
 <%@ page import="com.jhta.afterpay.product.Product" %>
+<%@ page import="com.jhta.afterpay.util.Pagination" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <html>
 <head>
@@ -57,27 +58,65 @@
                     </thead>
                     <tbody>
                         <%
+                            int pageNo = Utils.toInt(request.getParameter("page"), 1);
+
                             ProductDao productDao = new ProductDao();
+                            int totalRows = productDao.getAllTotalRows();
+                            Pagination pagination = new Pagination(pageNo, totalRows);
+
+                            List<Product> products = productDao.getAllProducts(pagination.getBegin(), pagination.getEnd());
 
                             StockDao stockDao = new StockDao();
-                            List<Stock> stocks = stockDao.getAllStocks();
+
+                            for (Product product : products) {
+                                List<Stock> stocks = stockDao.getAllStocksByNo(product.getNo());
                         %>
-                        <%
-                            for (Stock stock : stocks) {
-                        %>
-                        <tr>
-                            <td><%=stock.getProduct().getNo()%></td>
-                            <td>어포지션 하프 패널 풀오버 후디 베이지</td>
-                            <td></td>
-                            <td>5 개</td>
-                            <td>20 개</td>
-                            <td>55 개</td>
-                        </tr>
+                            <tr>
+
+                                <td><%=product.getNo()%></td>
+                                <td colspan="<%=4-stocks.size()%>"><%=product.getName()%></td>
+                                <%
+                                    int totalAmount = 0;
+                                    for (Stock stock : stocks) {
+                                        totalAmount += stock.getAmount();
+                                %>
+                                <td><%=stock.getSize()%> : <%=stock.getAmount()%></td>
+                                <%
+                                    }
+                                %>
+                                <td><%=totalAmount%> 개</td>
+                            </tr>
                         <%
                             }
                         %>
                     </tbody>
                 </table>
+                <!--페이지네이션 -->
+                <%
+                    if (pagination.getTotalPages() > 0) {
+                %>
+                <div>
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item <%=pagination.isFirst() ? "disabled" : "" %>">
+                            <a class="page-link" href="stock.jsp?page=<%pagination.getPrev(); %>">이전</a>
+                        </li>
+                        <%
+                            for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
+                        %>
+                        <li class="page-item <%=pageNo == num? "active" : "" %>">
+                            <a href="stock.jsp?page=<%=num %>" class="page-link"><%=num %></a>
+                        </li>
+                        <%
+                            }
+                        %>
+                        <li class="page-item <%=pagination.isLast() ? "disabled" : ""%>">
+                            <a class="page-link" href="stock.jsp?page=<%=pagination.getNext() %>" >다음</a>
+                        </li>
+                    </ul>
+                </div>
+                <%
+                    }
+                %>
             </div>
         </div>
     </div>

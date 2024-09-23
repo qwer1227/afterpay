@@ -6,6 +6,20 @@ import java.util.List;
 
 public class StockDao {
 
+    /**
+     * 전체 상품갯수를 조회해서 반환한다.
+     * @return 상품 갯수
+     */
+    public int getAllTotalRows() {
+        String sql = """
+                select count(*)
+                from product_stocks
+                """;
+
+        return DaoHelper.selectOneInt(sql);
+    }
+
+
     public Stock getAllStockByNoAndSize(int productNo, int size) {
             String sql = """
                     select product_stock_amount
@@ -36,7 +50,7 @@ public class StockDao {
                 WHERE product_no IN (SELECT product_no\s
                                      FROM product_stocks\s
                                      WHERE product_no = ?)
-                ORDER BY product_stock_size DESC;
+                ORDER BY product_stock_size DESC
                 """;
 
         return DaoHelper.selectList(sql, rs -> {
@@ -58,7 +72,8 @@ public class StockDao {
             select s.product_stock_no
                     , s.product_stock_size
                     , s.product_stock_amount
-                    , s.product_no
+                    , p.product_no
+                    , p.product_name
             from products p, product_stocks s
             where p.product_no = ?
             and p.product_no = s.product_no
@@ -71,6 +86,12 @@ public class StockDao {
             stock.setSize(rs.getString("product_stock_size"));
             stock.setAmount(rs.getInt("product_stock_amount"));
             stock.setProductNo(rs.getInt("product_no"));
+
+            Product product = new Product();
+            product.setNo(rs.getInt("product_no"));
+            product.setName(rs.getString("product_name"));
+            stock.setProduct(product);
+
             return stock;
         }, productNo);
     }

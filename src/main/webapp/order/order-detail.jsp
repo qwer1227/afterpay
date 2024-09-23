@@ -11,6 +11,7 @@
 <%@ page import="com.jhta.afterpay.util.Utils" %>
 <%@ page import="com.jhta.afterpay.user.UserDao" %>
 <%@ page import="com.jhta.afterpay.product.*" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <html>
 <head>
@@ -32,16 +33,30 @@
 <%@ include file="../common/nav.jsp" %>
 
 <%
+
+    int orderNo = Utils.toInt(request.getParameter("orderNo"));
+
+
     // 조회할 상품 정보
     String d = request.getParameter("deliveryNo");
     int deliveryNo = Utils.toInt(d);
+    OrderDao orderDao = new OrderDao();
+    Order order = new Order();
 
     DeliveryDao deliveryDao = new DeliveryDao();
     Delivery delivery = deliveryDao.getDeliveryByNo(deliveryNo);
+    List<Delivery> deliveries = new ArrayList<>();
 
-    OrderDao orderDao = new OrderDao();
-    Order order = orderDao.getOrderByNo(delivery.getOrder().getNo());
-    List<Delivery> deliveries = deliveryDao.getAllDeliveryByOrderNo(order.getNo());
+
+    if (orderNo != 0) {
+        order = orderDao.getOrderByNo(orderNo);
+        deliveries = deliveryDao.getAllDeliveryByOrderNo(orderNo);
+    }
+
+    if (orderNo == 0) {
+        order = orderDao.getOrderByNo(delivery.getOrder().getNo());
+        deliveries = deliveryDao.getAllDeliveryByOrderNo(order.getNo());
+    }
 
     UserDao userDao = new UserDao();
     AddrDao addrDao = new AddrDao();
@@ -86,13 +101,13 @@
             총 주문금액
         </div>
         <div class="col-9 border-top border-5 p-3">
-            \<%=order.getPrice()%>
+            \<%=Utils.toCurrency(order.getPrice())%>
         </div>
         <div class="col-3 border-top bg-secondary bg-opacity-10 p-3 ps-4">
             총 결제금액
         </div>
         <div class="col-9 border-top p-3">
-           \<%=order.getPaymentPrice()%>
+            \<%=Utils.toCurrency(order.getPaymentPrice())%>
         </div>
     </div>
 
@@ -103,15 +118,18 @@
         <%
             String recipient = "";
             ProductDao productDao = new ProductDao();
-            for(Delivery delivery1 : deliveries) {
-            List<Image> images = productDao.getAllImagesByNo(delivery1.getProduct().getNo());
-            Product product = productDao.getProductByNo(delivery1.getProduct().getNo());
-            recipient = delivery1.getRecipient();
-            StockDao stockDao = new StockDao();
-            Stock stock = stockDao.getStockByNo(delivery1.getStock().getNo());
+            int totalPrice = 0;
+            for (Delivery delivery1 : deliveries) {
+                List<Image> images = productDao.getAllImagesByNo(delivery1.getProduct().getNo());
+                Product product = productDao.getProductByNo(delivery1.getProduct().getNo());
+                recipient = delivery1.getRecipient();
+                StockDao stockDao = new StockDao();
+                Stock stock = stockDao.getStockByNo(delivery1.getStock().getNo());
+                totalPrice += delivery1.getPrice() * delivery1.getAmount();
         %>
         <div class="col-2 mb-2">
-            <img src="../common/images/<%=images.get(0).getName()%>" class="rounded float-start" style="width: 170px; height:130px;">
+            <img src="../common/images/<%=images.get(0).getName()%>" class="rounded float-start"
+                 style="width: 130px; height:150px;">
         </div>
         <div class="col-7">
             <ul class="list-unstyled">
@@ -130,30 +148,25 @@
             }
         %>
     </div>
-<%
-    // 결제 정보 가져오기
-    int totalPrice = delivery.getPrice();
-    int paymentPrice = totalPrice + 3000;
-%>
     <h4>최종 결제 정보</h4>
     <div class="row justify-content-md-center mb-5 border-top border-4 border-dark">
         <div class="col-3 border-top bg-secondary bg-opacity-10 p-3 ps-4">
             총 주문금액
         </div>
         <div class="col-9 border-top p-3">
-            \<%=totalPrice%>
+            \<%=Utils.toCurrency(totalPrice)%>
         </div>
         <div class="col-3 border-top bg-secondary bg-opacity-10 p-3 ps-4">
             배송비
         </div>
         <div class="col-9 border-top p-3">
-            \<%=3000%>
+            \<%=Utils.toCurrency(3000)%>
         </div>
         <div class="col-3 border-top border-bottom bg-secondary bg-opacity-10 p-3 ps-4">
             결제예정금액
         </div>
         <div class="col-9 border-top border-bottom p-3">
-            \<%=paymentPrice%>
+            \<%=Utils.toCurrency(totalPrice + 3000)%>
         </div>
     </div>
         <%

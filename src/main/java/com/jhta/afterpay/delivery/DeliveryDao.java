@@ -95,15 +95,16 @@ public class DeliveryDao {
                 FROM ORDER_DELIVERY_PRODUCTS
                 WHERE ORDER_NO = ?
                 """;
-        Delivery delivery = new Delivery();
-        Product product = new Product();
-        delivery.setProduct(product);
-        Stock stock = new Stock();
-        delivery.setStock(stock);
-        Order order = new Order();
-        delivery.setOrder(order);
+
 
         return DaoHelper.selectList(sql, rs -> {
+            Delivery delivery = new Delivery();
+            Product product = new Product();
+            delivery.setProduct(product);
+            Stock stock = new Stock();
+            delivery.setStock(stock);
+            Order order = new Order();
+            delivery.setOrder(order);
             delivery.setNo(rs.getInt("DELIVERY_NO"));
             delivery.setPrice(rs.getInt("DELIVERY_PRODUCT_PRICE"));
             delivery.setAmount(rs.getInt("DELIVERY_PRODUCT_AMOUNT"));

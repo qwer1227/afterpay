@@ -28,108 +28,115 @@
     OrderDao orderDao = new OrderDao();
     Order order = orderDao.getMostLatelyOrderNoByUserNo(7);
     order = orderDao.getOrderByNo(order.getNo());
+
 %>
 <%@ include file="../common/nav.jsp" %>
-    <div class="container ">
-        <div class="bg-dark text-white text-center">
-            <h1>주문 완료</h1>
+<div class="container ">
+    <div class="bg-dark text-white text-center">
+        <h1>주문 완료</h1>
+    </div>
+    <hr>
+    <%-- 주문 정보 --%>
+    <div class="row border justify-content-md-center mb-5 border-dark">
+        <ul class="list-unstyled p-3">
+            <li class="text-center">
+                <span><b>고객님의 주문이 정상적으로 완료되었습니다.</b></span>
+            </li>
+            <li>
+                <label class="col-10">주문번호</label>
+                <span><%=order.getNo()%></span>
+            </li>
+            <li>
+                <label class="col-10">결제금액</label>
+                <span>\<%=Utils.toCurrency(order.getPaymentPrice())%></span>
+            </li>
+        </ul>
+    </div>
+    <%
+        DeliveryDao deliveryDao = new DeliveryDao();
+        StockDao stockDao = new StockDao();
+        ProductDao productDao = new ProductDao();
+        int totalPrice = 0;
+        int deliveryPrice = 3000;
+
+        // 주문내역중 가장 최근 주문 가져오기
+        List<Delivery> deliveries = deliveryDao.getAllDeliveryByOrderNo(order.getNo());
+    %>
+    <hr>
+    <h3 class="mb-3">주문상품</h3>
+    <%-- 주문 상품 --%>
+    <%
+        for (Delivery delivery : deliveries) {
+            int stockNo = delivery.getStock().getNo();
+            Stock stock = stockDao.getStockByNo(stockNo);
+            int productNo = stock.getProductNo();
+            Product product = productDao.getProductByNo(productNo);
+            totalPrice += delivery.getAmount() * product.getPrice();
+            List<Image> images = productDao.getAllImagesByNo(productNo);
+    %>
+    <div class="row border mb-5 p-3 border-dark">
+        <div class="col-2">
+            <img src="../common/images/<%=images.get(0).getName()%>" class="rounded float-start"
+                 style="width: 130px; height:150px;">
         </div>
-        <hr>
-        <%-- 주문 정보 --%>
-        <div class="row border justify-content-md-center mb-5 border-dark">
-            <ul class="list-unstyled p-3">
-                <li class="text-center">
-                    <span><b>고객님의 주문이 정상적으로 완료되었습니다.</b></span>
+        <div class="col-7">
+            <ul class="list-unstyled">
+                <li>
+                    상품명: <%=product.getName()%>
                 </li>
                 <li>
-                    <label class="col-10">주문번호</label>
-                    <span><%=order.getNo()%></span>
+                    [옵션:<%=stock.getSize()%>]
                 </li>
                 <li>
-                    <label class="col-10">결제금액</label>
-                    <span>\<%=Utils.toCurrency(order.getPaymentPrice())%></span>
+                    수량: <%=delivery.getAmount()%>
+                </li>
+                <li>
+                    상품구매금액: \<%=Utils.toCurrency(delivery.getAmount() * product.getPrice())%>
                 </li>
             </ul>
         </div>
-<%
-    DeliveryDao deliveryDao = new DeliveryDao();
-    StockDao stockDao = new StockDao();
-    ProductDao productDao = new ProductDao();
-    int totalPrice = 0;
-    int deliveryPrice = 3000;
+        <div class="col-auto"></div>
+    </div>
+    <%
+        }
+        int paymentPrice = totalPrice + deliveryPrice;
 
-    // 주문내역중 가장 최근 주문 가져오기
-
-    List<Delivery> deliveries = deliveryDao.getAllDeliveryByOrderNo(order.getNo());
-    for (Delivery delivery : deliveries) {
-        int stockNo = delivery.getStock().getNo();
-        Stock stock = stockDao.getStockByNo(stockNo);
-        int productNo  = delivery.getProduct().getNo();
-        Product product = productDao.getProductByNo(productNo);
-        totalPrice += delivery.getAmount() * product.getPrice();
-        List<Image> images = productDao.getAllImagesByNo(productNo);
-%>
-        <%-- 주문 상품 --%>
-        <div class="row border mb-5 p-3 border-dark">
-            <h3 class="mb-3">주문상품</h3>
-            <hr>
-                <div class="col-2">
-                    <img src="../common/images/<%=images.get(0).getName()%>" class="rounded float-start" style="width: 170px; height:130px;">
+    %>
+    <%-- 결제 정보 --%>
+    <div class="row border mb-3 p-3 border-dark">
+        <h3 class="mt-3">결제정보</h3>
+        <ul class="list-unstyled">
+            <li>
+                <label class="col-10">주문상품</label>
+                <span><%=Utils.toCurrency(totalPrice)%></span>
+            </li>
+            <li>
+                <label class="col-10">배송비</label>
+                <span>\<%=Utils.toCurrency(deliveryPrice)%></span>
+            </li>
+            <li>
+                <div class="bg-secondary bg-opacity-25">
+                    <label class="col-10"><strong>결제금액</strong></label>
+                    <span><strong>\<%=Utils.toCurrency(order.getPaymentPrice())%></strong></span>
                 </div>
-                <div class="col-7">
-                    <ul class="list-unstyled">
-                        <li>
-                            <span>564546556</span>
-                        </li>
-                        <li>
-                            [옵션:<%=stock.getSize()%>]
-                        </li>
-                        <li>
-                            수량: <%=delivery.getAmount()%>
-                        </li>
-                        <li>
-                            상품구매금액: \<%=Utils.toCurrency(delivery.getAmount() * product.getPrice())%>
-                        </li>
-                    </ul>
-<%
-    }
-
-    int paymentPrice = totalPrice + deliveryPrice;
-%>
-                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="row mt-3">
+        <div class="col-6 text-end">
+            <form action="order-detail.jsp?orderNo=<%=order.getNo()%>" method="post">
+                <button type="submit" onclick="location.href='order-detail.jsp'"
+                        class="btn btn-white text-black border border-2">주문확인하기
+                </button>
+            </form>
         </div>
-        <%-- 결제 정보 --%>
-        <div class="row border mb-3 p-3 border-dark">
-            <h3 class="mt-3">결제정보</h3>
-                <ul class="list-unstyled">
-                    <li>
-                        <label class="col-10">주문상품</label>
-                        <span><%=Utils.toCurrency(totalPrice)%></span>
-                    </li>
-                    <li>
-                        <label class="col-10">배송비</label>
-                        <span>\<%=Utils.toCurrency(deliveryPrice)%></span>
-                    </li>
-                    <li>
-                        <div class="bg-secondary bg-opacity-25">
-                            <label class="col-10"><strong>결제금액</strong></label>
-                            <span><strong>\<%=Utils.toCurrency(order.getPaymentPrice())%></strong></span>
-                        </div>
-                    </li>
-                </ul>
+        <div class="col-auto">
+            <button onclick="location.href='../user/orders.jsp'" class="btn btn-dark text-white d-grid" type="button">
+                쇼핑계속하기
+            </button>
         </div>
     </div>
-    <div class="row mb-3">
-        <form action="order-detail.jsp?orderNo=<%=order.getNo()%>" method="get">
-        <div class="col d-flex justify-content-end">
-           <button onclick="location.href='order-detail.jsp'" class="btn btn-white text-black border border-2">주문확인하기</button>
-        </div>
-        </form>
-        <div class="col-2"></div>
-        <div class="col d-flex justify-content-start d-grid">
-            <button onclick="location.href='../user/orders.jsp'" class="btn btn-dark text-white d-grid" type="button">쇼핑계속하기</button>
-        </div>
-    </div>
+</div>
 <%@ include file="../common/footer.jsp" %>
 </body>
 </html>

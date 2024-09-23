@@ -69,11 +69,11 @@
                     int productNo = stock.getProductNo();
                     List<Image> images = productDao.getAllImagesByNo(productNo);
                     Product product = productDao.getProductByNo(productNo);
-                    totalPrice += amountArr[i] * 20000;
+                    totalPrice += amountArr[i] * product.getPrice();
                     int amount1 = amountArr[i];
             %>
             <div class="col-2">
-<%--                <img src="../common/images/<%=images.get(0).getName()%>" class="rounded float-start" style="width: 170px; height:130px;">--%>
+                <img src="../common/images/<%=images.get(0).getName()%>" class="rounded float-start" style="width: 130px; height:150px;">
             </div>
             <div class="col-7">
                 <input type="hidden" name="amount" value="<%=amount1%>">
@@ -231,7 +231,7 @@
             </table>
         </div>
         <div class="row d-flex justify-content-center mb-3 p-5">
-            <input type="submit" id="payButton" onclick="checkForm()" class="btn btn-dark text-white" value="지금 결제하기">
+            <input type="submit" id="payButton" class="btn btn-dark text-white" value="지금 결제하기">
         </div>
     </form>
 </div>
@@ -280,18 +280,6 @@
         }
     })
 
-    const tel2 = document.getElementById('tel2');
-    const tel3 = document.getElementById('tel3');
-    const email = document.getElementById('email');
-    const len2 = tel2.length;
-    const len3 = tel3.length;
-
-    function checkForm() {
-        if (tel2.length != 4 || tel3.length !=4) {
-            alert('휴대폰 번호의 첫자리를 제외한 나머지 자리는 4자리씩 입렵해주세요');
-            form.tel2.focus();
-        }
-    }
 </script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="post.js"></script>

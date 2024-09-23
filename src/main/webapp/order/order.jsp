@@ -125,7 +125,7 @@
         int productNo = stock.getProductNo();
         Delivery delivery = new Delivery();
         Product product = productDao.getProductByNo(productNo);
-        stock.setNo(1);
+        stock.setNo(stockNoArr[i]);
         product.setNo(productNo);
 
         delivery.setProduct(product);

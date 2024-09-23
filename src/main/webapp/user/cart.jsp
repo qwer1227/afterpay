@@ -85,7 +85,7 @@
                                 %>
                                 <tr>
                                     <td>
-                                        <input type="checkbox" name="cartNo" onchange="checkSelect()" value="<%=cart.getNo()%>">
+                                        <input type="checkbox" name="stockNo" onchange="checkSelect()" value="<%=stockNo%>">
                                     </td>
                                     <td>
                                         <img src="../common/images/<%=images.get(0).getName()%>" class="rounded mx-auto d-block" width="170">
@@ -93,8 +93,6 @@
                                     <td class="align-top">
                                         <p></p>
                                         <p style="font-size: 20px">
-                                            <input type="hidden" name="cartNo" value="<%=cart.getNo() %>">
-                                            <input type="hidden" name="stockNo" value="<%=stockNo%>">
                                             <input type="hidden" name="name" value="<%=product.getName()%>">
                                             <strong><%=product.getName()%></strong>
                                         </p>

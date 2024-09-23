@@ -227,7 +227,7 @@ public class QnaDao {
         DaoHelper.update(sql,qna.getNo());
     }
 
-    public int getAllTotalRowsByUserNo() {
+    public int getNotDeletedTotalRows() {
         String sql = """
                 SELECT COUNT(*)
                 FROM QNAS

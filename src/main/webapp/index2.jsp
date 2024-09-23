@@ -17,7 +17,7 @@
         margin-top: 300px;
         text-align: center;
     }
-    button {
+    #btn,#btn2 {
         width: 25%;
     }
     </style>
@@ -28,8 +28,8 @@
 %>
 <%@ include file="common/nav.jsp" %>
 <div class="choicebtn">
-    <button type="button" class="btn btn-outline-primary btn-lg" onclick="location.href='/product/list.jsp?cat_no=10'">남성</button>
-    <button type="button" class="btn btn-outline-danger btn-lg" onclick="location.href='/product/list.jsp?cat_no=20'">여성</button>
+    <button id="btn" type="button" class="btn btn-outline-primary btn-lg" onclick="location.href='/product/list.jsp?cat_no=10'">남성</button>
+    <button id="btn2" type="button" class="btn btn-outline-danger btn-lg" onclick="location.href='/product/list.jsp?cat_no=20'">여성</button>
 </div>
 <%@ include file="common/footer.jsp" %>
 </body>

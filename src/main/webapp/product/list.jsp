@@ -59,7 +59,7 @@
             </div>
             <div class="d-flex justify-content-between">
               <span class="badge text-bg-light"><i class="bi bi-eye"><%=Utils.toCurrency(product.getViewCount())%></i></span>
-              <span  class="text-danger"><strong><%=Utils.toCurrency(product.getPrice())%></strong> 원</span>
+              <span  class="text-danger">\<strong><%=Utils.toCurrency(product.getPrice())%></strong></span>
             </div>
           </div>
         </div>

@@ -243,7 +243,7 @@ public class QnaDao {
      * @param end   마지막 페이지
      * @return
      */
-    public List<Qna> getAllQnaByUserNo(int begin, int end) {
+    public List<Qna> getNotDeletedQna(int begin, int end) {
         String sql = """
                     SELECT *
                     FROM(

@@ -26,9 +26,7 @@
 <body>
 <%@include file="../common/nav.jsp" %>
 <%
-  int userNo = 19;
   QnaDao qnaDao = new QnaDao();
-  List<Qna> qnaList = qnaDao.getQnaListByUserNo(userNo);
 
   // 요청한 페이지 번호 조회
   int pageNo = Utils.toInt(request.getParameter("page"), 1);
@@ -38,7 +36,7 @@
   Pagination pagination = new Pagination(pageNo, totalRows);
   int beginPage = pagination.getBegin();
   int endPage = pagination.getEnd();
-  List<Qna> qnas = qnaDao.getAllQnaByUserNo(beginPage, endPage);
+  List<Qna> qnaList = qnaDao.getNotDeletedQna(beginPage, endPage);
   int qnaCnt = pagination.getBegin();
 %>
 <div class="container">
@@ -88,7 +86,7 @@
               <%
                 }
 
-                for (Qna qna : qnas) {
+                for (Qna qna : qnaList) {
               %>
               <tr class="text-center">
                 <th scope="col">
@@ -141,33 +139,32 @@
           </div>
         </div>
 
-          <%
-            if (qnas.get > 10)
-                if(pagination.getTotalPages() > 0) {
-          %>
+
         <div>
           <ul class="pagination justify-content-center">
             <li class="page-item <%=pagination.isFirst() ? "disabled" : "" %>">
-              <a class="page-link" href="user-qna.jsp?page=<%pagination.getPrev(); %>">이전</a>
+              <a class="page-link" href="user-qna.jsp?page=<%pagination.getPrev(); %>">
+                <i class="bi bi-arrow-left"></i>
+              </a>
             </li>
             <%
-              for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
+                for (int num = beginPage; num <= endPage; num++) {
             %>
             <li class="page-item <%=pageNo == num? "active" : "" %>">
               <a href="user-qna.jsp?page=<%=num %>" class="page-link"><%=num %>
               </a>
             </li>
             <%
-              }
+                }
             %>
             <li class="page-item <%=pagination.isLast() ? "disabled" : ""%>">
-              <a class="page-link" href="user-qna.jsp?page=<%=pagination.getNext() %>">다음</a>
+              <a class="page-link" href="user-qna.jsp?page=<%=pagination.getNext() %>">
+                <i class="bi bi-arrow-right"></i>
+              </a>
             </li>
           </ul>
         </div>
-          <%
-                }
-              %>
+
 
     </div>
   </div>

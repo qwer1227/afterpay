@@ -6,6 +6,7 @@ public class Stock {
     private String size;
     private int amount;
     private int productNo;
+    private Product product;
 
     public Stock() {}
 
@@ -42,6 +43,14 @@ public class Stock {
         this.productNo = productNo;
     }
 
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
     @Override
     public String toString() {
         return "Stock{" +
@@ -49,6 +58,7 @@ public class Stock {
                 ", size='" + size + '\'' +
                 ", amount=" + amount +
                 ", productNo=" + productNo +
+                ", product=" + product +
                 '}';
     }
 }

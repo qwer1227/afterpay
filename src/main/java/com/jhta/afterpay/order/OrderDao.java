@@ -51,13 +51,13 @@ public class OrderDao {
                 FROM ORDERS 
                 WHERE ORDER_NO = ?
                 """;
+
+        return DaoHelper.selectOne(sql, rs -> {
             Order order = new Order();
             User user = new User();
             order.setUser(user);
             Addr addr = new Addr();
             order.setAddr(addr);
-
-        return DaoHelper.selectOne(sql, rs -> {
             order.setNo(rs.getInt("ORDER_NO"));
             order.setOrderDate(rs.getDate("ORDER_DATE"));
             order.setStatus(rs.getString("ORDER_STATUS"));
@@ -81,14 +81,14 @@ public class OrderDao {
                 FROM ORDERS 
                 WHERE USER_NO = ?
                 """;
-        Order order = new Order();
-        User user = new User();
-        user.setNo(userNo);
-        order.setUser(user);
-        Addr addr = new Addr();
-        order.setAddr(addr);
 
         return DaoHelper.selectList(sql, rs-> {
+            Order order = new Order();
+            User user = new User();
+            user.setNo(userNo);
+            order.setUser(user);
+            Addr addr = new Addr();
+            order.setAddr(addr);
             order.setNo(rs.getInt("ORDER_NO"));
             order.setOrderDate(rs.getDate("ORDER_DATE"));
             order.setStatus(rs.getString("ORDER_STATUS"));
@@ -122,14 +122,14 @@ public class OrderDao {
                        )  
                 WHERE rownumber BETWEEN ? AND ?
                 """;
-        Order order = new Order();
-        User user = new User();
-        user.setNo(userNo);
-        order.setUser(user);
-        Addr addr = new Addr();
-        order.setAddr(addr);
 
         return DaoHelper.selectList(sql, rs-> {
+            Order order = new Order();
+            User user = new User();
+            user.setNo(userNo);
+            order.setUser(user);
+            Addr addr = new Addr();
+            order.setAddr(addr);
             order.setNo(rs.getInt("ORDER_NO"));
             order.setOrderDate(rs.getDate("ORDER_DATE"));
             order.setStatus(rs.getString("ORDER_STATUS"));

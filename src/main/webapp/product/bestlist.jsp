@@ -37,16 +37,11 @@
     int pageNo = Utils.toInt(request.getParameter("page"),1);
     ProductDao productDao = new ProductDao();
 
-    Pagination pagination = null;
     List<Product> products = null;
     if (catNo == 10 || catNo == 20) {
       int totalRows = productDao.getTotalRows(catNo);
-      pagination = new Pagination(pageNo, totalRows);
-      products = productDao.getProducts(catNo, pagination.getBegin(), pagination.getEnd());
-    } else {
-      int totalRows = productDao.getTotalRowsByCatNo(catNo);
-      pagination = new Pagination(pageNo, totalRows);
-      products = productDao.getProductsByCatNo(catNo, pagination.getBegin(), pagination.getEnd());
+
+      products = productDao.getBestProducts(catNo);
     }
   %>
   <table class="table">
@@ -70,12 +65,12 @@
     </thead>
     <tbody>
     <tr>
-    <%
-      for (Product product : products ) {
-    %>
+      <%
+        for (Product product : products ) {
+      %>
       <td>
         <a href="hit.jsp?pno=<%=product.getNo()%>">
-        <img src="../common/images/<%=product.getImage().getName()%>" alt="">
+          <img src="../common/images/<%=product.getImage().getName()%>" alt="">
         </a>
       </td>
       <td><%=product.getCategory().getName()%></td>
@@ -89,33 +84,9 @@
     %>
     </tbody>
   </table>
-  <%
-    if (pagination.getTotalRows() > 0) {
-  %>
-  <div>
-    <ul class="pagination justify-content-center">
-      <li class="page-item <%=pagination.isFirst() ? "disabled" : ""%>">
-        <a href="list.jsp?cat_no=<%=catNo%>&page=<%=pagination.getPrev() %>" class="page-link">이전</a>
-      </li>
-      <%
-        for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
-      %>
-      <li class="page-item <%=num == pageNo ? "active" : ""%>">
-        <a href="list.jsp?cat_no=<%=catNo%>&page=<%=num %>" class="page-link"><%=num %></a>
-      </li>
-      <%
-        }
-      %>
-      <li class="page-item <%=pagination.isLast() ? "disabled" : "" %>">
-        <a href="list.jsp?cat_no=<%=catNo%>&page=<%=pagination.getNext() %>" class="page-link">다음</a>
-      </li>
-    </ul>
-  </div>
-  <%
-    }
-  %>
 </div>
 <%@ include file="../common/footer.jsp" %>
 </body>
 </html>
+
 

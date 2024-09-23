@@ -67,6 +67,8 @@ public class ProductDao {
         }, productNo);
     }
 
+
+
     /**
      * 상품 번호로 상품의 모든 리뷰를 반환한다.
      * @param productNo 상품 번호
@@ -177,15 +179,19 @@ public class ProductDao {
             String sql = """
             SELECT *
             FROM (
-                  SELECT ROW_NUMBER() OVER (ORDER BY PRODUCT_NO asc) RN
+                  SELECT ROW_NUMBER() OVER (ORDER BY P.PRODUCT_NO asc) RN
+                    , IMG.IMG_NAME
                     , CA.CAT_NO
                     , CA.CAT_NAME
                     , P.PRODUCT_NO
                     , P.PRODUCT_NAME
                     , P.PRODUCT_PRICE
+                    , P.PRODUCT_VIEW_CNT
                     , P.PRODUCT_STATUS
-                  FROM PRODUCTS P, PRODUCT_CATEGORIES CA
+                  FROM PRODUCTS P, PRODUCT_CATEGORIES CA, PRODUCT_IMGS IMG
                   where P.CAT_NO = CA.CAT_NO
+                  AND P.PRODUCT_NO = IMG.PRODUCT_NO
+                  AND IMG.ISTHUMB = 'Y'
                   and P.CAT_NO IN (SELECT CAT_NO
                                    FROM PRODUCT_CATEGORIES
                                    WHERE PARENT_CAT_NO = ?)
@@ -198,12 +204,17 @@ public class ProductDao {
                 product.setNo(rs.getInt("PRODUCT_NO"));
                 product.setName(rs.getString("PRODUCT_NAME"));
                 product.setPrice(rs.getInt("PRODUCT_PRICE"));
+                product.setViewCount(rs.getInt("PRODUCT_VIEW_CNT"));
                 product.setStatus(rs.getString("PRODUCT_STATUS"));
 
                 Category category = new Category();
                 category.setNo(rs.getInt("CAT_NO"));
                 category.setName(rs.getString("CAT_NAME"));
                 product.setCategory(category);
+
+                Image image = new Image();
+                image.setName(rs.getString("IMG_NAME"));
+                product.setImage(image);
 
                 return product;
             }, catNo, begin, end);
@@ -345,16 +356,20 @@ public class ProductDao {
         String sql = """
             SELECT *
             FROM (
-                  SELECT ROW_NUMBER() OVER (ORDER BY PRODUCT_NO DESC) RN
+                  SELECT ROW_NUMBER() OVER (ORDER BY P.PRODUCT_NO DESC) RN
+                    , IMG.IMG_NAME
                     , CA.CAT_NO
                     , CA.CAT_NAME
                     , P.PRODUCT_NO
                     , P.PRODUCT_NAME
                     , P.PRODUCT_PRICE
+                    , P.PRODUCT_VIEW_CNT
                     , P.PRODUCT_STATUS
-                  FROM PRODUCTS P, PRODUCT_CATEGORIES CA
+                  FROM PRODUCTS P, PRODUCT_CATEGORIES CA, PRODUCT_IMGS IMG
                   where P.CAT_NO = CA.CAT_NO
+                  AND P.PRODUCT_NO = IMG.PRODUCT_NO
                   AND P.CAT_NO = ?
+                  AND IMG.ISTHUMB = 'Y'
             )
             WHERE RN BETWEEN ? AND ?
             """;
@@ -365,6 +380,7 @@ public class ProductDao {
             product.setNo(rs.getInt("PRODUCT_NO"));
             product.setName(rs.getString("PRODUCT_NAME"));
             product.setPrice(rs.getInt("PRODUCT_PRICE"));
+            product.setViewCount(rs.getInt("PRODUCT_VIEW_CNT"));
             product.setStatus(rs.getString("PRODUCT_STATUS"));
 
             Category category = new Category();
@@ -372,35 +388,129 @@ public class ProductDao {
             category.setName(rs.getString("CAT_NAME"));
             product.setCategory(category);
 
+            Image image = new Image();
+            image.setName(rs.getString("IMG_NAME"));
+            product.setImage(image);
+
             return product;
+
         }, catNo, begin, end);
     }
 
-//    public Product getProductImage(int productNo) {
-//        String sql = """
-//                SELECT P.PRODUCT_NO
-//                    , IMG.IMG_NO
-//                    , IMG.IMG_NAME
-//                    , IMG.ISTHUMB
-//                FROM PRODUCTS P, PRODUCT_IMGS IMG
-//                WHERE P.PRODUCT_NO = IMG.PRODUCT_NO
-//                AND IMG.ISTHUMB = 'Y'
-//                AND P.PRODUCT_NO = ?
-//                """;
-//
-//        return DaoHelper.selectOne(sql, rs -> {
-//            Product product = new Product();
-//            product.setNo(rs.getInt("PRODUCT_NO"));
-//
-//            Image image = new Image();
-//            image.setNo(rs.getInt("IMG_NO"));
-//            image.setName(rs.getString("IMG_NAME"));
-//            image.setThumb(rs.getString("ISTHUMB"));
-//
-//            product.setImage(image);
-//            return product;
-//
-//        }, productNo);
-//    }
+    public void updateProduct(Product product) {
+        String sql = """
+                update products
+                set product_name = ?
+                    , product_price = ?
+                    , product_content = ?
+                    , product_view_cnt = ?
+                    , product_created_date = ?
+                    , product_status = ?
+                    , product_total_rating = ?
+                where product_no = ?
+                """;
+
+        DaoHelper.update(sql, product.getName(),
+                              product.getPrice(),
+                              product.getContent(),
+                              product.getViewCount(),
+                              product.getCreatedDate(),
+                              product.getStatus(),
+                              product.getTotalRating(),
+                              product.getNo());
+    }
+
+    public List<Product> getBestProducts(int catNo) {
+        String sql = """
+            SELECT *
+            FROM (
+                  SELECT ROW_NUMBER() OVER (ORDER BY P.PRODUCT_NO asc) RN
+                    , IMG.IMG_NAME
+                    , CA.CAT_NO
+                    , CA.CAT_NAME
+                    , P.PRODUCT_NO
+                    , P.PRODUCT_NAME
+                    , P.PRODUCT_PRICE
+                    , P.PRODUCT_VIEW_CNT
+                    , P.PRODUCT_STATUS
+                  FROM PRODUCTS P, PRODUCT_CATEGORIES CA, PRODUCT_IMGS IMG
+                  where P.CAT_NO = CA.CAT_NO
+                  AND P.PRODUCT_NO = IMG.PRODUCT_NO
+                  AND IMG.ISTHUMB = 'Y'
+                  and P.CAT_NO IN (SELECT CAT_NO
+                                   FROM PRODUCT_CATEGORIES
+                                   WHERE PARENT_CAT_NO = ?)
+                  ORDER BY PRODUCT_VIEW_CNT DESC
+            )
+            WHERE ROWNUM <= 5
+            """;
+
+        return DaoHelper.selectList(sql, rs -> {
+            Product product = new Product();
+            product.setNo(rs.getInt("PRODUCT_NO"));
+            product.setName(rs.getString("PRODUCT_NAME"));
+            product.setPrice(rs.getInt("PRODUCT_PRICE"));
+            product.setViewCount(rs.getInt("PRODUCT_VIEW_CNT"));
+            product.setStatus(rs.getString("PRODUCT_STATUS"));
+
+            Category category = new Category();
+            category.setNo(rs.getInt("CAT_NO"));
+            category.setName(rs.getString("CAT_NAME"));
+            product.setCategory(category);
+
+            Image image = new Image();
+            image.setName(rs.getString("IMG_NAME"));
+            product.setImage(image);
+
+            return product;
+
+        }, catNo);
+    }
+
+    public List<Product> getBestProductsByCatNo(int catNo) {
+        String sql = """
+            SELECT *
+            FROM (
+                  SELECT ROW_NUMBER() OVER (ORDER BY P.PRODUCT_NO DESC) RN
+                    , IMG.IMG_NAME
+                    , CA.CAT_NO
+                    , CA.CAT_NAME
+                    , P.PRODUCT_NO
+                    , P.PRODUCT_NAME
+                    , P.PRODUCT_PRICE
+                    , P.PRODUCT_VIEW_CNT
+                    , P.PRODUCT_STATUS
+                  FROM PRODUCTS P, PRODUCT_CATEGORIES CA, PRODUCT_IMGS IMG
+                  where P.CAT_NO = CA.CAT_NO
+                  AND P.PRODUCT_NO = IMG.PRODUCT_NO
+                  AND P.CAT_NO = ?
+                  AND IMG.ISTHUMB = 'Y'
+            )
+            WHERE ROWNUM <= 5
+            ORDER BY PRODUCT_VIEW_CNT DESC
+            """;
+
+
+        return DaoHelper.selectList(sql, rs -> {
+            Product product = new Product();
+            product.setNo(rs.getInt("PRODUCT_NO"));
+            product.setName(rs.getString("PRODUCT_NAME"));
+            product.setPrice(rs.getInt("PRODUCT_PRICE"));
+            product.setViewCount(rs.getInt("PRODUCT_VIEW_CNT"));
+            product.setStatus(rs.getString("PRODUCT_STATUS"));
+
+            Category category = new Category();
+            category.setNo(rs.getInt("CAT_NO"));
+            category.setName(rs.getString("CAT_NAME"));
+            product.setCategory(category);
+
+            Image image = new Image();
+            image.setName(rs.getString("IMG_NAME"));
+            product.setImage(image);
+
+            return product;
+
+        }, catNo);
+    }
 
 }

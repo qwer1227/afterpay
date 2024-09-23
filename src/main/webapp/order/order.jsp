@@ -21,7 +21,9 @@
     // 쿼리 파라미터
     String address = request.getParameter("address");                                       // 주소
     String detailAddr = request.getParameter("detailAddress");                              // 상세주소
-    String tel = request.getParameter("tel");                                               // 전화번호
+    String tel = request.getParameter("tel1")                                               // 전화번호
+            + "-" + request.getParameter("tel2")
+            + "-" + request.getParameter("tel3");
     String zipcode = request.getParameter("zipcode");                                       // 우편번호
     String email = request.getParameter("emailId") + "@" + request.getParameter("domain");  // 이메일
     String recipient = request.getParameter("recipient");                                   // 수령인
@@ -30,8 +32,7 @@
     int discountPrice = Integer.parseInt(request.getParameter("discountPrice"));            // 할인 가격
     int deliveryPrice = Integer.parseInt(request.getParameter("deliveryPrice"));            // 배송비
     int paymentPrice = Integer.parseInt(request.getParameter("paymentPrice"));              // 결제 금액
-    String[] proNoArr = request.getParameterValues(request.getParameter("productNo"));      // 상품 번호
-    String message = request.getParameter("message");
+    String message = request.getParameter("message");                                       // 배송 메세지
     int totalAmount = Utils.toInt(request.getParameter("totalAmount"));                     // 주문 상품 전체 개수
 
     // 주문 상품 개수
@@ -41,12 +42,19 @@
         amountArr[i] = Utils.toInt(amount[i]);
     }
 
-    // 전체 상품 재고 번호 가져오기
+    int totalAmonut = 0;
+    for (int a : amountArr) {
+        totalAmonut += a;
+    }
+
+    // 상품 재고 번호 가져오기
     String[] stockNo = request.getParameterValues("stockNo");
     int[] stockNoArr = new int[stockNo.length];
     for(int i=0; i<stockNoArr.length; i++) {
         stockNoArr[i] = Utils.toInt(stockNo[i]);
     }
+
+
 
     UserDao userDao = new UserDao();
     AddrDao addrDao = new AddrDao();
@@ -58,6 +66,10 @@
 
     // 주문 회원 정보
     User user = userDao.getUserById("hong"); // 회원ID는 세션값으로 구할 예정
+    user.setEmail(email);
+    user.setTel(tel);
+    user.setName(userName);
+
 
     // 배송지 저장
     Addr addr = new Addr();
@@ -75,8 +87,7 @@
                 && findAddr.getAddr2().equals(detailAddr)) {
             break;
         }
-        addr.setName("기본 배송지");
-        addr.setIsAddrHome("Y");
+        addr.setName("새 배송지");
         addrDao.insertAddr(addr);
     }
 
@@ -92,12 +103,14 @@
     // 주문정보 저장
     Order order = new Order();
     order.setPrice(totalPrice);
-    order.setAmount(1);
+    order.setAmount(totalAmount);
     order.setDeliveryPrice(deliveryPrice);
     order.setUsePoint(1);
     order.setDiscountPrice(discountPrice);
     order.setPaymentPrice(paymentPrice);
     order.setDepositPoint(1);
+    order.setTel(tel);
+    order.setEmail(email);
     order.setAddr(addr);
     order.setUser(user);
     order.setDeliveryMessage(message);

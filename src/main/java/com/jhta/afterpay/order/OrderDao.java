@@ -18,20 +18,21 @@ public class OrderDao {
                     insert into ORDERS
                     (ORDER_NO
                     , ORDER_PRICE, ORDER_AMOUNT , DELIVERY_PRICE 
-                    , USE_POINT , ORDER_DISCOUNT_PRICE, PAYMENT_PRICE
-                    , DELIVERY_MESSAGE
-                    , DEPOSIT_POINT, USER_NO, ADDR_NO)
+                    , USE_POINT , ORDER_DISCOUNT_PRICE, PAYMENT_PRICE          
+                    , DEPOSIT_POINT, USER_NO, ADDR_NO
+                    , DELIVERY_MESSAGE, TEL, EMAIL)
                     VALUES
                     (ORDER_NO_SEQ.NEXTVAL
                     , ?, ?, ?
                     , ?, ?, ? 
+                    , ?, ?, ?
                     , ?, ?, ?)
                 """;
         DaoHelper.insert(sql
                 , order.getPrice(), order.getAmount(), order.getDeliveryPrice()
                 , order.getUsePoint(), order.getDiscountPrice(), order.getPaymentPrice()
-                , order.getDeliveryMessage()
                 , order.getDepositPoint(), order.getUser().getNo(), order.getAddr().getNo()
+                , order.getDeliveryMessage(), order.getTel(), order.getEmail()
         );
     }
 

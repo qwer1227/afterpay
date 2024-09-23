@@ -1,9 +1,15 @@
-<%@ page import="com.jhta.afterpay.user.Order" %>
-<%@ page import="com.jhta.afterpay.user.OrderDao" %>
+<%@ page import="com.jhta.afterpay.order.OrderDao" %>
 <%@ page import="com.jhta.afterpay.util.Utils" %>
+<%@ page import="com.jhta.afterpay.order.Order" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.jhta.afterpay.user.ProductDao" %>
-<%@ page import="com.jhta.afterpay.user.Product" %>
+<%@ page import="com.jhta.afterpay.util.Pagination" %>
+<%@ page import="com.jhta.afterpay.delivery.DeliveryDao" %>
+<%@ page import="com.jhta.afterpay.delivery.Delivery" %>
+<%@ page import="com.jhta.afterpay.product.ProductDao" %>
+<%@ page import="com.jhta.afterpay.product.Image" %>
+<%@ page import="com.jhta.afterpay.user.ReviewDao" %>
+<%@ page import="com.jhta.afterpay.user.Review" %>
+<%@ page import="com.jhta.afterpay.product.Product" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
@@ -30,10 +36,9 @@
 <body>
 <%@include file="../common/nav.jsp"%>
 <%
-  int userNo = Utils.toInt(request.getParameter("no"));
-  OrderDao orderDao = new OrderDao();
-//  List<Order> order = orderDao.getOrderByNo(userNo);
-  ProductDao productDao = new ProductDao();
+  int userNo = 19;
+  DeliveryDao deliveryDao = new DeliveryDao();
+  List<Delivery> deliveryList = deliveryDao.getDeliveriesByUserNo(userNo);
 %>
 <div class="container">
   <div class="container">
@@ -44,7 +49,17 @@
       <div class="col-10">
         <h2 class="m-4"><strong>주문 내역</strong></h2>
         <hr style="border:solid 1px gray;"/>
-
+        <%
+          if (deliveryList.isEmpty()){
+        %>
+        <div class="text-center m-5">
+          <strong>주문 내역이 없습니다.</strong><br>
+          <br>
+          <a href="" type="button" class="btn btn-lg bg-light border-dark-subtle">지금 바로 쇼핑하러 가기</a>
+        </div>
+        <%
+          } else {
+        %>
         <table class="table">
           <colgroup>
             <col width="1%">
@@ -68,46 +83,87 @@
           </thead>
 
           <tbody>
+            <%
+              for (Delivery delivery : deliveryList){
+                ProductDao productDao = new ProductDao();
+                List<Image> images = productDao.getAllImagesByNo(delivery.getProduct().getNo());
+            %>
           <tr class="align-middle">
-            <th scope="row">
+            <td scope="row">
               <input class="form-check-input" type="checkbox" name="orderNo" onchange="checkSelect()" style="zoom: 1.5" value="check-item">
-            </th>
-            <td>
-              <img src="/img/main2.png" class="rounded mx-auto d-block" width="170">
             </td>
             <td>
-              <p style="font-size: 20px"><strong>상품명</strong></p>
-              <p>사이즈</p>
-              <p>수량</p>
-              <p>구매일자</p>
+              <img src="../common/images/<%=images.get(0).getName()%>" class="rounded float-start" style="width: 170px; height:130px;">
             </td>
             <td>
-              <div><a href="" type="submit" class="btn mt-1 btn-outline-info">상세보기</a></div>
-              <!-- 이미 리뷰를 썼으면 '작성한 리뷰' -->
+              <p style="font-size: 20px">
+                <strong><%=delivery.getProduct().getName()%></strong>
+              </p>
+              <p>사이즈: <%=delivery.getStock().getSize()%></p>
+              <p>수량: <%=delivery.getAmount()%> 개</p>
+              <p>결제금액: <%=Utils.toCurrency(delivery.getOrder().getPaymentPrice())%> 원</p>
+              <p>구매일자: <%=delivery.getOrder().getOrderDate()%></p>
+            </td>
+            <td class="text-center">
+              <form action="../order/order-detail.jsp">
+                <input type="hidden" name="deliveryNo" value="<%=delivery.getNo() %>">
+              <div><input type="submit" class="btn mt-1 btn-outline-info" value="상세보기"></div>
+              </form>
+              <div><a href="" type="submit" class="btn mt-1 btn-outline-primary">재 구 매</a></div>
               <div><a href="" type="submit" class="btn mt-1 btn-outline-success">리뷰쓰기</a></div>
-              <div><a href="" type="submit" class="btn mt-1 btn-outline-primary">재구매</a></div>
+<%--              <%--%>
+<%--                }--%>
+<%--              %>--%>
+              <div><a href="" type="submit" class="btn mt-1 btn-outline-success">작성한 리뷰</a></div>
             </td>
           </tr>
+            <%
+              }
+            %>
           </tbody>
         </table>
 
-        <nav aria-label="Page navigation example">
+        <%
+            if (deliveryDao.getAllTotalRowsByUserNo(userNo) > 10) {
+        %>
+        <nav aria-label="Page navigation example m-3">
           <ul class="pagination justify-content-center">
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
+            <%
+              int pageNo = Utils.toInt(request.getParameter("page"), 1);
+              int totalRows = deliveryDao.getAllTotalRowsByUserNo(userNo);
+              Pagination pagination = new Pagination(pageNo, totalRows);
+              if (pagination.getTotalRows() > 0) {
+                int beginPage = pagination.getBeginPage();
+                int endPage = pagination.getEndPage();
+            %>
+            <li class="page-item <%=pagination.isFirst() ? "disabled" : ""%>">
+              <a class="page-link" href="user-qna.jsp?page=<%=pagination.getPrev()%>" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
               </a>
             </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <%
+              for (int num = beginPage; num <= endPage; num++){
+            %>
             <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
+              <a class="page-link <%=pageNo == num ? "active" : ""%>" href="user-qna.jsp?page=<%=num%>"><%=num%></a>
+            </li>
+            <%
+              }
+            %>
+            <li class="page-item">
+              <a class="page-link <%=pagination.isLast() ? "disabled" : ""%>" href="user-qna.jsp?page=<%=pagination.getNext()%>" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
               </a>
             </li>
+            <%
+              }
+            %>
           </ul>
         </nav>
+        <%
+            }
+          }
+        %>
       </div>
     </div>
   </div>

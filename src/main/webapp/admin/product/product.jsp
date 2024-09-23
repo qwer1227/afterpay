@@ -19,27 +19,18 @@
 </head>
 <body>
 <%@ include file="../../common/nav.jsp" %>
-    <div class="container">
-        <div class="row">
-            <div class="text-center">
-                <h1 class="my-5">상품관리 페이지</h1>
+    <div class="container mb-5" style="margin-top: 100px;">
+        <div class="row mb-3">
+            <div class="col-9 offset-2">
+                <h1 class="text-center">상품관리 페이지</h1>
             </div>
-            <div class="col-2 pt-5">
+        </div>
+        <div class="row mb-3">
+            <div class="col-2">
                 <!-- 메뉴목록 -->
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="../home.jsp">관리자메인</a></li>
-                    <li class="list-group-item"><a href="#">회원관리</a></li>
-                    <li class="list-group-item"><a href="#">주문관리</a></li>
-                    <li class="list-group-item"><a href="#">적립금관리</a></li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="../product/product.jsp">상품관리</a></li>
-                    <li class="list-group-item"><a href="../../qna/admin-qna.jsp">문의관리</a></li>
-                    <li class="list-group-item"><a href="../stock/stock.jsp">상품재고현황</a></li>
-                    <li class="list-group-item"><a href="../settlement/settlement.jsp">정산관리</a></li>
-                </ul>
+                <%@include file="../admin-nav.jsp"%>
             </div>
-            <div class="col-9 my-1">
+            <div class="col-10">
                 <!--상품목록-->
                 <%
                     ProductDao productDao = new ProductDao();

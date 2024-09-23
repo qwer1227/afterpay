@@ -24,27 +24,18 @@
 </head>
 <body>
 <%@ include file="../../common/nav.jsp" %>
-    <div class="container">
-        <div class="text-center">
-            <h1 class="my-5">상품재고 현황표</h1>
-        </div>
-        <div class="row">
-            <div class="col-2 pt-5">
-                <!-- 메뉴목록 -->
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="../home.jsp">관리자메인</a></li>
-                    <li class="list-group-item"><a href="#">회원관리</a></li>
-                    <li class="list-group-item"><a href="#">주문관리</a></li>
-                    <li class="list-group-item"><a href="#">적립금관리</a></li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="../product/product.jsp">상품관리</a></li>
-                    <li class="list-group-item"><a href="../../qna/admin-qna.jsp">문의관리</a></li>
-                    <li class="list-group-item"><a href="stock.jsp">상품재고현황</a></li>
-                    <li class="list-group-item"><a href="../settlement/settlement.jsp">정산관리</a></li>
-                </ul>
+    <div class="container mb-5" style="margin-top: 100px;">
+        <div class="row mb-3">
+            <div class="col-9 offset-2">
+                <h1 class="text-center">재고관리 현황</h1>
             </div>
-            <div class="col-10 my-1">
+        </div>
+        <div class="row mb-3">
+            <div class="col-2">
+                <!-- 메뉴목록 -->
+                <%@include file="../admin-nav.jsp"%>
+            </div>
+            <div class="col-10">
                 <table class="table">
                     <thead>
                         <tr class="table-dark">
@@ -74,13 +65,13 @@
                             <tr>
 
                                 <td><%=product.getNo()%></td>
-                                <td colspan="<%=4-stocks.size()%>"><%=product.getName()%></td>
+                                <td colspan="<%=4-stocks.size()%>"><a href="detail.jsp?no=<%=product.getNo()%>"><%=product.getName()%></a></td>
                                 <%
                                     int totalAmount = 0;
                                     for (Stock stock : stocks) {
                                         totalAmount += stock.getAmount();
                                 %>
-                                <td><%=stock.getSize()%> : <%=stock.getAmount()%></td>
+                                <td><%=stock.getAmount()%> 개</td>
                                 <%
                                     }
                                 %>

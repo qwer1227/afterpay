@@ -147,7 +147,7 @@ public class ProductDao {
         String sql = """
             select *
             from product_imgs
-            where product_no = ?    
+            where product_no = ?
         """;
 
         return DaoHelper.selectList(sql, rs -> {

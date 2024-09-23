@@ -233,6 +233,7 @@ public class QnaDao {
         String sql = """
                 SELECT COUNT(*)
                 FROM QNAS
+                WHERE ISQNADELETED = 'N'
                 """;
 
         return DaoHelper.selectOneInt(sql);
@@ -258,6 +259,7 @@ public class QnaDao {
                         ,U.USER_NAME
                     FROM QNAS Q, USERS U
                     WHERE Q.USER_NO = U.USER_NO
+                        AND ISQNADELETED = 'N'
                     )
                     WHERE ROWNUMBER BETWEEN ? AND ?
                 """;

@@ -39,7 +39,6 @@
           int userNo = 19;
           QnaDao qnaDao = new QnaDao();
           List<Qna> qnaList = qnaDao.getQnaListByUserNo(userNo);
-          int qnaCnt = 1;
         
           // 요청한 페이지 번호 조회
           int pageNo = Utils.toInt(request.getParameter("page"), 1);
@@ -50,6 +49,7 @@
           int beginPage = pagination.getBegin();
           int endPage = pagination.getEnd();
           List<Qna> qnas = qnaDao.getAllQnaByUserNo(beginPage, endPage);
+          int qnaCnt = pagination.getBegin();
         %>
       </div>
       <div class="col-10">

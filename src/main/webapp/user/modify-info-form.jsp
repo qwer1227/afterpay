@@ -1,8 +1,7 @@
 <%@ page import="com.jhta.afterpay.user.UserDao" %>
 <%@ page import="com.jhta.afterpay.user.User" %>
-<%@ page import="com.jhta.afterpay.user.Address" %>
-<%@ page import="com.jhta.afterpay.user.AddressDao" %>
 <%@ page import="com.jhta.afterpay.util.Utils" %>
+<%@ page import="com.jhta.afterpay.addr.AddrDao" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
@@ -26,7 +25,7 @@
   // http://localhost/user/modify-form.jsp?id=xxx
   // 파라미터값을 전달받아 해당하는 정보를 받아 회원정보 폼에 각 값을 나타낸다.
   UserDao userDao = new UserDao();
-  AddressDao addressDao = new AddressDao();
+  AddrDao addrDao = new AddrDao();
 
   // 세션에서 사용자 번호 가져온다.
   int userNo = 19;

@@ -4,6 +4,7 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <%
     // 1. 요청 파라미터 정보 조회하기
+    int no = Utils.toInt(request.getParameter("no"));
     String id = request.getParameter("id");
     String name = request.getParameter("name");
     String pwd = request.getParameter("pwd");
@@ -15,6 +16,7 @@
 
     // 2. User 객체를 생성해서 요청파라미터 정보를 저장한다.
     User user = new User();
+    user.setNo(no);
     user.setId(id);
     user.setName(name);
     user.setPwd(pwd);
@@ -29,5 +31,5 @@
     userDao.updateUser(user);
 
     // 4. 재요청 URL을 응답으로 보낸다.
-    response.sendRedirect("user.jsp?no=" + userNo);
+    response.sendRedirect("user.jsp?no=" + no);
 %>

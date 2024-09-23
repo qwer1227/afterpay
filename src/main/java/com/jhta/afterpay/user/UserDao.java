@@ -1,14 +1,61 @@
 package com.jhta.afterpay.user;
 
-import com.jhta.afterpay.user.User;
-import com.jhta.afterpay.user.PointHistory;
-import com.jhta.afterpay.user.User;
 import com.jhta.afterpay.util.DaoHelper;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class UserDao {
+
+    /**
+     * 회원 번호로 회원의 모든 정보를 반환한다.
+     * @param userNo 회원번호
+     * @return 해당 회원의 모든 정보
+     */
+    public User getAllUserByNo(int userNo) {
+        String sql = """
+                    select *
+                    from users u
+                    where u.user_no = ?
+                """;
+
+        return DaoHelper.selectOne(sql, rs -> {
+            User user = new User();
+            user.setNo(rs.getInt("user_no"));
+            user.setEmail(rs.getString("user_email"));
+            user.setId(rs.getString("user_id"));
+            user.setPwd(rs.getString("user_password"));
+            user.setName(rs.getString("user_name"));
+            user.setTel(rs.getString("user_tel"));
+            user.setIsBanned(rs.getString("isbanned"));
+            user.setIsSignOut(rs.getString("issignout"));
+            user.setCreatedDate(rs.getDate("created_date"));
+            user.setGradeId(rs.getString("grade_id"));
+            user.setTotalUsedPoint(rs.getInt("total_used_point"));
+            user.setTotalPoint(rs.getInt("total_point"));
+            user.setPoint(rs.getInt("point"));
+
+            return user;
+        }, userNo);
+    }
+
+    /**
+     * 회원 정보를 수정한다.
+     * @param user 기존회원정보
+     */
+    public void updateAllUser(User user) {
+        String sql = """
+                UPDATE USERS
+                SET USER_PASSWORD = ?
+                    , USER_TEL = ?
+                    , USER_EMAIL = ?
+                    , GRADE_ID = ?
+                    , ISBANNED = ?
+                    , ISSIGNOUT = ?
+                WHERE USER_NO = ?
+                """;
+        
+        DaoHelper.update(sql, user.getPwd(), user.getTel(), user.getEmail(), user.getGradeId(), user.getIsBanned(), user.getIsSignOut(), user.getNo());
+    }
 
     /**
      * 전체 회원 수를 조회해서 반환한다.

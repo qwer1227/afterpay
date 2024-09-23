@@ -21,81 +21,103 @@
     <link rel="stylesheet" href="/common/css/style.css">
 </head>
 <body>
-<%
-    String menu = "회원 상세정보";
-%>
 <%@ include file="../../common/nav.jsp" %>
-<div class="container mt-4 mb-5">
-    <h1>회원 상세정보</h1>
-    <%
-        int userNo = Utils.toInt(request.getParameter("no"));
-
-        // 요청파라미터로 전달받은 회원번호에 해당하는 회원 상세정보를 조회한다.
-        UserDao userDao = new UserDao();
-        User user = userDao.getUserByNo(userNo);
-    %>
-    <table class="table table-bordered">
-        <colgroup>
-            <col width="15%">
-            <col width="35%">
-            <col width="15%">
-            <col width="35%">
-        </colgroup>
-        <thead class="table-dark">
-        <tr>
-            <th>항목</th>
-            <th>값</th>
-            <th>항목</th>
-            <th>값</th>
-        </tr>
-        </thead>
-        <tbody>
-
-        <tr>
-            <th>번호</th>
-            <td><%=user.getNo()%></td>
-            <th>이름</th>
-            <td><%=StringEscapeUtils.escapeHtml4(user.getName())%></td>
-        </tr>
-        <tr>
-            <th>아이디</th>
-            <td><%=user.getId()%></td>
-            <th>비밀번호</th>
-            <td><%=user.getPwd()%></td>
-        </tr>
-        <tr>
-            <th>전화번호</th>
-            <td><%=user.getTel()%></td>
-            <th>이메일</th>
-            <td><%=user.getEmail()%></td>
-        </tr>
-        <tr>
-            <th>가입일</th>
-            <td><%=user.getCreatedDate()%></td>
-            <th>등급</th>
-            <td><%=user.getGradeId()%></td>
-        </tr>
-        <tr>
-            <th>적립금</th>
-            <td><%=user.getTotalPoint()%> 원</td>
-            <th></th>
-            <td></td>
-        </tr>
-        <tr>
-            <th>정지여부</th>
-            <td><%=user.getIsBanned()%></td>
-            <th>탈퇴여부</th>
-            <td><%=user.getIsSignOut()%></td>
-        </tr>
-        </tbody>
-    </table>
-    <!--버튼-->
-    <div class="text-end my-2">
-        <a href="#" class="btn btn-danger">회원삭제</a>
-        <a href="#" class="btn btn-primary">회원수정</a>
-        <a href="user.jsp" class="btn btn-success">회원목록</a>
+<div class="container mb-5" style="margin-top: 100px;">
+    <div class="rom mb-3">
+        <div class="col-10 offset-1">
+            <h2 class="text-center"><strong>회원 상세조회</strong></h2>
+        </div>
     </div>
+
+    <div class="row mb-3">
+        <div class="col-2">
+            <%@include file="../admin-nav.jsp" %>
+        </div>
+        <div class="col-10">
+            <%
+                int userNo = Utils.toInt(request.getParameter("no"));
+
+                // 요청파라미터로 전달받은 회원번호에 해당하는 회원 상세정보를 조회한다.
+                UserDao userDao = new UserDao();
+                User user = userDao.getUserByNo(userNo);
+            %>
+
+            <table class="table table-bordered mb-3">
+                <colgroup>
+                    <col width="15%">
+                    <col width="35%">
+                    <col width="15%">
+                    <col width="35%">
+                </colgroup>
+                <thead class="table-dark">
+                <tr>
+                    <th>항목</th>
+                    <th>값</th>
+                    <th>항목</th>
+                    <th>값</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr>
+                    <th>번호</th>
+                    <td><%=user.getNo()%>
+                    </td>
+                    <th>이름</th>
+                    <td><%=StringEscapeUtils.escapeHtml4(user.getName())%>
+                    </td>
+                </tr>
+                <tr>
+                    <th>아이디</th>
+                    <td><%=user.getId()%>
+                    </td>
+                    <th>비밀번호</th>
+                    <td><%=user.getPwd()%>
+                    </td>
+                </tr>
+                <tr>
+                    <th>전화번호</th>
+                    <td><%=user.getTel()%>
+                    </td>
+                    <th>이메일</th>
+                    <td><%=user.getEmail()%>
+                    </td>
+                </tr>
+                <tr>
+                    <th>가입일</th>
+                    <td><%=user.getCreatedDate()%>
+                    </td>
+                    <th>등급</th>
+                    <td><%=user.getGradeId()%>
+                    </td>
+                </tr>
+                <tr>
+                    <th>적립금</th>
+                    <td><%=user.getTotalPoint()%> 원</td>
+                    <th></th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>정지여부</th>
+                    <td><%=user.getIsBanned()%>
+                    </td>
+                    <th>탈퇴여부</th>
+                    <td><%=user.getIsSignOut()%>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="text-end my-2">
+                <a href="delete.jsp?no=<%=userNo%>" class="btn btn-danger">회원삭제</a>
+                <a href="modify-form.jsp?no=<%=userNo%>" class="btn btn-primary">회원수정</a>
+                <a href="user.jsp" class="btn btn-success">회원목록</a>
+            </div>
+
+        </div>
+    </div>
+
 </div>
-<%@ include file="../../../../../../../카카오톡 받은 파일/afterpay/src/main/webapp/common/footer.jsp" %>
+<%@ include file="../../common/footer.jsp" %>
 </body>
 </html>

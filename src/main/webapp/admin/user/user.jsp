@@ -23,27 +23,18 @@
 </head>
 <body>
 <%@ include file="../../common/nav.jsp" %>
-    <div class="container">
-        <div class="row">
-            <div class="text-center">
-                <h1 class="my-5">회원관리 페이지</h1>
-            </div>
-            <div class="col-2 pt-5">
-                <!-- 메뉴목록 -->
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="../../../../../../../카카오톡%20받은%20파일/afterpay/src/main/webapp/admin/home.jsp">관리자메인</a></li>
-                    <li class="list-group-item"><a href="user.jsp">회원관리</a></li>
-                    <li class="list-group-item"><a href="../../../../../../../카카오톡%20받은%20파일/afterpay/src/main/webapp/admin/order/order.jsp">주문관리</a></li>
-                    <li class="list-group-item"><a href="../../../../../../../카카오톡%20받은%20파일/afterpay/src/main/webapp/admin/mileage/mileage.jsp">적립금관리</a></li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="../../../../../../../카카오톡%20받은%20파일/afterpay/src/main/webapp/admin/product/product.jsp">상품관리</a></li>
-                    <li class="list-group-item"><a href="../../../../../../../카카오톡%20받은%20파일/afterpay/src/main/webapp/admin/qna/qna.jsp">문의관리</a></li>
-                    <li class="list-group-item"><a href="../../../../../../../카카오톡%20받은%20파일/afterpay/src/main/webapp/admin/product/stock.jsp">상품재고현황</a></li>
-                    <li class="list-group-item"><a href="#">정산관리</a></li>
-                </ul>
-            </div>
-            <div class="col-9 my-1">
+<div class="container mb-5"  style="margin-top: 100px;">
+    <div class="rom mb-3">
+        <div class="col-10 offset-1">
+            <h2 class="text-center"><strong>회원관리 페이지</strong></h2>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-2">
+            <%@include file="../admin-nav.jsp"%>
+        </div>
+        <div class="col-10">
                 <!--회원목록-->
                 <%
                     UserDao userDao = new UserDao();
@@ -118,12 +109,12 @@
                 %>
                 <!--버튼-->
                 <div class="text-end my-2">
-                    <a href="#" class="btn btn-danger">회원삭제</a>
+                    <a href="delete.jsp" class="btn btn-danger">회원삭제</a>
                     <a href="form.jsp" class="btn btn-success">회원등록</a>
                 </div>
             </div>
         </div>
     </div>
-<%@ include file="../../../../../../../카카오톡 받은 파일/afterpay/src/main/webapp/common/footer.jsp" %>
+<%@ include file="../../common/footer.jsp" %>
 </body>
 </html>

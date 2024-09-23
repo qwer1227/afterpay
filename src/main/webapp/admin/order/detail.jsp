@@ -4,6 +4,12 @@
 <%@ page import="org.apache.commons.lang3.StringEscapeUtils" %>
 <%@ page import="com.jhta.afterpay.order.OrderDao" %>
 <%@ page import="com.jhta.afterpay.order.Order" %>
+<%@ page import="com.jhta.afterpay.addr.AddrDao" %>
+<%@ page import="com.jhta.afterpay.addr.Addr" %>
+<%@ page import="com.jhta.afterpay.payment.PaymentDao" %>
+<%@ page import="com.jhta.afterpay.payment.Payment" %>
+<%@ page import="com.jhta.afterpay.delivery.DeliveryDao" %>
+<%@ page import="com.jhta.afterpay.delivery.Delivery" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,84 +30,148 @@
 </head>
 <body>
 <%
-    String menu = "회원 상세정보";
+    String menu = "주문 상세정보";
 %>
 <%@ include file="../../common/nav.jsp" %>
+
 <div class="container mt-4 mb-5">
     <h1>주문 상세정보</h1>
+
+    <!-- 주문정보 -->
     <%
-        int orderNo = Utils.toInt(request.getParameter("no"));
-
-        // 요청파라미터로 전달받은 회원번호에 해당하는 회원 상세정보를 조회한다.
+        //  조회할 상품 정보
+        //  int orderNo = Integer.parseInt(request.getParameter("orderNo"));
         OrderDao orderDao = new OrderDao();
-        Order order = orderDao.getOrderByNo(orderNo);
-    %>
-    <table class="table table-bordered">
-        <colgroup>
-            <col width="15%">
-            <col width="35%">
-            <col width="15%">
-            <col width="35%">
-        </colgroup>
-        <thead class="table-dark">
-        <tr>
-            <th>항목</th>
-            <th>값</th>
-            <th>항목</th>
-            <th>값</th>
-        </tr>
-        </thead>
-        <tbody>
+        Order order = orderDao.getOrderByNo(8);
+        AddrDao addrDao = new AddrDao();
+        User user = new User();
+        user.setNo(7);
+        order.setUser(user);
 
-        <tr>
-            <th>번호</th>
-            <td><%=order.getNo()%></td>
-            <th>주문자명</th>
-            <td><%=StringEscapeUtils.escapeHtml4(order.getUser().getName())%></td>
-        </tr>
-        <tr>
-            <th>주문자아이디</th>
-            <td><%=order.getUser().getId()%></td>
-            <th>주문일자</th>
-            <td><%=user.getPwd()%></td>
-        </tr>
-        <tr>
-            <th>주문상태</th>
-            <td><%=user.getTel()%></td>
-            <th>주문수량</th>
-            <td><%=user.getEmail()%></td>
-        </tr>
-        <tr>
-            <th>주문가격</th>
-            <td><%=user.getCreatedDate()%></td>
-            <th>배송비</th>
-            <td><%=user.getGradeId()%></td>
-        </tr>
-        <tr>
-            <th>사용적립금</th>
-            <td><%=user.getPoint()%> 원</td>
-            <th>할인가</th>
-            <td></td>
-        </tr>
-        <tr>
-            <th>결제금액</th>
-            <td><%=user.getIsBanned()%></td>
-            <th>배송상태</th>
-            <td><%=user.getIsSignOut()%></td>
-        </tr>
-        <tr>
-            <th>depositPoint</th>
-            <td><%=user.getIsBanned()%></td>
-            <th>주문상품</th>
-            <td><%=user.getIsSignOut()%></td>
-        </tr>
-        </tbody>
-    </table>
+        Addr addr = addrDao.getAddrByNo(order.getAddr().getNo());
+    %>
+    <h3 class="mb-3">주문정보</h3>
+    <div class="row border-top justify-content-md-center mb-3">
+        <div class="col-3 bg-dark text-white p-3 ps-4">
+            주문번호
+        </div>
+        <div class="col-9 p-3">
+            <%=order.getNo() %>
+        </div>
+        <div class="col-3 border-top bg-dark text-white p-3 ps-4">
+            주문일자
+        </div>
+        <div class="col-9 border-top p-3">
+            <%=order.getOrderDate() %>
+        </div>
+        <div class="col-3 border-top bg-dark text-white p-3 ps-4">
+            주문인
+        </div>
+        <div class="col-9 border-top p-3">
+            <%=order.getUser().getName() %>
+        </div>
+        <div class="col-3 border-top border-bottom bg-dark text-white p-3 ps-4">
+            주문상태
+        </div>
+        <div class="col-9 border-top border-bottom p-3">
+            <%=order.getStatus()%>
+        </div>
+    </div>
+
+    <!-- 주문 상품 -->
+    <h3 class="mb-3">주문상품</h3>
+    <div class="row mb-5 p-3">
+        <hr>
+        <div class="col-2 mb-2">
+            <img src="sample.jpg" class="rounded float-start" style="width: 170px; height:130px;">
+        </div>
+        <div class="col-7">
+            <ul class="list-unstyled">
+                <li>상품명: </li>
+                <li>옵션: </li>
+                <li>수량: </li>
+                <li>상품금액: </li>
+            </ul>
+        </div>
+        <div class="border-bottom"></div>
+    </div>
+
+    <!-- 결제 정보 -->
+    <%
+        // 결제 정보 가져오기
+        PaymentDao paymentDao = new PaymentDao();
+        Payment payment = paymentDao.getPaymentByOrderNo(8);
+        payment.setOrder(order);
+
+    %>
+    <h3 class="mb-3">결제정보</h3>
+    <div class="row border-top justify-content-md-center mb-3">
+        <div class="col-3 bg-dark text-white p-3 ps-4">
+            총 주문금액
+        </div>
+        <div class="col-9 p-3">
+            <%=payment.getOrder().getPrice() %>
+        </div>
+        <div class="col-3 border-top bg-dark text-white p-3 ps-4">
+            배송비
+        </div>
+        <div class="col-9 border-top p-3">
+            <%=payment.getOrder().getDeliveryPrice()%>
+        </div>
+        <div class="col-3 border-top border-bottom bg-dark text-white p-3 ps-4">
+            총 결제금액
+        </div>
+        <div class="col-9 border-top border-bottom p-3">
+            <%=payment.getPrice() + payment.getOrder().getDeliveryPrice()%>
+        </div>
+    </div>
+
+    <!-- 배송 정보 -->
+    <%
+        // 배송지 정보 가져오기
+        DeliveryDao deliveryDao = new DeliveryDao();
+        Delivery delivery = deliveryDao.getDeliveryByOrderNo(8);
+        delivery.setOrder(order);
+    %>
+    <h3 class="mb-3">배송정보</h3>
+    <div class="row border-top justify-content-md-center mb-3">
+        <div class="col-3 bg-dark text-white p-3 ps-4">
+            수령인
+        </div>
+        <div class="col-9 p-3">
+            <%=delivery.getRecipient() %>
+        </div>
+        <div class="col-3 border-top bg-dark text-white p-3 ps-4">
+            우편번호
+        </div>
+        <div class="col-9 border-top p-3">
+            <%=delivery.getOrder().getAddr().getZipCode() %>
+        </div>
+        <div class="col-3 border-top bg-dark text-white p-3 ps-4">
+            주소
+        </div>
+        <div class="col-9 border-top p-3">
+            <%=delivery.getOrder().getAddr().getAddr1() %>
+        </div>
+        <div class="col-3 border-top bg-dark text-white p-3 ps-4">
+            휴대전화
+        </div>
+        <div class="col-9 border-top p-3">
+            <%=delivery.getOrder().getUser().getTel() %>
+        </div>
+        <div class="col-3 border-top border-bottom bg-dark text-white p-3 ps-4">
+            배송메세지
+        </div>
+        <div class="col-9 border-top border-bottom p-3">
+            <%=delivery.getOrder().getDeliveryMessage() %>
+        </div>
+    </div>
+
     <!--버튼-->
     <div class="text-end my-2">
-        <a href="#" class="btn btn-danger">회원삭제</a>
-        <a href="#" class="btn btn-primary">회원수정</a>
-        <a href="user.jsp" class="btn btn-success">회원목록</a>
+        <a href="delete.jsp" class="btn btn-danger">주문삭제</a>
+        <a href="modify-form.jsp" class="btn btn-primary">주문수정</a>
+        <a href="order.jsp" class="btn btn-success">주문목록</a>
     </div>
 </div>
 <%@ include file="../../common/footer.jsp" %>

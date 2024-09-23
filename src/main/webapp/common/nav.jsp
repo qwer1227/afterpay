@@ -6,13 +6,13 @@
 <nav class="navbar bg-body-tertiary fixed-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="../index.jsp">AFTER PAY</a>
-
     <div class="nav-box">
       <button type="button" class="btn btn-outline-secondary">
         <a href="/login-form.jsp">
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-heart fs-5" viewBox="0 0 16 16">
           <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
         </svg>
+        </a>
       </button>
       <button type="button" class="btn btn-outline-secondary">
         <a class="nav-link" href="../user/cart.jsp">
@@ -41,7 +41,7 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">셀렉션</a>
+            <a class="nav-link active" aria-current="page" href="/product/best.jsp">셀렉션</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -16,22 +16,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../common/css/style.css">
-  <style>
-    a {
-      text-decoration-line: none;
-    }
-    img {
-      width: 100px;
-      height: 100px;
-    }
-  </style>
 </head>
 <body class="d-flex flex-column min-vh-100 ">
 <%
   String menu = "홈";
 %>
 <%@ include file="../common/nav.jsp" %>
-<div class="container">
+<div class="container pt-3">
+  <div class="row mb-3">
   <%
     int catNo = Utils.toInt(request.getParameter("cat_no"));
     int pageNo = Utils.toInt(request.getParameter("page"),1);
@@ -41,54 +33,41 @@
     List<Product> products = null;
     if (catNo == 10 || catNo == 20) {
       int totalRows = productDao.getTotalRows(catNo);
-      pagination = new Pagination(pageNo, totalRows);
+      pagination = new Pagination(pageNo, totalRows, 8);
       products = productDao.getProducts(catNo, pagination.getBegin(), pagination.getEnd());
     } else {
       int totalRows = productDao.getTotalRowsByCatNo(catNo);
-      pagination = new Pagination(pageNo, totalRows);
+      pagination = new Pagination(pageNo, totalRows, 8);
       products = productDao.getProductsByCatNo(catNo, pagination.getBegin(), pagination.getEnd());
     }
   %>
-  <table class="table">
-    <colgroup>
-      <col width="*">
-      <col width="10%">
-      <col width="20%">
-      <col width="10%">
-      <col width="10%">
-      <col width="10%">
-    </colgroup>
-    <thead>
-    <tr>
-      <th>이미지</th>
-      <th>카테고리</th>
-      <th>상품명</th>
-      <th>가격</th>
-      <th>상태</th>
-      <th>조회수</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
     <%
       for (Product product : products ) {
     %>
-      <td>
-        <a href="hit.jsp?pno=<%=product.getNo()%>">
-        <img src="../common/images/<%=product.getImage().getName()%>" alt="">
-        </a>
-      </td>
-      <td><%=product.getCategory().getName()%></td>
-      <td><a href="hit.jsp?pno=<%=product.getNo()%>"><%=product.getName()%></a></td>
-      <td><%=Utils.toCurrency(product.getPrice())%></td>
-      <td><%=product.getStatus()%></td>
-      <td><%=Utils.toCurrency(product.getViewCount())%></td>
-    </tr>
+      <div class="col-3 mb-3">
+        <div class="card" style="height: 500px; min-height: 500px;">
+          <div class="card-body">
+            <div>
+              <a href="hit.jsp?pno=<%=product.getNo()%>">
+                <img src="../common/images/<%=product.getImage().getName()%>" class="img-thumbnail" alt="">
+              </a>
+            </div>
+            <h5 class="card-title" style="height: 60px; min-height: 60px;"><a href="hit.jsp?pno=<%=product.getNo()%>" class="text-dark text-decoration-none"><%=product.getName()%></a></h5>
+            <div class="d-flex justify-content-between mb-2 small">
+              <span ><%=product.getCategory().getName()%></span>
+              <span ><%=product.getStatus()%></span>
+            </div>
+            <div class="d-flex justify-content-between">
+              <span class="badge text-bg-light"><i class="bi bi-eye"><%=Utils.toCurrency(product.getViewCount())%></i></span>
+              <span  class="text-danger"><strong><%=Utils.toCurrency(product.getPrice())%></strong> 원</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
     <%
       }
     %>
-    </tbody>
-  </table>
   <%
     if (pagination.getTotalRows() > 0) {
   %>

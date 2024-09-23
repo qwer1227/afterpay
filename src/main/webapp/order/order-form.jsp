@@ -26,6 +26,13 @@
 <%@ include file="../common/nav.jsp" %>
 
 <%
+
+    // 로그인하지 않은 경우, 로그인 폼으로 이동한다.
+    if (session.getAttribute("USERID") == null) {
+        response.sendRedirect("login-form.jsp");
+        return;
+    }
+
     // 전달 받은 상품 재고 번호
     String[] stockNo = request.getParameterValues("stockNo");
     int[] stockNoArr = new int[stockNo.length];

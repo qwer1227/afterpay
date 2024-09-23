@@ -18,6 +18,12 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <%
 
+    // 로그인하지 않은 경우, 로그인 폼으로 이동한다.
+    if (session.getAttribute("USERID") == null) {
+        response.sendRedirect("login-form.jsp");
+        return;
+    }
+
     // 쿼리 파라미터
     String address = request.getParameter("address");                                       // 주소
     String detailAddr = request.getParameter("detailAddress");                              // 상세주소

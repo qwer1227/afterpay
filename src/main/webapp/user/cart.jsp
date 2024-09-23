@@ -3,6 +3,7 @@
 <%@ page import="com.jhta.afterpay.user.Cart" %>
 <%@ page import="com.jhta.afterpay.util.Utils" %>
 <%@ page import="com.jhta.afterpay.product.*" %>
+<%@ page import="com.jhta.afterpay.util.Pagination" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
@@ -27,6 +28,16 @@
     }
 </style>
 <body>
+<%
+    // 장바구니 목록 가져오기
+    CartDao cartDao = new CartDao();
+    int userNo = 7;
+    List<Cart> carts = cartDao.getAllCartsByUserNo(7);
+
+    int totalRows = carts.size();
+    int pageNo = Utils.toInt(request.getParameter("page"), 1);
+    Pagination pagination = new Pagination(pageNo, totalRows);
+%>
 <%@include file="../common/nav.jsp" %>
 <div class="container">
     <form action="../order/order-form.jsp" method="post">
@@ -42,7 +53,7 @@
                 <div class="tab-content" id="nav-tabContent">
                     <div class="hstack gap-3">
                         <div class="p-2">
-                            <input type="checkbox" style="zoom:1.8">
+                            <input type="checkbox" id="checkAll" style="zoom:1.8" onclick="checked()" >
                         </div>
                         <div class="p-3 ms-auto">
                             <button class="btn btn-lg">
@@ -65,9 +76,6 @@
 
                                 <%--주문내역 상품 보여주기--%>
                                 <%
-                                    // 장바구니 목록 가져오기
-                                    CartDao cartDao = new CartDao();
-                                    List<Cart> carts = cartDao.getAllCartsByUserNo(7);
                                     int amount = 0;
                                     int totalPrice = 0;
                                     int totalAmount = 0;
@@ -85,7 +93,7 @@
                                 %>
                                 <tr>
                                     <td>
-                                        <input type="checkbox" name="stockNo" onchange="checkSelect()" value="<%=stockNo%>">
+                                        <input type="checkbox" class="chk" name="stockNo" value="<%=stockNo%>" style="zoom:1.5">
                                     </td>
                                     <td>
                                         <img src="../common/images/<%=images.get(0).getName()%>" class="rounded mx-auto d-block" width="170">
@@ -120,6 +128,32 @@
                             </table>
                         </div>
                     </div>
+                    <%--페이징 처리--%>
+                    <%
+                        if (pagination.getTotalRows() > 0) {
+                    %>
+                    <div>
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item <%=pagination.isFirst() ? "disabled" : ""%>">
+                                <a href="list.jsp?cat_no=<%=userNo%>&page=<%=pagination.getPrev() %>" class="page-link">이전</a>
+                            </li>
+                            <%
+                                for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
+                            %>
+                            <li class="page-item <%=num == pageNo ? "active" : ""%>">
+                                <a href="list.jsp?cat_no=<%=userNo%>&page=<%=num %>" class="page-link"><%=num %></a>
+                            </li>
+                            <%
+                                }
+                            %>
+                            <li class="page-item <%=pagination.isLast() ? "disabled" : "" %>">
+                                <a href="list.jsp?cat_no=<%=userNo%>&page=<%=pagination.getNext() %>" class="page-link">다음</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <%
+                        }
+                    %>
 
                     <!-- Item Total Info -->
                     <div class="text-center mt-4 mb-5">
@@ -157,6 +191,50 @@
         </div>
     </form>
 </div>
+</div>
+<script type="text/javascript">
+    document.querySelector('#checkAll');
+
+    checkAll.addEventListener('click', function(){
+
+        const isChecked = checkAll.checked;
+
+        if(isChecked){
+            const checkboxes = document.querySelectorAll('.chk');
+
+            for(const checkbox of checkboxes){
+                checkbox.checked = true;
+            }
+        }
+
+        else{
+            const checkboxes = document.querySelectorAll('.chk');
+            for(const checkbox of checkboxes){
+                checkbox.checked = false;
+            }
+        }
+    })
+
+    const checkboxes = document.querySelectorAll('.chk');
+    for(const checkbox of checkboxes){
+        checkbox.addEventListener('click',function(){
+
+            const totalCnt = checkboxes.length;
+
+            const checkedCnt = document.querySelectorAll('.chk:checked').length;
+
+            if(totalCnt == checkedCnt){
+                document.querySelector('#checkAll').checked = true;
+            }
+            else{
+                document.querySelector('#checkAll').checked = false;
+            }
+
+        });
+
+    }
+</script>
+
 <%@include file="../common/footer.jsp" %>
 </body>
 </html>

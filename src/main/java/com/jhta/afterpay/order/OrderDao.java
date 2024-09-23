@@ -44,7 +44,6 @@ public class OrderDao {
         DaoHelper.delete(sql, orderNo);
     }
 
-    // USER 필요
     public Order getOrderByNo(int orderNo) {
         String sql = """
                 SELECT *
@@ -80,6 +79,7 @@ public class OrderDao {
                 SELECT *
                 FROM ORDERS 
                 WHERE USER_NO = ?
+                ORDER BY ORDER_DATE DESC
                 """;
 
         return DaoHelper.selectList(sql, rs-> {
@@ -110,7 +110,7 @@ public class OrderDao {
         String sql = """
                 SELECT *
                 FROM (
-                       SELECT row_number() over (order by order_no desc) AS rownumber
+                       SELECT row_number() over (order by order_no desc) AS rn
                             , order_no
                             , payment_price
                             , order_date
@@ -120,16 +120,16 @@ public class OrderDao {
                        where user_no = ?
                        order by order_no desc
                        )  
-                WHERE rownumber BETWEEN ? AND ?
+                WHERE rn BETWEEN ? AND ?
                 """;
 
         return DaoHelper.selectList(sql, rs-> {
             Order order = new Order();
+
             User user = new User();
             user.setNo(userNo);
             order.setUser(user);
-            Addr addr = new Addr();
-            order.setAddr(addr);
+
             order.setNo(rs.getInt("ORDER_NO"));
             order.setOrderDate(rs.getDate("ORDER_DATE"));
             order.setStatus(rs.getString("ORDER_STATUS"));
@@ -166,5 +166,14 @@ public class OrderDao {
         con.close();
 
         return order;
+    }
+
+    public int getTotalRowsByUserNo(int userNo) {
+        String sql = """
+                    select count(*)
+                    from ORDERS
+                    where USER_NO = ?
+                """;
+        return DaoHelper.selectOneInt(sql, userNo);
     }
 }

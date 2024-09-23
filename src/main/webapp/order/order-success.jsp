@@ -24,6 +24,12 @@
 </head>
 <body>
 <%
+    // 로그인하지 않은 경우, 로그인 폼으로 이동한다.
+    if (session.getAttribute("USERID") == null) {
+        response.sendRedirect("login-form.jsp");
+        return;
+    }
+
     // 가장 최근 주문내역 가져오기
     OrderDao orderDao = new OrderDao();
     Order order = orderDao.getMostLatelyOrderNoByUserNo(7);

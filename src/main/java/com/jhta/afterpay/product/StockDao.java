@@ -102,30 +102,21 @@ public class StockDao {
             }, productNo, size);
     }
 
-    /**
-     * 상품번호로 재고 수량 전체 조회하기
-     * @param productNo 상품번호
-     * @return 재고수량
-     */
-    public List<Stock> getStocksByNo(int productNo) {
+    public Stock getStockByNo(int no) {
         String sql = """
-                SELECT ,product_no
-                      ,product_stock_size
-                     , product_stock_amount
+                SELECT *
                 FROM product_stocks
-                WHERE product_no IN (SELECT product_no\s
-                                     FROM product_stocks\s
-                                     WHERE product_no = ?)
-                ORDER BY product_stock_size DESC
+                where product_stock_no = ?
                 """;
 
-        return DaoHelper.selectList(sql, rs -> {
+        return DaoHelper.selectOne(sql, rs-> {
             Stock stock = new Stock();
-            stock.setProductNo(rs.getInt("PRODUCT_NO"));
-            stock.setSize(rs.getString("PRODUCT_STOCK_SIZE"));
-            stock.setAmount(rs.getInt("PRODUCT_STOCK_AMOUNT"));
+            stock.setNo(no);
+            stock.setAmount(rs.getInt("product_stock_amount"));
+            stock.setSize(rs.getString("product_stock_size"));
+            stock.setProductNo(rs.getInt("product_no"));
             return stock;
-        }, productNo);
+        }, no);
     }
 
     /**

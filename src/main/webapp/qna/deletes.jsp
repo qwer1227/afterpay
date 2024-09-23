@@ -9,9 +9,7 @@
 
   for (String value : arr) {
     int qnaNo = Integer.parseInt(value);
-    Qna qna = qnaDao.getQnaByQnaNo(qnaNo);
-    qna.setIsQnaDeleted("Y");
-    qnaDao.updateQna(qna);
+    qnaDao.deleteQna(qnaNo);
   }
   response.sendRedirect("user-qna.jsp");
 %>

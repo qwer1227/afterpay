@@ -184,12 +184,10 @@ public class QnaDao {
                 UPDATE QNAS
                 SET 
                     QNA_CONTENT = ?
-                    , ISQNADELETED = ?
                 WHERE QNA_NO = ?
                 """;
         DaoHelper.update(sql
                         , qna.getContent()
-                        , qna.getIsQnaDeleted()
                         , qna.getNo());
     }
 

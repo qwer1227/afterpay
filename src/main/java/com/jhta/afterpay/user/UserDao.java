@@ -1,5 +1,9 @@
 package com.jhta.afterpay.user;
 
+import com.jhta.afterpay.order.Order;
+import com.jhta.afterpay.user.User;
+import com.jhta.afterpay.user.PointHistory;
+import com.jhta.afterpay.user.User;
 import com.jhta.afterpay.util.DaoHelper;
 
 import java.util.List;
@@ -53,12 +57,13 @@ public class UserDao {
                     , ISSIGNOUT = ?
                 WHERE USER_NO = ?
                 """;
-        
+
         DaoHelper.update(sql, user.getPwd(), user.getTel(), user.getEmail(), user.getGradeId(), user.getIsBanned(), user.getIsSignOut(), user.getNo());
     }
 
     /**
      * 전체 회원 수를 조회해서 반환한다.
+     *
      * @return 회원 수
      */
     public int getTotalRows() {
@@ -70,6 +75,96 @@ public class UserDao {
         return DaoHelper.selectOneInt(sql);
     }
 
+    public User getUserIdByEmailAndName(String email, String name) throws SQLException {
+        String sql = """
+                select *
+                from users
+                where user_email = ? and user_name = ?
+                """;
+
+        return DaoHelper.selectOne(sql, rs -> {
+            User user = new User();
+            user.setId(rs.getString("user_id"));
+            return user;
+        }, email, name);
+    }
+
+    public User getUserByEmailAndNameAndId(String email, String name, String id) throws SQLException {
+        String sql = """
+                select *
+                from users
+                where user_email = ? and user_name = ? and user_id = ?
+                """;
+
+        return DaoHelper.selectOne(sql, rs -> {
+            User user = new User();
+            user.setNo(rs.getInt("user_no"));
+            user.setEmail(rs.getString("user_email"));
+            user.setId(rs.getString("user_id"));
+            user.setPwd(rs.getString("user_password"));
+            user.setName(rs.getString("user_name"));
+            user.setTel(rs.getString("user_tel"));
+            user.setIsBanned(rs.getString("isbanned"));
+            user.setIsSignOut(rs.getString("issignout"));
+            user.setCreatedDate(rs.getDate("created_date"));
+            user.setGradeId(rs.getString("grade_id"));
+            user.setPoint(rs.getInt("point"));
+            return user;
+        }, email, name, id);
+    }
+
+    public User getUserByPrevPw(String pw) throws SQLException {
+        String sql = """
+                select *
+                from users
+                where user_password = ?
+                """;
+
+        return DaoHelper.selectOne(sql, rs -> {
+            User user = new User();
+            user.setNo(rs.getInt("user_no"));
+            user.setEmail(rs.getString("user_email"));
+            user.setId(rs.getString("user_id"));
+            user.setPwd(rs.getString("user_password"));
+            user.setName(rs.getString("user_name"));
+            user.setTel(rs.getString("user_tel"));
+            user.setIsBanned(rs.getString("isbanned"));
+            user.setIsSignOut(rs.getString("issignout"));
+            user.setCreatedDate(rs.getDate("created_date"));
+            user.setGradeId(rs.getString("grade_id"));
+            user.setPoint(rs.getInt("point"));
+            return user;
+        }, pw);
+    }
+
+    public void UpdatePwdToPrev(String pw, String id) {
+        String sql = """
+                update users
+                set user_password = ?
+                where user_id = ?
+                """;
+        DaoHelper.update(sql, pw, id);
+    }
+
+    public void UpdatePw(String pw, String id, String email, String name) {
+        String sql = """
+                update users
+                set user_password = ?
+                where user_id = ? and user_email = ? and user_name = ?
+                """;
+        DaoHelper.update(sql, pw, id, email, name);
+    }
+
+    public void DeletedByUserId(String type, String id) {
+        String sql = """
+                update users
+                set issignout = ?
+                where user_id = ?
+                """;
+
+        DaoHelper.update(sql, type, id);
+
+    }
 
     public void InsertUser(User user) {
         String sql = """
@@ -80,6 +175,31 @@ public class UserDao {
                 """;
 
         DaoHelper.insert(sql,user.getName(),user.getId(),user.getPwd(),user.getTel(),user.getEmail(),user.getGradeId(),user.getIsBanned(),user.getIsSignOut());
+    }
+
+    public User getUserByEmail(String email) {
+        String sql = """
+                select *
+                from users
+                where user_email = ?
+                """;
+
+        return DaoHelper.selectOne(sql, rs -> {
+            User user = new User();
+            user.setNo(rs.getInt("user_no"));
+            user.setEmail(rs.getString("user_email"));
+            user.setId(rs.getString("user_id"));
+            user.setPwd(rs.getString("user_password"));
+            user.setName(rs.getString("user_name"));
+            user.setTel(rs.getString("user_tel"));
+            user.setIsBanned(rs.getString("isbanned"));
+            user.setIsSignOut(rs.getString("issignout"));
+            user.setCreatedDate(rs.getDate("created_date"));
+            user.setGradeId(rs.getString("grade_id"));
+            user.setPoint(rs.getInt("point"));
+
+            return user;
+        }, email);
     }
 
     public User getUserById(String id) {
@@ -107,7 +227,7 @@ public class UserDao {
         }, id);
     }
 
-    public User getUserByNo(int userNo){
+    public User getUserByNo(int userNo) {
         String sql = """
                 SELECT *
                 FROM USERS
@@ -158,6 +278,7 @@ public class UserDao {
 
     /**
      * 전체 회원 조회
+     *
      * @param begin 첫 페이지
      * @param end   끝 페이지
      * @return
@@ -189,6 +310,50 @@ public class UserDao {
             return user;
 
         }, begin, end);
+    }
+
+    public User getUserByPrevPw(String pw)throws SQLException{
+        String sql = """
+                select *
+                from users
+                where user_password = ?
+                """;
+
+        return DaoHelper.selectOne(sql, rs -> {
+            User user = new User();
+            user.setNo(rs.getInt("user_no"));
+            user.setEmail(rs.getString("user_email"));
+            user.setId(rs.getString("user_id"));
+            user.setPwd(rs.getString("user_password"));
+            user.setName(rs.getString("user_name"));
+            user.setTel(rs.getString("user_tel"));
+            user.setIsBanned(rs.getString("isbanned"));
+            user.setIsSignOut(rs.getString("issignout"));
+            user.setCreatedDate(rs.getDate("created_date"));
+            user.setGradeId(rs.getString("grade_id"));
+            user.setPoint(rs.getInt("point"));
+            return user;
+        },pw);
+    }
+
+    public void DeletedByUserId(String type, String id){
+        String sql = """
+                update users
+                set issignout = ?
+                where user_id = ?
+                """;
+
+        DaoHelper.update(sql,type,id);
+
+    }
+
+    public void UpdatePwdToPrev(String pw,String id){
+        String sql = """
+                update users
+                set user_password = ?
+                where user_id = ?
+                """;
+        DaoHelper.update(sql,pw,id);
     }
 }
 

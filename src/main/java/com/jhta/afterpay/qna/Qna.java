@@ -13,16 +13,7 @@ public class Qna {
     private Date repliedDate;
     private String repliedContent;
     private String isQnaDeleted;
-    private User userNo;
-    private String isReplied;
-
-    public String getIsReplied() {
-        return isReplied;
-    }
-
-    public void setIsReplied(String isReplied) {
-        this.isReplied = isReplied;
-    }
+    private User user;
 
     @Override
     public String toString() {
@@ -35,8 +26,7 @@ public class Qna {
                 ", repliedDate=" + repliedDate +
                 ", repliedContent='" + repliedContent + '\'' +
                 ", isQnaDeleted='" + isQnaDeleted + '\'' +
-                ", userNo=" + userNo +
-                ", isReplied='" + isReplied + '\'' +
+                ", user=" + user +
                 '}';
     }
 
@@ -104,11 +94,11 @@ public class Qna {
         this.isQnaDeleted = isQnaDeleted;
     }
 
-    public User getUserNo() {
-        return userNo;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserNo(User userNo) {
-        this.userNo = userNo;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

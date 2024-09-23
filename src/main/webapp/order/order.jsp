@@ -10,15 +10,19 @@
 <%@ page import="com.jhta.afterpay.delivery.DeliveryDao" %>
 <%@ page import="com.jhta.afterpay.delivery.Delivery" %>
 <%@ page import="com.jhta.afterpay.product.Product" %>
-<%@ page import="com.jhta.afterpay.delivery.Stock" %>
+<%@ page import="com.jhta.afterpay.product.Stock" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="com.jhta.afterpay.util.Utils" %>
+<%@ page import="com.jhta.afterpay.product.StockDao" %>
+<%@ page import="com.jhta.afterpay.product.ProductDao" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <%
-
     // 쿼리 파라미터
     String address = request.getParameter("address");                                       // 주소
     String detailAddr = request.getParameter("detailAddress");                              // 상세주소
-    String tel = request.getParameter("tel");                                               // 전화번호
+    String tel = request.getParameter("tel1")                                               // 전화번호
+            + "-" + request.getParameter("tel2")
+            + "-" + request.getParameter("tel3");
     String zipcode = request.getParameter("zipcode");                                       // 우편번호
     String email = request.getParameter("emailId") + "@" + request.getParameter("domain");  // 이메일
     String recipient = request.getParameter("recipient");                                   // 수령인
@@ -27,8 +31,28 @@
     int discountPrice = Integer.parseInt(request.getParameter("discountPrice"));            // 할인 가격
     int deliveryPrice = Integer.parseInt(request.getParameter("deliveryPrice"));            // 배송비
     int paymentPrice = Integer.parseInt(request.getParameter("paymentPrice"));              // 결제 금액
-    String[] proNoArr = request.getParameterValues(request.getParameter("productNo"));      // 상품 번호
-    String[] amountArr = request.getParameterValues(request.getParameter("amount"));        // 주문 상품 개수
+    String message = request.getParameter("message");                                       // 배송 메세지
+    int totalAmount = Utils.toInt(request.getParameter("totalAmount"));                     // 주문 상품 전체 개수
+
+    // 주문 상품 개수
+    String[] amount = request.getParameterValues("amount");
+    int[] amountArr = new int[amount.length];
+    for(int i=0; i<amountArr.length; i++) {
+        amountArr[i] = Utils.toInt(amount[i]);
+    }
+
+    int totalAmonut = 0;
+    for (int a : amountArr) {
+        totalAmonut += a;
+    }
+
+    // 상품 재고 번호 가져오기
+    String[] stockNo = request.getParameterValues("stockNo");
+    int[] stockNoArr = new int[stockNo.length];
+    for(int i=0; i<stockNoArr.length; i++) {
+        stockNoArr[i] = Utils.toInt(stockNo[i]);
+    }
+
 
 
     UserDao userDao = new UserDao();
@@ -36,9 +60,15 @@
     DeliveryDao deliveryDao = new DeliveryDao();
     OrderDao orderDao = new OrderDao();
     PaymentDao paymentDao = new PaymentDao();
+    ProductDao productDao = new ProductDao();
+    StockDao stockDao = new StockDao();
 
     // 주문 회원 정보
-    User user = userDao.getUserById("hong"); // 회원ID는 세션값으로 구할 예정
+    User user = userDao.getUserById("momo"); // 회원ID는 세션값으로 구할 예정
+    user.setEmail(email);
+    user.setTel(tel);
+    user.setName(userName);
+
 
     // 배송지 저장
     Addr addr = new Addr();
@@ -46,9 +76,8 @@
     addr.setAddr2(detailAddr);
     addr.setTel(tel);
     addr.setZipCode(zipcode);
-    addr.setName("기본 배송지");
-    addr.setIsAddrHome("Y");
     addr.setUser(user);
+    addr.setIsAddrHome("N");
 
     List<Addr> addrs = addrDao.getAllAddrByUserNo(user.getNo());
 
@@ -58,9 +87,12 @@
                 && findAddr.getAddr2().equals(detailAddr)) {
             break;
         }
+        addr.setName("새 배송지");
+        addr.setIsAddrHome("N");
         addrDao.insertAddr(addr);
     }
 
+    addrs = addrDao.getAllAddrByUserNo(user.getNo());
     // 새로 추가된 배송지 번호 가져오기
     for (Addr findAddr : addrs) {
         if(findAddr.getAddr1().equals(address)
@@ -73,38 +105,40 @@
     // 주문정보 저장
     Order order = new Order();
     order.setPrice(totalPrice);
-    order.setAmount(1);
+    order.setAmount(totalAmount);
     order.setDeliveryPrice(deliveryPrice);
     order.setUsePoint(1);
     order.setDiscountPrice(discountPrice);
     order.setPaymentPrice(paymentPrice);
     order.setDepositPoint(1);
+    order.setTel(tel);
+    order.setEmail(email);
     order.setAddr(addr);
     order.setUser(user);
+    order.setDeliveryMessage(message);
 
     orderDao.insertOrder(order);
 
     Order payOrder = orderDao.getMostLatelyOrderNoByUserNo(user.getNo());
 
     // 배송상품 저장
-
-//    for (String proNo : proNoArr) {
-//        int productNo = Integer.parseInt(proNo);
+    for (int i=0; i<stockNoArr.length; i++) {
+        Stock stock = stockDao.getStockByNo(stockNoArr[i]);
+        int productNo = stock.getProductNo();
         Delivery delivery = new Delivery();
-        Product product = new Product(); // productDao 필요
-        Stock stock = new Stock(); // stockDao 필요
-        stock.setNo(1);
-//        product.setNo(proNo);
-        product.setNo(10000);
+        Product product = productDao.getProductByNo(productNo);
+        stock.setNo(stockNoArr[i]);
+        product.setNo(productNo);
+
         delivery.setProduct(product);
+        delivery.setPrice(product.getPrice());
         delivery.setOrder(payOrder);
-        delivery.setAmount(1);
-        delivery.setProduct(product);
+        delivery.setAmount(amountArr[i]);
         delivery.setRecipient(recipient);
         delivery.setStock(stock);
 
         deliveryDao.insertDelivery(delivery);
-//    }
+    }
 
     // 결제정보 저장
     Payment payment = new Payment();
@@ -112,5 +146,5 @@
     payment.setOrder(payOrder);
     paymentDao.insertPayment(payment);
 
-    response.sendRedirect("orderSuccess.jsp");
+    response.sendRedirect("order-success.jsp");
 %>

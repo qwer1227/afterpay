@@ -1,44 +1,82 @@
 package com.jhta.afterpay.product;
 
 import com.jhta.afterpay.util.DaoHelper;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class ProductDao {
 
-//    /**
-//     * 상품 번호로 상품의 모든 정보를 반환한다.
-//     * @param productNo 상품 번호
-//     * @return 해당 상품의 모든 정보
-//     */
-//    public Product getProductByNo(int productNo) {
-//        String sql = """
-//            select *
-//            from products p, product_categories c
-//            where p.product_no = ?
-//            and p.cat_no = c.cat_no
-//        """;
-//
-//        return DaoHelper.selectOne(sql, rs -> {
-//            Product product = new Product();
-//            product.setNo(rs.getInt("product_no"));
-//            product.setName(rs.getString("product_name"));
-//            product.setPrice(rs.getInt("product_price"));
-//            product.setContent(rs.getString("product_content"));
-//            product.setViewCount(rs.getInt("product_view_cnt"));
-//            product.setCreatedDate(rs.getDate("product_created_date"));
-//            product.setStatus(rs.getString("product_status"));
-//            product.setTotalRating(rs.getInt("product_total_rating"));
-//
-//            Category category = new Category();
-//            category.setNo(rs.getInt("cat_no"));
-//            category.setName(rs.getString("cat_name"));
-//            category.setParentNo(rs.getInt("parent_cat_no"));
-//            product.setCategory(category);
-//
-//            return product;
-//        }, productNo);
-//    }
+
+
+    /**
+     * 해당 상품을 삭제한다.
+     *
+     * @param productNo 상품번호
+     * @return
+     */
+    public void deleteProduct(int productNo) {
+        String sql = """
+                DELETE FROM PRODUCTS
+                WHERE PRODUCT_NO = ?
+                """;
+
+        DaoHelper.delete(sql, productNo);
+    }
+
+    /**
+     * 상품 정보를 수정한다.
+     * @param product 기존상품
+     */
+     public void updateAllProduct(Product product) {
+        String sql = """
+                UPDATE PRODUCTS
+                SET
+                    PRODUCT_NAME = ?
+                    ,PRODUCT_PRICE = ?
+                    ,PRODUCT_CONTENT = ?
+                    ,CAT_NO = ?
+                    ,PRODUCT_STATUS = ?
+                    ,ISDELETED = ?
+                WHERE PRODUCT_NO = ?
+                """;
+
+        DaoHelper.update(sql, product.getName(), product.getPrice(), product.getContent(), product.getCategory().getNo(), product.getStatus(), product.getDeleted(), product.getNo());
+     }
+
+    /**
+     * 상품 번호로 상품의 모든 정보를 반환한다.
+     * @param productNo 상품 번호
+     * @return 해당 상품의 모든 정보
+     */
+    public Product getAllProductByNo(int productNo) {
+        String sql = """
+            select *
+            from products p, product_categories c
+            where p.product_no = ?
+            and p.cat_no = c.cat_no
+        """;
+
+        return DaoHelper.selectOne(sql, rs -> {
+            Product product = new Product();
+            product.setNo(rs.getInt("product_no"));
+            product.setName(rs.getString("product_name"));
+            product.setPrice(rs.getInt("product_price"));
+            product.setContent(rs.getString("product_content"));
+            product.setViewCount(rs.getInt("product_view_cnt"));
+            product.setCreatedDate(rs.getDate("product_created_date"));
+            product.setStatus(rs.getString("product_status"));
+            product.setTotalRating(rs.getInt("product_total_rating"));
+            product.setDeleted(rs.getString("isdeleted"));
+
+            Category category = new Category();
+            category.setNo(rs.getInt("cat_no"));
+            category.setName(rs.getString("cat_name"));
+            category.setParentNo(rs.getInt("parent_cat_no"));
+            product.setCategory(category);
+
+            return product;
+        }, productNo);
+    }
 
     /**
      * 상품 번호로 상품의 재고 상황을 반환한다.
@@ -109,7 +147,7 @@ public class ProductDao {
         String sql = """
             select *
             from product_imgs
-            where product_no = ?    
+            where product_no = ?
         """;
 
         return DaoHelper.selectList(sql, rs -> {
@@ -162,7 +200,8 @@ public class ProductDao {
             return product;
         }, productNo);
     }
-        public int getTotalRows(int catNo) {
+
+    public int getTotalRows(int catNo) {
             String sql = """
                 SELECT COUNT(*)
                 FROM PRODUCTS
@@ -171,7 +210,7 @@ public class ProductDao {
                                  WHERE PARENT_CAT_NO = ?)
                 """;
             return DaoHelper.selectOneInt(sql, catNo);
-        }
+    }
 
         public List<Product> getProducts(int catNo, int begin, int end) {
             String sql = """
@@ -319,6 +358,7 @@ public class ProductDao {
     public List<Product> searchAllProducts() {
         String sql = """
             select p.product_no
+                , pc.cat_no
                 , pc.cat_name
                 , p.product_name
                 , p.product_created_date
@@ -327,9 +367,19 @@ public class ProductDao {
             where p.cat_no = pc.cat_no
             """;
 
-        List<Product> products = new ArrayList<>();
+            return DaoHelper.selectList(sql, rs -> {
+                Product product = new Product();
+                product.setNo(rs.getInt("PRODUCT_NO"));
+                product.setName(rs.getString("PRODUCT_NAME"));
+                product.setCreatedDate(rs.getDate("PRODUCT_CREATED_DATE"));
+                product.setStatus(rs.getString("PRODUCT_STATUS"));
 
-        return products;
+                Category category = new Category();
+                category.setNo(rs.getInt("CAT_NO"));
+                category.setName(rs.getString("CAT_NAME"));
+                product.setCategory(category);
+                return product;
+        });
     }
 
     public int getTotalRowsByCatNo(int catNo) {
@@ -375,32 +425,4 @@ public class ProductDao {
             return product;
         }, catNo, begin, end);
     }
-
-//    public Product getProductImage(int productNo) {
-//        String sql = """
-//                SELECT P.PRODUCT_NO
-//                    , IMG.IMG_NO
-//                    , IMG.IMG_NAME
-//                    , IMG.ISTHUMB
-//                FROM PRODUCTS P, PRODUCT_IMGS IMG
-//                WHERE P.PRODUCT_NO = IMG.PRODUCT_NO
-//                AND IMG.ISTHUMB = 'Y'
-//                AND P.PRODUCT_NO = ?
-//                """;
-//
-//        return DaoHelper.selectOne(sql, rs -> {
-//            Product product = new Product();
-//            product.setNo(rs.getInt("PRODUCT_NO"));
-//
-//            Image image = new Image();
-//            image.setNo(rs.getInt("IMG_NO"));
-//            image.setName(rs.getString("IMG_NAME"));
-//            image.setThumb(rs.getString("ISTHUMB"));
-//
-//            product.setImage(image);
-//            return product;
-//
-//        }, productNo);
-//    }
-
 }

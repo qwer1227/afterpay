@@ -125,7 +125,7 @@
                         if (userID != null) {
                     %>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="logout.jsp">로그아웃</a>
+                        <a class="nav-link active" aria-current="page" href="/logout.jsp">로그아웃</a>
                     </li>
                     <%
                         }

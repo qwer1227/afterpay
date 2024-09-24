@@ -15,6 +15,7 @@
 <%@ page import="com.jhta.afterpay.util.Utils" %>
 <%@ page import="com.jhta.afterpay.product.StockDao" %>
 <%@ page import="com.jhta.afterpay.product.ProductDao" %>
+<%@ page import="java.util.Optional" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <%
     String userNos = String.valueOf(session.getAttribute("USERNO"));
@@ -26,6 +27,9 @@
     // 쿼리 파라미터
     String address = request.getParameter("address");                                       // 주소
     String detailAddr = request.getParameter("detailAddress");                              // 상세주소
+    if(detailAddr == null) {
+        detailAddr = "";
+    }
     String tel = request.getParameter("tel");                                               // 전화번호
     String zipcode = request.getParameter("zipcode");                                       // 우편번호
     String email = request.getParameter("emailId") + "@" + request.getParameter("domain");  // 이메일
@@ -74,32 +78,36 @@
 
 
     // 배송지 저장
-    Addr addr = new Addr();
-    addr.setAddr1(address);
-    addr.setAddr2(detailAddr);
-    addr.setTel(tel);
-    addr.setZipCode(zipcode);
-    addr.setUser(user);
-    addr.setIsAddrHome("N");
-
     List<Addr> addrs = addrDao.getAllAddrByUserNo(userNo);
-
+    Addr addr = new Addr();
     // 입력받은 주소와 상세주소가 같은 배송지가 이미 있으면 저장하지 않는다.
     for (Addr findAddr : addrs) {
+        if(findAddr.getAddr2() == null) {
+            findAddr.setAddr2("");
+        }
         if (findAddr.getAddr1().equals(address)
                 && findAddr.getAddr2().equals(detailAddr)) {
             break;
+        } else {
+            addr.setAddr1(address);
+            addr.setAddr2(detailAddr);
+            addr.setTel(tel);
+            addr.setZipCode(zipcode);
+            addr.setUser(user);
+            addr.setIsAddrHome("N");
+            addr.setName("새 배송지");
+            addrDao.insertAddr(addr);
+            break;
         }
-        addr.setName("새 배송지");
-        addr.setIsAddrHome("N");
-        addrDao.insertAddr(addr);
     }
 
-    addrs = addrDao.getAllAddrByUserNo(userNo);
     // 새로 추가된 배송지 번호 가져오기
+    addrs = addrDao.getAllAddrByUserNo(userNo);
     for (Addr findAddr : addrs) {
-        if (findAddr.getAddr1().equals(address)
-                && findAddr.getAddr2().equals(detailAddr)) {
+        if(findAddr.getAddr2() == null) {
+            findAddr.setAddr2("");
+        }
+        if (findAddr.getAddr1().equals(address) && findAddr.getAddr2()  .equals(detailAddr)) {
             addr.setNo(findAddr.getNo());
         }
     }

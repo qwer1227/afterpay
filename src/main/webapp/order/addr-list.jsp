@@ -21,8 +21,8 @@
 </head>
 <body>
 <%
-    String userNo = (String) session.getAttribute("USERNO");
-    String userId = (String) session.getAttribute("USERID");
+    String userNo = String.valueOf(session.getAttribute("USERNO"));
+    String userId = String.valueOf(session.getAttribute("USERID"));
 
     // 유저의 배송지 목록 가져오기
     AddrDao addrDao = new AddrDao();

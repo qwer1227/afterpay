@@ -44,14 +44,12 @@
         amountArr[i] = Utils.toInt(amount[i]);
     }
 
-    String[] thumb = request.getParameterValues("thumbs");
-
 
     // 주문 회원 조회
     UserDao userDao = new UserDao();
     User user = userDao.getUserById(userID);
     AddrDao addrDao = new AddrDao();
-    List<Addr> addrs = addrDao.getAllAddrByUserNo(user.getNo());
+    List<Addr> addrs = addrDao.getAllAddrByUserNo(userNo);
     String zipcode = "";
     String addr1 = "";
     String addr2 = "";

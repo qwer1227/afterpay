@@ -27,7 +27,13 @@
   }
 </style>
 <body>
+
 <%@include file="../common/nav.jsp"%>
+<%
+  String userNos = String.valueOf(session.getAttribute("USERNO"));
+  String userId = String.valueOf(session.getAttribute("USERID"));
+  String grade = (String) session.getAttribute("GRADE");
+%>
 <%
   /*
   * user.jsp?id=hong
@@ -37,7 +43,7 @@
   *
   */
 
-  int userNo = 19;
+  int userNo = Utils.toInt(userNos);
   UserDao userDao = new UserDao();
   ReviewDao reviewDao = new ReviewDao();
   User user = userDao.getUserByNo(userNo);

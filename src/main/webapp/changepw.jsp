@@ -13,19 +13,13 @@
     User user = userDao.getUserByPrevPw(prevPw);
 
 
-
-
-
-
-
-
     if (user == null) {
         response.sendRedirect("changepw-form.jsp?error");
         return;
     }
 
-    if (user.getPwd().equals(sha256pw)){
-        response.sendRedirect("changepw-form.jsp?prev");
+    if (user.getPwd().equals(sha256pw)) {
+        response.sendRedirect("changepw-form.jsp?error");
         return;
     }
 

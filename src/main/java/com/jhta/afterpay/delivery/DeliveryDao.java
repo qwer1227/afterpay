@@ -9,6 +9,11 @@ import com.jhta.afterpay.util.DaoHelper;
 import java.util.List;
 
 public class DeliveryDao {
+
+    /**
+     * 배송 관리 상품 추가
+     * @param delivery
+     */
     public void insertDelivery(Delivery delivery) {
         String sql = """
                 INSERT INTO ORDER_DELIVERY_PRODUCTS
@@ -28,6 +33,10 @@ public class DeliveryDao {
         );
     }
 
+    /**
+     * 배송상품 수정
+     * @param delivery
+     */
     public void updateDelivery(Delivery delivery) {
         String sql = """
                 UPDATE ORDER_DELIVERY_PRODUCTS
@@ -50,6 +59,10 @@ public class DeliveryDao {
         );
     }
 
+    /**
+     * 배송상품 삭제
+     * @param deliveryNo
+     */
     public void deleteDelivery(int deliveryNo) {
         String sql = """
                 DELETE FROM ORDER_DELIVERY_PRODUCTS
@@ -58,6 +71,12 @@ public class DeliveryDao {
         DaoHelper.delete(sql, deliveryNo);
     }
 
+
+    /**
+     * 배송상품 번호로 배송상품 조회
+     * @param deliveryNo
+     * @return
+     */
     public Delivery getDeliveryByNo(int deliveryNo) {
         String sql = """
                 SELECT *
@@ -90,6 +109,11 @@ public class DeliveryDao {
         }, deliveryNo);
     }
 
+    /**
+     * 주문번호로 모든 배송상품 조회
+     * @param orderNo
+     * @return
+     */
     public List<Delivery> getAllDeliveryByOrderNo(int orderNo) {
         String sql = """
                 SELECT *

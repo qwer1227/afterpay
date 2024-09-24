@@ -2,6 +2,7 @@
 <%@ page import="com.jhta.afterpay.user.User" %>
 <%@ page import="com.jhta.afterpay.user.ReviewDao" %>
 <%@ page import="com.jhta.afterpay.user.Review" %>
+<%@ page import="com.jhta.afterpay.util.Utils" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
@@ -35,6 +36,7 @@
   * 2. 사용자 정보 값 조회
   *
   */
+
   int userNo = 19;
   UserDao userDao = new UserDao();
   ReviewDao reviewDao = new ReviewDao();

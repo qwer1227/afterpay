@@ -12,34 +12,34 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="container">
+<div class="container">
+    <%
+        StockDao stockDao = new StockDao();
+
+        int productNo = Utils.toInt(request.getParameter("no"));
+
+        List<Stock> stocks = stockDao.getAllStocksByNo(productNo);
+    %>
+    <form class="border bg-light p-3" method="post" action="update.jsp?no=<%=productNo %>">
+        <div class="text-center">
+            <h1>상품 수정</h1>
+        </div>
         <%
-            StockDao stockDao = new StockDao();
-
-            int productNo = Utils.toInt(request.getParameter("no"));
-
-            List<Stock> stocks = stockDao.getAllStocksByNo(productNo);
+            for (Stock stock : stocks) {
         %>
-        <form class="border bg-light p-3" method="post" action="update.jsp?no=<%=productNo %>">
-            <div class="text-center">
-                <h1>상품 수정</h1>
-            </div>
-            <%
-                for (Stock stock : stocks) {
-            %>
-            <div class="mb-3">
-                <label class="form-label"><%=stock.getSize()%> 사이즈 수량</label>
-                <input type="hidden" name="<%=stock.getSize()%>No" value="<%=stock.getNo()%>">
-                <input type="text" class="form-control" name="<%=stock.getSize()%>Amount" value="<%=stock.getAmount()%>">
-            </div>
-            <%
-                }
-            %>
-            <div class="text-end">
-                <a href="stock.jsp" class="btn btn-secondary">취소</a>
-                <button type="submit" class="btn btn-primary">등록</button>
-            </div>
-        </form>
-    </div>
+        <div class="mb-3">
+            <label class="form-label"><%=stock.getSize()%> 사이즈 수량</label>
+            <input type="hidden" name="<%=stock.getSize()%>No" value="<%=stock.getNo()%>">
+            <input type="text" class="form-control" name="<%=stock.getSize()%>Amount" value="<%=stock.getAmount()%>">
+        </div>
+        <%
+            }
+        %>
+        <div class="text-end">
+            <a href="stock.jsp" class="btn btn-secondary">취소</a>
+            <button type="submit" class="btn btn-primary">등록</button>
+        </div>
+    </form>
+</div>
 </body>
 </html>

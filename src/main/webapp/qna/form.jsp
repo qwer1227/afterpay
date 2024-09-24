@@ -21,28 +21,28 @@
 <body>
 <%@include file="../common/nav.jsp"%>
 <div class="container">
-  <form method="post" action="insert.jsp">
-    <div class="row">
-      <div class="col-12 m-3 border bg-light p-3">
-        <h2 class="m-4"><strong>1:1 문의하기</strong></h2>
-        <hr style="border:solid 1px gray;"/>
+    <form method="post" action="insert.jsp">
+        <div class="row">
+            <div class="col-12 m-3 border bg-light p-3">
+                <h2 class="m-4"><strong>1:1 문의하기</strong></h2>
+                <hr style="border:solid 1px gray;"/>
 
-          <div class="mb-3">
-            <label class="form-label">문의 제목</label>
-            <input type="text" class="form-control" name="title">
-          </div>
-          <div class="mb-3">
-            <label class="form-label">상품 설명</label>
-            <textarea class="form-control" rows="5" name="description"></textarea>
-          </div>
-          <div class="text-end">
-            <button type="submit" class="btn btn-primary">
-              문의하기
-            </button>
-          </div>
-      </div>
-    </div>
-  </form>
+                <div class="mb-3">
+                    <label class="form-label">문의 제목</label>
+                    <input type="text" class="form-control" name="title">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">상품 설명</label>
+                    <textarea class="form-control" rows="5" name="description"></textarea>
+                </div>
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary">
+                        문의하기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 <%@include file="../common/footer.jsp"%>
 </body>

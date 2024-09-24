@@ -9,6 +9,21 @@ import java.util.List;
 public class QnaDao {
 
     /**
+     * 답변을 등록한다.
+     * @param qna 답변내용
+     */
+    public void insertQnaReply(Qna qna) {
+        String sql = """
+                INSERT INTO QNAS
+                    (QNA_REPLIED_CONTENT, QNA_REPLIED_DATE)
+                VALUES
+                    (?, SYSDATE)
+                """;
+
+        DaoHelper.insert(sql, qna.getRepliedContent(), qna.getRepliedDate());
+    }
+
+    /**
      * 전체 문의갯수를 조회해서 반환한다.
      * @return 문의 갯수
      */
@@ -185,12 +200,17 @@ public class QnaDao {
                 UPDATE QNAS
                 SET 
                     QNA_CONTENT = ?
+                    , ISQNADELETED = ?
+                    , QNA_REPLIED_DATE = ?
+                    , QNA_REPLIED_CONTENT = ?
                 WHERE QNA_NO = ?
                 """;
         DaoHelper.update(sql
-                        , qna.getContent()
-                        , qna.getNo());
-
+                , qna.getContent()
+                , qna.getIsQnaDeleted()
+                , qna.getRepliedDate()
+                , qna.getRepliedContent()
+                , qna.getNo());
     }
 
     /**
@@ -217,7 +237,7 @@ public class QnaDao {
                 WHERE QNA_NO = ?
                 """;
         DaoHelper.update(sql
-                        , qnaNo);
+                , qnaNo);
     }
 
     public void deleteQnas(Qna qna) {
@@ -226,7 +246,7 @@ public class QnaDao {
                 SET ISQNADELETED = 'Y'
                 WHERE QNA_NO = ?
                 """;
-        DaoHelper.update(sql,qna.getNo());
+        DaoHelper.update(sql, qna.getNo());
     }
 
     public int getNotDeletedTotalRows(int userNo) {

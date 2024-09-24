@@ -9,6 +9,7 @@ public class ReviewDao {
 
     /**
      * 사용자번호로 작성한 리뷰 중 삭제하지 않은 리뷰의 총 갯수 조회
+     *
      * @param userNo 사용자번호
      * @return 리뷰 갯수
      */
@@ -25,6 +26,7 @@ public class ReviewDao {
 
     /**
      * 사용자가 삭제하지 않은 리뷰들 목록 조회
+     *
      * @param userNo
      * @return
      */
@@ -52,7 +54,7 @@ public class ReviewDao {
         }, userNo);
     }
 
-    public int getNotDeletedTotalRows(int userNo) {
+    public int getNotDeletedTotalRows() {
         String sql = """
                 SELECT COUNT(*)
                 FROM REVIEWS
@@ -60,7 +62,8 @@ public class ReviewDao {
                     AND USER_NO = ?
                 """;
 
-        return DaoHelper.selectOneInt(sql, userNo);
+        Review review = new Review();
+        return DaoHelper.selectOneInt(sql);
     }
 
     public List<Review> getNotDeletedReview(int userNo, int begin, int end) {
@@ -101,17 +104,20 @@ public class ReviewDao {
         }, userNo, begin, end);
     }
 
-    public void deleteReviewByReviewNo(int reviewNo) {
+    public void updateReview(Review review) {
         String sql = """
                 UPDATE REVIEWS
-                SET ISDELETED = 'Y'
+                SET ISDELETED = ?
                 WHERE REVIEW_NO = ?
                 """;
-        DaoHelper.update(sql, reviewNo);
+        DaoHelper.update(sql
+                , review.getIsDeleted()
+                , review.getNo());
     }
 
     /**
      * 리뷰번호로 해당 리뷰 조회
+     *
      * @param reviewNo
      * @return
      */
@@ -185,4 +191,14 @@ public class ReviewDao {
             return review;
         }, productNo);
     }
+
+    public void deleteReview(int reviewNo) {
+        String sql = """
+                UPDATE REVIEWS
+                SET ISDELETED = 'Y'
+                WHERE REVIEW_NO = ?
+                """;
+        DaoHelper.update(sql, reviewNo);
+    }
+
 }

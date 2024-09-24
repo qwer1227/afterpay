@@ -37,7 +37,7 @@
     // 주문 상품 개수
     String[] amount = request.getParameterValues("amount");
     int[] amountArr = new int[amount.length];
-    for(int i=0; i<amountArr.length; i++) {
+    for (int i = 0; i < amountArr.length; i++) {
         amountArr[i] = Utils.toInt(amount[i]);
     }
 
@@ -49,10 +49,9 @@
     // 상품 재고 번호 가져오기
     String[] stockNo = request.getParameterValues("stockNo");
     int[] stockNoArr = new int[stockNo.length];
-    for(int i=0; i<stockNoArr.length; i++) {
+    for (int i = 0; i < stockNoArr.length; i++) {
         stockNoArr[i] = Utils.toInt(stockNo[i]);
     }
-
 
 
     UserDao userDao = new UserDao();
@@ -83,7 +82,7 @@
 
     // 입력받은 주소와 상세주소가 같은 배송지가 이미 있으면 저장하지 않는다.
     for (Addr findAddr : addrs) {
-        if(findAddr.getAddr1().equals(address)
+        if (findAddr.getAddr1().equals(address)
                 && findAddr.getAddr2().equals(detailAddr)) {
             break;
         }
@@ -95,12 +94,22 @@
     addrs = addrDao.getAllAddrByUserNo(user.getNo());
     // 새로 추가된 배송지 번호 가져오기
     for (Addr findAddr : addrs) {
-        if(findAddr.getAddr1().equals(address)
+        if (findAddr.getAddr1().equals(address)
                 && findAddr.getAddr2().equals(detailAddr)) {
             addr.setNo(findAddr.getNo());
         }
     }
 
+    // 상품재고 개수 감소
+    for (int i = 0; i < amountArr.length; i++) {
+        Stock s = stockDao.getStockByNo(stockNoArr[i]);
+        int remaining = s.getAmount() - amountArr[i];
+        s.setAmount(remaining);
+        stockDao.updateStockAmount(s);
+        if (remaining < 0) {
+            remaining = 0;
+        }
+    }
 
     // 주문정보 저장
     Order order = new Order();
@@ -122,7 +131,7 @@
     Order payOrder = orderDao.getMostLatelyOrderNoByUserNo(user.getNo());
 
     // 배송상품 저장
-    for (int i=0; i<stockNoArr.length; i++) {
+    for (int i = 0; i < stockNoArr.length; i++) {
         Stock stock = stockDao.getStockByNo(stockNoArr[i]);
         int productNo = stock.getProductNo();
         Delivery delivery = new Delivery();
@@ -147,4 +156,5 @@
     paymentDao.insertPayment(payment);
 
     response.sendRedirect("order-success.jsp");
+
 %>

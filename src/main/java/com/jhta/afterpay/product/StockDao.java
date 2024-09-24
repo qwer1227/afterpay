@@ -44,6 +44,16 @@ public class StockDao {
                 }, no);
     }
 
+    public void updateStockAmount(Stock stock) {
+        String sql = """
+                UPDATE product_stocks
+                SET PRODUCT_STOCK_AMOUNT = ?
+                where product_stock_no = ?
+                """;
+
+        DaoHelper.update(sql, stock.getAmount(), stock.getNo());
+    }
+
 
 
 

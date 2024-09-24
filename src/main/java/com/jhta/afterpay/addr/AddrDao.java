@@ -7,6 +7,10 @@ import java.util.List;
 
 public class AddrDao {
 
+    /**
+     * 주소 추가
+     * @param addr
+     */
     public void insertAddr(Addr addr) {
         String sql = """
                 INSERT INTO ADDRESSES
@@ -25,6 +29,10 @@ public class AddrDao {
         , addr.getIsAddrHome(), addr.getUser().getNo());
     }
 
+    /**
+     * 주소 삭제
+     * @param addrNo
+     */
     public void deleteAddr(int addrNo) {
         String sql = """
                 DELETE 
@@ -34,6 +42,10 @@ public class AddrDao {
         DaoHelper.delete(sql, addrNo);
     }
 
+    /**
+     * 주소 수정
+     * @param addr
+     */
     public void updateAddr(Addr addr) {
         String sql= """           
                 UPDATE ADDRESSES
@@ -58,6 +70,11 @@ public class AddrDao {
         );
     }
 
+    /**
+     * 주소 번호로 주소 조회
+     * @param addrNo
+     * @return
+     */
     public Addr getAddrByNo(int addrNo) {
         String sql = """
                 SELECT *
@@ -81,6 +98,11 @@ public class AddrDao {
         }, addrNo);
     }
 
+    /**
+     * 유저번호로 유저의 모든 주소 조회
+     * @param userNo
+     * @return
+     */
     public List<Addr> getAllAddrByUserNo(int userNo) {
         String sql = """
                 SELECT *

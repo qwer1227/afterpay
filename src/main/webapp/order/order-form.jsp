@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="../common/css/style.css"/>
 </head>
 <body>
-<%@ include file="../common/nav.jsp" %>
+<%@ include file="/common/nav.jsp" %>
 
 <%
     String userNos = (String) session.getAttribute("USERNO");
@@ -245,7 +245,7 @@
         </div>
     </form>
 </div>
-<%@include file="../common/footer.jsp" %>
+<%@include file="/common/footer.jsp" %>
 <script type="text/javascript">
 
     function oneCheckbox(a) {

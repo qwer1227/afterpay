@@ -34,7 +34,6 @@
             left: 50%;
             width: 100%;
             transform: translate(-50%, -50%);
-            font-size: 20px;
             text-align: center;
             color: beige;
         }
@@ -46,40 +45,51 @@
         .sub-container a {
             text-align: center;
         }
+
+        .col {
+            text-align: center;
+        }
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100 ">
 <%@ include file="/common/nav.jsp" %>
-<div class="main-container">
+<div class="main-container" style="min-width:1140px;">
     <div>
-        <img src="../img/main.png" alt=""/>
+        <img src="/img/main.png" alt=""/>
     </div>
-    <div class="main-text" style="color: beige">
-        <h3>2024 Fall-Winter Collection</h3>
-        <h5>New Arrivals</h5>
+    <div class="main-text">
+        <h5 style="font-size: 20px">2024 가을-겨울 컬렉션</h5>
+        <h5>새로운 도착</h5>
         <h5>
-            <a href="/index2.jsp">shop</a>
+            <a href="/index2.jsp" class="text-dark text-decoration-none" style="font-weight: bolder">구매하기</a>
         </h5>
     </div>
 </div>
-<div>
-    <div class="sub-container">
+    <div class="sub-container" style="min-width:1140px; margin-right: 150px; margin-left: 150px">
         <div class="row">
-            <div class="col" style="justify-content: center">
-                <img src="common/images/main2.png" alt="" style="width: 250px; height:350px;"/>
-                <a href="/product/list.jsp?cat_no=11&page=1">남성 상의</a>
+            <div class="col">
+                <a href="/product/list.jsp?cat_no=11&page=1" class="text-dark text-decoration-none">
+                    <img src="/img/main2.png" alt="" style="width: 250px; height:350px;"/><br>
+                    <p>남성 상의</p>
+                </a>
             </div>
-            <div class="col" style="justify-content: center">
-                <img src="../img/main3.png" alt="" style="width: 250px; height:350px;"/>
-                <a href="/product/list.jsp?cat_no=21&page=1">여성 상의</a>
+            <div class="col">
+                <a href="/product/list.jsp?cat_no=21&page=1" class="text-dark text-decoration-none">
+                    <img src="/img/main3.png" alt="" style="width: 250px; height:350px;"/><br>
+                    <p>여성 상의</p>
+                </a>
             </div>
-            <div class="col" style="justify-content: center">
-                <img src="../img/main4.png" alt="" style="width: 250px; height:350px;"/>
-                <a href="/product/list.jsp?cat_no=24&page=1">여성 가방</a>
+            <div class="col">
+                <a href="/product/list.jsp?cat_no=24&page=1" class="text-dark text-decoration-none">
+                    <img src="/img/main4.png" alt="" style="width: 250px; height:350px;"/><br>
+                    <p>여성 가방</p>
+                </a>
             </div>
-            <div class="col" style="justify-content: center">
-                <img src="../img/main5.png" alt="" style="width: 250px; height:350px;"/>
-                <a href="/product/list.jsp?cat_no=13&page=1">남성 슈즈</a>
+            <div class="col">
+                <a href="/product/list.jsp?cat_no=13&page=1" class="text-dark text-decoration-none">
+                    <img src="/img/main5.png" alt="" style="width: 250px; height:350px;"/><br>
+                    <p>남성 슈즈</p>
+                </a>
             </div>
         </div>
     </div>

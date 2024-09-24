@@ -24,10 +24,9 @@
 </head>
 <body>
 <%@ include file="/common/nav.jsp" %>
-
 <%
-    String userNos = (String) session.getAttribute("USERNO");
-    userID = (String) session.getAttribute("USERID");
+    String userNos = String.valueOf(session.getAttribute("USERNO"));
+    userID = String.valueOf(session.getAttribute("USERID"));
     System.out.println(userID);
 
     if (userID == null) {

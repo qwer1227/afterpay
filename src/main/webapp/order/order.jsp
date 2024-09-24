@@ -173,5 +173,4 @@
     paymentDao.insertPayment(payment);
 
     response.sendRedirect("order-success.jsp");
-
 %>

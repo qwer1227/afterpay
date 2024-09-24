@@ -82,8 +82,8 @@
                             남성
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/product/list.jsp?cat_no=10">전체보기</a></li>
-                            <li><a class="dropdown-item" href="/product/list.jsp?cat_no=11">상의</a></li>
+                            <li><a class="dropdown-item" href="../product/list.jsp?cat_no=10">전체보기</a></li>
+                            <li><a class="dropdown-item" href="../product/list.jsp?cat_no=11">상의</a></li>
                             <li><a class="dropdown-item" href="/product/list.jsp?cat_no=12">하의</a></li>
                             <li><a class="dropdown-item" href="/product/list.jsp?cat_no=13">슈즈</a></li>
                             <li><a class="dropdown-item" href="/product/list.jsp?cat_no=14">가방</a></li>
@@ -106,20 +106,8 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">비전</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            서포트
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/common/delivery.jsp">배송 안내</a></li>
-                            <li><a class="dropdown-item" href="/common/sizeGuide.jsp">사이즈 가이드</a></li>
-                            <li><a class="dropdown-item" href="/common/productCare.jsp">제품 관리</a></li>
-                            <li><a class="dropdown-item" href="/common/memberShip.jsp">멤버십</a></li>
-                        </ul>
-                    </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/notice/list.jsp">공지사항</a>
+                        <a class="nav-link active" aria-current="page" href="#">서포트</a>
                     </li>
                     <%
                         if (userID != null) {

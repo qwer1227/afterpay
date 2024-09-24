@@ -78,6 +78,21 @@
 </div>
 <%--중복체크 방지--%>
 <script type="text/javascript">
+    function oneCheckbox(a) {
+
+        var obj = document.getElementsByName("addrName");
+
+        for (var i = 0; i < obj.length; i++) {
+
+            if (obj[i] != a) {
+
+                obj[i].checked = false;
+
+            }
+        }
+
+    }
+
     function setParentText() {
         var obj = document.getElementsByName("pay");
 

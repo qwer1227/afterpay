@@ -26,7 +26,6 @@
 <%@ include file="/common/nav.jsp" %>
 <%
     String userNos = String.valueOf(session.getAttribute("USERNO"));
-    userID = String.valueOf(session.getAttribute("USERID"));
     System.out.println(userID);
 
     if (userID == null) {
@@ -70,7 +69,7 @@
     StockDao stockDao = new StockDao();
 %>
 <div id="main" class="container">
-    <form action="order.jsp" method="post" onsubmit="return checkForm()" ]>
+    <form action="order.jsp" method="post" onsubmit="return checkForm()">
         <div class="row text-center pt-3 mb-5">
             <h3>주문 결제</h3>
         </div>

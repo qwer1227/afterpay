@@ -2,6 +2,7 @@
 <%@ page import="com.jhta.afterpay.user.User" %>
 <%@ page import="com.jhta.afterpay.user.ReviewDao" %>
 <%@ page import="com.jhta.afterpay.user.Review" %>
+<%@ page import="com.jhta.afterpay.util.Utils" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
@@ -27,7 +28,8 @@
 </style>
 <body>
 <%
-   String userId = (String) session.getAttribute("USERID");
+   String userNos = String.valueOf("USERNO");
+   String userId = String.valueOf(session.getAttribute("USERID"));
    String grade = (String) session.getAttribute("GRADE");
 %>
 <%@include file="../common/nav.jsp"%>
@@ -40,7 +42,7 @@
   *
   */
 
-  int userNo = 19;
+  int userNo = Utils.toInt(userNos);
   UserDao userDao = new UserDao();
   ReviewDao reviewDao = new ReviewDao();
   User user = userDao.getUserByNo(userNo);

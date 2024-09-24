@@ -33,7 +33,10 @@
 <%@ include file="../common/nav.jsp" %>
 
 <%
-
+    if (userID == null) {
+        response.sendRedirect("../login-form.jsp?deny");
+        return;
+    }
 
     int orderNo = Utils.toInt(request.getParameter("orderNo"));
 

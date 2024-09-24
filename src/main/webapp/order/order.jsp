@@ -22,6 +22,11 @@
     String userID = String.valueOf(session.getAttribute("USERID"));
     System.out.println(userID);
 
+    if (userID == null) {
+        response.sendRedirect("../login-form.jsp?deny");
+        return;
+    }
+
     int userNo = Utils.toInt(userNos);
 
     // 쿼리 파라미터
@@ -168,5 +173,4 @@
     paymentDao.insertPayment(payment);
 
     response.sendRedirect("order-success.jsp");
-
 %>

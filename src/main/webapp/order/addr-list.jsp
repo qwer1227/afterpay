@@ -21,9 +21,13 @@
 </head>
 <body>
 <%
+
     String userNo = String.valueOf(session.getAttribute("USERNO"));
     String userId = String.valueOf(session.getAttribute("USERID"));
-
+    if (userId == null) {
+        response.sendRedirect("../login-form.jsp?deny");
+        return;
+    }
     // 유저의 배송지 목록 가져오기
     AddrDao addrDao = new AddrDao();
     List<Addr> addrs = addrDao.getAllAddrByUserNo(Utils.toInt(userNo)); // 세션 이용하기
@@ -74,6 +78,21 @@
 </div>
 <%--중복체크 방지--%>
 <script type="text/javascript">
+    function oneCheckbox(a) {
+
+        var obj = document.getElementsByName("addrName");
+
+        for (var i = 0; i < obj.length; i++) {
+
+            if (obj[i] != a) {
+
+                obj[i].checked = false;
+
+            }
+        }
+
+    }
+
     function setParentText() {
         var obj = document.getElementsByName("pay");
 

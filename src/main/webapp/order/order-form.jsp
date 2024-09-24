@@ -26,9 +26,16 @@
 <%@ include file="../common/nav.jsp" %>
 
 <%
-    String userNos = String.valueOf(session.getAttribute("USERNO"));
-    userID = String.valueOf(session.getAttribute("USERID"));
+    String userNos = (String) session.getAttribute("USERNO");
+    userID = (String) session.getAttribute("USERID");
     System.out.println(userID);
+
+    if (userID == null) {
+        response.sendRedirect("../login-form.jsp?deny");
+        return;
+    }
+
+
     int userNo = Utils.toInt(userNos);
     // 전달 받은 상품 재고 번호
     String[] stockNo = request.getParameterValues("stockNo");

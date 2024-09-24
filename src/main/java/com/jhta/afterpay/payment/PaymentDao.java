@@ -6,6 +6,11 @@ import com.jhta.afterpay.util.DaoHelper;
 import java.util.List;
 
 public class PaymentDao {
+
+    /**
+     * 결제 추가
+     * @param payment
+     */
     public void insertPayment(Payment payment) {
         String sql = """
                 INSERT INTO PAYMENTS
@@ -23,6 +28,10 @@ public class PaymentDao {
         );
     }
 
+    /**
+     * 결제 수정
+     * @param payment
+     */
     public void updatePayment(Payment payment) {
         String sql = """
                 UPDATE PAYMENTS
@@ -34,6 +43,10 @@ public class PaymentDao {
                 , payment.getNo());
     }
 
+    /**
+     * 결제 삭제
+     * @param payment
+     */
     public void deletePayment(Payment payment) {
         String sql = """
                 DELETE FROM PAYMENTS
@@ -43,6 +56,11 @@ public class PaymentDao {
         , payment.getNo());
     }
 
+    /**
+     * 결제번호로 결제정보 조회
+     * @param paymentNo
+     * @return
+     */
     public Payment getPaymentByNo(int paymentNo) {
         String sql = """
                 SELECT * 
@@ -62,17 +80,23 @@ public class PaymentDao {
         });
     }
 
+    /**
+     * 주문번호로 결제조회
+     * @param orderNo
+     * @return
+     */
     public Payment getPaymentByOrderNo(int orderNo) {
         String sql= """
                 SELECT *
                 FROM PAYMENTS
                 WHERE ORDER_NO = ?
                 """;
-        Payment payment = new Payment();
-        Order order =new Order();
-        payment.setOrder(order);
+
         return DaoHelper.selectOne(sql
                 , rs -> {
+                    Payment payment = new Payment();
+                    Order order =new Order();
+                    payment.setOrder(order);
                     payment.setNo(rs.getInt("PAYMENT_NO"));
                     payment.setPrice(rs.getInt("PAYMENT_PRICE"));
                     payment.getOrder().setNo(rs.getInt("ORDER_NO"));

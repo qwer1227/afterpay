@@ -21,39 +21,28 @@
 <body>
 <%@include file="../common/nav.jsp"%>
 <div class="container">
-  <div class="row">
-    <div class="col-12 mb-3">
-      <h2 class="m-4"><strong>1:1 문의하기</strong></h2>
-      <hr style="border:solid 1px gray;"/>
-      <form class="border bg-light p-3" method="post" action="qna-insert.jsp">
-        <div class="mb-3">
-          <label class="form-label">문의 카테고리</label>
-          <select class="form-select" name="catNo">
-            <option>문의 카테고리를 선택하세요</option>
-            <option value="11">상품 문의</option>
-            <option value="12">반품 문의</option>
-            <option value="13">환불 문의</option>
-            <option value="14">취소 문의</option>
-            <option value="21">배송 문의</option>
-            <option value="22">기타 문의</option>
-          </select>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">문의 제목</label>
-          <input type="text" class="form-control" name="title">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">상품 설명</label>
-          <textarea class="form-control" rows="5" name="description"></textarea>
-        </div>
-        <div class="text-end">
-          <a href="" type="button" class="btn btn-primary">
-            문의하기
-          </a>
-        </div>
-      </form>
+  <form method="post" action="insert.jsp">
+    <div class="row">
+      <div class="col-12 m-3 border bg-light p-3">
+        <h2 class="m-4"><strong>1:1 문의하기</strong></h2>
+        <hr style="border:solid 1px gray;"/>
+
+          <div class="mb-3">
+            <label class="form-label">문의 제목</label>
+            <input type="text" class="form-control" name="title">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">상품 설명</label>
+            <textarea class="form-control" rows="5" name="description"></textarea>
+          </div>
+          <div class="text-end">
+            <button type="submit" class="btn btn-primary">
+              문의하기
+            </button>
+          </div>
+      </div>
     </div>
-  </div>
+  </form>
 </div>
 <%@include file="../common/footer.jsp"%>
 </body>

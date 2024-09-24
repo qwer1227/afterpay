@@ -41,7 +41,7 @@
             List<Image> images = productDao.getAllImagesByNo(productNo);
         %>
         <div class="col-5">
-            <img src="../../img/<%=images.get(0).getName()%>" width="100%">
+            <img src="/common/images/<%=images.get(0).getName()%>" width="100%">
         </div>
         <div class="col-7">
             <table class="table table-bordered">
@@ -109,24 +109,26 @@
                         <div class="card-body">
                             <table class="table">
                                 <thead>
-                                    <tr>
-                                        <th>사이즈</th>
-                                        <th>재고수량</th>
-                                    </tr>
+                                <tr>
+                                    <th>사이즈</th>
+                                    <th>재고수량</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                        <%
-                                            int totalAmount = 0;
-                                            for (Stock stock : stocks) {
-                                                totalAmount += stock.getAmount();
-                                        %>
-                                    <tr>
-                                        <td><%=stock.getSize()%></td>
-                                        <td><%=stock.getAmount()%></td>
-                                    </tr>
-                                        <%
-                                            }
-                                        %>
+                                <%
+                                    int totalAmount = 0;
+                                    for (Stock stock : stocks) {
+                                        totalAmount += stock.getAmount();
+                                %>
+                                <tr>
+                                    <td><%=stock.getSize()%>
+                                    </td>
+                                    <td><%=stock.getAmount()%>
+                                    </td>
+                                </tr>
+                                <%
+                                    }
+                                %>
 
                                 </tbody>
                             </table>

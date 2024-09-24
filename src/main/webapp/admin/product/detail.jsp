@@ -41,7 +41,7 @@
             List<Image> images = productDao.getAllImagesByNo(productNo);
         %>
         <div class="col-5">
-            <img src="../../img/<%=images.get(0).getName()%>" width="100%">
+            <img src="/common/images/<%=images.get(0).getName()%>" width="100%">
         </div>
         <div class="col-7">
             <table class="table table-bordered">

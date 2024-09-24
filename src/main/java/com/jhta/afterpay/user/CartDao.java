@@ -16,6 +16,7 @@ public class CartDao {
                 VALUES
                 (cart_no_seq.nextval
                 , ?, ?
+                
                 , ? , ?)
                 """;
         DaoHelper.insert(sql

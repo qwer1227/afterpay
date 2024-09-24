@@ -1,5 +1,6 @@
 package com.jhta.afterpay.product;
 
+import com.jhta.afterpay.user.User;
 import com.jhta.afterpay.util.DaoHelper;
 
 import java.util.ArrayList;
@@ -154,8 +155,8 @@ public class ProductDao {
                     from product_imgs
                     where product_no = ?    
                 """;
-            
-       
+
+
 
         return DaoHelper.selectList(sql, rs -> {
             Image image = new Image();

@@ -15,7 +15,20 @@ public class Qna {
     private String isQnaDeleted;
     private User user;
 
-
+    @Override
+    public String toString() {
+        return "Qna{" +
+                "no=" + no +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", cnt=" + cnt +
+                ", createdDate=" + createdDate +
+                ", repliedDate=" + repliedDate +
+                ", repliedContent='" + repliedContent + '\'' +
+                ", isQnaDeleted='" + isQnaDeleted + '\'' +
+                ", user=" + user +
+                '}';
+    }
 
     public int getNo() {
         return no;
@@ -87,20 +100,5 @@ public class Qna {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    @Override
-    public String toString() {
-        return "Qna{" +
-                "no=" + no +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", cnt=" + cnt +
-                ", createdDate=" + createdDate +
-                ", repliedDate=" + repliedDate +
-                ", repliedContent='" + repliedContent + '\'' +
-                ", isQnaDeleted='" + isQnaDeleted + '\'' +
-                ", user=" + user +
-                '}';
     }
 }

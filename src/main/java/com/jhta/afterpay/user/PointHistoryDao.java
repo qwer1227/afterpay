@@ -41,9 +41,56 @@ public class PointHistoryDao {
                     (HISTORY_NO_SEQ.NEXTVAL, ?, SYSDATE, ?, ?, ?)
                 """;
         DaoHelper.insert(sql, pointHistory.getUserNo()
-                            , pointHistory.getContent()
-                            , pointHistory.getPoint()
-                            , pointHistory.getCurrentPoint());
+                , pointHistory.getContent()
+                , pointHistory.getPoint()
+                , pointHistory.getCurrentPoint());
+    }
+
+    public int getAllTotalRows() {
+        String sql = """
+                SELECT COUNT(*)
+                FROM POINT_HISTORIES
+                """;
+
+        return DaoHelper.selectOneInt(sql);
+    }
+
+    public List<PointHistory> getAllQnaByUserNo(int begin, int end) {
+        String sql = """
+                SELECT *
+                FROM(
+                    SELECT ROW_NUMBER() OVER (ORDER BY HISTORY_NO DESC) ROWNUMBER
+                        , HISTORY_NO
+                        , HISTORY_DATE
+                        , HISTORY_CONTENT
+                        , HISTORY_POINT
+                        , HISTORY_CURRENT_POINT
+                        , USER_NO
+                    FROM POINT_HISTORIES
+                    )
+                WHERE ROWNUMBER BETWEEN ? AND ?
+                """;
+
+        return DaoHelper.selectList(sql, rs -> {
+            PointHistory point = new PointHistory();
+            point.setNo(rs.getInt("HISTORY_NO"));
+            point.setHistoryDate(rs.getDate("HISTORY_DATE"));
+            point.setContent(rs.getString("HISTORY_CONTENT"));
+            point.setPoint(rs.getInt("HISTORY_POINT"));
+            point.setCurrentPoint(rs.getInt("HISTORY_CURRENT_POINT"));
+
+            User user = new User();
+            user.setNo(rs.getInt("USER_NO"));
+            point.setUserNo(user);
+            return point;
+
+        }, begin, end);
+    }
+
+    public void getMonthPointHistory(){
+        String sql = """
+                
+                """;
     }
 
     public int getAllTotalRowsByUserNo(int userNo) {

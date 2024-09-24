@@ -99,8 +99,10 @@
             addr.setTel(tel);
             addr.setZipCode(zipcode);
             addr.setUser(user);
-            addr.setIsAddrHome("N");
             addr.setName("새 배송지");
+            if(findAddr.getIsAddrHome().equals("Y")){
+                addr.setIsAddrHome("N");
+            }
             addrDao.insertAddr(addr);
             break;
         }

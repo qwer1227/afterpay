@@ -62,6 +62,18 @@
     <div class="col-10">
       <form method="post" action="../order/order-form.jsp" id="wish">
         <hr style="border:solid 1px gray;"/>
+        <%
+          if (wishList.isEmpty()) {
+        %>
+        <div class="text-center m-5">
+          <strong>위시리스트 내역이 없습니다.</strong><br>
+          <br>
+          <a href="" type="button" class="btn btn-lg bg-light border-dark-subtle">지금 바로 쇼핑하러 가기</a>
+
+        </div>
+        <%
+        } else {
+        %>
         <div class="row mb-3">
           <div class="col-6">
             <div class="text-start">
@@ -177,6 +189,9 @@
             </table>
           </div>
         </div>
+        <%
+          }
+        %>
       </form>
     </div>
   </div>

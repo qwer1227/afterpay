@@ -15,9 +15,9 @@
   <title>AFTER PAY</title>
 </head>
 <style>
-  h2{
-    text-align: center;
-  }
+    h2{
+        text-align: center;
+    }
 </style>
 <body>
 <%@include file="../common/nav.jsp"%>
@@ -35,7 +35,7 @@
       <div class="col-10">
         <h2 class="m-4"><strong>1:1 문의 상세</strong></h2>
         <hr style="border:solid 1px gray;"/>
-
+        
         <table class="table table-borderless">
           <colgroup>
             <col width="10%">
@@ -44,57 +44,57 @@
             <col width="40%">
           </colgroup>
           <tbody>
-            <tr>
-              <th scope="row" class="text-center">문의 제목</th>
-              <td class="text-start"><%=qna.getTitle()%></td>
-            </tr>
-            <tr>
-              <th scope="row" class="text-center">문의 일자</th>
-              <td class="text-start"><%=qna.getCreatedDate()%></td>
-              <th scope="row" class="text-center">답변 상태</th>
+          <tr>
+            <th scope="row" class="text-center">문의 제목</th>
+            <td class="text-start"><%=qna.getTitle()%></td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-center">문의 일자</th>
+            <td class="text-start"><%=qna.getCreatedDate()%></td>
+            <th scope="row" class="text-center">답변 상태</th>
+            <%
+              if (qna.getRepliedContent() == null) {
+            %>
+            <td class="text-start">
+              <span class="badge text-bg-secondary">답변대기</span>
+            </td>
+            <%
+            } else {
+            %>
+            <td class="text-start">
+              <span class="badge text-bg-primary">답변완료</span>
+            </td>
+            <%
+              }
+            %>
+          </tr>
+          <tr>
+            <th scope="row" class="text-center">상세 문의</th>
+          </tr>
+          <tr>
+            <th class="text-start" colspan="4">
               <%
-                if (qna.getRepliedContent() == null) {
+                if (qna.getRepliedContent() == null){
               %>
-              <td class="text-start">
-                <span class="badge text-bg-secondary">답변대기</span>
-              </td>
+              <textarea class="form-control" rows="5" name="description"><%=qna.getContent()%></textarea>
               <%
-                } else {
+              } else {
               %>
-              <td class="text-start">
-                <span class="badge text-bg-primary">답변완료</span>
-              </td>
+              <div class="card">
+                <div class="card-body">
+                  <%=qna.getContent()%>
+                </div>
+              </div>
               <%
                 }
               %>
-            </tr>
-            <tr>
-              <th scope="row" class="text-center">상세 문의</th>
-            </tr>
-            <tr>
-              <th class="text-start" colspan="4">
-                <%
-                  if (qna.getRepliedContent() == null){
-                %>
-                <textarea class="form-control" rows="5" name="description"><%=qna.getContent()%></textarea>
-                <%
-                  } else {
-                %>
-                <div class="card">
-                  <div class="card-body">
-                    <%=qna.getContent()%>
-                  </div>
-                </div>
-                <%
-                  }
-                %>
-              </th>
-            </tr>
+            </th>
+          </tr>
           </tbody>
         </table>
-
+        
         <%
-            if (qna.getRepliedContent() != null){
+          if (qna.getRepliedContent() != null){
         %>
         <div class="m-3 card">
           <div class="card-header text-center">문의 답변</div>
@@ -103,10 +103,10 @@
           </div>
         </div>
         <%
-            }
+          }
         %>
-
-        <div class="text-end">
+        
+        <div class="text-end m-3">
           <a href="user-qna.jsp" type="button" class="btn btn-primary">
             목록
           </a>

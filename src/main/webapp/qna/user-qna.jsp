@@ -103,7 +103,17 @@
                 <td><%=qna.getCreatedDate()%>
                 </td>
                 <td>
-                  <%=qna.getRepliedContent() == null ? "답변대기" : "답변완료"%>
+                  <%
+                    if (qna.getRepliedContent() == null){
+                  %>
+                  <span class="badge text-bg-secondary">답변대기</span>
+                  <%
+                    } else {
+                  %>
+                  <span class="badge text-bg-primary">답변완료</span>
+                  <%
+                    }
+                  %>
                 </td>
               </tr>
               <%

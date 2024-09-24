@@ -56,11 +56,11 @@ public class CartDao {
         }, no);
     }
 
-    public List<Cart> getAllCartsByUserId(String userId) {
+    public List<Cart> getAllCartsByUserNo(int userNo) {
         String sql = """
                 SELECT *
                 FROM carts
-                WHERE user_id = ?
+                WHERE user_no = ?
                 """;
 
         return DaoHelper.selectList(sql, rs -> {
@@ -79,7 +79,7 @@ public class CartDao {
             cart.getUser().setNo(rs.getInt("user_no"));
             cart.getStock().setNo(rs.getInt("product_stock_no"));
             return cart;
-        }, userId);
+        }, userNo);
     }
 
 

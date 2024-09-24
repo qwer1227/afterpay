@@ -1,6 +1,7 @@
 <%@ page import="com.jhta.afterpay.addr.AddrDao" %>
 <%@ page import="com.jhta.afterpay.addr.Addr" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="com.jhta.afterpay.util.Utils" %><%--
   Created by IntelliJ IDEA.
   User: jhta
   Date: 2024-09-19
@@ -20,57 +21,65 @@
 </head>
 <body>
 <%
+    String userNo = String.valueOf(session.getAttribute("USERNO"));
+    String userId = String.valueOf(session.getAttribute("USERID"));
+
     // 유저의 배송지 목록 가져오기
     AddrDao addrDao = new AddrDao();
-    List<Addr> addrs = addrDao.getAllAddrByUserNo(7); // 세션 이용하기
+    List<Addr> addrs = addrDao.getAllAddrByUserNo(Utils.toInt(userNo)); // 세션 이용하기
 %>
 <div class="container-sm">
     <h2 class="text-start">배송지 목록</h2>
-        <div class="row mb-3">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>배송지명</th>
-                    <th>우편번호</th>
-                    <th>주소</th>
-                    <th>상세주소</th>
-                </tr>
-                </thead>
-                <tbody>
-                <%
-                    // 배송지 목록 보여주기
-                    for (Addr addr : addrs) {
-                %>
-                <tr>
-                    <td><input class="form-check-input" type="checkbox" id="name" name="addrName" value="<%=addr.getName()%>"
-                               onclick="oneCheckbox(this)"></td>
-                    <td><%=addr.getName()%></td>
-                    <td><input type="hidden" id="zipcode" value="<%=addr.getZipCode()%>"><%=addr.getZipCode()%></td>
-                    <td><input type="hidden" id="address" value="<%=addr.getAddr1()%>"><%=addr.getAddr1()%></td>
-                    <td><input type="hidden" id="detailAddress" value="<%=addr.getAddr2()%>"><%=addr.getAddr2()%></td>
-                </tr>
-                <%
-                    }
-                %>
-                </tbody>
-            </table>
-            </ul>
+    <div class="row mb-3">
+        <table class="table">
+            <thead>
+            <tr>
+                <th></th>
+                <th>배송지명</th>
+                <th>우편번호</th>
+                <th>주소</th>
+                <th>상세주소</th>
+            </tr>
+            </thead>
+            <tbody>
+            <%
+                // 배송지 목록 보여주기
+                for (Addr addr : addrs) {
+            %>
+            <tr>
+                <td><input class="form-check-input" type="checkbox" id="name" name="addrName"
+                           value="<%=addr.getName()%>"
+                           onclick="oneCheckbox(this)"></td>
+                <td><%=addr.getName()%>
+                </td>
+                <td><input type="hidden" id="zipcode" value="<%=addr.getZipCode()%>"><%=addr.getZipCode()%>
+                </td>
+                <td><input type="hidden" id="address" value="<%=addr.getAddr1()%>"><%=addr.getAddr1()%>
+                </td>
+                <td><input type="hidden" id="detailAddress" value="<%=addr.getAddr2()%>"><%=addr.getAddr2()%>
+                </td>
+            </tr>
+            <%
+                }
+            %>
+            </tbody>
+        </table>
+        </ul>
+    </div>
+    <div class="row">
+        <div col="3">
+            <input type="submit" value="선택" onclick="setParentText()" class="btn btn-primary btn">
         </div>
-        <div class="row">
-            <div col="3">
-                <input type="submit" value="선택" onclick="setParentText()" class="btn btn-primary btn">
-            </div>
-        </div>
+    </div>
 </div>
 <%--중복체크 방지--%>
 <script type="text/javascript">
-    function setParentText(){
+    function setParentText() {
         var obj = document.getElementsByName("pay");
 
-        for(var i=0; i<obj.length; i++){
+        for (var i = 0; i < obj.length; i++) {
 
-            if(obj[i] != a){
+            if (obj[i] != a) {
 
                 obj[i].checked = false;
 

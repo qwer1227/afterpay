@@ -13,8 +13,14 @@ import java.util.List;
 
 public class OrderDao {
 
+    /**
+     * 주문 추가
+     *
+     * @param order
+     * @throws SQLException
+     */
     public void insertOrder(Order order) throws SQLException {
-        String sql= """
+        String sql = """
                     insert into ORDERS
                     (ORDER_NO
                     , ORDER_PRICE, ORDER_AMOUNT , DELIVERY_PRICE 
@@ -37,6 +43,11 @@ public class OrderDao {
     }
 
 
+    /**
+     * 주문 삭제
+     *
+     * @param orderNo
+     */
     public void deleteOrder(String orderNo) {
         String sql = """
                 DELETE FROM ORDERS WHERE ORDER_NO = ?
@@ -44,6 +55,12 @@ public class OrderDao {
         DaoHelper.delete(sql, orderNo);
     }
 
+    /**
+     * 주문번호로 주문 조회
+     *
+     * @param orderNo
+     * @return
+     */
     public Order getOrderByNo(int orderNo) {
         String sql = """
                 SELECT *
@@ -74,7 +91,13 @@ public class OrderDao {
         }, orderNo);
     }
 
-    public List<Order> getAllOrderByUserNo(int userNo) {
+    /**
+     * 회원번호로 주문한 모든 주문조회
+     *
+     * @param userNo
+     * @return
+     */
+    public List<Order> getAllOrdersByUserNo(int userNo) {
         String sql = """
                 SELECT *
                 FROM ORDERS 
@@ -82,7 +105,7 @@ public class OrderDao {
                 ORDER BY ORDER_DATE DESC
                 """;
 
-        return DaoHelper.selectList(sql, rs-> {
+        return DaoHelper.selectList(sql, rs -> {
             Order order = new Order();
             User user = new User();
             user.setNo(userNo);
@@ -106,7 +129,15 @@ public class OrderDao {
         }, userNo);
     }
 
-    public List<Order> getAllOrderByUserNo(int userNo, int begin, int end) {
+    /**
+     * 회원번호로 모든 주문조회
+     *
+     * @param userNo
+     * @param begin
+     * @param end
+     * @return
+     */
+    public List<Order> getAllOrdersByUserNo(int userNo, int begin, int end) {
         String sql = """
                 SELECT *
                 FROM (
@@ -123,7 +154,7 @@ public class OrderDao {
                 WHERE rn BETWEEN ? AND ?
                 """;
 
-        return DaoHelper.selectList(sql, rs-> {
+        return DaoHelper.selectList(sql, rs -> {
             Order order = new Order();
 
             User user = new User();
@@ -139,24 +170,31 @@ public class OrderDao {
         }, userNo, begin, end);
     }
 
-    public Order getMostLatelyOrderNoByUserNo (int userNo) throws SQLException {
-     String sql = """
-             SELECT ORDER_NO
-              FROM (
-                      SELECT ORDER_NO
-                      FROM ORDERS
-                      WHERE USER_NO = ?
-                      ORDER BY ORDER_DATE DESC
-              )
-              WHERE ROWNUM = 1
-             """;
+    /**
+     * 회원번호로 가장 최근 주문조회
+     *
+     * @param userNo
+     * @return
+     * @throws SQLException
+     */
+    public Order getMostLatelyOrderNoByUserNo(int userNo) throws SQLException {
+        String sql = """
+                SELECT ORDER_NO
+                 FROM (
+                         SELECT ORDER_NO
+                         FROM ORDERS
+                         WHERE USER_NO = ?
+                         ORDER BY ORDER_DATE DESC
+                 )
+                 WHERE ROWNUM = 1
+                """;
         Connection con = DaoHelper.getConnection();
         PreparedStatement pstmt = con.prepareStatement(sql);
         pstmt.setInt(1, userNo);
-        ResultSet rs =  pstmt.executeQuery();
+        ResultSet rs = pstmt.executeQuery();
         Order order = null;
 
-        while(rs.next()){
+        while (rs.next()) {
             order = new Order();
             order.setNo(rs.getInt("ORDER_NO"));
         }
@@ -168,6 +206,12 @@ public class OrderDao {
         return order;
     }
 
+    /**
+     * 회원번호로 조회되는 모든 주문 개수
+     *
+     * @param userNo
+     * @return
+     */
     public int getTotalRowsByUserNo(int userNo) {
         String sql = """
                     select count(*)

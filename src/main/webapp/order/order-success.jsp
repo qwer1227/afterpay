@@ -37,7 +37,7 @@
 
 %>
 <%@ include file="../common/nav.jsp" %>
-<div class="container ">
+<div class="container">
     <div class="bg-dark text-white text-center">
         <h1>주문 완료</h1>
     </div>
@@ -101,12 +101,10 @@
                 </li>
             </ul>
         </div>
-        <div class="col-auto"></div>
     </div>
     <%
         }
         int paymentPrice = totalPrice + deliveryPrice;
-
     %>
     <%-- 결제 정보 --%>
     <div class="row border mb-3 p-3 border-dark">

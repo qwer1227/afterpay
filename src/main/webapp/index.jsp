@@ -97,7 +97,7 @@
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100 ">
-<%@ include file="common/nav.jsp" %>
+<%@ include file="/common/nav.jsp" %>
 <div class="main-container">
     <div>
         <img src="../img/main.png" alt=""/>
@@ -126,7 +126,7 @@
     <div class="sub-container">
         <div class="row">
             <div class="col" style="justify-content: center">
-                <img src="../img/main5.png" alt="" style="width: 250px; height:350px;"/>
+                <img src="common/images/main2.png" alt="" style="width: 250px; height:350px;"/>
                 <a href="/product/list.jsp?cat_no=11&page=1">남성 상의</a>
             </div>
             <div class="col" style="justify-content: center">

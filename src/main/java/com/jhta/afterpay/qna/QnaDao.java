@@ -180,14 +180,14 @@ public class QnaDao {
         DaoHelper.update(sql,qna.getNo());
     }
 
-    public int getAllTotalRowsByUserNo(int userNo) {
+    public int getNotDeletedTotalRows() {
         String sql = """
                 SELECT COUNT(*)
                 FROM QNAS
-                WHERE USER_NO = ?
+                WHERE ISQNADELETED = 'N'
                 """;
 
-        return DaoHelper.selectOneInt(sql, userNo);
+        return DaoHelper.selectOneInt(sql);
     }
 
     /**
@@ -196,7 +196,7 @@ public class QnaDao {
      * @param end   마지막 페이지
      * @return
      */
-    public List<Qna> getAllQnaByUserNo(int begin, int end) {
+    public List<Qna> getNotDeletedQna(int begin, int end) {
         String sql = """
                     SELECT *
                     FROM(
@@ -210,9 +210,9 @@ public class QnaDao {
                         ,U.USER_NAME
                     FROM QNAS Q, USERS U
                     WHERE Q.USER_NO = U.USER_NO
+                        AND ISQNADELETED = 'N'
                     )
                     WHERE ROWNUMBER BETWEEN ? AND ?
-                        AND USER_NO = ?
                 """;
 
         return DaoHelper.selectList(sql, rs -> {

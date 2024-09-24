@@ -43,12 +43,12 @@
           // 요청한 페이지 번호 조회
           int pageNo = Utils.toInt(request.getParameter("page"), 1);
           // 총 데이터 갯수 조회
-          int totalRows = qnaDao.getAllTotalRowsByUserNo();
+          int totalRows = qnaDao.getNotDeletedTotalRows();
           // Pagination 객체 생성
           Pagination pagination = new Pagination(pageNo, totalRows);
           int beginPage = pagination.getBegin();
           int endPage = pagination.getEnd();
-          List<Qna> qnas = qnaDao.getAllQnaByUserNo(beginPage, endPage);
+          List<Qna> qnas = qnaDao.getNotDeletedQna(beginPage, endPage);
           int qnaCnt = pagination.getBegin();
         %>
       </div>

@@ -1,5 +1,7 @@
 package com.jhta.afterpay.user;
 
+import com.jhta.afterpay.product.Product;
+
 import java.util.Date;
 
 public class Review {
@@ -10,8 +12,8 @@ public class Review {
     private Date createdDate; // 리뷰 작성일
     private Date updatedDate; // 리뷰 수정일
     private String isDeleted; // 리뷰 삭제여부
-    private User userNo; // 작성한 유저 번호
-    private int productNo; // 작성한 상품 번호
+    private User user; // 작성한 유저 번호
+    private Product product; // 작성한 상품 번호
 
     public String getTitle() {
         return title;
@@ -21,7 +23,8 @@ public class Review {
         this.title = title;
     }
 
-    public Review() {}
+    public Review() {
+    }
 
     public int getNo() {
         return no;
@@ -71,20 +74,20 @@ public class Review {
         this.isDeleted = isDeleted;
     }
 
-    public User getUserNo() {
-        return userNo;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserNo(User userNo) {
-        this.userNo = userNo;
+    public void setUser(User userNo) {
+        this.user = user;
     }
 
-    public int getProductNo() {
-        return productNo;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductNo(int productNo) {
-        this.productNo = productNo;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     @Override
@@ -97,8 +100,8 @@ public class Review {
                 ", createdDate=" + createdDate +
                 ", updatedDate=" + updatedDate +
                 ", isDeleted='" + isDeleted + '\'' +
-                ", userNo=" + userNo +
-                ", productNo=" + productNo +
+                ", user=" + user +
+                ", product=" + product +
                 '}';
     }
 }

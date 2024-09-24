@@ -19,18 +19,27 @@
 </head>
 <body>
 <%@ include file="../../common/nav.jsp" %>
-    <div class="container mb-5" style="margin-top: 100px;">
-        <div class="row mb-3">
-            <div class="col-9 offset-2">
-                <h1 class="text-center">상품관리 페이지</h1>
+    <div class="container">
+        <div class="row">
+            <div class="text-center">
+                <h1 class="my-5">상품관리 페이지</h1>
             </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-2">
+            <div class="col-2 pt-5">
                 <!-- 메뉴목록 -->
-                <%@include file="../admin-nav.jsp"%>
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="../home.jsp">관리자메인</a></li>
+                    <li class="list-group-item"><a href="#">회원관리</a></li>
+                    <li class="list-group-item"><a href="#">주문관리</a></li>
+                    <li class="list-group-item"><a href="#">적립금관리</a></li>
+                </ul>
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="../product/product.jsp">상품관리</a></li>
+                    <li class="list-group-item"><a href="../qna/qna.jsp">문의관리</a></li>
+                    <li class="list-group-item"><a href="../product/stock.jsp">상품재고현황</a></li>
+                    <li class="list-group-item"><a href="#">정산관리</a></li>
+                </ul>
             </div>
-            <div class="col-10">
+            <div class="col-9 my-1">
                 <!--상품목록-->
                 <%
                     ProductDao productDao = new ProductDao();
@@ -75,7 +84,7 @@
                 </table>
                 <!--페이지네이션 -->
                 <%
-                    if (pagination.getTotalPages() > 0) {
+                    if(pagination.getTotalPages() > 0) {
                 %>
                 <div>
                     <ul class="pagination justify-content-center">

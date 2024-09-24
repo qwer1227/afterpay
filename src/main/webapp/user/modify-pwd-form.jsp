@@ -19,63 +19,61 @@
 </style>
 <body>
 <%@include file="../common/nav.jsp"%>
-<form method="post" action="changepw.jsp">
 <div class="container">
-      <div class="row">
-        <div class="col-2">
-          <%@include file="../common/user-nav.jsp"%>
-          <%
-            int userNo = 19;
-            UserDao userDao = new UserDao();
-            User user = userDao.getUserByNo(userNo);
-            String userPwd = user.getPwd();
-          %>
-        </div>
-        <div class="col-10">
-          <h2 class="m-4"><strong>비밀번호 변경</strong></h2>
-          <hr style="border:solid 1px gray;"/>
+  <div class="row">
+    <div class="col-2">
+      <%@include file="../common/user-nav.jsp"%>
+      <%
+        int userNo = 19;
+        UserDao userDao = new UserDao();
+        User user = userDao.getUserByNo(userNo);
+        String userPwd = user.getPwd();
+      %>
+    </div>
+    <div class="col-10">
+      <h2 class="m-4"><strong>비밀번호 변경</strong></h2>
+      <hr style="border:solid 1px gray;"/>
 
-          <table class="table table-borderless">
-            <thead>
-              <tr>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row" class="text-center" >변경 전 비밀번호</th>
-                <td class="text-start">
-                  <input type="text" name="prevpwd">
-    <%--              <%--%>
-    <%--                if (userPwd.equals('input에 입력한 값')){--%>
-    <%--               --%>
-    <%--                }  --%>
-    <%--              %>--%>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row" class="text-center" >변경 후 비밀번호</th>
-                <td class="text-start">
-                  <input type="text" name="pwd">
-                </td>
-              </tr>
-              <tr>
-               <th scope="row" class="text-center" >비밀번호 확인</th>
-               <td class="text-start">
-                 <input type="text" name="pwd">
-               </td>
-              </tr>
-            </tbody>
-          </table>
+      <table class="table table-borderless">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row" class="text-center">변경 전 비밀번호</th>
+            <td class="text-start">
+              <input type="text">
+<%--              <%--%>
+<%--                if (userPwd.equals('input에 입력한 값')){--%>
+<%--               --%>
+<%--                }  --%>
+<%--              %>--%>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-center">변경 후 비밀번호</th>
+            <td class="text-start">
+              <input type="text">
+            </td>
+          </tr>
+          <tr>
+           <th scope="row" class="text-center">비밀번호 확인</th>
+           <td class="text-start">
+             <input type="text">
+           </td>
+          </tr>
+        </tbody>
+      </table>
 
-          <div class="text-end">
-              <button type="submit">비밀번호 변경</button>
-          </div>
-        </div>
+      <div class="text-end">
+        <a href="" type="button" class="btn btn-outline-danger">비밀번호 변경</a>
       </div>
+    </div>
+  </div>
 </div>
-</form>
 </body>
 </html>

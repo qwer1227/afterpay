@@ -10,7 +10,6 @@ public class Stock {
 
     public Stock() {}
 
-
     public int getNo() {
         return no;
     }

@@ -27,7 +27,7 @@ public class DaoHelper {
 
 	private DaoHelper() {}
 
-	public static Connection getConnection() throws SQLException {
+	private static Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(url, username, password);
 	}
 

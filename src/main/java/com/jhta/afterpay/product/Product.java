@@ -13,8 +13,6 @@ public class Product {
     private int totalRating;
     private Category category;
     private String defaultImage;
-    private Image image;
-    private String deleted;
 
     public Product() {}
 
@@ -96,11 +94,6 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
-    }
-
-    // 카테고리 번호 유무 체크
-    public boolean hasCategory(int catNo) {
-        return catNo == category.getNo();
     }
 
     public String getDefaultImage() {

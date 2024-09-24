@@ -1,7 +1,5 @@
 package com.jhta.afterpay.product;
 
-import com.jhta.afterpay.user.User;
-
 import java.util.Date;
 
 public class Review {

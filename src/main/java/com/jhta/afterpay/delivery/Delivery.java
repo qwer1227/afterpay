@@ -2,8 +2,6 @@ package com.jhta.afterpay.delivery;
 
 import com.jhta.afterpay.order.Order;
 import com.jhta.afterpay.product.Product;
-import com.jhta.afterpay.product.Review;
-import com.jhta.afterpay.product.Stock;
 
 public class Delivery {
     private int no;
@@ -14,15 +12,6 @@ public class Delivery {
     private Stock stock;
     private Order order;
     private String recipient;
-    private Review review;
-
-    public Review getReview() {
-        return review;
-    }
-
-    public void setReview(Review review) {
-        this.review = review;
-    }
 
     public Delivery() {
     }

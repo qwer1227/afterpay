@@ -4,16 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>AFTER PAY</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/common/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css">
     <style>
         p {
             font-size: 30px;
@@ -22,13 +19,11 @@
             text-align: center;
             border-bottom: 1px solid #ccc;
         }
-
         h3 {
             font-weight: bolder;
             font-size: 20px;
             margin-bottom: 20px;
         }
-
         h5 {
             font-size: 13px;
             margin-bottom: 35px;
@@ -39,7 +34,7 @@
 <%
     String menu = "홈";
 %>
-<%@ include file="/common/nav.jsp" %>
+<%@ include file="../common/nav.jsp" %>
 <div class="container">
     <p>멤버십</p>
     <h3>애프터 페이 멤버십 제도</h3>
@@ -58,7 +53,7 @@
     <h3>추천인 프로모션</h3>
     <h5>
         신규 가입 시 추천인 ID 입력 후 회원가입 시 5,000원 적립금이 지급됩니다. <br>
-        추천인 ID를 입력하신 신규 가입자가 상품 구매 시 추천인에게 10,000원 적립금이 지급됩니다. <br>
+        추천인 ID를 입력하신 신규  가입자가 상품 구매 시 추천인에게 10,000원 적립금이 지급됩니다. <br>
         적립금은 지급일로부터 1년 동안 사용 가능합니다.
     </h5>
     <h3>이용 약관</h3>
@@ -72,6 +67,6 @@
 
     </h5>
 </div>
-<%@ include file="/common/footer.jsp" %>
+<%@ include file="../common/footer.jsp" %>
 </body>
 </html>

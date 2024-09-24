@@ -2,8 +2,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.jhta.afterpay.user.Review" %>
 <%@ page import="com.jhta.afterpay.util.DaoHelper" %>
-<%@ page import="com.jhta.afterpay.util.Pagination" %>
-<%@ page import="com.jhta.afterpay.util.Utils" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
@@ -29,122 +27,82 @@
 </style>
 <body>
 <%@include file="../common/nav.jsp"%>
-<%
-  int userNo = 19;
-  ReviewDao reviewDao = new ReviewDao();
-  List<Review> reviewList = reviewDao.getReviewsByUserNo(userNo);
-  int reviewCnt = 1;
-%>
 <div class="container">
-  <form type="post" action="delete-review.jsp">
-    <div class="row">
-      <div class="col-2">
-        <%@include file="../common/user-nav.jsp"%>
-      </div>
-      <div class="col-10">
-        <h2 class="m-4"><strong>REVIEW</strong></h2>
-        <hr style="border:solid 1px gray;"/>
+  <div class="row">
+    <div class="col-2">
+      <%@include file="../common/user-nav.jsp"%>
+      <%
+          int userNo = 19;
+          ReviewDao reviewDao = new ReviewDao();
+          List<Review> reviewList = reviewDao.getReviewsByUserNo(userNo);
+          int reviewCnt = 1;
+      %>
+    </div>
+    <div class="col-10">
+      <h2 class="m-4"><strong>REVIEW</strong></h2>
+      <hr style="border:solid 1px gray;"/>
 
-        <table class="table">
-          <colgroup>
-            <col width="5%">
-            <col width="10%">
-            <col width="*">
-            <col width="15%">
-            <col width="10%">
-          </colgroup>
-          <thead>
-            <tr class="text-center">
-              <th scope="col">
-                <input id="check-all" type="checkbox" name="all" onchange="checkAll()" style="zoom:1.8">
-              </th>
+      <table class="table">
+        <colgroup>
+          <col width="5%">
+          <col width="10%">
+          <col width="*">
+          <col width="15%">
+          <col width="5%">
+        </colgroup>
+        <thead>
+          <tr class="text-center">
+            <th scope="col">
+              <input id="check-all" type="checkbox" name="all" onchange="checkAll()" style="zoom:1.8">
+            </th>
               <th scope="col">No</th>
               <th scope="col">리뷰 제목</th>
               <th scope="col">작성일</th>
-              <th scope="col">별점</th>
-            </tr>
-          </thead>
-          <tbody>
-          <%
-            if (reviewList.isEmpty()){
-          %>
-            <tr>
-              <td colspan="5" class="text-center">
-                작성된 리뷰가 없습니다.
-              </td>
-            </tr>
-          <%
-            }
-            for(Review reviews : reviewList){
-          %>
-            <tr class="text-center">
-              <th scope="col">
-                <input type="checkbox" name="reviewNo" vlaue="<%=reviews.getNo()%>" onchange="checkSelect()" style="zoom:1.5">
+              <th scope="col" class="text-end">
+                <button id="check-del" class="btn btn-lg">
+                  <i class="bi bi-trash"></i>
+                </button>
               </th>
-              <th scope="row"><%=reviewCnt++%></th>
-              <td class="text-start">
-                <!-- 상품 상세페이지의 리뷰로 페이지 이동 -->
-                <a href="" style="text-decoration-line: none">
-                  <%=reviews.getTitle()%>
-                </a>
-              </td>
-              <td><%=reviews.getCreatedDate()%></td>
-              <td><%=reviews.getRating()%></td>
-            </tr>
-          <%
-            }
-          %>
-          </tbody>
-        </table>
+          </tr>
+        </thead>
+        <tbody>
         <%
-          if (!reviewList.isEmpty()){
+          for(Review review : reviewList){
         %>
-          <div scope="col" class="text-start">
-            <button type="submit" class="btn btn-lg" onclick="deleteQna()">
-              <i class="bi bi-trash"></i><span class="fs-6">선택 삭제</span>
-            </button>
-          </div>
+          <tr class="text-center">
+            <th scope="col">
+              <input type="checkbox" name="reviewNo" onchange="checkSelect()" style="zoom:1.5">
+            </th>
+            <th scope="row"><%=reviewCnt++%></th>
+            <td class="text-start"><%=review.getTitle()%></td>
+            <td><%=review.getCreatedDate()%></td>
+            <td></td>
+          </tr>
         <%
           }
         %>
+          </tbody>
+        </table>
 
-        <nav aria-label="Page navigation example m-3">
-          <ul class="pagination justify-content-center">
-            <%
-              int pageNo = Utils.toInt(request.getParameter("page"), 1);
-              int totalRows = reviewDao.getAllTotalRowsByUserNo(userNo);
-              Pagination pagination = new Pagination(pageNo, totalRows);
-              if (pagination.getTotalRows() > 0) {
-                int beginPage = pagination.getBeginPage();
-                int endPage = pagination.getEndPage();
-            %>
-            <li class="page-item <%=pagination.isFirst() ? "disabled" : ""%>">
-              <a class="page-link" href="user-qna.jsp?page=<%=pagination.getPrev()%>" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <%
-              for (int num = beginPage; num <= endPage; num++){
-            %>
-            <li class="page-item">
-              <a class="page-link <%=pageNo == num ? "active" : ""%>" href="user-qna.jsp?page=<%=num%>"><%=num%></a>
-            </li>
-            <%
-              }
-            %>
-            <li class="page-item">
-              <a class="page-link <%=pagination.isLast() ? "disabled" : ""%>" href="user-qna.jsp?page=<%=pagination.getNext()%>" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-            <%
-              }
-            %>
-          </ul>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
         </nav>
-      </div>
     </div>
-  </form>
+  </div>
 </div>
 
 <script type="text/javascript">

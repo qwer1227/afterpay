@@ -1,10 +1,7 @@
 <%@ page import="com.jhta.afterpay.user.UserDao" %>
 <%@ page import="com.jhta.afterpay.user.User" %>
+<%@ page import="com.jhta.afterpay.user.Address" %>
 <%@ page import="com.jhta.afterpay.util.Utils" %>
-<%@ page import="com.jhta.afterpay.order.OrderDao" %>
-<%@ page import="com.jhta.afterpay.order.Order" %>
-<%@ page import="com.jhta.afterpay.addr.AddrDao" %>
-<%@ page import="com.jhta.afterpay.addr.Addr" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <%
   //1. 요청 파라미터 값 조회
@@ -17,23 +14,14 @@
   int userNo = 19;
   String tel = request.getParameter("tel");
   String email = request.getParameter("email");
-  String zipcode = request.getParameter("zipcode");
-  String address = request.getParameter("address");
-  String detailAddr = request.getParameter("detailAddress");
 
   UserDao userDao = new UserDao();
   User user = userDao.getUserByNo(userNo);
+
   user.setTel(tel);
   user.setEmail(email);
   userDao.updateUser(user);
 
-//  AddrDao addrDao = new AddrDao();
-//  Addr addr = addrDao.getHomeAddrByUserNo(userNo);
-//  addr.setZipCode(zipcode);
-//  addr.setAddr1(address);
-//  addr.setAddr2(detailAddr);
-//  addr.setNo(addr.getNo());
-//  addrDao.updateAddrByAddrNo(addr);
 
   response.sendRedirect("info.jsp");
 %>

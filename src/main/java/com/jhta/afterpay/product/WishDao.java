@@ -1,6 +1,5 @@
 package com.jhta.afterpay.product;
 
-import com.jhta.afterpay.user.User;
 import com.jhta.afterpay.util.DaoHelper;
 
 import java.util.List;
@@ -8,7 +7,7 @@ import java.util.List;
 public class WishDao {
     /**
      * 위시리스트에 상품을 저장한다.
-     * @param wish 위시리스트에 추가된 상품의 정보
+     * @param wish 위시리스트에 추가될 상품의 정보
      */
     public void insertWish(Wish wish) {
         String sql = """
@@ -22,20 +21,45 @@ public class WishDao {
     }
 
     /**
-     * 위시리시트 번호로 위시리스트의 상품을 삭제한다.
+     * 위시리스트 상품을 삭제한다.
      * @param wishNo 위시리스트 번호
      */
-    public void deleteWishByNo(int wishNo, int userNo) {
+    public void deleteWishByNo(int wishNo) {
         String sql = """
            delete from wishes
-           where wish_no = ? and user_no = ?     
+           where wish_no = ?     
         """;
 
-        DaoHelper.delete(sql, wishNo, userNo);
+        DaoHelper.delete(sql, wishNo);
     }
 
     /**
-     * 사용자의 위시리스트 상품 목록을 반환한다.
+     * 위시리스트 상품을 반환한다.
+     * @param productNo 상품 번호
+     * @param userNo 유저 번호
+     * @return 위시리스트 상품 1개
+     */
+    public Wish getWishByNo(int productNo, int userNo) {
+        String sql = """
+            select wish_no
+                    , product_no
+                    , user_no    
+            from wishes
+            where product_no = ? and user_no = ?
+        """;
+
+        return DaoHelper.selectOne(sql, rs -> {
+            Wish wish = new Wish();
+            wish.setNo(rs.getInt("wish_no"));
+            wish.setProductNo(rs.getInt("product_no"));
+            wish.setUserNo(rs.getInt("user_no"));
+
+            return wish;
+        }, productNo, userNo);
+    }
+
+    /**
+     * 사용자 번호로 위시리스트 상품 목록을 반환한다.
      * @param userNo 사용자 번호
      * @return 사용자의 위시리스트 상품 목록
      */
@@ -62,55 +86,5 @@ public class WishDao {
 
             return wish;
         }, userNo);
-    }
-
-    public Wish getWishByUserNo(int userNo) {
-        String sql = """
-                SELECT P.PRODUCT_NO
-                    , P.PRODUCT_NAME
-                    , P.PRODUCT_PRICE
-                    , S.PRODUCT_STOCK_NO
-                    , S.PRODUCT_STOCK_SIZE
-                    , S.PRODUCT_STOCK_AMOUNT
-                    , W.WISH_NO
-                    , W.USER_NO
-                FROM WISHES W JOIN PRODUCTS P
-                    ON W.PRODUCT_NO = P.PRODUCT_NO
-                        JOIN PRODUCT_STOCKS S
-                    ON P.PRODUCT_NO = S.PRODUCT_NO
-                WHERE USER_NO = ?
-                """;
-        return DaoHelper.selectOne(sql, rs -> {
-            Wish wish = new Wish();
-            wish.setNo(rs.getInt("wish_no"));
-
-            Product product = new Product();
-            product.setNo(rs.getInt("product_no"));
-            product.setName(rs.getString("product_name"));
-            product.setPrice(rs.getInt("product_price"));
-            wish.setProduct(product);
-
-            Stock stock = new Stock();
-            stock.setNo(rs.getInt("product_stock_no"));
-            stock.setSize(rs.getString("product_stock_size"));
-            stock.setAmount(rs.getInt("product_stock_amount"));
-            wish.setStock(stock);
-
-            User user = new User();
-            user.setNo(rs.getInt("user_no"));
-            wish.setUser(user);
-
-            return wish;
-        });
-    }
-
-    public int getAllTotalRowsByUserNo(int userNo){
-        String sql = """
-                SELECT COUNT(*)
-                FROM WISHES
-                WHERE USER_NO = ?
-                """;
-
-        return DaoHelper.selectOneInt(sql, userNo);
     }
 }

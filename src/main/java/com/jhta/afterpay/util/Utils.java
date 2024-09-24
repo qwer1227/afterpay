@@ -1,15 +1,10 @@
 package com.jhta.afterpay.util;
 
-import java.security.SecureRandom;
 import java.text.DecimalFormat;
 
 public class Utils {
 
 	private static final DecimalFormat decimalFormat = new DecimalFormat("##,###");
-
-	private static String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
-	private static final int PASSWORD_LENGTH = 8; // 비밀번호 길이
-	private static final SecureRandom random = new SecureRandom();
 
 	/**
 	 * 객체가 null이면 빈 문자열을 반환한다
@@ -73,14 +68,5 @@ public class Utils {
 			return q + 1;
 		}
 		return q;
-	}
-
-	public static String TempPassword(){
-		StringBuilder password = new StringBuilder(PASSWORD_LENGTH);
-		for (int i = 0; i < PASSWORD_LENGTH; i++) {
-			int index = random.nextInt(CHARACTERS.length());
-			password.append(CHARACTERS.charAt(index));
-		}
-		return password.toString();
 	}
 }

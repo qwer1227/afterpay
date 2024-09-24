@@ -14,46 +14,9 @@
 </head>
 <body>
 <%@ include file="../common/nav.jsp" %>
-    <div class="container mb-5">
-        <div class="row mb-5">
-            <div class="col-6 my-5">
-                <div class="card" style="width: 100%;">
-                    <div class="card-header">
-                        <h1>하루 매출</h1>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 my-5">
-                <div class="card" style="width: 100%;">
-                    <div class="card-header">
-                        <h1>재고 현황</h1>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="container">
         <div class="row">
-            <div>
-                <div class="card" style="width: 100%;">
-                    <div class="card-header">
-                        <h1>문의 게시판</h1>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 <%@ include file="../common/footer.jsp" %>

@@ -68,12 +68,11 @@ public class PaymentDao {
                 FROM PAYMENTS
                 WHERE ORDER_NO = ?
                 """;
-
+        Payment payment = new Payment();
+        Order order =new Order();
+        payment.setOrder(order);
         return DaoHelper.selectOne(sql
                 , rs -> {
-                    Payment payment = new Payment();
-                    Order order =new Order();
-                    payment.setOrder(order);
                     payment.setNo(rs.getInt("PAYMENT_NO"));
                     payment.setPrice(rs.getInt("PAYMENT_PRICE"));
                     payment.getOrder().setNo(rs.getInt("ORDER_NO"));

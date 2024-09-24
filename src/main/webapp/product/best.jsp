@@ -22,44 +22,28 @@
             height: 450px;
             opacity: 0.5;
         }
-        .choicebtn {
-            margin-top: 300px;
-            text-align: center;
-        }
-
-        button {
-            width: 25%;
-        }
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100 ">
 <%
     String menu = "홈";
 %>
-<%@ include file="common/nav.jsp" %>
-<div class="choicebtn">
-    <button type="button" class="btn btn-outline-primary btn-lg" onclick="location.href='/product/list.jsp?cat_no=10'">
-        남성
-    </button>
-    <button type="button" class="btn btn-outline-danger btn-lg" onclick="location.href='/product/list.jsp?cat_no=20'">
-        여성
-    </button>
-<%@ include file="/common/nav.jsp" %>
+<%@ include file="../common/nav.jsp" %>
 <div id="thumbnail-image-box" class="row">
     <div class="col" style="text-align: center; padding-left: 500px;">
-        <a href="/product/list.jsp?cat_no=10" class="text-dark text-decoration-none">
+        <a href="/product/bestlist.jsp?cat_no=10" class="text-dark text-decoration-none">
             <img src="/img/main6.png" onmouseenter="fn1(event)" onmouseleave="fn2(event)">
-            <p>남성</p>
+            <p>남성 베스트</p>
         </a>
     </div>
     <div class="col" style="text-align: center; padding-right: 500px">
-        <a href="/product/list.jsp?cat_no=20" class="text-dark text-decoration-none">
-            <img src="/img/main4.png" onmouseenter="fn1(event)" onmouseleave="fn2(event)">
-            <p>여성</p>
+        <a href="/product/bestlist.jsp?cat_no=20" class="text-dark text-decoration-none">
+            <img src="/img/main7.png" onmouseenter="fn1(event)" onmouseleave="fn2(event)">
+            <p>여성 베스트</p>
         </a>
     </div>
 </div>
-<%@ include file="/common/footer.jsp" %>
+<%@ include file="../common/footer.jsp" %>
 </body>
 <script>
     function fn1(event) {

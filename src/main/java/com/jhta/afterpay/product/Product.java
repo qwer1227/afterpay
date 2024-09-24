@@ -145,7 +145,6 @@ public class Product {
                 ", totalRating=" + totalRating +
                 ", category=" + category +
                 ", defaultImage='" + defaultImage + '\'' +
-                ", deleted='" + deleted + '\'' +
                 '}';
     }
 }

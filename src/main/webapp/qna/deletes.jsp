@@ -3,10 +3,15 @@
 <%@ page import="com.jhta.afterpay.qna.Qna" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-  int qnaNo = Utils.toInt(request.getParameter("no"));
-  
+  String[] arr = request.getParameterValues("qnaNo");
+
   QnaDao qnaDao = new QnaDao();
-  qnaDao.deleteQna(qnaNo);
-  
+
+  for (String value : arr) {
+    int qnaNo = Integer.parseInt(value);
+    Qna qna = qnaDao.getQnaByQnaNo(qnaNo);
+    qna.setIsQnaDeleted("Y");
+    qnaDao.updateQna(qna);
+  }
   response.sendRedirect("user-qna.jsp");
 %>

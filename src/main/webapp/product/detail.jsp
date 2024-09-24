@@ -113,7 +113,7 @@
                 <div class="col-12 text-end">
                     <div class="d-flex justify-content-between border p-3 bg-light">
                         <p class="fw-bold pt-2">사이즈를 선택하세요</p>
-                        <form class="row row-cols-lg-auto g-3 align-items-center" method="get" action="order.jsp">
+                        <form class="row row-cols-lg-auto g-3 align-items-center" method="get" action="../order/order-form.jsp">
                             <div class="col-12">
                                 <div >
                                     <%
@@ -145,7 +145,7 @@
                             <div class="col-12  text-end">
                                 <div>
                                     <button type="button" class="btn btn-outline-primary btn-sm">장바구니 담기</button>
-                                    <button type="button" class="btn btn-outline-primary btn-sm">지금 구매하기</button>
+                                    <button type="submit" class="btn btn-outline-primary btn-sm">지금 구매하기</button>
                                 </div>
                             </div>
                         </form>

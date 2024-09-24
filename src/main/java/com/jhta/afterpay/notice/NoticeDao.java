@@ -35,14 +35,12 @@ public class NoticeDao {
                     (NOTICE_NO
                     , NOTICE_TITLE
                     , NOTICE_CONTENT
-                    , USER_NO)
-            VALUES(NOTICES_SEQ.NEXTVAL , ?, ?, ?)
+                    )
+            VALUES(NOTICE_NO_SEQ.NEXTVAL, ?, ?)
         """;
 
-        DaoHelper.insert(sql, notice.getNo()
-                            , notice.getTitle()
-                            , notice.getContent()
-                            , notice.getUser().getNo());
+        DaoHelper.insert(sql, notice.getTitle()
+                            , notice.getContent());
     }
     /**
      * 공지사항의 총 갯수를 반환한다
@@ -66,14 +64,11 @@ public class NoticeDao {
     public List<Notice> getNotices(int begin, int end) {
         String sql = """
                 select * 
-                from (select row_number() over (order by n.user_no) row_num
-                           , n.notice_no
-                           , n.notice_title
-                           , n.notice_created_date
-                           , n.user_no
-                           from notices n, users u
-                           where u.user_no = n.user_no
-                           and u.user_no = 6)
+                from (select row_number() over (order by NOTICE_NO) row_num
+                           , notice_no
+                           , notice_title
+                           , notice_created_date
+                           from notices n)
                 where row_num between ? and ?
                 """;
 
@@ -83,9 +78,6 @@ public class NoticeDao {
             notice.setTitle(rs.getString("notice_title"));
             notice.setCreatedDate(rs.getDate("notice_created_date"));
 
-            User user = new User();
-            user.setNo(rs.getInt("user_no"));
-            notice.setUser(user);
             return notice;
 
         }, begin, end);
@@ -105,7 +97,6 @@ public class NoticeDao {
                     , notice_updated_date
                     , notice_remark
                     , isnoticedeleted
-                    , user_no
                 from notices
                 where notice_no = ?
                 """;

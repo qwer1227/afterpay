@@ -19,7 +19,6 @@
     int largeAmount = Utils.toInt(request.getParameter("largeAmount"));
 
 
-
     ProductDao productDao = new ProductDao();
 
     int seq = productDao.getSequence();

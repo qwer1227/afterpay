@@ -109,24 +109,26 @@
                         <div class="card-body">
                             <table class="table">
                                 <thead>
-                                    <tr>
-                                        <th>사이즈</th>
-                                        <th>재고수량</th>
-                                    </tr>
+                                <tr>
+                                    <th>사이즈</th>
+                                    <th>재고수량</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                        <%
-                                            int totalAmount = 0;
-                                            for (Stock stock : stocks) {
-                                                totalAmount += stock.getAmount();
-                                        %>
-                                    <tr>
-                                        <td><%=stock.getSize()%></td>
-                                        <td><%=stock.getAmount()%></td>
-                                    </tr>
-                                        <%
-                                            }
-                                        %>
+                                <%
+                                    int totalAmount = 0;
+                                    for (Stock stock : stocks) {
+                                        totalAmount += stock.getAmount();
+                                %>
+                                <tr>
+                                    <td><%=stock.getSize()%>
+                                    </td>
+                                    <td><%=stock.getAmount()%>
+                                    </td>
+                                </tr>
+                                <%
+                                    }
+                                %>
 
                                 </tbody>
                             </table>

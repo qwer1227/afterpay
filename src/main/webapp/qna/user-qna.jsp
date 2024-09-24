@@ -155,7 +155,7 @@
               </a>
             </li>
             <%
-              for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
+              for (int num = beginPage; num <= endPage; num++) {
             %>
             <li class="page-item <%=pageNo == num? "active" : "" %>">
               <a href="user-qna.jsp?page=<%=num %>" class="page-link"><%=num %>

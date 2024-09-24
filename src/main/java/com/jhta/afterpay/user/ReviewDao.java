@@ -9,6 +9,7 @@ public class ReviewDao {
 
     /**
      * 사용자번호로 작성한 리뷰 중 삭제하지 않은 리뷰의 총 갯수 조회
+     *
      * @param userNo 사용자번호
      * @return 리뷰 갯수
      */
@@ -25,6 +26,7 @@ public class ReviewDao {
 
     /**
      * 사용자가 삭제하지 않은 리뷰들 목록 조회
+     *
      * @param userNo
      * @return
      */
@@ -57,10 +59,11 @@ public class ReviewDao {
                 WHERE ISDELETED = 'N'
                 """;
 
+        Review review = new Review();
         return DaoHelper.selectOneInt(sql);
     }
 
-    public List<Review> getNotDeletedReview(int begin, int end) {
+    public List<Review> getNotDeletedReview(int userNo, int begin, int end) {
         String sql = """
                 SELECT *
                 FROM(
@@ -75,6 +78,7 @@ public class ReviewDao {
                         , PRODUCT_NO
                     FROM REVIEWS
                     WHERE ISDELETED = 'N'
+                        AND USER_NO = ?
                 )
                 WHERE ROWNUMBER BETWEEN ? AND ?
                 """;
@@ -94,7 +98,7 @@ public class ReviewDao {
             user.setNo(rs.getInt("user_no"));
             review.setUser(user);
             return review;
-        }, begin, end);
+        }, userNo, begin, end);
     }
 
     public void updateReview(Review review) {
@@ -104,12 +108,13 @@ public class ReviewDao {
                 WHERE REVIEW_NO = ?
                 """;
         DaoHelper.update(sql
-                    , review.getIsDeleted()
-                    , review.getNo());
+                , review.getIsDeleted()
+                , review.getNo());
     }
 
     /**
      * 리뷰번호로 해당 리뷰 조회
+     *
      * @param reviewNo
      * @return
      */
@@ -184,12 +189,12 @@ public class ReviewDao {
         }, productNo);
     }
 
-    public void deleteReview(int reviewNo){
+    public void deleteReview(int reviewNo) {
         String sql = """
                 UPDATE REVIEWS
                 SET ISDELETED = 'Y'
                 WHERE REVIEW_NO = ?
                 """;
-        DaoHelper.update(sql,reviewNo);
+        DaoHelper.update(sql, reviewNo);
     }
 }

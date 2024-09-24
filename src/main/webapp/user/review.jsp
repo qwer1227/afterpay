@@ -44,14 +44,14 @@
   Pagination pagination = new Pagination(pageNo, totalRows);
   int beginPage = pagination.getBegin();
   int endPage = pagination.getEnd();
-  List<Review> reviews = reviewDao.getNotDeletedReview(beginPage, endPage);
+  List<Review> reviews = reviewDao.getNotDeletedReview(userNo, beginPage, endPage);
   int reviewCnt = pagination.getBegin();
 %>
 <div class="container">
   <div class="row">
     <div class="col-2"></div>
     <div class="col-10">
-      <h2 class="m-4"><strong>REVIEW</strong></h2>
+      <h2 class="mt-3"><strong>REVIEW</strong></h2>
     </div>
   </div>
   <div class="row">
@@ -59,7 +59,7 @@
       <%@include file="../common/user-nav.jsp" %>
     </div>
     <div class="col-10">
-      <form type="post" action="delete-review.jsp">
+      <form type="post" action="delete-review.jsp" id="review">
         <hr style="border:solid 1px gray;"/>
         <div class="row mb-3">
           <div class="col-12">
@@ -73,8 +73,8 @@
               </colgroup>
               <thead>
               <tr class="text-center">
-                <th scope="col">
-                  <input id="check-all" type="checkbox" name="all" onchange="checkAll()" style="zoom:1.8">
+                <th class="text-center">
+                  <input id="check-all" type="checkbox" name="all" onchange="checkAll()" style="zoom:1.5">
                 </th>
                 <th scope="col">No</th>
                 <th scope="col">리뷰 제목</th>
@@ -97,7 +97,8 @@
               %>
               <tr class="text-center">
                 <th scope="col">
-                  <input type="checkbox" name="reviewNo" value="<%=review.getNo()%>" onchange="checkSelect()" style="zoom:1.5">
+                  <input type="checkbox" name="reviewNo" value="<%=review.getNo()%>" onchange="checkSelect()"
+                         style="zoom:1.5">
                 </th>
                 <th scope="row"><%=reviewCnt++%>
                 </th>
@@ -112,12 +113,12 @@
                 <td>
                   <%
                     int rating = review.getRating();
-                    for (int x = 1; x <= rating; x++){
+                    for (int x = 1; x <= rating; x++) {
                   %>
                   <i class="bi bi-star-fill"></i>
                   <%
                     }
-                    for (int y = 0; y < 5 - rating; y++){
+                    for (int y = 0; y < 5 - rating; y++) {
                   %>
                   <i class="bi bi-star"></i>
                   <%
@@ -132,27 +133,30 @@
             </table>
           </div>
         </div>
-
-              <%
-              if (!reviewUser.isEmpty()) {
-            %>
-            <div class="text-start mb-3">
-              <button type="submit" class="btn" onclick="deleteQna()">
-                <i class="bi bi-trash"></i>
-                <span class="fs-6">선택삭제</span>
-              </button>
-            </div>
-              <%
-              }
-            %>
         
         <%
-          if(pagination.getTotalPages() > 0) {
+          if (!reviewUser.isEmpty()) {
+        %>
+        <div class="text-start mb-3">
+          <button type="submit" class="btn" onclick="deleteQna()">
+            <i class="bi bi-trash"></i>
+            <span class="fs-6">선택삭제</span>
+          </button>
+        </div>
+        <%
+          }
+        %>
+        
+        <%
+          if (reviewDao.getReviewCntByUserNo(userNo) > 10) {
+            if (pagination.getTotalPages() > 0) {
         %>
         <div>
           <ul class="pagination justify-content-center">
             <li class="page-item <%=pagination.isFirst() ? "disabled" : "" %>">
-              <a class="page-link" href="review.jsp?page=<%pagination.getPrev(); %>">이전</a>
+              <a class="page-link" href="review.jsp?page=<%pagination.getPrev(); %>">
+                <i class="bi bi-caret-left-fill"></i>
+              </a>
             </li>
             <%
               for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
@@ -165,70 +169,73 @@
               }
             %>
             <li class="page-item <%=pagination.isLast() ? "disabled" : ""%>">
-              <a class="page-link" href="review.jsp?page=<%=pagination.getNext() %>">다음</a>
+              <a class="page-link" href="review.jsp?page=<%=pagination.getNext() %>">
+                <i class="bi bi-caret-right-fill"></i>
+              </a>
             </li>
           </ul>
         </div>
         <%
+            }
           }
         %>
       </form>
-</div>
+    </div>
+    
+    <script type="text/javascript">
+        function checkAll() {
+            let isChecked = document.querySelector("[name=all]").checked;
+            console.log('체크여부', isChecked);
 
-<script type="text/javascript">
-    function checkAll() {
-        let isChecked = document.querySelector("[name=all]").checked;
-        console.log('체크여부', isChecked);
+            let checkBoxes = document.querySelectorAll("[name=reviewNo]");
+            checkBoxes.forEach(function (el) {
+                el.checked = isChecked;
+            })
+        }
 
-        let checkBoxes = document.querySelectorAll("[name=reviewNo]");
-        checkBoxes.forEach(function (el) {
-            el.checked = isChecked;
-        })
-    }
+        function checkSelect() {
+            let checkBoxes = document.querySelectorAll("[name=reviewNo]");
+            let checkBoxesLength = checkBoxes.length;
+            let checkedLength = 0;
 
-    function checkSelect() {
-        let checkBoxes = document.querySelectorAll("[name=reviewNo]");
-        let checkBoxesLength = checkBoxes.length;
-        let checkedLength = 0;
+            for (let el of checkBoxes) {
+                if (el.checked) {
+                    checkedLength++;
+                }
+            }
 
-        for (let el of checkBoxes) {
-            if (el.checked) {
-                checkedLength++;
+            if (checkBoxesLength == checkedLength) {
+                document.querySelector("[name=all]").checked = true;
+            } else {
+                document.querySelector("[name=all]").checked = false;
             }
         }
 
-        if (checkBoxesLength == checkedLength) {
-            document.querySelector("[name=all]").checked = true;
-        } else {
-            document.querySelector("[name=all]").checked = false;
-        }
-    }
-
-    function deleteQna() {
-        // 체크된 문의번호를 조회
-        let checkBoxes = document.querySelectorAll("input[type=checkbox][name=reviewNo]");
-        let isChecked = false;
-        // 체크된 문의가 한 건이라도 있으면 참 반환
-        for (let checkBox of checkBoxes) {
-            if (checkBox.checked) {
-                isChecked = true;
-                break;
+        function deleteQna() {
+            // 체크된 문의번호를 조회
+            let checkBoxes = document.querySelectorAll("input[type=checkbox][name=reviewNo]");
+            let isChecked = false;
+            // 체크된 문의가 한 건이라도 있으면 참 반환
+            for (let checkBox of checkBoxes) {
+                if (checkBox.checked) {
+                    isChecked = true;
+                    break;
+                }
             }
-        }
-        // 만약 하나도 선택이 안되면 알림 전송 후, 거짓 반환
-        if (!isChecked) {
-            alert("선택된 문의글이 없습니다.")
-            return false;
-        }
+            // 만약 하나도 선택이 안되면 알림 전송 후, 거짓 반환
+            if (!isChecked) {
+                alert("선택된 문의글이 없습니다.")
+                return false;
+            }
 
-        let qnaForm = document.getElementById("qna");
-        qnaForm.setAttribute("action", "deletes.jsp");
-        qnaForm.submit();
+            let qnaForm = document.getElementById("qna");
+            qnaForm.setAttribute("action", "deletes.jsp");
+            qnaForm.submit();
 
-        // 체크된 문의가 있으면 해당 폼을 제출하는 것이 참
-        return true;
-    }
-</script>
-<%@include file="../common/footer.jsp" %>
+            // 체크된 문의가 있으면 해당 폼을 제출하는 것이 참
+            return true;
+        }
+    </script>
+    <%@include file="../common/footer.jsp" %>
 </body>
 </html>

@@ -17,12 +17,16 @@
 <%@ page import="com.jhta.afterpay.product.ProductDao" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <%
+    String userNos = String.valueOf(session.getAttribute("USERNO"));
+    String userID = String.valueOf(session.getAttribute("USERID"));
+    System.out.println(userID);
+
+    int userNo = Utils.toInt(userNos);
+
     // 쿼리 파라미터
     String address = request.getParameter("address");                                       // 주소
     String detailAddr = request.getParameter("detailAddress");                              // 상세주소
-    String tel = request.getParameter("tel1")                                               // 전화번호
-            + "-" + request.getParameter("tel2")
-            + "-" + request.getParameter("tel3");
+    String tel = request.getParameter("tel");                                               // 전화번호
     String zipcode = request.getParameter("zipcode");                                       // 우편번호
     String email = request.getParameter("emailId") + "@" + request.getParameter("domain");  // 이메일
     String recipient = request.getParameter("recipient");                                   // 수령인
@@ -63,7 +67,7 @@
     StockDao stockDao = new StockDao();
 
     // 주문 회원 정보
-    User user = userDao.getUserById("momo"); // 회원ID는 세션값으로 구할 예정
+    User user = userDao.getUserById(userID); // 회원ID는 세션값으로 구할 예정
     user.setEmail(email);
     user.setTel(tel);
     user.setName(userName);
@@ -78,7 +82,7 @@
     addr.setUser(user);
     addr.setIsAddrHome("N");
 
-    List<Addr> addrs = addrDao.getAllAddrByUserNo(user.getNo());
+    List<Addr> addrs = addrDao.getAllAddrByUserNo(userNo);
 
     // 입력받은 주소와 상세주소가 같은 배송지가 이미 있으면 저장하지 않는다.
     for (Addr findAddr : addrs) {
@@ -91,7 +95,7 @@
         addrDao.insertAddr(addr);
     }
 
-    addrs = addrDao.getAllAddrByUserNo(user.getNo());
+    addrs = addrDao.getAllAddrByUserNo(userNo);
     // 새로 추가된 배송지 번호 가져오기
     for (Addr findAddr : addrs) {
         if (findAddr.getAddr1().equals(address)
@@ -128,7 +132,7 @@
 
     orderDao.insertOrder(order);
 
-    Order payOrder = orderDao.getMostLatelyOrderNoByUserNo(user.getNo());
+    Order payOrder = orderDao.getMostLatelyOrderNoByUserNo(userNo);
 
     // 배송상품 저장
     for (int i = 0; i < stockNoArr.length; i++) {

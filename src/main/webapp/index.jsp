@@ -49,7 +49,7 @@
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100 ">
-<%@ include file="common/nav.jsp" %>
+<%@ include file="/common/nav.jsp" %>
 <div class="main-container">
     <div>
         <img src="../img/main.png" alt=""/>
@@ -84,6 +84,6 @@
         </div>
     </div>
 </div>
-<%@ include file="common/footer.jsp" %>
+<%@ include file="/common/footer.jsp" %>
 </body>
 </html>

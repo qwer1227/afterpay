@@ -11,7 +11,7 @@
                 <%
                     if (userID == null) {
                 %>
-                <a href="/login-form.jsp">
+                <a href="login-form.jsp">
                         <%
             } else {
         %>

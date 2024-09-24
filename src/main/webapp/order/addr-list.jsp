@@ -1,6 +1,7 @@
 <%@ page import="com.jhta.afterpay.addr.AddrDao" %>
 <%@ page import="com.jhta.afterpay.addr.Addr" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="com.jhta.afterpay.util.Utils" %><%--
   Created by IntelliJ IDEA.
   User: jhta
   Date: 2024-09-19
@@ -20,9 +21,12 @@
 </head>
 <body>
 <%
+    String userNo = (String) session.getAttribute("USERNO");
+    String userId = (String) session.getAttribute("USERID");
+
     // 유저의 배송지 목록 가져오기
     AddrDao addrDao = new AddrDao();
-    List<Addr> addrs = addrDao.getAllAddrByUserNo(7); // 세션 이용하기
+    List<Addr> addrs = addrDao.getAllAddrByUserNo(Utils.toInt(userNo)); // 세션 이용하기
 %>
 <div class="container-sm">
     <h2 class="text-start">배송지 목록</h2>

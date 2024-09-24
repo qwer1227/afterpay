@@ -26,7 +26,10 @@
 <%@ include file="../common/nav.jsp" %>
 
 <%
-
+    String userNos = String.valueOf(session.getAttribute("USERNO"));
+    userID = String.valueOf(session.getAttribute("USERID"));
+    System.out.println(userID);
+    int userNo = Utils.toInt(userNos);
     // 전달 받은 상품 재고 번호
     String[] stockNo = request.getParameterValues("stockNo");
     int[] stockNoArr = new int[stockNo.length];
@@ -46,7 +49,7 @@
 
     // 주문 회원 조회
     UserDao userDao = new UserDao();
-    User user = userDao.getUserById("momo");
+    User user = userDao.getUserById(userID);
     AddrDao addrDao = new AddrDao();
     List<Addr> addrs = addrDao.getAllAddrByUserNo(user.getNo());
     String zipcode = "";
@@ -116,14 +119,14 @@
                     <div class="col-12 input-group m-1">
                         <input type="hidden" name="addrNo" value="" disabled>
                         <label>우편번호</label><input type="text" id="sample6_postcode" name="zipcode" placeholder="우편번호"
-                                                  class="form-control" value="<%=zipcode%>">
+                                                  class="form-control" value="<%=zipcode%>" readonly>
                         <input type="button" class="btn btn-primary" onclick="sample6_execDaumPostcode()" value="검색"
                                class="col-2"></button>
                     </div>
                 </li>
                 <li class="mt-1"><label>주소</label><input type="text" id="sample6_address" name="address"
                                                          placeholder="주소" class="form-control" value="<%=addr1%>"
-                                                         required><br></li>
+                                                         required readonly><br></li>
                 <li><label>상세주소</label> <input type="text" id="sample6_detailAddress" name="detailAddress"
                                                value="<%=addr2%>"
                                                placeholder="상세주소" class="form-control"></li>
@@ -284,7 +287,7 @@
 
     const telInput = document.getElementById('tel');
     // 숫자만 입력 가능하도록 설정
-    telInput.addEventListener('input', function() {
+    telInput.addEventListener('input', function () {
         // 입력 값에서 숫자만 추출
         let inputValue = telInput.value.replace(/\D/g, '');
 

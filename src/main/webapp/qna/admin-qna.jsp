@@ -71,7 +71,8 @@
                     </td>
                     <td><a href="detail.jsp?no=<%=qna.getNo()%>"><%=qna.getTitle()%>
                     </a></td>
-                    <td><%=qna.getCreatedDate()%></td>
+                    <td><%=qna.getCreatedDate()%>
+                    </td>
                     <td><%=qna.getRepliedDate()%>
                     </td>
                     <td>답변대기중</td>

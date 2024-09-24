@@ -133,23 +133,38 @@
         <div class="col-10">
             <!--관리자 답변 -->
             <div class="mt-3">
-
-                <div id="reply-1" class="border p-2 mb-2">
+                <%
+                    if (qna.getRepliedContent() == null) {
+                %>
+                <label><h4><strong>관리자답변</strong></h4></label>
+                <div class="border p-2 mb-2">
+                    <div class="small d-flex justify-content-between">
+                        <p>답변을 기달려주세요.</p>
+                    </div>
+                </div>
+                <%
+                } else {
+                %>
+                <label><h4><strong>관리자답변</strong></h4></label>
+                <div class="border p-2 mb-2">
                     <div class="small d-flex justify-content-between">
                         <div>
                             <span class="small">관리자</span>
                             <span class="small"><%=qna.getRepliedDate()%></span>
                         </div>
                         <div>
-                            <a href="#" class="btn btn-outline-dark btn-sm">수정</a>
-                            <a href="#" class="btn btn-outline-dark btn-sm">삭제</a>
+                            <button type="button" class="btn btn-outline-dark btn-sm" onclick="showForm()">수정</button>
+                            <a href="delete-reply.jsp?no=<%=qnaNo%>" class="btn btn-outline-dark btn-sm">삭제</a>
                         </div>
                     </div>
                     <p class="mb-0"><%=qna.getRepliedContent()%>
                     </p>
                 </div>
+                <%
+                    }
+                %>
             </div>
-            <form class="border bg-light p-3 mt-3" method="post" action="update-reply.jsp">
+            <form id="modify-form" class="border bg-light p-3 mt-3 d-none" method="post" action="update-reply.jsp">
                 <input type="hidden" name="qno" value="<%=qna.getNo()%>"/>
                 <div class="mb-3">
                     <textarea rows="3" class="form-control" name="content"></textarea>
@@ -158,10 +173,15 @@
                     <button type="submit" class="btn btn-primary btn-sm">등록</button>
                 </div>
             </form>
+
         </div>
     </div>
 </div>
-
+<script type="text/javascript">
+    function showForm() {
+        document.getElementById("modify-form").classList.remove("d-none");
+    }
+</script>
 <%@include file="../common/footer.jsp" %>
 </body>
 </html>

@@ -13,6 +13,7 @@ public class Product {
     private int totalRating;
     private Category category;
     private String defaultImage;
+    private Image image;
     private String deleted;
 
     public Product() {}
@@ -97,30 +98,12 @@ public class Product {
         this.category = category;
     }
 
-    // 카테고리 번호 유무 체크
-    public boolean hasCategory(int catNo) {
-        return catNo == category.getNo();
-    }
-    
-    // 상품상태 유무 체크
-    public boolean hasStatus(String status) {
-        return status != null && status.equals(this.status);
-    }
-
     public String getDefaultImage() {
         return defaultImage;
     }
 
     public void setDefaultImage(String defaultImage) {
         this.defaultImage = defaultImage;
-    }
-
-    public String getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(String deleted) {
-        this.deleted = deleted;
     }
 
     @Override
@@ -136,7 +119,6 @@ public class Product {
                 ", totalRating=" + totalRating +
                 ", category=" + category +
                 ", defaultImage='" + defaultImage + '\'' +
-                ", deleted='" + deleted + '\'' +
                 '}';
     }
 }

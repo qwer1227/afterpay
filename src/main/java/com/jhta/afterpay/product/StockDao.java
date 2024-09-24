@@ -18,7 +18,7 @@ public class StockDao {
                 WHERE
                 	PRODUCT_STOCK_NO = ?
                 """;
-        
+
         DaoHelper.update(sql, stock.getAmount(), stock.getNo());
     }
 
@@ -106,6 +106,10 @@ public class StockDao {
         String sql = """
                 SELECT *
                 FROM product_stocks
+                WHERE product_no IN (SELECT product_no
+                                     FROM product_stocks
+                                     WHERE product_no = ?)
+                ORDER BY product_stock_size DESC;
                 where product_stock_no = ?
                 """;
 

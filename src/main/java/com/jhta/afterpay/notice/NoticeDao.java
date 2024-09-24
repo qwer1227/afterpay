@@ -16,18 +16,14 @@ public class NoticeDao {
     public void updateNotice(Notice notice) {
         String sql = """
                 UPDATE NOTICES
-                SET NOTICE_NO = ?
-                , NOTICE_TITLE = ?
+                SET NOTICE_TITLE = ?
                 , NOTICE_CONTENT = ?
-                , NOTICE_CREATED_DATE =?
-                , NOTICE_UPDATED_DATE = ?
+                WHERE NOTICE_NO = ?
                 """;
 
-        DaoHelper.update(sql , notice.getNo()
+        DaoHelper.update(sql
                              , notice.getTitle()
-                             , notice.getContent()
-                             , notice.getCreatedDate()
-                             , notice.getUpdatedDate());
+                             , notice.getContent());
     }
     public void insertNotice(Notice notice) {
         String sql = """

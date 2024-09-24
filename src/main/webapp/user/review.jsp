@@ -224,12 +224,12 @@
             }
             // 만약 하나도 선택이 안되면 알림 전송 후, 거짓 반환
             if (!isChecked) {
-                alert("선택된 문의글이 없습니다.")
+                alert("선택된 리뷰글이 없습니다.")
                 return false;
             }
 
             let qnaForm = document.getElementById("qna");
-            qnaForm.setAttribute("action", "deletes.jsp");
+            qnaForm.setAttribute("action", "delete-review.jsp");
             qnaForm.submit();
 
             // 체크된 문의가 있으면 해당 폼을 제출하는 것이 참

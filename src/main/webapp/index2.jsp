@@ -22,28 +22,12 @@
             height: 450px;
             opacity: 0.5;
         }
-        .choicebtn {
-            margin-top: 300px;
-            text-align: center;
-        }
-
-        button {
-            width: 25%;
-        }
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100 ">
 <%
     String menu = "홈";
 %>
-<%@ include file="common/nav.jsp" %>
-<div class="choicebtn">
-    <button type="button" class="btn btn-outline-primary btn-lg" onclick="location.href='/product/list.jsp?cat_no=10'">
-        남성
-    </button>
-    <button type="button" class="btn btn-outline-danger btn-lg" onclick="location.href='/product/list.jsp?cat_no=20'">
-        여성
-    </button>
 <%@ include file="/common/nav.jsp" %>
 <div id="thumbnail-image-box" class="row">
     <div class="col" style="text-align: center; padding-left: 500px;">

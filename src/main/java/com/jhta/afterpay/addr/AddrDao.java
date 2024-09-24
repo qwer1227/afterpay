@@ -7,6 +7,11 @@ import java.util.List;
 
 public class AddrDao {
 
+    /**
+     * 주소 추가
+     *
+     * @param addr
+     */
     public void insertAddr(Addr addr) {
         String sql = """
                 INSERT INTO ADDRESSES
@@ -20,11 +25,16 @@ public class AddrDao {
                 ,?, ?)
                 """;
         DaoHelper.insert(sql
-        , addr.getName(), addr.getTel()
-        , addr.getZipCode(), addr.getAddr1(), addr.getAddr2()
-        , addr.getIsAddrHome(), addr.getUser().getNo());
+                , addr.getName(), addr.getTel()
+                , addr.getZipCode(), addr.getAddr1(), addr.getAddr2()
+                , addr.getIsAddrHome(), addr.getUser().getNo());
     }
 
+    /**
+     * 주소 삭제
+     *
+     * @param addrNo
+     */
     public void deleteAddr(int addrNo) {
         String sql = """
                 DELETE 
@@ -34,8 +44,13 @@ public class AddrDao {
         DaoHelper.delete(sql, addrNo);
     }
 
+    /**
+     * 주소 수정
+     *
+     * @param addr
+     */
     public void updateAddr(Addr addr) {
-        String sql= """           
+        String sql = """           
                 UPDATE ADDRESSES
                 SET 
                 ADDR_NO = ?
@@ -48,26 +63,33 @@ public class AddrDao {
                 ,USER_NO = ?
                 """;
         DaoHelper.update(sql, addr.getNo()
-                            , addr.getName()
-                            , addr.getTel()
-                            , addr.getZipCode()
-                            , addr.getAddr1()
-                            , addr.getAddr2()
-                            , addr.getIsAddrHome()
-                            , addr.getUser().getNo()
+                , addr.getName()
+                , addr.getTel()
+                , addr.getZipCode()
+                , addr.getAddr1()
+                , addr.getAddr2()
+                , addr.getIsAddrHome()
+                , addr.getUser().getNo()
         );
     }
 
+    /**
+     * 주소 번호로 주소 조회
+     *
+     * @param addrNo
+     * @return
+     */
     public Addr getAddrByNo(int addrNo) {
         String sql = """
                 SELECT *
                 FROM ADDRESSES
                 WHERE ADDR_NO = ?
                 """;
+
+        return DaoHelper.selectOne(sql, rs -> {
             Addr addr = new Addr();
             User user = new User();
             addr.setUser(user);
-        return DaoHelper.selectOne(sql, rs-> {
             addr.setNo(rs.getInt("ADDR_NO"));
             addr.setName(rs.getString("ADDR_NAME"));
             addr.setTel(rs.getString("ADDR_TEL"));
@@ -80,6 +102,12 @@ public class AddrDao {
         }, addrNo);
     }
 
+    /**
+     * 유저번호로 유저의 모든 주소 조회
+     *
+     * @param userNo
+     * @return
+     */
     public List<Addr> getAllAddrByUserNo(int userNo) {
         String sql = """
                 SELECT *

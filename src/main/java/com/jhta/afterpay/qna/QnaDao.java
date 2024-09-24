@@ -25,7 +25,6 @@ public class QnaDao {
 
     /**
      * 전체 문의갯수를 조회해서 반환한다.
-     *
      * @return 문의 갯수
      */
     public int getAllTotalRows() {
@@ -39,7 +38,6 @@ public class QnaDao {
 
     /**
      * 페이지처리가 되는 문의 전체 조회 기능
-     *
      * @param begin 첫번째 페이지
      * @param end   마지막 페이지
      * @return
@@ -81,7 +79,6 @@ public class QnaDao {
 
     /**
      * 사용자가 삭제하지 않은 문의 게시글 목록 조회
-     *
      * @param userNo
      * @return 사용자의 게시글 목록
      */
@@ -225,7 +222,6 @@ public class QnaDao {
 
     /**
      * 페이지처리가 되는 문의 전체 조회 기능
-     *
      * @param begin 첫번째 페이지
      * @param end   마지막 페이지
      * @return

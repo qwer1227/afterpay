@@ -10,12 +10,14 @@
     UserDao userDao = new UserDao();
     User user = userDao.getUserById(id);
 
-    if(user == null){
+    System.out.println(DigestUtils.sha256Hex(pwd));
+
+    if (user == null) {
         response.sendRedirect("login-form.jsp?invalid");
         return;
     }
 
-    if("Y".equals(user.getIsBanned())){
+    if ("Y".equals(user.getIsBanned())) {
         response.sendRedirect("login-form.jsp?disabled");
         return;
     }
@@ -29,11 +31,11 @@
     session.setAttribute("USERNO", user.getNo());
     session.setAttribute("USERID", user.getId());
     session.setAttribute("USERNAME", user.getName());
-    session.setAttribute("GRADE",user.getGradeId());
+    session.setAttribute("GRADE", user.getGradeId());
 
-    response.sendRedirect("/index.jsp");
-
-
-
-
+    if(id.equals("ADMIN")){
+        response.sendRedirect("/admin/home.jsp");
+    } else {
+        response.sendRedirect("/index.jsp");
+    }
 %>

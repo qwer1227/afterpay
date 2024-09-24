@@ -10,14 +10,15 @@
     String sha256pw = DigestUtils.sha256Hex(prevPw);
 
     UserDao userDao = new UserDao();
-    User user = userDao.getUserByPrevPw(sha256pw);
+    User user = userDao.getUserByPrevPw(prevPw);
+
 
     if (user == null) {
         response.sendRedirect("changepw-form.jsp?error");
         return;
     }
 
-    if (user.getPwd().equals(sha256pw)){
+    if (user.getPwd().equals(sha256pw)) {
         response.sendRedirect("changepw-form.jsp?error");
         return;
     }

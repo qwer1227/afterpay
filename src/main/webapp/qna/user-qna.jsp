@@ -38,7 +38,7 @@
   Pagination pagination = new Pagination(pageNo, totalRows);
   int beginPage = pagination.getBegin();
   int endPage = pagination.getEnd();
-  List<Qna> qnas = qnaDao.getNotDeletedQna(beginPage, endPage);
+  List<Qna> qnas = qnaDao.getNotDeletedQna(userNo, beginPage, endPage);
   int qnaCnt = pagination.getBegin();
 %>
 <div class="container">
@@ -143,22 +143,16 @@
           </div>
         </div>
         
-        <%--          <%--%>
-        <%--            if (qnaDao.getNotDeleteTotalRows() > 10){--%>
-        <%--          %>--%>
-        
-        
-        <%--                  <%--%>
-        <%--                    }--%>
-        <%--                  %>--%>
-          
-          <%
-                if(pagination.getTotalPages() > 0) {
-              %>
+        <%
+          if (qnaDao.getQnaRowsByUserNo(userNo) > 10) {
+            if (pagination.getTotalPages() > 0) {
+        %>
         <div>
           <ul class="pagination justify-content-center">
             <li class="page-item <%=pagination.isFirst() ? "disabled" : "" %>">
-              <a class="page-link" href="user-qna.jsp?page=<%pagination.getPrev(); %>">이전</a>
+              <a class="page-link" href="user-qna.jsp?page=<%pagination.getPrev(); %>">
+                <i class="bi bi-caret-left-fill"></i>
+              </a>
             </li>
             <%
               for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
@@ -171,19 +165,19 @@
               }
             %>
             <li class="page-item <%=pagination.isLast() ? "disabled" : ""%>">
-              <a class="page-link" href="user-qna.jsp?page=<%=pagination.getNext() %>">다음</a>
+              <a class="page-link" href="user-qna.jsp?page=<%=pagination.getNext() %>">
+                <i class="bi bi-caret-right-fill"></i>
+              </a>
             </li>
           </ul>
         </div>
-          <%
-                }
-              %>
-    
+        <%
+            }
+          }
+        %>
+      </form>
     </div>
   </div>
-  </form>
-</div>
-</div>
 </div>
 
 <script type="text/javascript">

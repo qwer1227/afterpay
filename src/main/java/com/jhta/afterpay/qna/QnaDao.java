@@ -6,11 +6,11 @@ import com.jhta.afterpay.util.DaoHelper;
 import java.util.List;
 
 
-
 public class QnaDao {
 
     /**
      * 전체 문의갯수를 조회해서 반환한다.
+     *
      * @return 문의 갯수
      */
     public int getAllTotalRows() {
@@ -24,6 +24,7 @@ public class QnaDao {
 
     /**
      * 페이지처리가 되는 문의 전체 조회 기능
+     *
      * @param begin 첫번째 페이지
      * @param end   마지막 페이지
      * @return
@@ -65,6 +66,7 @@ public class QnaDao {
 
     /**
      * 사용자가 삭제하지 않은 문의 게시글 목록 조회
+     *
      * @param userNo
      * @return 사용자의 게시글 목록
      */
@@ -98,8 +100,19 @@ public class QnaDao {
         }, userNo);
     }
 
+    public int getQnaRowsByUserNo(int userNo) {
+        String sql = """
+                SELECT COUNT(QNA_NO) cnt
+                FROM QNAS
+                WHERE USER_NO = ?
+                    AND ISQNADELETED = 'N'
+                """;
+        return DaoHelper.selectOneInt(sql, userNo);
+    }
+
     /**
      * 문의 번호와 일치하는 문의내역 조회
+     *
      * @param qnaNo
      * @return
      */
@@ -129,6 +142,7 @@ public class QnaDao {
 
     /**
      * 문의내용 수정
+     *
      * @param qna
      */
     public void updateQna(Qna qna) {
@@ -144,8 +158,10 @@ public class QnaDao {
                 , qna.getIsQnaDeleted()
                 , qna.getNo());
     }
+
     /**
      * 문의내용 추가
+     *
      * @param qna
      */
     public void insertQna(Qna qna) {
@@ -161,6 +177,11 @@ public class QnaDao {
                 , qna.getUser().getNo());
     }
 
+    /**
+     * 문의 삭제
+     *
+     * @param qnaNo
+     */
     public void deleteQna(int qnaNo) {
         String sql = """
                 UPDATE QNAS
@@ -171,15 +192,11 @@ public class QnaDao {
                 , qnaNo);
     }
 
-    public void deleteQnas(Qna qna) {
-        String sql = """
-                UPDATE QNAS
-                SET ISQNADELETED = 'Y'
-                WHERE QNA_NO = ?
-                """;
-        DaoHelper.update(sql,qna.getNo());
-    }
-
+    /**
+     * 삭제되지 않은 총 리뷰 갯수 조회
+     *
+     * @return
+     */
     public int getNotDeletedTotalRows() {
         String sql = """
                 SELECT COUNT(*)
@@ -192,11 +209,12 @@ public class QnaDao {
 
     /**
      * 페이지처리가 되는 문의 전체 조회 기능
+     *
      * @param begin 첫번째 페이지
      * @param end   마지막 페이지
      * @return
      */
-    public List<Qna> getNotDeletedQna(int begin, int end) {
+    public List<Qna> getNotDeletedQna(int userNo, int begin, int end) {
         String sql = """
                     SELECT *
                     FROM(
@@ -210,7 +228,8 @@ public class QnaDao {
                         ,U.USER_NAME
                     FROM QNAS Q, USERS U
                     WHERE Q.USER_NO = U.USER_NO
-                        AND ISQNADELETED = 'N'
+                        AND Q.ISQNADELETED = 'N'
+                        AND U.USER_NO = ?
                     )
                     WHERE ROWNUMBER BETWEEN ? AND ?
                 """;
@@ -229,6 +248,6 @@ public class QnaDao {
             qna.setUser(user);
 
             return qna;
-        }, begin, end);
+        }, userNo, begin, end);
     }
 }

@@ -27,7 +27,7 @@
     // 쿼리 파라미터
     String address = request.getParameter("address");                                       // 주소
     String detailAddr = request.getParameter("detailAddress");                              // 상세주소
-    if(detailAddr == null) {
+    if (detailAddr == null) {
         detailAddr = "";
     }
     String tel = request.getParameter("tel");                                               // 전화번호
@@ -82,7 +82,7 @@
     Addr addr = new Addr();
     // 입력받은 주소와 상세주소가 같은 배송지가 이미 있으면 저장하지 않는다.
     for (Addr findAddr : addrs) {
-        if(findAddr.getAddr2() == null) {
+        if (findAddr.getAddr2() == null) {
             findAddr.setAddr2("");
         }
         if (findAddr.getAddr1().equals(address)
@@ -104,10 +104,10 @@
     // 새로 추가된 배송지 번호 가져오기
     addrs = addrDao.getAllAddrByUserNo(userNo);
     for (Addr findAddr : addrs) {
-        if(findAddr.getAddr2() == null) {
+        if (findAddr.getAddr2() == null) {
             findAddr.setAddr2("");
         }
-        if (findAddr.getAddr1().equals(address) && findAddr.getAddr2()  .equals(detailAddr)) {
+        if (findAddr.getAddr1().equals(address) && findAddr.getAddr2().equals(detailAddr)) {
             addr.setNo(findAddr.getNo());
         }
     }

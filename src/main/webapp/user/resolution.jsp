@@ -74,7 +74,7 @@
 
                 </div>
                 <%
-                    } else {
+                } else {
                 %>
                 <div>
                     <table class="table">
@@ -172,7 +172,7 @@
                     </table>
                 </div>
                 <%
-                  }
+                    }
                 %>
                 <%--페이징 처리--%>
                 <%

@@ -15,11 +15,12 @@ public class OrderDao {
 
     /**
      * 주문 추가
+     *
      * @param order
      * @throws SQLException
      */
     public void insertOrder(Order order) throws SQLException {
-        String sql= """
+        String sql = """
                     insert into ORDERS
                     (ORDER_NO
                     , ORDER_PRICE, ORDER_AMOUNT , DELIVERY_PRICE 
@@ -44,6 +45,7 @@ public class OrderDao {
 
     /**
      * 주문 삭제
+     *
      * @param orderNo
      */
     public void deleteOrder(String orderNo) {
@@ -55,6 +57,7 @@ public class OrderDao {
 
     /**
      * 주문번호로 주문 조회
+     *
      * @param orderNo
      * @return
      */
@@ -90,6 +93,7 @@ public class OrderDao {
 
     /**
      * 회원번호로 주문한 모든 주문조회
+     *
      * @param userNo
      * @return
      */
@@ -101,7 +105,7 @@ public class OrderDao {
                 ORDER BY ORDER_DATE DESC
                 """;
 
-        return DaoHelper.selectList(sql, rs-> {
+        return DaoHelper.selectList(sql, rs -> {
             Order order = new Order();
             User user = new User();
             user.setNo(userNo);
@@ -127,6 +131,7 @@ public class OrderDao {
 
     /**
      * 회원번호로 모든 주문조회
+     *
      * @param userNo
      * @param begin
      * @param end
@@ -149,7 +154,7 @@ public class OrderDao {
                 WHERE rn BETWEEN ? AND ?
                 """;
 
-        return DaoHelper.selectList(sql, rs-> {
+        return DaoHelper.selectList(sql, rs -> {
             Order order = new Order();
 
             User user = new User();
@@ -167,28 +172,29 @@ public class OrderDao {
 
     /**
      * 회원번호로 가장 최근 주문조회
+     *
      * @param userNo
      * @return
      * @throws SQLException
      */
-    public Order getMostLatelyOrderNoByUserNo (int userNo) throws SQLException {
-     String sql = """
-             SELECT ORDER_NO
-              FROM (
-                      SELECT ORDER_NO
-                      FROM ORDERS
-                      WHERE USER_NO = ?
-                      ORDER BY ORDER_DATE DESC
-              )
-              WHERE ROWNUM = 1
-             """;
+    public Order getMostLatelyOrderNoByUserNo(int userNo) throws SQLException {
+        String sql = """
+                SELECT ORDER_NO
+                 FROM (
+                         SELECT ORDER_NO
+                         FROM ORDERS
+                         WHERE USER_NO = ?
+                         ORDER BY ORDER_DATE DESC
+                 )
+                 WHERE ROWNUM = 1
+                """;
         Connection con = DaoHelper.getConnection();
         PreparedStatement pstmt = con.prepareStatement(sql);
         pstmt.setInt(1, userNo);
-        ResultSet rs =  pstmt.executeQuery();
+        ResultSet rs = pstmt.executeQuery();
         Order order = null;
 
-        while(rs.next()){
+        while (rs.next()) {
             order = new Order();
             order.setNo(rs.getInt("ORDER_NO"));
         }
@@ -202,6 +208,7 @@ public class OrderDao {
 
     /**
      * 회원번호로 조회되는 모든 주문 개수
+     *
      * @param userNo
      * @return
      */

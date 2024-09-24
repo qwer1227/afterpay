@@ -54,7 +54,7 @@
     String addr1 = "";
     String addr2 = "";
     for (Addr addr : addrs) {
-        if (addr.getIsAddrHome() == "Y") {
+        if (addr.getIsAddrHome().equals("Y")) {
             zipcode = addr.getZipCode();
             addr1 = addr.getAddr1();
             addr2 = addr.getAddr2();

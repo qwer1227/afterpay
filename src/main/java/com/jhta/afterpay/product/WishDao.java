@@ -6,6 +6,29 @@ import com.jhta.afterpay.util.DaoHelper;
 import java.util.List;
 
 public class WishDao {
+
+    public List<Wish> getAllWishesByUserNo(int userNo) {
+        String sql = """
+                SELECT *
+                FROM WISHES
+                WHERE USER_NO = ?
+                """;
+        return DaoHelper.selectList(sql, rs -> {
+            Wish wish = new Wish();
+            wish.setNo(rs.getInt("WISH_NO"));
+
+            User user = new User();
+            user.setNo(rs.getInt("USER_NO"));
+            wish.setUser(user);
+
+            Product product = new Product();
+            product.setNo(rs.getInt("PRODUCT_NO"));
+            wish.setProduct(product);
+
+            return wish;
+        }, userNo);
+    }
+
     /**
      * 위시리스트에 상품을 저장한다.
      * @param wish 위시리스트에 추가된 상품의 정보
@@ -64,7 +87,7 @@ public class WishDao {
         }, userNo);
     }
 
-    public Wish getWishByUserNo(int userNo) {
+    public List<Wish> getWishByUserNo(int userNo) {
         String sql = """
                 SELECT P.PRODUCT_NO
                     , P.PRODUCT_NAME
@@ -80,7 +103,7 @@ public class WishDao {
                     ON P.PRODUCT_NO = S.PRODUCT_NO
                 WHERE USER_NO = ?
                 """;
-        return DaoHelper.selectOne(sql, rs -> {
+        return DaoHelper.selectList(sql, rs -> {
             Wish wish = new Wish();
             wish.setNo(rs.getInt("wish_no"));
 
@@ -101,7 +124,7 @@ public class WishDao {
             wish.setUser(user);
 
             return wish;
-        });
+        }, userNo);
     }
 
     public int getAllTotalRowsByUserNo(int userNo){

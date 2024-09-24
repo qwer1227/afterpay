@@ -52,17 +52,18 @@ public class ReviewDao {
         }, userNo);
     }
 
-    public int getNotDeletedTotalRows() {
+    public int getNotDeletedTotalRows(int userNo) {
         String sql = """
                 SELECT COUNT(*)
                 FROM REVIEWS
                 WHERE ISDELETED = 'N'
+                    AND USER_NO = ?
                 """;
 
-        return DaoHelper.selectOneInt(sql);
+        return DaoHelper.selectOneInt(sql, userNo);
     }
 
-    public List<Review> getNotDeletedReview(int begin, int end) {
+    public List<Review> getNotDeletedReview(int userNo, int begin, int end) {
         String sql = """
                 SELECT *
                 FROM(
@@ -77,6 +78,7 @@ public class ReviewDao {
                         , PRODUCT_NO
                     FROM REVIEWS
                     WHERE ISDELETED = 'N'
+                        AND USER_NO = ?
                 )
                 WHERE ROWNUMBER BETWEEN ? AND ?
                 """;
@@ -96,7 +98,7 @@ public class ReviewDao {
             user.setNo(rs.getInt("user_no"));
             review.setUser(user);
             return review;
-        }, begin, end);
+        }, userNo, begin, end);
     }
 
     public void deleteReviewByReviewNo(int reviewNo) {

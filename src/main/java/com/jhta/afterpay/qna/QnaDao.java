@@ -25,14 +25,15 @@ public class QnaDao {
      * 사용자가 삭제하지 않은 전체 문의객수 조회해서 반환
      * @return
      */
-    public int getNotDeleteTotalRows() {
+    public int getNotDeleteTotalRows(int userNo) {
         String sql = """
                 SELECT COUNT(*)
                 FROM QNAS
                 WHERE ISQNADELETED = 'N'
+                    AND USER_NO = ?
                 """;
 
-        return DaoHelper.selectOneInt(sql);
+        return DaoHelper.selectOneInt(sql, userNo);
     }
 
     /**
@@ -228,14 +229,15 @@ public class QnaDao {
         DaoHelper.update(sql,qna.getNo());
     }
 
-    public int getNotDeletedTotalRows() {
+    public int getNotDeletedTotalRows(int userNo) {
         String sql = """
                 SELECT COUNT(*)
                 FROM QNAS
-                WHERE ISQNADELETED = 'N'
+                WHERE USER_NO = ?
+                    AND ISQNADELETED = 'N'
                 """;
 
-        return DaoHelper.selectOneInt(sql);
+        return DaoHelper.selectOneInt(sql, userNo);
     }
 
     /**
@@ -244,7 +246,7 @@ public class QnaDao {
      * @param end   마지막 페이지
      * @return
      */
-    public List<Qna> getNotDeletedQna(int begin, int end) {
+    public List<Qna> getNotDeletedQna(int userNo, int begin, int end) {
         String sql = """
                     SELECT *
                     FROM(
@@ -256,9 +258,11 @@ public class QnaDao {
                         ,Q.QNA_REPLIED_DATE
                         ,U.USER_NO
                         ,U.USER_NAME
-                    FROM QNAS Q, USERS U
-                    WHERE Q.USER_NO = U.USER_NO
-                        AND ISQNADELETED = 'N'
+                        ,Q.QNA_REPLIED_CONTENT
+                    FROM QNAS Q JOIN USERS U
+                        ON Q.USER_NO = U.USER_NO
+                    WHERE Q.ISQNADELETED = 'N'
+                        AND Q.USER_NO = ?
                     )
                     WHERE ROWNUMBER BETWEEN ? AND ?
                 """;
@@ -270,6 +274,7 @@ public class QnaDao {
             qna.setCnt(rs.getInt("QNA_CNT"));
             qna.setCreatedDate(rs.getDate("QNA_CREATED_DATE"));
             qna.setRepliedDate(rs.getDate("QNA_REPLIED_DATE"));
+            qna.setRepliedContent(rs.getString("QNA_REPLIED_CONTENT"));
 
             User user = new User();
             user.setNo(rs.getInt("USER_NO"));
@@ -277,6 +282,6 @@ public class QnaDao {
             qna.setUser(user);
 
             return qna;
-        }, begin, end);
+        }, userNo, begin, end);
     }
 }

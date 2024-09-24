@@ -87,10 +87,31 @@ public class PointHistoryDao {
         }, begin, end);
     }
 
-    public void getMonthPointHistory(){
+    /**
+     * 조회하는 월과 동일한 달에 해당하는 사용자의 적립금 조회
+     * @param userNo
+     * @return
+     */
+    public List<PointHistory> getMonthPointHistory(int userNo){
         String sql = """
-                
+                SELECT *
+                FROM POINT_HISTORIES
+                WHERE EXTRACT(MONTH FROM ?) = EXTRACT(MONTH FROM HISTORY_DATE)
+                    AND USER_NO = ?
                 """;
+        return DaoHelper.selectList(sql, rs -> {
+            PointHistory point = new PointHistory();
+            point.setNo(rs.getInt("HISTORY_NO"));
+            point.setHistoryDate(rs.getDate("HISTORY_DATE"));
+            point.setContent(rs.getString("HISTORY_CONTENT"));
+            point.setPoint(rs.getInt("HISTORY_POINT"));
+            point.setCurrentPoint(rs.getInt("HISTORY_CURRENT_POINT"));
+
+            User user = new User();
+            user.setNo(rs.getInt("USER_NO"));
+            point.setUserNo(user);
+            return point;
+        }, userNo);
     }
 
     public int getAllTotalRowsByUserNo(int userNo) {

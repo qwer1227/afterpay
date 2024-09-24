@@ -33,26 +33,25 @@
 <%@include file="../common/nav.jsp" %>
 <%
   //int userNo = (Integer)session.getAttribute("userNo");
-  int userNo = 19;
+  int userNo = 7;
   ReviewDao reviewDao = new ReviewDao();
-  reviewDao.getReviewsByUserNo(userNo);
-
+  
   // 요청한 페이지 번호 조회
   int pageNo = Utils.toInt(request.getParameter("page"), 1);
   // 총 데이터 갯수 조회
-  int totalRows = reviewDao.getNotDeletedTotalRows();
+  int totalRows = reviewDao.getReviewCntByUserNo(userNo);
   // Pagination 객체 생성
   Pagination pagination = new Pagination(pageNo, totalRows);
   int beginPage = pagination.getBegin();
   int endPage = pagination.getEnd();
-  List<Review> reviewList = reviewDao.getNotDeletedReview(beginPage, endPage);
+  List<Review> reviewList = reviewDao.getNotDeletedReview(userNo, beginPage, endPage);
   int reviewCnt = pagination.getBegin();
 %>
 <div class="container">
   <div class="row">
     <div class="col-2"></div>
     <div class="col-10">
-      <h2 class="m-4"><strong>REVIEW</strong></h2>
+      <h2 class="mt-3"><strong>REVIEW</strong></h2>
     </div>
   </div>
   <div class="row">
@@ -75,7 +74,7 @@
               <thead>
               <tr class="text-center">
                 <th scope="col">
-                  <input id="check-all" type="checkbox" name="all" onchange="checkAll()" style="zoom:1.8">
+                  <input id="check-all" type="checkbox" name="all" onchange="checkAll()" style="zoom:1.5">
                 </th>
                 <th scope="col">No</th>
                 <th scope="col">리뷰 제목</th>
@@ -94,13 +93,12 @@
               </tr>
               <%
                 }
-
+                
                 for (Review reviews : reviewList) {
               %>
               <tr class="text-center">
                 <th scope="col">
-                  <input type="checkbox" name="reviewNo" vlaue="<%=reviews.getNo()%>" onchange="checkSelect()"
-                         style="zoom:1.5">
+                  <input type="checkbox" name="reviewNo" value="<%=reviews.getNo()%>" onchange="checkSelect()" style="zoom:1.5">
                 </th>
                 <th scope="row"><%=reviewCnt++%>
                 </th>
@@ -116,12 +114,12 @@
                 <td>
                   <%
                     int rating = reviews.getRating();
-                    for (int x = 1; x <= rating; x++){
+                    for (int x = 1; x <= rating; x++) {
                   %>
                   <i class="bi bi-star-fill"></i>
                   <%
                     }
-                    for (int y = 0; y < 5 - rating; y++){
+                    for (int y = 0; y < 5 - rating; y++) {
                   %>
                   <i class="bi bi-star"></i>
                   <%
@@ -136,8 +134,8 @@
             </table>
           </div>
         </div>
-
-          <%
+        
+      <%
         if (!reviewList.isEmpty()) {
       %>
         <div scope="col" class="text-start">
@@ -145,37 +143,44 @@
             <i class="bi bi-trash"></i><span class="fs-6">선택 삭제</span>
           </button>
         </div>
-          <%
+      <%
         }
       %>
-
-
-          <ul class="pagination justify-content-center">
-            <li class="page-item <%=pagination.isFirst() ? "disabled" : ""%>">
-              <a class="page-link" href="review.jsp?page=<%=pagination.getPrev()%>">
-                <i class="bi bi-arrow-left"></i>
-              </a>
-            </li>
-            <%
-                for (int num = beginPage; num <= endPage; num++) {
-            %>
-            <li class="page-item <%=pageNo == num ? "active" : ""%>">
-              <a class="page-link" href="review.jsp?page=<%=num%>"><%=num%>
-              </a>
-            </li>
-            <%
-                }
-            %>
-            <li class="page-item <%=pagination.isLast() ? "disabled" : ""%>">
-              <a class="page-link" href="review.jsp?page=<%=pagination.getNext()%>">
-                <i class="bi bi-arrow-right"></i>
-              </a>
-            </li>
-          </ul>
-
+      
+      <%
+        if (reviewDao.getReviewCntByUserNo(userNo) > 10){
+          if (pagination.getTotalPages() > 0) {
+      %>
+        <ul class="pagination justify-content-center">
+          <li class="page-item <%=pagination.isFirst() ? "disabled" : ""%>">
+            <a class="page-link" href="review.jsp?page=<%=pagination.getPrev()%>">
+              <i class="bi bi-arrow-left"></i>
+            </a>
+          </li>
+          <%
+            for (int num = beginPage; num <= endPage; num++) {
+          %>
+          <li class="page-item <%=pageNo == num ? "active" : ""%>">
+            <a class="page-link" href="review.jsp?page=<%=num%>">
+              <%=num%>
+            </a>
+          </li>
+          <%
+            }
+          %>
+          <li class="page-item <%=pagination.isLast() ? "disabled" : ""%>">
+            <a class="page-link" href="review.jsp?page=<%=pagination.getNext()%>">
+              <i class="bi bi-arrow-right"></i>
+            </a>
+          </li>
+        </ul>
+      <%
+           }
+        }
+      %>
+      </form>
     </div>
   </div>
-  </form>
 </div>
 
 <script type="text/javascript">
@@ -225,7 +230,7 @@
         }
 
         let reviewForm = document.getElementById("review");
-        reviewForm.setAttribute("action", "deletes.jsp");
+        reviewForm.setAttribute("action", "delete-review.jsp");
         reviewForm.submit();
 
         // 체크된 문의가 있으면 해당 폼을 제출하는 것이 참

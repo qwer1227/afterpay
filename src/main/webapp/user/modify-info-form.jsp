@@ -72,32 +72,32 @@
               </td>
             </tr>
             </tr>
-            <tr>
-              <td scope="row" class="text-center">주소</td>
-              <td class="text-start">
-                <div class="mt-1">
-                  <div class="input-group">
-                    <input type="text" id="sample6_postcode" name="zipcode" placeholder="우편번호" class="form-control">
-                    <input type="button" class="btn btn-primary" onclick="sample6_execDaumPostcode()" value="검색">
-                  </div>
-                </div>
-              </td>
-              <td></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td class="text-start" colspan="2">
-                <div class="mt-1">
-                  <div class="mt-1">
+<%--            <tr>--%>
+<%--              <td scope="row" class="text-center">주소</td>--%>
+<%--              <td class="text-start">--%>
+<%--                <div class="mt-1">--%>
+<%--                  <div class="input-group">--%>
+<%--                    <input type="text" id="sample6_postcode" name="zipcode" placeholder="우편번호" class="form-control">--%>
+<%--                    <input type="button" class="btn btn-primary" onclick="sample6_execDaumPostcode()" value="검색">--%>
+<%--                  </div>--%>
+<%--                </div>--%>
+<%--              </td>--%>
+<%--              <td></td>--%>
+<%--            </tr>--%>
+<%--            <tr>--%>
+<%--              <td></td>--%>
+<%--              <td class="text-start" colspan="2">--%>
+<%--                <div class="mt-1">--%>
+<%--                  <div class="mt-1">--%>
 <%--                    <input type="text" id="sample6_address" name="address"--%>
 <%--                                                           placeholder="주소" class="form-control" required><br>--%>
 <%--                  </div>--%>
 <%--                  <div>--%>
 <%--                    <input type="text" id="sample6_detailAddress" name="detailAddress"--%>
 <%--                                                 placeholder="상세주소" class="form-control">--%>
-                  </div>
-                </div>
-              </td>
+<%--                  </div>--%>
+<%--                </div>--%>
+<%--              </td>--%>
             </tr>
             <tr>
               <td scope="row" class="text-center">이메일</td>

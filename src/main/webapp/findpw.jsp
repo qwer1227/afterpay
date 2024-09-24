@@ -15,7 +15,7 @@
     String tempPw = Utils.TempPassword();
 
     UserDao userDao = new UserDao();
-    User user = userDao.getUserByEmailAndNameAndId(name, email, id);
+    User user = userDao.getUserByEmailAndNameAndId(email, name, id);
 
 
     if (user == null) {
@@ -65,5 +65,6 @@
         e.printStackTrace();
     }
 
-    response.sendRedirect("successfindpw.jsp?email=" + email);
+    session.setAttribute("userEmail",email);
+    response.sendRedirect("successfindpw.jsp");
 %>

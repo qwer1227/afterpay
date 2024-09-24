@@ -44,7 +44,7 @@
                 int userNo = Utils.toInt(request.getParameter("no"));
                 User user = userDao.getUserByNo(userNo);
             %>
-            <form class="p-3" method="post" action="update.jsp">
+            <form class="p-3" method="post" action="update.jsp?<%=userNo%>">
                 <input type="hidden" name="no" value="<%=user.getNo()%>">
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label">이름</label>
@@ -117,7 +117,7 @@
                 <div class="text-end my-2">
                     <a href="delete.jsp?no=<%=userNo%>" class="btn btn-danger">정보삭제</a>
                     <a href="user.jsp" class="btn btn-success">수정취소</a>
-                    <a href="detail.jsp?no=<%=userNo%>" class="btn btn-primary">수정완료</a>
+                    <button type="submit" class="btn btn-primary">수정완료</button>
                 </div>
             </form>
         </div>

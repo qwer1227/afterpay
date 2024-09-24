@@ -2,6 +2,7 @@
 <%@ page import="com.jhta.afterpay.user.User" %>
 <%@ page import="com.jhta.afterpay.user.ReviewDao" %>
 <%@ page import="com.jhta.afterpay.user.Review" %>
+<%@ page import="com.jhta.afterpay.util.Utils" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
@@ -26,10 +27,6 @@
   }
 </style>
 <body>
-<%
-   String userId = (String) session.getAttribute("USERID");
-   String grade = (String) session.getAttribute("GRADE");
-%>
 <%@include file="../common/nav.jsp"%>
 <%
   /*
@@ -118,7 +115,7 @@
         <a href="#" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
           공지사항
         </a>
-        <a href="../index.jsp" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
+        <a href="../logout.jsp" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
           로그아웃
         </a>
       </div>

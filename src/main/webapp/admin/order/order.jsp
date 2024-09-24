@@ -23,10 +23,8 @@
 </head>
 <body>
 <%@ include file="../../common/nav.jsp" %>
-
-<div class="container mb-5" style="margin-top: 100px;">
-
-    <div class="row mb-3">
+<div class="container mb-5"  style="margin-top: 100px;">
+    <div class="rom mb-3">
         <div class="col-9 offset-2">
             <h2 class="text-center"><strong>주문관리 페이지</strong></h2>
         </div>
@@ -58,10 +56,10 @@
                 <thead>
                 <tr>
                     <th>주문번호</th>
-                    <th>주문자명</th>
-                    <th>주문일</th>
+                    <th>주문일자</th>
+                    <th>주문수량</th>
+                    <th>주문금액</th>
                     <th>주문상태</th>
-                    <th>상세조회</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -69,16 +67,16 @@
                     for (Order order : orders) {
                 %>
                 <tr>
-                    <td><%=order.getNo()%>
-                    </td>
-                    <td><%=order.getUser().getName()%>
+                    <td><a href="detail.jsp?no=<%=order.getNo() %>"><%=order.getNo()%></a>
                     </td>
                     <td><%=order.getOrderDate()%>
                     </td>
+                    <td><%=order.getAmount()%>
+                    </td>
+                    <td><%=order.getPaymentPrice()%>
+                    </td>
                     <td><%=order.getStatus()%>
                     </td>
-                    <td><a href="detail.jsp?no=<%=order.getNo() %>">상세조회</a></td>
-                </tr>
                 <%
                     }
                 %>
@@ -111,11 +109,6 @@
             <%
                 }
             %>
-            <!--버튼-->
-            <div class="text-end my-2">
-                <a href="delete.jsp" class="btn btn-danger">주문삭제</a>
-                <a href="form.jsp" class="btn btn-success">주문등록</a>
-            </div>
         </div>
     </div>
 </div>

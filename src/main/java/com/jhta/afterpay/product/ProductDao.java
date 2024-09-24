@@ -1,5 +1,6 @@
 package com.jhta.afterpay.product;
 
+import com.jhta.afterpay.user.User;
 import com.jhta.afterpay.util.DaoHelper;
 
 import java.util.ArrayList;

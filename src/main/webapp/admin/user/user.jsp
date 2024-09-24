@@ -59,8 +59,7 @@
                             <th>회원이름</th>
                             <th>가입일</th>
                             <th>등급</th>
-                            <th>회원상태</th>
-                            <th>상세조회</th>
+                            <th>탈퇴여부</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -68,14 +67,12 @@
                         for (User user :users) {
                     %>
                         <tr>
-                            <td><%=user.getNo()%></td>
+                            <td><a href="detail.jsp?no=<%=user.getNo()%>"><%=user.getNo()%></a></td>
                             <td><%=user.getId()%></td>
                             <td><%=user.getName()%></td>
                             <td><%=user.getCreatedDate()%></td>
                             <td><%=user.getGradeId()%></td>
                             <td><%=user.getIsBanned()%></td>
-                            <td><a href="detail.jsp?no=<%=user.getNo()%>">상세조회</a></td>
-                        </tr>
                     <%
                         }
                     %>

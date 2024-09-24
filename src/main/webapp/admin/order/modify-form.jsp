@@ -1,3 +1,10 @@
+<%@ page import="com.jhta.afterpay.order.OrderDao" %>
+<%@ page import="com.jhta.afterpay.order.Order" %>
+<%@ page import="com.jhta.afterpay.user.User" %>
+<%@ page import="com.jhta.afterpay.util.Utils" %>
+<%@ page import="com.jhta.afterpay.delivery.DeliveryDao" %>
+<%@ page import="com.jhta.afterpay.delivery.Delivery" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,152 +25,124 @@
 </head>
 <body>
 <%@ include file="../../common/nav.jsp" %>
+
 <div class="container mb-5" style="margin-top: 100px;">
-    <div class="rom mb-3">
-        <div class="col-10 offset-1">
-            <h2 class="text-center"><strong>주문정보 수정</strong></h2>
+
+    <div class="row mb-3">
+        <div class="col-9 offset-2">
+            <h2 class="text-center"><strong>주문 상세조회</strong></h2>
         </div>
     </div>
 
     <div class="row mb-3">
         <div class="col-2">
+            <!--관리자 메뉴-->
             <%@include file="../admin-nav.jsp" %>
         </div>
         <div class="col-10">
-            <form class="p-3" method="post" action="insert.jsp">
+            <!-- 주문정보 -->
+            <%
+                //  조회할 상품 정보
+                int orderNo = Utils.toInt(request.getParameter("no"));
 
-                <%--주문 회원 정보--%>
-                <h3 class="mb-3">주문정보</h3>
+                // 요청파라미터로 전달받은 회원번호에 해당하는 회원 상세정보를 조회한다.
+                OrderDao orderDao = new OrderDao();
+                Order order = orderDao.getAllOrderByNo(orderNo);
+                DeliveryDao deliveryDao = new DeliveryDao();
+                Delivery delivery = deliveryDao.getDeliveryByOrderNo(orderNo);
+
+                User user = order.getUser();
+            %>
+            <form class="p-3" method="post" action="update.jsp">
+                <input type="hidden" name="orderNo" value="<%=orderNo%>">
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">주문자명</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" name="name">
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">주문자아이디</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" name="id">
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">주문상태</label>
-                    <div class="col-sm-10">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="order_Status" value="입금전">
-                            <label class="form-check-label">입금전</label>
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header"><strong>주문정보</strong></div>
+                            <div class="card-body">
+                                <table class="table">
+                                    <tbody>
+                                    <tr>
+                                        <th>주문번호</th>
+                                        <td><%=order.getNo()%>
+                                        </td>
+                                        <th>주문일자</th>
+                                        <td><%=order.getOrderDate()%>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>주문자명</th>
+                                        <td><%=user.getName()%>
+                                        </td>
+                                        <th>주문아이디</th>
+                                        <td><%=user.getId()%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>주문상태</th>
+                                        <td>
+                                            <input type="text" class="form-control" name="name"
+                                                   value="<%=order.getStatus()%>">
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="order_Status" value="주문확인">
-                            <label class="form-check-label">주문확인</label>
-                        </div>
-                    </div>
-                </div>
 
-                <%--주문 상품 정보--%>
-                <h3 class="mb-3">상품정보</h3>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">상품번호</label>
-                    <div class="col-sm-10">
-                        <input class="form-control" type="text" name="productNo">
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header"><strong>상품정보</strong></div>
+                                    <div class="card-body">
+                                        <%
+                                            List<Delivery> deliveries = orderDao.getDeliveriesByOrderNo(orderNo);
+                                        %>
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>사진</th>
+                                                <th>상품명</th>
+                                                <th>사이즈</th>
+                                                <th>수량</th>
+                                                <th>가격</th>
+                                                <th>배송상태</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <%
+                                                for (Delivery del : deliveries) {
+                                            %>
+                                            <tr class="align-middle">
+                                                <td><img src="/../common/images/<%=del.getProduct().getDefaultImage()%>"
+                                                         width="100" height="100"></td>
+                                                <td><%=del.getProduct().getName() %> </td>
+                                                <td><%=del.getStock().getSize() %> </td>
+                                                <td><%=del.getAmount()%> </td>
+                                                <td><%=del.getPrice() %> </td>
+                                                <td>
+                                                    <input type="text" name="status" value="<%=del.getStatus() %>">
+                                                </td>
+                                            </tr>
+                                            <%
+                                                }
+                                            %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">사이즈</label>
-                    <div class="col-sm-10">
-                        <input class="form-control" type="text" name="size">
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">수량</label>
-                    <div class="col-sm-10">
-                        <input class="form-control" type="text" name="amount">
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">상품금액</label>
-                    <div class="col-sm-10">
-                        <input class="form-control" type="text" name="productPrice">
-                    </div>
-                </div>
-
-                <%--상품 결제 정보--%>
-                <h3 class="mb-3">결제정보</h3>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">총 주문금액</label>
-                    <div class="col-sm-10">
-                        <input class="form-control" type="text" name="totalPrice" value="totalPrice">
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">배송비</label>
-                    <div class="col-sm-10">
-                        <input class="form-control" type="text" name="deliveryPrice" value="3000">
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">총 결제금액</label>
-                    <div class="col-sm-10">
-                        <input class="form-control" type="text" name="paymentPrice" value="totalPrice + 3000">
-                    </div>
-                </div>
-
-                <%--상품 배송 정보--%>
-                <h3 class="mb-3">배송정보</h3>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">수령인</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" name="addrName">
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">휴대전화</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" name="addrTel">
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">우편번호</label>
-                    <div class="col-sm-3">
-                        <input type="text" id="sample6_postcode" name="zipcode" placeholder="우편번호"
-                               class="form-control">
-                        <input type="button" class="btn btn-primary" onclick="sample6_execDaumPostcode()" value="검색"
-                               class="col-2"></button>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">주소</label>
-                    <div class="col-sm-10">
-                        <input type="text" id="sample6_address" name="address"
-                               placeholder="주소" class="form-control" required>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">주소</label>
-                    <div class="col-sm-10">
-                        <input type="text" id="sample6_detailAddress" name="detailAddress"
-                               placeholder="상세주소" class="form-control">
-                        <input type="hidden" id="sample6_extraAddress" name="extraAdd" placeholder="참고항목" class="form-control">
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">배송메세지</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" name="id">
-                    </div>
-                </div>
-
-                <!--버튼-->
-                <div class="text-end">
-                    <a href="order.jsp" class="btn btn-secondary">등록취소</a>
-                    <button type="submit" class="btn btn-primary">등록완료</button>
+                <div class=" text-end my-2">
+                    <a href="delete.jsp?no=<%=orderNo%>" class="btn btn-danger">주문삭제</a>
+                    <button type="submit" class="btn btn-primary">주문수정</button>
+                    <a href="order.jsp" class="btn btn-success">주문목록</a>
                 </div>
             </form>
         </div>
     </div>
 </div>
 <%@ include file="../../common/footer.jsp" %>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script type="text/javascript" src="post.js"></script>
 </body>
 </html>

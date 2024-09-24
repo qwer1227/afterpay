@@ -69,11 +69,9 @@
                 </tr>
                 <tr>
                     <th>아이디</th>
-                    <td><%=user.getId()%>
-                    </td>
+                    <td><%=user.getId()%></td>
                     <th>비밀번호</th>
-                    <td><%=user.getPwd()%>
-                    </td>
+                    <td>***</td>
                 </tr>
                 <tr>
                     <th>전화번호</th>

@@ -23,7 +23,8 @@ public class Review {
         this.title = title;
     }
 
-    public Review() {}
+    public Review() {
+    }
 
     public int getNo() {
         return no;

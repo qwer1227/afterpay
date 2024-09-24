@@ -9,6 +9,21 @@ import java.util.List;
 public class QnaDao {
 
     /**
+     * 답변을 등록한다.
+     * @param qna 답변내용
+     */
+    public void insertQnaReply(Qna qna) {
+        String sql = """
+                INSERT INTO QNAS
+                    (QNA_REPLIED_CONTENT, QNA_REPLIED_DATE)
+                VALUES
+                    (?, SYSDATE)
+                """;
+
+        DaoHelper.insert(sql, qna.getRepliedContent(), qna.getRepliedDate());
+    }
+
+    /**
      * 전체 문의갯수를 조회해서 반환한다.
      * @return 문의 갯수
      */
@@ -25,14 +40,15 @@ public class QnaDao {
      * 사용자가 삭제하지 않은 전체 문의객수 조회해서 반환
      * @return
      */
-    public int getNotDeleteTotalRows() {
+    public int getNotDeleteTotalRows(int userNo) {
         String sql = """
                 SELECT COUNT(*)
                 FROM QNAS
                 WHERE ISQNADELETED = 'N'
+                    AND USER_NO = ?
                 """;
 
-        return DaoHelper.selectOneInt(sql);
+        return DaoHelper.selectOneInt(sql, userNo);
     }
 
     /**
@@ -185,12 +201,16 @@ public class QnaDao {
                 SET 
                     QNA_CONTENT = ?
                     , ISQNADELETED = ?
+                    , QNA_REPLIED_DATE = ?
+                    , QNA_REPLIED_CONTENT = ?
                 WHERE QNA_NO = ?
                 """;
         DaoHelper.update(sql
-                        , qna.getContent()
-                        , qna.getIsQnaDeleted()
-                        , qna.getNo());
+                , qna.getContent()
+                , qna.getIsQnaDeleted()
+                , qna.getRepliedDate()
+                , qna.getRepliedContent()
+                , qna.getNo());
     }
 
     /**
@@ -217,7 +237,7 @@ public class QnaDao {
                 WHERE QNA_NO = ?
                 """;
         DaoHelper.update(sql
-                        , qnaNo);
+                , qnaNo);
     }
 
     public void deleteQnas(Qna qna) {
@@ -226,17 +246,18 @@ public class QnaDao {
                 SET ISQNADELETED = 'Y'
                 WHERE QNA_NO = ?
                 """;
-        DaoHelper.update(sql,qna.getNo());
+        DaoHelper.update(sql, qna.getNo());
     }
 
-    public int getAllTotalRowsByUserNo() {
+    public int getNotDeletedTotalRows(int userNo) {
         String sql = """
                 SELECT COUNT(*)
                 FROM QNAS
-                WHERE ISQNADELETED = 'N'
+                WHERE USER_NO = ?
+                    AND ISQNADELETED = 'N'
                 """;
 
-        return DaoHelper.selectOneInt(sql);
+        return DaoHelper.selectOneInt(sql, userNo);
     }
 
     /**
@@ -245,7 +266,7 @@ public class QnaDao {
      * @param end   마지막 페이지
      * @return
      */
-    public List<Qna> getAllQnaByUserNo(int begin, int end) {
+    public List<Qna> getNotDeletedQna(int userNo, int begin, int end) {
         String sql = """
                     SELECT *
                     FROM(
@@ -257,9 +278,11 @@ public class QnaDao {
                         ,Q.QNA_REPLIED_DATE
                         ,U.USER_NO
                         ,U.USER_NAME
-                    FROM QNAS Q, USERS U
-                    WHERE Q.USER_NO = U.USER_NO
-                        AND ISQNADELETED = 'N'
+                        ,Q.QNA_REPLIED_CONTENT
+                    FROM QNAS Q JOIN USERS U
+                        ON Q.USER_NO = U.USER_NO
+                    WHERE Q.ISQNADELETED = 'N'
+                        AND Q.USER_NO = ?
                     )
                     WHERE ROWNUMBER BETWEEN ? AND ?
                 """;
@@ -271,6 +294,7 @@ public class QnaDao {
             qna.setCnt(rs.getInt("QNA_CNT"));
             qna.setCreatedDate(rs.getDate("QNA_CREATED_DATE"));
             qna.setRepliedDate(rs.getDate("QNA_REPLIED_DATE"));
+            qna.setRepliedContent(rs.getString("QNA_REPLIED_CONTENT"));
 
             User user = new User();
             user.setNo(rs.getInt("USER_NO"));
@@ -278,6 +302,6 @@ public class QnaDao {
             qna.setUser(user);
 
             return qna;
-        }, begin, end);
+        }, userNo, begin, end);
     }
 }

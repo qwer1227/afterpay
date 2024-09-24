@@ -47,7 +47,8 @@
                             totalStock += stock.getAmount();
                     %>
                     <tr>
-                        <td class="text-center"><%=stock.getSize()%></td>
+                        <td class="text-center"><%=stock.getSize()%>
+                        </td>
                         <td class="text-center"><%=stock.getAmount() %> 개</td>
                     </tr>
                     <%
@@ -59,7 +60,7 @@
             <div class="card-footer text-end">
                 <p>
                     <strong>총 재고수량 </strong>
-                    <h3> <%=totalStock %> 개</h3>
+                <h3><%=totalStock %> 개</h3>
                 </p>
             </div>
         </div>

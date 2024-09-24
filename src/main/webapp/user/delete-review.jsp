@@ -1,11 +1,13 @@
-<%@ page import="com.jhta.afterpay.util.Utils" %>
 <%@ page import="com.jhta.afterpay.user.ReviewDao" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-  int reviewNo = Utils.toInt(request.getParameter("no"));
+  String[] arr = request.getParameterValues("reviewNo");
 
   ReviewDao reviewDao = new ReviewDao();
-  reviewDao.deleteReviewByReviewNo(reviewNo);
 
+  for (String value : arr) {
+    int reviewNo = Integer.parseInt(value);
+    reviewDao.deleteReviewByReviewNo(reviewNo);
+  }
   response.sendRedirect("review.jsp");
 %>

@@ -5,6 +5,7 @@
 <%@ page import="com.jhta.afterpay.user.PointHistory" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Date" %>
+<%@ page import="com.jhta.afterpay.util.Pagination" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,8 +39,8 @@
         </div>
         <div class="col-10">
             <%
-                // 1. 요청 파라미터값 조회
-                int userNo = 19;
+                //  요청 파라미터값 조회
+                int userNo = Utils.toInt(request.getParameter("no"));
                 int usedPoint = Utils.toInt(request.getParameter("usedPoint"));
                 int depositPoint = Utils.toInt(request.getParameter("depositPoint"));
                 boolean isPointChanged = false;
@@ -50,6 +51,17 @@
                 PointHistoryDao pointDao = new PointHistoryDao();
                 PointHistory history = new PointHistory();
                 List<PointHistory> pointList = pointDao.getPointHistoriesByUserNo(userNo);
+
+                // 요청한 페이지 번호 조회
+                int pageNo = Utils.toInt(request.getParameter("page"), 1);
+                // 총 데이터 갯수 조회
+                int totalRows = pointDao.getAllTotalRows();
+                // Pagination 객체 생성
+                Pagination pagination = new Pagination(pageNo, totalRows);
+                int beginPage = pagination.getBegin();
+                int endPage = pagination.getEnd();
+                List<PointHistory> pointHistoryList = pointDao.getAllQnaByUserNo(beginPage, endPage);
+
             %>
             <div class="card">
                 <div class="card-header">적립금 현황</div>
@@ -158,8 +170,8 @@
 
 
 </div>
-</div>
 
 <%@ include file="../../common/footer.jsp" %>
 
 </body>
+</html>

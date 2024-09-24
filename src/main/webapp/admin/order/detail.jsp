@@ -10,6 +10,7 @@
 <%@ page import="com.jhta.afterpay.payment.Payment" %>
 <%@ page import="com.jhta.afterpay.delivery.DeliveryDao" %>
 <%@ page import="com.jhta.afterpay.delivery.Delivery" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +36,7 @@
 
     <div class="row mb-3">
         <div class="col-9 offset-2">
-            <h2 class="text-center"><strong>주문관리 페이지</strong></h2>
+            <h2 class="text-center"><strong>주문 상세조회</strong></h2>
         </div>
     </div>
 
@@ -49,156 +50,168 @@
             <%
                 //  조회할 상품 정보
                 int orderNo = Utils.toInt(request.getParameter("no"));
+                int deliveryNo = Utils.toInt(request.getParameter("no"));
 
                 // 요청파라미터로 전달받은 회원번호에 해당하는 회원 상세정보를 조회한다.
                 OrderDao orderDao = new OrderDao();
-                Order order = orderDao.getOrderByNo(orderNo);
+                Order order = orderDao.getAllOrderByNo(orderNo);
+
+                DeliveryDao deliveryDao = new DeliveryDao();
+                Delivery delivery = deliveryDao.getDeliveryByOrderNo(deliveryNo);
+
                 User user = order.getUser();
                 Addr addr = order.getAddr();
-
-
-
             %>
-            <div class="card">
-                <div class="card-header"><strong>주문정보</strong></div>
-                <div class="card-body">
-                    <div class="row justify-content-md-center mb-3">
-                        <div class="col-3 p-3 ps-4">
-                            주문번호
-                        </div>
-                        <div class="col-9 p-3">
-                            <%=order.getNo() %>
-                        </div>
-                        <div class="col-3 p-3 ps-4">
-                            주문일자
-                        </div>
-                        <div class="col-9 p-3">
-                            <%=order.getOrderDate() %>
-                        </div>
-                        <div class="col-3 p-3 ps-4">
-                            주문자명
-                        </div>
-                        <div class="col-9 p-3">
-                            <%=order.getUser().getName() %>
-                        </div>
-                        <div class="col-3 p-3 ps-4">
-                            주문자아이디
-                        </div>
-                        <div class="col-9 p-3">
-                            <%=order.getUser().getId() %>
-                        </div>
-                        <div class="col-3 p-3 ps-4">
-                            주문상태
-                        </div>
-                        <div class="col-9 p-3">
-                            <%=order.getStatus()%>
+            <div class="row mb-3">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header"><strong>주문정보</strong></div>
+                        <div class="card-body">
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <th>주문번호</th>
+                                    <td><%=order.getNo()%>
+                                    </td>
+                                    <th>주문일자</th>
+                                    <td><%=order.getOrderDate()%>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>주문자명</th>
+                                    <td><%=user.getName()%>
+                                    </td>
+                                    <th>주문아이디</th>
+                                    <td><%=user.getId()%>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>주문상태</th>
+                                    <td><%=order.getStatus()%>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <%--주문 상품 정보--%>
-            <div class="card">
-                <div class="card-header"><strong>상품정보</strong></div>
-                <div class="card-body">
-                    <div class="row mb-5 p-3">
-                        <div class="col-2 mb-2">
-                            <img src="sample.jpg" class="rounded float-start"
-                                 style="width: 130px; height:150px;">
+            <div class="row mb-3">
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-header"><strong>배송지 정보</strong></div>
+                        <div class="card-body">
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <th>수령인</th>
+                                    <td><%=user.getName()%></td>
+                                </tr>
+                                <tr>
+                                    <th>우편번호</th>
+                                    <td><%=addr.getZipCode()%></td>
+                                </tr>
+                                <tr>
+                                    <th>기본주소</th>
+                                    <td><%=addr.getAddr1()%></td>
+                                </tr>
+                                <tr>
+                                    <th>상세주소</th>
+                                    <td><%=addr.getAddr2()%></td>
+                                </tr>
+                                <tr>
+                                    <th>전화번호</th>
+                                    <td><%=addr.getTel()%></td>
+                                </tr>
+                                <tr>
+                                    <th>배송메세지</th>
+                                    <td><%=order.getDeliveryMessage()%></td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="col-7">
-                            <input type="hidden" name="amount" value="<%=order.getAmount()%>">
-                            <input type="hidden" name="stockNo" value="">
-                            <ul class="list-unstyled">
-                                <li>상품명:
-                                </li>
-                                <li>사이즈:
-                                </li>
-                                <li>수량:
-                                </li>
-                                <li>상품금액:
-                                </li>
-                            </ul>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-header"><strong>결제 정보</strong></div>
+                        <div class="card-body">
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <th>총구매금액</th>
+                                    <td><%=order.getPrice()%></td>
+                                </tr>
+                                <tr>
+                                    <th>총결제금액</th>
+                                    <td><%=order.getPaymentPrice()%></td>
+                                </tr>
+                                <tr>
+                                    <th>배송지</th>
+                                    <td><%=addr.getName()%></td>
+                                </tr>
+                                <tr>
+                                    <th>사용포인트</th>
+                                    <td><%=order.getUsePoint()%></td>
+                                </tr>
+                                <tr>
+                                    <th>적립포인트</th>
+                                    <td><%=order.getDepositPoint()%></td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
 
-        <!-- 결제 정보 -->
-            <%
-                // 결제 정보 가져오기
-                PaymentDao paymentDao = new PaymentDao();
-                Payment payment = paymentDao.getPaymentByOrderNo(8);
-                payment.setOrder(order);
-
-            %>
-        <div class="card">
-            <div class="card-header"><strong>결제정보</strong></div>
-            <div class="card-body">
-                <div class="row justify-content-md-center mb-3">
-                    <div class="col-3 p-3 ps-4">
-                        총 주문금액
-                    </div>
-                    <div class="col-9 p-3">
-                        <%=payment.getOrder().getPrice() %>
-                    </div>
-                    <div class="col-3 p-3 ps-4">
-                        배송비
-                    </div>
-                    <div class="col-9 p-3">
-                        <%=payment.getOrder().getDeliveryPrice()%>
-                    </div>
-                    <div class="col-3 p-3 ps-4">
-                        총 결제금액
-                    </div>
-                    <div class="col-9 p-3">
-                        <%=payment.getPrice() + payment.getOrder().getDeliveryPrice()%>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-            <!-- 배송 정보 -->
-            <div class="card">
-                <div class="card-header"><strong>배송정보</strong></div>
-                <div class="card-body">
-                    <div class="row justify-content-md-center mb-3">
-                        <div class="col-3 p-3 ps-4">
-                            수령인
-                        </div>
-                        <div class="col-9 p-3">
-
-                        </div>
-                        <div class="col-3 p-3 ps-4">
-                            우편번호
-                        </div>
-                        <div class="col-9 p-3">
-
-                        </div>
-                        <div class="col-3 p-3 ps-4">
-                            주소
-                        </div>
-                        <div class="col-9 p-3">
-
-                        </div>
-                        <div class="col-3 p-3 ps-4">
-                            휴대전화
-                        </div>
-                        <div class="col-9 p-3">
-
-                        </div>
-                        <div class="col-3 p-3 ps-4">
-                            배송메세지
-                        </div>
-                        <div class="col-9 p-3">
-
+            <div class="row mb-3">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header"><strong>상품정보</strong></div>
+                        <div class="card-body">
+                            <%
+                                List<Delivery> deliveries = orderDao.getDeliveriesByOrderNo(orderNo);
+                            %>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>사진</th>
+                                        <th>상품명</th>
+                                        <th>사이즈</th>
+                                        <th>수량</th>
+                                        <th>가격</th>
+                                        <th>배송상태</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <%
+                                    for (Delivery del : deliveries) {
+                                %>
+                                <tr class="align-middle">
+                                    <td><img src="/../common/images/<%=del.getProduct().getDefaultImage()%>"
+                                             width="100" height="100"></td>
+                                    <td><%=del.getProduct().getName() %> </td>
+                                    <td><%=del.getStock().getSize() %> </td>
+                                    <td><%=del.getAmount()%> </td>
+                                    <td><%=del.getPrice() %> </td>
+                                    <td><%=del.getStatus() %></td>
+                                </tr>
+                                <%
+                                    }
+                                %>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+
                 </div>
             </div>
 
             <!--버튼-->
-            <div class="text-end my-2">
+            <div class=" text-end my-2">
                 <a href="delete.jsp?no=<%=orderNo%>" class="btn btn-danger">주문삭제</a>
                 <a href="modify-form.jsp?no=<%=orderNo%>" class="btn btn-primary">주문수정</a>
                 <a href="order.jsp" class="btn btn-success">주문목록</a>

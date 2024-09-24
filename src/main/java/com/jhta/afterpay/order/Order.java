@@ -17,13 +17,15 @@ public class Order {
     private int usePoint;
     private int discountPrice;
     private int paymentPrice;
-    private int deliveryStatus;
+    private String deliveryStatus;
     private int depositPoint;
     private String deliveryMessage;
     private String isDeleted;     // 삭제 여부 처리
     private Addr addr;
     private User user;
     private List<Product> Products;
+    private String tel;
+    private String email;
 
 
     public Order() {}
@@ -100,11 +102,11 @@ public class Order {
         this.paymentPrice = paymentPrice;
     }
 
-    public int getDeliveryStatus() {
+    public String getDeliveryStatus() {
         return deliveryStatus;
     }
 
-    public void setDeliveryStatus(int deliveryStatus) {
+    public void setDeliveryStatus(String deliveryStatus) {
         this.deliveryStatus = deliveryStatus;
     }
 
@@ -152,4 +154,43 @@ public class Order {
         this.isDeleted = isDeleted;
     }
 
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "no=" + no +
+                ", orderDate=" + orderDate +
+                ", status='" + status + '\'' +
+                ", price=" + price +
+                ", amount=" + amount +
+                ", deliveryPrice=" + deliveryPrice +
+                ", usePoint=" + usePoint +
+                ", discountPrice=" + discountPrice +
+                ", paymentPrice=" + paymentPrice +
+                ", deliveryStatus='" + deliveryStatus + '\'' +
+                ", depositPoint=" + depositPoint +
+                ", deliveryMessage='" + deliveryMessage + '\'' +
+                ", isDeleted='" + isDeleted + '\'' +
+                ", addr=" + addr +
+                ", user=" + user +
+                ", Products=" + Products +
+                ", tel='" + tel + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

@@ -1,7 +1,6 @@
 <%@ page import="com.jhta.afterpay.user.UserDao" %>
 <%@ page import="com.jhta.afterpay.user.User" %>
 <%@ page import="com.jhta.afterpay.util.Utils" %>
-<%@ page import="com.jhta.afterpay.addr.AddrDao" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
@@ -28,7 +27,6 @@
   // http://localhost/user/modify-form.jsp?id=xxx
   // 파라미터값을 전달받아 해당하는 정보를 받아 회원정보 폼에 각 값을 나타낸다.
   UserDao userDao = new UserDao();
-  AddrDao addrDao = new AddrDao();
 
   // 세션에서 사용자 번호 가져온다.
   int userNo = 19;
@@ -37,59 +35,82 @@
 
 <div class="container">
   <form action="update.jsp" method="post">
-
-  <div class="row">
-    <div class="col-2">
-      <%@include file="../common/user-nav.jsp"%>
-    </div>
-    <div class="col-10">
-      <h2 class="m-4"><strong>회원정보 수정</strong></h2>
-      <hr style="border:solid 1px gray;"/>
-      <table class="table table-borderless">
-        <thead>
+    <div class="row">
+      <div class="col-2">
+        <%@include file="../common/user-nav.jsp"%>
+      </div>
+      <div class="col-10">
+        <h2 class="m-4"><strong>회원정보 수정</strong></h2>
+        <hr style="border:solid 1px gray;"/>
+        <table class="table table-borderless">
+          <colgroup>
+            <col width="10%">
+            <col width="30%">
+            <col width="*">
+          </colgroup>
+          <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+              </tr>
+          </thead>
+          <tbody>
             <tr>
-              <th scope="col"></th>
-              <th scope="col"></th>
+              <td scope="row" class="text-center">아이디</td>
+              <td colspan="2"><%=user.getId()%></td>
             </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row" class="text-center">아이디</th>
-            <td class="text-start"><%=user.getId()%></td>
-          </tr>
-          <tr>
-            <th scope="row" class="text-center">이름</th>
-            <td class="text-start"><%=user.getName()%></td>
-          </tr>
-          <tr>
-            <th scope="row" class="text-center">연락처</th>
-            <td>
-                <input type="text" name="tel" value="<%=user.getTel()%>">
-            </td>
-          </tr>
-          </tr>
-          <tr>
-            <th scope="row" class="text-center">주소</th>
-            <td class="text-start">
-              <!--
-                // 승준님이 구현한 주소API 적용 필요
-                // addr1과 addr2가 둘 다 null이면 "-" 출력
-                // addr2가 null이면 "addr1", null이 아니면 "addr1 + addr2" 출력
-              -->
-            </td>
-          </tr>
-          <tr>
-            <th scope="row" class="text-center">이메일</th>
-            <td>
-              <input type="text" name="email" value="<%=user.getEmail()%>">
-            </td>
-          </tr>
-          <tr>
-            <th scope="row" class="text-center">가입일</th>
-            <td><%=user.getCreatedDate()%></td>
-          </tr>
-        </tbody>
-      </table>
+            <tr>
+              <td scope="row" class="text-center">이름</td>
+              <td colspan="2"><%=user.getName()%></td>
+            </tr>
+            <tr>
+
+              <td scope="row" class="text-center">연락처</td>
+              <td>
+                <input type="text" class="rounded" name="tel" value="<%=user.getTel()%>">
+              </td>
+            </tr>
+            </tr>
+<%--            <tr>--%>
+<%--              <td scope="row" class="text-center">주소</td>--%>
+<%--              <td class="text-start">--%>
+<%--                <div class="mt-1">--%>
+<%--                  <div class="input-group">--%>
+<%--                    <input type="text" id="sample6_postcode" name="zipcode" placeholder="우편번호" class="form-control">--%>
+<%--                    <input type="button" class="btn btn-primary" onclick="sample6_execDaumPostcode()" value="검색">--%>
+<%--                  </div>--%>
+<%--                </div>--%>
+<%--              </td>--%>
+<%--              <td></td>--%>
+<%--            </tr>--%>
+<%--            <tr>--%>
+<%--              <td></td>--%>
+<%--              <td class="text-start" colspan="2">--%>
+<%--                <div class="mt-1">--%>
+<%--                  <div class="mt-1">--%>
+<%--                    <input type="text" id="sample6_address" name="address"--%>
+<%--                                                           placeholder="주소" class="form-control" required><br>--%>
+<%--                  </div>--%>
+<%--                  <div>--%>
+<%--                    <input type="text" id="sample6_detailAddress" name="detailAddress"--%>
+<%--                                                 placeholder="상세주소" class="form-control">--%>
+<%--                  </div>--%>
+<%--                </div>--%>
+<%--              </td>--%>
+            </tr>
+            <tr>
+              <td scope="row" class="text-center">이메일</td>
+              <td colspan="2">
+                <input type="text" class="rounded" name="email" value="<%=user.getEmail()%>">
+              </td>
+            </tr>
+            <tr>
+              <td scope="row" class="text-center">가입일</td>
+              <td colspan="2"><%=user.getCreatedDate()%></td>
+            </tr>
+          </tbody>
+        </table>
 
         <div class="text-end">
           <button type="submit" class="btn btn-outline-primary m-3">

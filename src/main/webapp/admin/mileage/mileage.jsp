@@ -1,3 +1,8 @@
+<%@ page import="com.jhta.afterpay.util.Utils" %>
+<%@ page import="com.jhta.afterpay.util.Pagination" %>
+<%@ page import="com.jhta.afterpay.user.UserDao" %>
+<%@ page import="com.jhta.afterpay.user.User" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,68 +23,93 @@
 </head>
 <body>
 <%@ include file="../../common/nav.jsp" %>
-<div class="container mb-5" style="margin-top: 100px;">
+<div class="container mb-5"  style="margin-top: 100px;">
     <div class="rom mb-3">
         <div class="col-10 offset-1">
-            <h2 class="text-center"><strong>적립금관리 페이지</strong></h2>
+            <h2 class="text-center"><strong>회원관리 페이지</strong></h2>
         </div>
     </div>
 
     <div class="row mb-3">
         <div class="col-2">
-            <%@include file="../admin-nav.jsp" %>
+            <%@include file="../admin-nav.jsp"%>
         </div>
         <div class="col-10">
-            <div class="row mb-3">
-                <div class="card">
-                    <div class="card-header">적립금 지급</div>
-                    <div class="card-body pb-1">
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">아이디</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" name="name">
-                            </div>
-                            <div class="col-sm-3">
-                                <button type="submit" class="btn btn-danger">조회</button>
-                            </div>
-                        </div>
-                    <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label">적립금</label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" name="name">
-                        </div>
-                        <div class="col-sm-3">
-                            <button type="submit" class="btn btn-primary">확인</button>
-                        </div>
-                    </div>
-                </div>
-                </div>
+            <!--회원목록-->
+            <%
+                UserDao userDao = new UserDao();
 
-                    <div class="row mt-3 mb-3">
-                        <div class="col-sm-10">
-                            <strong>[아이디] ADMIN</strong>
-                        </div>
-                        <div class="col-sm-10">
-                            <strong>이름: 관리자</strong>
-                        </div>
-                        <div class="col-sm-10 border-bottom">
-                            <strong>등급: GOLD</strong>
-                        </div>
-                        <div class="col-sm-10">
-                            기존 적립금: 3800 원
-                        </div>
-                        <div class="col-sm-10">
-                            추가 적립금: 400 원
-                        </div>
-                        <div class="col-sm-10">
-                            총 보유 적립금: 4200 원
-                        </div>
-                    </div>
-                </div>
+                // 요청한 페이지 번호를 조회한다.
+                int pageNo = Utils.toInt(request.getParameter("page"), 1);
+
+                // 총 데이터 갯수를 조회한다.
+                int totalRows = userDao.getTotalRows();
+
+                // Pagination 객체를 생성한다.
+                Pagination pagination = new Pagination(pageNo, totalRows);
+
+                // 요청한 페이지에 맞는 데이터를 조회한다.
+                List<User> users = userDao.getAllUserPoints(pagination.getBegin(), pagination.getEnd());
+            %>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>회원번호</th>
+                    <th>아이디</th>
+                    <th>이름</th>
+                    <th>총 적립금</th>
+                    <th>사용적립금</th>
+                    <th>현재적립금</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <%
+                    for (User user :users) {
+                %>
+                <tr>
+                    <td><a href="mileage-history.jsp?no=<%=user.getNo()%>"><%=user.getNo()%></a></td>
+                    <td><%=user.getId()%></td>
+                    <td><%=user.getName()%></td>
+                    <td><%=user.getTotalPoint()%></td>
+                    <td><%=user.getTotalUsedPoint()%></td>
+                    <td><%=user.getPoint()%></td>
+                    <td><a href="form.jsp?no=<%=user.getNo()%>" class="btn btn-primary btn-sm">적립</a></td>
+                        <%
+                        }
+                    %>
+                </tbody>
+            </table>
+            <!--페이지네이션 -->
+            <%
+                if(pagination.getTotalPages() > 0) {
+            %>
+            <div>
+                <ul class="pagination justify-content-center">
+                    <li class="page-item <%=pagination.isFirst() ? "disabled" : "" %>">
+                        <a class="page-link" href="mileage.jsp?page=<%pagination.getPrev(); %>">이전</a>
+                    </li>
+                    <%
+                        for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
+                    %>
+                    <li class="page-item <%=pageNo == num? "active" : "" %>">
+                        <a href="mileage.jsp?page=<%=num %>" class="page-link"><%=num %></a>
+                    </li>
+                    <%
+                        }
+                    %>
+                    <li class="page-item <%=pagination.isLast() ? "disabled" : ""%>">
+                        <a class="page-link" href="mileage.jsp?page=<%=pagination.getNext() %>" >다음</a>
+                    </li>
+                </ul>
             </div>
+            <%
+                }
+            %>
         </div>
+
     </div>
-
+</div>
 <%@ include file="../../common/footer.jsp" %>
-
 </body>
+</html>

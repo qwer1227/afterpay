@@ -41,10 +41,10 @@
     OrderDao orderDao = new OrderDao();
 
     int pageNo = Utils.toInt(request.getParameter("page"), 1);
-    List<Order> orders = orderDao.getAllOrderByUserNo(userNo);
+    List<Order> orders = orderDao.getAllOrdersByUserNo(userNo);
     int totalRows = orderDao.getTotalRowsByUserNo(19);
     Pagination pagination = new Pagination(pageNo, totalRows, 5, 3);
-    orders = orderDao.getAllOrderByUserNo(userNo, pagination.getBegin(), pagination.getEnd());
+    orders = orderDao.getAllOrdersByUserNo(userNo, pagination.getBegin(), pagination.getEnd());
 %>
 <div class="container">
     <div class="container">

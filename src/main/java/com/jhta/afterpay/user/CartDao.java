@@ -3,7 +3,6 @@ package com.jhta.afterpay.user;
 import com.jhta.afterpay.product.Product;
 import com.jhta.afterpay.product.Stock;
 import com.jhta.afterpay.util.DaoHelper;
-
 import java.util.List;
 
 public class CartDao {
@@ -56,11 +55,11 @@ public class CartDao {
         }, no);
     }
 
-    public List<Cart> getAllCartsByUserNo(int userNo) {
+    public List<Cart> getAllCartsByUserId(String userId) {
         String sql = """
                 SELECT *
                 FROM carts
-                WHERE user_no = ?
+                WHERE user_id = ?
                 """;
 
         return DaoHelper.selectList(sql, rs -> {
@@ -79,7 +78,7 @@ public class CartDao {
             cart.getUser().setNo(rs.getInt("user_no"));
             cart.getStock().setNo(rs.getInt("product_stock_no"));
             return cart;
-        }, userNo);
+        }, userId);
     }
 
 

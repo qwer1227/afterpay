@@ -27,12 +27,13 @@
   }
 </style>
 <body>
-<%
-   String userNos = String.valueOf("USERNO");
-   String userId = String.valueOf(session.getAttribute("USERID"));
-   String grade = (String) session.getAttribute("GRADE");
-%>
+
 <%@include file="../common/nav.jsp"%>
+<%
+  String userNos = String.valueOf(session.getAttribute("USERNO"));
+  String userId = String.valueOf(session.getAttribute("USERID"));
+  String grade = (String) session.getAttribute("GRADE");
+%>
 <%
   /*
   * user.jsp?id=hong

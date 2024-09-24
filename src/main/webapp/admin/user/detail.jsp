@@ -94,8 +94,10 @@
                 <tr>
                     <th>적립금</th>
                     <td><%=user.getTotalPoint()%> 원</td>
-                    <th></th>
-                    <td></td>
+                    <th>적립금내역</th>
+                    <td>
+                        <a href="../mileage/mileage-history.jsp?no=<%=userNo%>" class="btn btn-primary">내역조회</a>
+                    </td>
                 </tr>
                 <tr>
                     <th>정지여부</th>

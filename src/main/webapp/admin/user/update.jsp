@@ -26,9 +26,9 @@
     user.setIsBanned(isBanned);
     user.setIsSignOut(isSignOut);
 
-    // 3. UserDao 객체를 생성하고, updateUser() 메소드를 실행한다.
+    // 3. UserDao 객체를 생성하고, updateAllUser() 메소드를 실행한다.
     UserDao userDao = new UserDao();
-    userDao.updateUser(user);
+    userDao.updateAllUser(user);
 
     // 4. 재요청 URL을 응답으로 보낸다.
     response.sendRedirect("user.jsp?no=" + no);

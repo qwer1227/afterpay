@@ -6,6 +6,7 @@ import com.jhta.afterpay.user.PointHistory;
 import com.jhta.afterpay.user.User;
 import com.jhta.afterpay.util.DaoHelper;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class UserDao {
@@ -115,9 +116,9 @@ public class UserDao {
 
     public User getUserByPrevPw(String pw) throws SQLException {
         String sql = """
-                select *
+                select * 
                 from users
-                where user_password = ?
+                where user_password = ? 
                 """;
 
         return DaoHelper.selectOne(sql, rs -> {

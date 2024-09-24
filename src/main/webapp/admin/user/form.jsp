@@ -104,7 +104,6 @@
                     <button type="submit" class="btn btn-primary">등록완료</button>
                 </div>
             </form>
-
         </div>
     </div>
 </div>

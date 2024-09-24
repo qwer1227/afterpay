@@ -28,7 +28,7 @@
 
     <div class="row mb-3">
         <div class="col-9 offset-2">
-            <h1 class="text-center">주문관리 페이지</h1>
+            <h2 class="text-center"><strong>주문관리 페이지</strong></h2>
         </div>
     </div>
 
@@ -58,7 +58,7 @@
                 <thead>
                 <tr>
                     <th>주문번호</th>
-                    <th>주문회원</th>
+                    <th>주문자명</th>
                     <th>주문일</th>
                     <th>주문상태</th>
                     <th>상세조회</th>

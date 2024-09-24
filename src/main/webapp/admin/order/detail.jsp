@@ -29,149 +29,181 @@
     <link rel="stylesheet" href="/common/css/style.css">
 </head>
 <body>
-<%
-    String menu = "주문 상세정보";
-%>
 <%@ include file="../../common/nav.jsp" %>
 
-<div class="container mt-4 mb-5">
-    <h1>주문 상세정보</h1>
+<div class="container mb-5" style="margin-top: 100px;">
 
-    <!-- 주문정보 -->
-    <%
-        //  조회할 상품 정보
-        //  int orderNo = Integer.parseInt(request.getParameter("orderNo"));
-        OrderDao orderDao = new OrderDao();
-        Order order = orderDao.getOrderByNo(8);
-        AddrDao addrDao = new AddrDao();
-        User user = new User();
-        user.setNo(7);
-        order.setUser(user);
-
-        Addr addr = addrDao.getAddrByNo(order.getAddr().getNo());
-    %>
-    <h3 class="mb-3">주문정보</h3>
-    <div class="row border-top justify-content-md-center mb-3">
-        <div class="col-3 bg-dark text-white p-3 ps-4">
-            주문번호
-        </div>
-        <div class="col-9 p-3">
-            <%=order.getNo() %>
-        </div>
-        <div class="col-3 border-top bg-dark text-white p-3 ps-4">
-            주문일자
-        </div>
-        <div class="col-9 border-top p-3">
-            <%=order.getOrderDate() %>
-        </div>
-        <div class="col-3 border-top bg-dark text-white p-3 ps-4">
-            주문인
-        </div>
-        <div class="col-9 border-top p-3">
-            <%=order.getUser().getName() %>
-        </div>
-        <div class="col-3 border-top border-bottom bg-dark text-white p-3 ps-4">
-            주문상태
-        </div>
-        <div class="col-9 border-top border-bottom p-3">
-            <%=order.getStatus()%>
+    <div class="row mb-3">
+        <div class="col-9 offset-2">
+            <h2 class="text-center"><strong>주문관리 페이지</strong></h2>
         </div>
     </div>
 
-    <!-- 주문 상품 -->
-    <h3 class="mb-3">주문상품</h3>
-    <div class="row mb-5 p-3">
-        <hr>
-        <div class="col-2 mb-2">
-            <img src="sample.jpg" class="rounded float-start" style="width: 170px; height:130px;">
+    <div class="row mb-3">
+        <div class="col-2">
+            <!--관리자 메뉴-->
+            <%@include file="../admin-nav.jsp" %>
         </div>
-        <div class="col-7">
-            <ul class="list-unstyled">
-                <li>상품명: </li>
-                <li>옵션: </li>
-                <li>수량: </li>
-                <li>상품금액: </li>
-            </ul>
-        </div>
-        <div class="border-bottom"></div>
-    </div>
+        <div class="col-10">
+            <!-- 주문정보 -->
+            <%
+                //  조회할 상품 정보
+                int orderNo = Utils.toInt(request.getParameter("no"));
 
-    <!-- 결제 정보 -->
-    <%
-        // 결제 정보 가져오기
-        PaymentDao paymentDao = new PaymentDao();
-        Payment payment = paymentDao.getPaymentByOrderNo(8);
-        payment.setOrder(order);
+                // 요청파라미터로 전달받은 회원번호에 해당하는 회원 상세정보를 조회한다.
+                OrderDao orderDao = new OrderDao();
+                Order order = orderDao.getOrderByNo(orderNo);
+                User user = order.getUser();
+                Addr addr = order.getAddr();
 
-    %>
-    <h3 class="mb-3">결제정보</h3>
-    <div class="row border-top justify-content-md-center mb-3">
-        <div class="col-3 bg-dark text-white p-3 ps-4">
-            총 주문금액
-        </div>
-        <div class="col-9 p-3">
-            <%=payment.getOrder().getPrice() %>
-        </div>
-        <div class="col-3 border-top bg-dark text-white p-3 ps-4">
-            배송비
-        </div>
-        <div class="col-9 border-top p-3">
-            <%=payment.getOrder().getDeliveryPrice()%>
-        </div>
-        <div class="col-3 border-top border-bottom bg-dark text-white p-3 ps-4">
-            총 결제금액
-        </div>
-        <div class="col-9 border-top border-bottom p-3">
-            <%=payment.getPrice() + payment.getOrder().getDeliveryPrice()%>
-        </div>
-    </div>
 
-    <!-- 배송 정보 -->
-    <%
-        // 배송지 정보 가져오기
-        DeliveryDao deliveryDao = new DeliveryDao();
-        Delivery delivery = deliveryDao.getDeliveryByOrderNo(8);
-        delivery.setOrder(order);
-    %>
-    <h3 class="mb-3">배송정보</h3>
-    <div class="row border-top justify-content-md-center mb-3">
-        <div class="col-3 bg-dark text-white p-3 ps-4">
-            수령인
-        </div>
-        <div class="col-9 p-3">
-            <%=delivery.getRecipient() %>
-        </div>
-        <div class="col-3 border-top bg-dark text-white p-3 ps-4">
-            우편번호
-        </div>
-        <div class="col-9 border-top p-3">
-            <%=delivery.getOrder().getAddr().getZipCode() %>
-        </div>
-        <div class="col-3 border-top bg-dark text-white p-3 ps-4">
-            주소
-        </div>
-        <div class="col-9 border-top p-3">
-            <%=delivery.getOrder().getAddr().getAddr1() %>
-        </div>
-        <div class="col-3 border-top bg-dark text-white p-3 ps-4">
-            휴대전화
-        </div>
-        <div class="col-9 border-top p-3">
-            <%=delivery.getOrder().getUser().getTel() %>
-        </div>
-        <div class="col-3 border-top border-bottom bg-dark text-white p-3 ps-4">
-            배송메세지
-        </div>
-        <div class="col-9 border-top border-bottom p-3">
-            <%=delivery.getOrder().getDeliveryMessage() %>
-        </div>
-    </div>
 
-    <!--버튼-->
-    <div class="text-end my-2">
-        <a href="delete.jsp" class="btn btn-danger">주문삭제</a>
-        <a href="modify-form.jsp" class="btn btn-primary">주문수정</a>
-        <a href="order.jsp" class="btn btn-success">주문목록</a>
+            %>
+            <div class="card">
+                <div class="card-header"><strong>주문정보</strong></div>
+                <div class="card-body">
+                    <div class="row justify-content-md-center mb-3">
+                        <div class="col-3 p-3 ps-4">
+                            주문번호
+                        </div>
+                        <div class="col-9 p-3">
+                            <%=order.getNo() %>
+                        </div>
+                        <div class="col-3 p-3 ps-4">
+                            주문일자
+                        </div>
+                        <div class="col-9 p-3">
+                            <%=order.getOrderDate() %>
+                        </div>
+                        <div class="col-3 p-3 ps-4">
+                            주문자명
+                        </div>
+                        <div class="col-9 p-3">
+                            <%=order.getUser().getName() %>
+                        </div>
+                        <div class="col-3 p-3 ps-4">
+                            주문자아이디
+                        </div>
+                        <div class="col-9 p-3">
+                            <%=order.getUser().getId() %>
+                        </div>
+                        <div class="col-3 p-3 ps-4">
+                            주문상태
+                        </div>
+                        <div class="col-9 p-3">
+                            <%=order.getStatus()%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <%--주문 상품 정보--%>
+            <div class="card">
+                <div class="card-header"><strong>상품정보</strong></div>
+                <div class="card-body">
+                    <div class="row mb-5 p-3">
+                        <div class="col-2 mb-2">
+                            <img src="sample.jpg" class="rounded float-start"
+                                 style="width: 130px; height:150px;">
+                        </div>
+                        <div class="col-7">
+                            <input type="hidden" name="amount" value="<%=order.getAmount()%>">
+                            <input type="hidden" name="stockNo" value="">
+                            <ul class="list-unstyled">
+                                <li>상품명:
+                                </li>
+                                <li>사이즈:
+                                </li>
+                                <li>수량:
+                                </li>
+                                <li>상품금액:
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <!-- 결제 정보 -->
+            <%
+                // 결제 정보 가져오기
+                PaymentDao paymentDao = new PaymentDao();
+                Payment payment = paymentDao.getPaymentByOrderNo(8);
+                payment.setOrder(order);
+
+            %>
+        <div class="card">
+            <div class="card-header"><strong>결제정보</strong></div>
+            <div class="card-body">
+                <div class="row justify-content-md-center mb-3">
+                    <div class="col-3 p-3 ps-4">
+                        총 주문금액
+                    </div>
+                    <div class="col-9 p-3">
+                        <%=payment.getOrder().getPrice() %>
+                    </div>
+                    <div class="col-3 p-3 ps-4">
+                        배송비
+                    </div>
+                    <div class="col-9 p-3">
+                        <%=payment.getOrder().getDeliveryPrice()%>
+                    </div>
+                    <div class="col-3 p-3 ps-4">
+                        총 결제금액
+                    </div>
+                    <div class="col-9 p-3">
+                        <%=payment.getPrice() + payment.getOrder().getDeliveryPrice()%>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <!-- 배송 정보 -->
+            <div class="card">
+                <div class="card-header"><strong>배송정보</strong></div>
+                <div class="card-body">
+                    <div class="row justify-content-md-center mb-3">
+                        <div class="col-3 p-3 ps-4">
+                            수령인
+                        </div>
+                        <div class="col-9 p-3">
+
+                        </div>
+                        <div class="col-3 p-3 ps-4">
+                            우편번호
+                        </div>
+                        <div class="col-9 p-3">
+
+                        </div>
+                        <div class="col-3 p-3 ps-4">
+                            주소
+                        </div>
+                        <div class="col-9 p-3">
+
+                        </div>
+                        <div class="col-3 p-3 ps-4">
+                            휴대전화
+                        </div>
+                        <div class="col-9 p-3">
+
+                        </div>
+                        <div class="col-3 p-3 ps-4">
+                            배송메세지
+                        </div>
+                        <div class="col-9 p-3">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--버튼-->
+            <div class="text-end my-2">
+                <a href="delete.jsp?no=<%=orderNo%>" class="btn btn-danger">주문삭제</a>
+                <a href="modify-form.jsp?no=<%=orderNo%>" class="btn btn-primary">주문수정</a>
+                <a href="order.jsp" class="btn btn-success">주문목록</a>
+            </div>
+        </div>
     </div>
 </div>
 <%@ include file="../../common/footer.jsp" %>

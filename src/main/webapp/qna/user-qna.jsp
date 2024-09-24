@@ -26,8 +26,10 @@
 <body>
 <%@include file="../common/nav.jsp" %>
 <%
+  int userNo = 19;
   QnaDao qnaDao = new QnaDao();
-
+  List<Qna> qnas = qnaDao.getQnaListByUserNo(userNo);
+  
   // 요청한 페이지 번호 조회
   int pageNo = Utils.toInt(request.getParameter("page"), 1);
   // 총 데이터 갯수 조회
@@ -85,7 +87,7 @@
               </tr>
               <%
                 }
-
+                
                 for (Qna qna : qnaList) {
               %>
               <tr class="text-center">
@@ -104,11 +106,11 @@
                 </td>
                 <td>
                   <%
-                    if (qna.getRepliedContent() == null){
+                    if (qna.getRepliedContent() == null) {
                   %>
                   <span class="badge text-bg-secondary">답변대기</span>
                   <%
-                    } else {
+                  } else {
                   %>
                   <span class="badge text-bg-primary">답변완료</span>
                   <%
@@ -123,7 +125,7 @@
             </table>
           </div>
         </div>
-
+        
         <div class="row mb-3">
           <div class="col-6">
             <%
@@ -138,7 +140,7 @@
             <%
               }
             %>
-
+          
           </div>
           <div class="col-6">
             <div class="text-end">
@@ -148,8 +150,11 @@
             </div>
           </div>
         </div>
-
-
+        
+        <!--페이지네이션 -->
+        <%
+          if (pagination.getTotalPages() > 0) {
+        %>
         <div>
           <ul class="pagination justify-content-center">
             <li class="page-item <%=pagination.isFirst() ? "disabled" : "" %>">
@@ -158,14 +163,14 @@
               </a>
             </li>
             <%
-                for (int num = beginPage; num <= endPage; num++) {
+              for (int num = beginPage; num <= endPage; num++) {
             %>
             <li class="page-item <%=pageNo == num? "active" : "" %>">
               <a href="user-qna.jsp?page=<%=num %>" class="page-link"><%=num %>
               </a>
             </li>
             <%
-                }
+              }
             %>
             <li class="page-item <%=pagination.isLast() ? "disabled" : ""%>">
               <a class="page-link" href="user-qna.jsp?page=<%=pagination.getNext() %>">
@@ -174,13 +179,12 @@
             </li>
           </ul>
         </div>
-
-
+        <%
+          }
+        %>
+      </form>
     </div>
   </div>
-  </form>
-</div>
-</div>
 </div>
 
 <script type="text/javascript">
@@ -226,6 +230,9 @@
         // 만약 하나도 선택이 안되면 알림 전송 후, 거짓 반환
         if (!isChecked) {
             alert("선택된 문의글이 없습니다.")
+            let qnaDefineForm = document.getElementById("qna");
+            qnaDefineForm.setAttribute("action", "user-qna.jsp");
+            qnaDefineForm.submit();
             return false;
         }
 

@@ -3,7 +3,7 @@
 <%@ page import="com.jhta.afterpay.qna.Qna" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-  String[] arr = request.getParameterValues("qnaNo");
+  String[] arr = request.getParameterValues("no");
   
   QnaDao qnaDao = new QnaDao();
   

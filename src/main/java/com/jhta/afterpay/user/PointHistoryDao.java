@@ -103,27 +103,4 @@ public class PointHistoryDao {
         return DaoHelper.selectOneInt(sql, userNo);
     }
 
-    public List<PointHistory> getAllQnaByUserNo(int begin, int end) {
-        String sql = """
-                SELECT ROW_NUMBER() OVER (ORDER BY HISTORY_NO DESC) ROWNUMBER
-                        , HISTORY_NO
-                        , HISTORY_DATE
-                        , HISTORY_CONTENT
-                        , HISTORY_POINT
-                        , HISTORY_CURRENT_POINT
-                FROM POINT_HISTORIES
-                WHERE ROWNUMBER BETWEEN ? AND ?
-                    AND USER_NO = ?
-                """;
-
-        return DaoHelper.selectList(sql, rs -> {
-            PointHistory point = new PointHistory();
-            point.setNo(rs.getInt("HISTORY_NO"));
-            point.setHistoryDate(rs.getDate("HISTORY_DATE"));
-            point.setContent(rs.getString("HISTORY_CONTENT"));
-            point.setPoint(rs.getInt("HISTORY_POINT"));
-            point.setCurrentPoint(rs.getInt("HISTORY_CURRENT_POINT"));
-            return point;
-        }, begin, end);
-    }
 }

@@ -187,13 +187,9 @@ public class QnaDao {
                 WHERE QNA_NO = ?
                 """;
         DaoHelper.update(sql
-<<<<<<< Updated upstream
                         , qna.getContent()
                         , qna.getNo());
-=======
-                , qna.getContent()
-                , qna.getNo());
->>>>>>> Stashed changes
+
     }
 
     /**

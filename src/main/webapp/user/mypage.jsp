@@ -35,7 +35,7 @@
   * 2. 사용자 정보 값 조회
   *
   */
-  int userNo = (Integer)session.getAttribute("USERNO");
+  int userNo = 19;
   UserDao userDao = new UserDao();
   ReviewDao reviewDao = new ReviewDao();
   User user = userDao.getUserByNo(userNo);

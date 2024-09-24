@@ -37,6 +37,21 @@ public class QnaDao {
     }
 
     /**
+     * 사용자가 삭제하지 않은 전체 문의객수 조회해서 반환
+     * @return
+     */
+    public int getNotDeleteTotalRows(int userNo) {
+        String sql = """
+                SELECT COUNT(*)
+                FROM QNAS
+                WHERE ISQNADELETED = 'N'
+                    AND USER_NO = ?
+                """;
+
+        return DaoHelper.selectOneInt(sql, userNo);
+    }
+
+    /**
      * 페이지처리가 되는 문의 전체 조회 기능
      * @param begin 첫번째 페이지
      * @param end   마지막 페이지
@@ -113,8 +128,42 @@ public class QnaDao {
     }
 
     /**
+     * 사용자번호와 동일한 문의내용 조회
+     * @param userNo
+     * @return
+     */
+    public Qna getQnaByUserNo(int userNo) {
+        String sql = """
+                SELECT *
+                FROM QNAS
+                WHERE USER_NO = ?
+                    AND ISQNADELETED = 'N'
+                ORDER BY QNA_CREATED_DATE DESC
+                """;
+
+        return DaoHelper.selectOne(sql, rs -> {
+            Qna qna = new Qna();
+
+            qna.setNo(rs.getInt("qna_no"));
+            qna.setTitle(rs.getString("qna_title"));
+            qna.setContent(rs.getString("qna_content"));
+            qna.setCnt(rs.getInt("qna_cnt"));
+            qna.setCreatedDate(rs.getDate("qna_created_date"));
+            qna.setRepliedDate(rs.getDate("qna_replied_date"));
+            qna.setRepliedContent(rs.getString("qna_replied_content"));
+            qna.setIsQnaDeleted(rs.getString("isqnadeleted"));
+
+
+            User user = new User();
+            user.setNo(rs.getInt("user_no"));
+            qna.setUser(user);
+
+            return qna;
+        }, userNo);
+    }
+
+    /**
      * 문의 번호와 일치하는 문의내역 조회
-     *
      * @param qnaNo
      * @return
      */
@@ -123,36 +172,27 @@ public class QnaDao {
                 SELECT QNA_NO
                     , QNA_TITLE
                     , QNA_CONTENT
-                    , QNA_CNT
                     , QNA_CREATED_DATE
-                    , QNA_REPLIED_DATE
                     , QNA_REPLIED_CONTENT
-                    , ISQNADELETED
-                    , USER_NO
                 FROM QNAS
                 WHERE QNA_NO = ?
                 """;
 
         return DaoHelper.selectOne(sql, rs -> {
             Qna qna = new Qna();
-            qna.setNo(rs.getInt("QNA_NO"));
-            qna.setTitle(rs.getString("QNA_TITLE"));
-            qna.setContent(rs.getString("QNA_CONTENT"));
-            qna.setCnt(rs.getInt("QNA_CNT"));
-            qna.setCreatedDate(rs.getDate("QNA_CREATED_DATE"));
-            qna.setRepliedDate(rs.getDate("QNA_REPLIED_DATE"));
-            qna.setRepliedContent(rs.getString("QNA_REPLIED_CONTENT"));
-            qna.setIsQnaDeleted(rs.getString("ISQNADELETED"));
 
-            User user = new User();
-            user.setNo(rs.getInt("USER_NO"));
+            qna.setNo(rs.getInt("qna_no"));
+            qna.setTitle(rs.getString("qna_title"));
+            qna.setContent(rs.getString("qna_content"));
+            qna.setCreatedDate(rs.getDate("qna_created_date"));
+            qna.setRepliedContent(rs.getString("qna_replied_content"));
+
             return qna;
         }, qnaNo);
     }
 
     /**
      * 문의내용 수정
-     *
      * @param qna
      */
     public void updateQna(Qna qna) {
@@ -175,7 +215,6 @@ public class QnaDao {
 
     /**
      * 문의내용 추가
-     *
      * @param qna
      */
     public void insertQna(Qna qna) {
@@ -210,11 +249,12 @@ public class QnaDao {
         DaoHelper.update(sql, qna.getNo());
     }
 
-    public int getAllTotalRowsByUserNo(int userNo) {
+    public int getNotDeletedTotalRows(int userNo) {
         String sql = """
                 SELECT COUNT(*)
                 FROM QNAS
                 WHERE USER_NO = ?
+                    AND ISQNADELETED = 'N'
                 """;
 
         return DaoHelper.selectOneInt(sql, userNo);
@@ -226,7 +266,7 @@ public class QnaDao {
      * @param end   마지막 페이지
      * @return
      */
-    public List<Qna> getAllQnaByUserNo(int begin, int end) {
+    public List<Qna> getNotDeletedQna(int userNo, int begin, int end) {
         String sql = """
                     SELECT *
                     FROM(
@@ -238,11 +278,13 @@ public class QnaDao {
                         ,Q.QNA_REPLIED_DATE
                         ,U.USER_NO
                         ,U.USER_NAME
-                    FROM QNAS Q, USERS U
-                    WHERE Q.USER_NO = U.USER_NO
+                        ,Q.QNA_REPLIED_CONTENT
+                    FROM QNAS Q JOIN USERS U
+                        ON Q.USER_NO = U.USER_NO
+                    WHERE Q.ISQNADELETED = 'N'
+                        AND Q.USER_NO = ?
                     )
                     WHERE ROWNUMBER BETWEEN ? AND ?
-                        AND USER_NO = ?
                 """;
 
         return DaoHelper.selectList(sql, rs -> {
@@ -252,6 +294,7 @@ public class QnaDao {
             qna.setCnt(rs.getInt("QNA_CNT"));
             qna.setCreatedDate(rs.getDate("QNA_CREATED_DATE"));
             qna.setRepliedDate(rs.getDate("QNA_REPLIED_DATE"));
+            qna.setRepliedContent(rs.getString("QNA_REPLIED_CONTENT"));
 
             User user = new User();
             user.setNo(rs.getInt("USER_NO"));
@@ -259,6 +302,6 @@ public class QnaDao {
             qna.setUser(user);
 
             return qna;
-        }, begin, end);
+        }, userNo, begin, end);
     }
 }

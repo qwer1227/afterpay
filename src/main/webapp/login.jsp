@@ -10,6 +10,8 @@
     UserDao userDao = new UserDao();
     User user = userDao.getUserById(id);
 
+    System.out.println(DigestUtils.sha256Hex(pwd));
+
     if (user == null) {
         response.sendRedirect("login-form.jsp?invalid");
         return;
@@ -31,7 +33,9 @@
     session.setAttribute("USERNAME", user.getName());
     session.setAttribute("GRADE", user.getGradeId());
 
-    response.sendRedirect("/completed.jsp");
-
-
+    if(id.equals("ADMIN")){
+        response.sendRedirect("/admin/home.jsp");
+    } else {
+        response.sendRedirect("/index.jsp");
+    }
 %>

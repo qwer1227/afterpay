@@ -41,7 +41,7 @@
 <div class="container">
     <div class="row">
         <div class="card">
-            <div class="card-header my-5">
+            <div class="card-header mt-3">
                 <h4>공지사항</h4>
             </div>
             <div class="card-body">
@@ -52,25 +52,25 @@
                         <col width="10%"/>
                     </colgroup>
                     <tr>
-                        <th>제목</th>
+                        <th class="table-dark">제목</th>
                         <td><%=notice.getTitle()%>
                         </td>
                     </tr>
                     <tr>
-                        <th>작성자</th>
+                        <th class="table-dark">작성자</th>
                         <td>관리자</td>
                     </tr>
                     <tr>
-                        <th>내용</th>
+                        <th class="table-dark">내용</th>
                         <td><%=notice.getContent()%>
                         </td>
                     </tr>
                     <tr>
-                        <th>조회수</th>
+                        <th class="table-dark">조회수</th>
                         <td></td>
                     </tr>
                     <tr>
-                        <th>작성일</th>
+                        <th class="table-dark">작성일</th>
                         <td><%=notice.getCreatedDate()%>
                         </td>
                     </tr>

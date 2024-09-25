@@ -3,8 +3,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.jhta.afterpay.util.Pagination" %>
 <%@ page import="com.jhta.afterpay.util.Utils" %>
-<%@ page import="com.jhta.afterpay.product.Product" %>
-<%@ page import="com.jhta.afterpay.product.ProductDao" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>

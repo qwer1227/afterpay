@@ -46,7 +46,7 @@ public class WishDao {
                     , p.product_price
             from wishes w, products p
             where user_no = ?
-            and w.product_no = p.product_no    
+            and w.product_no = p.product_no
         """;
 
         return DaoHelper.selectList(sql, rs -> {

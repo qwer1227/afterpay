@@ -1,6 +1,6 @@
 package com.jhta.afterpay.user.vo;
 
-src/main/java/com/jhta/afterpay/user/User.java
+
 import java.awt.*;
 
 import java.util.Date;

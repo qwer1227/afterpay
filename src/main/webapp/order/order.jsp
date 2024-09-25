@@ -22,6 +22,11 @@
     String userID = String.valueOf(session.getAttribute("USERID"));
     System.out.println(userID);
 
+    if (userID == null) {
+        response.sendRedirect("../login-form.jsp?deny");
+        return;
+    }
+
     int userNo = Utils.toInt(userNos);
 
     // 쿼리 파라미터
@@ -94,8 +99,10 @@
             addr.setTel(tel);
             addr.setZipCode(zipcode);
             addr.setUser(user);
-            addr.setIsAddrHome("N");
             addr.setName("새 배송지");
+            if(findAddr.getIsAddrHome().equals("Y")){
+                addr.setIsAddrHome("N");
+            }
             addrDao.insertAddr(addr);
             break;
         }
@@ -168,5 +175,4 @@
     paymentDao.insertPayment(payment);
 
     response.sendRedirect("order-success.jsp");
-
 %>

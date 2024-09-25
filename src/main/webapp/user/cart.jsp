@@ -28,17 +28,21 @@
     }
 </style>
 <body>
+<%@include file="../common/nav.jsp" %>
 <%
+    int userNo =Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
+    if (userID == null) {
+        response.sendRedirect("../login-form.jsp?deny");
+        return;
+    }
     // 장바구니 목록 가져오기
     CartDao cartDao = new CartDao();
-    int userNo = 19;
-    List<Cart> carts = cartDao.getAllCartsByUserNo(19);
+    List<Cart> carts = cartDao.getAllCartsByUserNo(userNo);
 
     int totalRows = carts.size();
     int pageNo = Utils.toInt(request.getParameter("page"), 1);
     Pagination pagination = new Pagination(pageNo, totalRows);
 %>
-<%@include file="../common/nav.jsp" %>
 <div class="container">
     <form action="../order/order-form.jsp" method="post">
         <div class="row">

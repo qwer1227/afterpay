@@ -2,6 +2,7 @@
 <%@ page import="com.jhta.afterpay.user.User" %>
 <%@ page import="com.jhta.afterpay.user.ReviewDao" %>
 <%@ page import="com.jhta.afterpay.user.Review" %>
+<%@ page import="com.jhta.afterpay.util.Utils" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
@@ -26,11 +27,13 @@
   }
 </style>
 <body>
-<%
-   String userId = (String) session.getAttribute("USERID");
-   String grade = (String) session.getAttribute("GRADE");
-%>
+
 <%@include file="../common/nav.jsp"%>
+<%
+  String userNos = String.valueOf(session.getAttribute("USERNO"));
+  String userId = String.valueOf(session.getAttribute("USERID"));
+  String grade = (String) session.getAttribute("GRADE");
+%>
 <%
   /*
   * user.jsp?id=hong
@@ -40,7 +43,7 @@
   *
   */
 
-  int userNo = 19;
+  int userNo = Utils.toInt(userNos);
   UserDao userDao = new UserDao();
   ReviewDao reviewDao = new ReviewDao();
   User user = userDao.getUserByNo(userNo);
@@ -112,13 +115,13 @@
         <a href="/user/wish-list.jsp" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
           위시리스트
         </a>
-        <a href="/user/qna.jsp" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
+        <a href="/qna/user-qna.jsp" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
           상품 문의 내역
         </a>
         <a href="#" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
           공지사항
         </a>
-        <a href="../index.jsp" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
+        <a href="../logout.jsp" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
           로그아웃
         </a>
       </div>

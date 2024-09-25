@@ -3,7 +3,6 @@ package com.jhta.afterpay.user;
 import com.jhta.afterpay.product.Product;
 import com.jhta.afterpay.product.Stock;
 import com.jhta.afterpay.util.DaoHelper;
-
 import java.util.List;
 
 public class CartDao {
@@ -17,6 +16,7 @@ public class CartDao {
                 VALUES
                 (cart_no_seq.nextval
                 , ?, ?
+                
                 , ? , ?)
                 """;
         DaoHelper.insert(sql

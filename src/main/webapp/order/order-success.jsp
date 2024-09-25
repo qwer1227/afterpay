@@ -24,11 +24,12 @@
 </head>
 <body>
 <%
-//    // 로그인하지 않은 경우, 로그인 폼으로 이동한다.
-//    if (session.getAttribute("USERID") == null) {
-//        response.sendRedirect("login-form.jsp");
-//        return;
-//    }
+    String userNo = String.valueOf(session.getAttribute("USERNO"));
+    String userId = String.valueOf(session.getAttribute("USERID"));
+    if (userId == null) {
+        response.sendRedirect("../login-form.jsp?deny");
+        return;
+    }
 
     // 가장 최근 주문내역 가져오기
     OrderDao orderDao = new OrderDao();
@@ -135,8 +136,8 @@
             </form>
         </div>
         <div class="col-auto">
-            <button onclick="location.href='../user/orders.jsp'" class="btn btn-dark text-white d-grid" type="button">
-                쇼핑계속하기
+            <button onclick="location.href='../index.jsp'" class="btn btn-dark text-white d-grid" type="button">
+                확인
             </button>
         </div>
     </div>

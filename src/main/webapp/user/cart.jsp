@@ -67,7 +67,6 @@
                     <%
                         }
                     %>
-
                     <div class="tab-pane fade show active " id="nav-cart" role="tabpanel"
                          aria-labelledby="nav-home-tab">
                         <div class="table-responsive">
@@ -94,7 +93,7 @@
                                         List<Image> images = productDao.getAllImagesByNo(productNo);
                                         int stockNo = cart.getStock().getNo();
                                         Stock stock = stockDao.getStockByNo(stockNo);
-                                        totalAmount += cart.getAmount();
+                                        totalAmount += cart.getAmount(  );
                                         totalPrice += product.getPrice() * cart.getAmount();
                                 %>
                                 <tr>

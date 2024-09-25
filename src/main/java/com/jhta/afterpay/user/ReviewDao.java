@@ -192,7 +192,7 @@ public class ReviewDao {
         }, productNo);
     }
 
-    public void deleteReview(int reviewNo) {
+    public void deleteReviewByReviewNo(int reviewNo) {
         String sql = """
                 UPDATE REVIEWS
                 SET ISDELETED = 'Y'

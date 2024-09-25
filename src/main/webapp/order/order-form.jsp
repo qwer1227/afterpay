@@ -91,7 +91,7 @@
                 <img src="../common/images/<%=images.get(0).getName()%>" class="rounded float-start"
                      style="width: 130px; height:150px;">
             </div>
-            <div class="col-7">
+            <div class="col-9">
                 <input type="hidden" name="amount" value="<%=amount1%>">
                 <input type="hidden" name="stockNo" value="<%=stock.getNo()%>">
                 <ul class="list-unstyled">
@@ -103,7 +103,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-3">
+            <div class="col-1">
                 \<%=Utils.toCurrency(product.getPrice())%>
             </div>
             <%

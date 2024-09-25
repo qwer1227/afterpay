@@ -160,7 +160,7 @@
 
     <div class="row mb-3">
         <div class="col-12">
-            <div class="card">
+            <div class="card" id="review">
                 <div class="card-header">
                     리뷰 목록
                     <%--리뷰 작성하기 버튼 클릭 -> 리뷰 작성 폼으로 이동(로그인) / 로그인 폼으로 이동(로그아웃) --%>

@@ -103,7 +103,7 @@
                 </th>
                 <td class="text-start">
                   <!-- 상품 상세페이지의 리뷰로 페이지 이동 -->
-                  <a href="../product/detail.jsp?" style="text-decoration-line: none">
+                  <a href="../product/detail.jsp?pno=<%=reviews.getProduct().getNo()%>#review" style="text-decoration-line: none">
                     <%=reviews.getTitle()%>
                   </a>
                 </td>

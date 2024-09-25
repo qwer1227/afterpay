@@ -33,11 +33,16 @@
 
 <div class="container">
   <div class="row">
+    <div class="col-2"></div>
+    <div class="col-10">
+      <h2 class="mt-3"><strong>회원정보 수정</strong></h2>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-2">
       <%@include file="../common/user-nav.jsp"%>
     </div>
     <div class="col-10">
-      <h2 class="m-4"><strong>회원정보 수정</strong></h2>
       <hr style="border:solid 1px gray;"/>
       <table class="table table-borderless">
         <thead>

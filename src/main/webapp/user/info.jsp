@@ -83,8 +83,8 @@
         <a href="modify-info-form.jsp" type="submit" class="btn btn-outline-secondary">
             회원정보 수정
         </a>
-        <a href="modify-address.jsp" type="submit" class="btn btn-outline-primary">
-            배송 주소지 변경
+        <a href="modify-address-form.jsp" type="submit" class="btn btn-outline-primary">
+            배송지 관리
         </a>
         <a href="modify-pwd-form.jsp" type="submit" class="btn btn-outline-warning">
             비밀번호 변경

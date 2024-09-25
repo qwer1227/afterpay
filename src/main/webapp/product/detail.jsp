@@ -69,7 +69,7 @@
                 <%
                     for (Image image : images) {
                 %>
-                        <img src="/common/images/<%=image.getName() %>" width="60" height="90" onmouseenter="changeBigImage(event)" />
+                <img src="/common/images/<%=image.getName() %>" width="60" height="90" onmouseenter="changeBigImage(event)" />
                 <%
                     }
                 %>

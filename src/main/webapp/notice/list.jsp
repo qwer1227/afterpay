@@ -80,15 +80,9 @@
             %>
             </tbody>
         </table>
-<%--        <%--%>
-<%--            if (loginUserId != null){--%>
-<%--        %>--%>
         <div class="float-end">
             <a href="/notice/form.jsp?" class="btn btn-primary">새 글</a>
         </div>
-<%--        <%--%>
-<%--            }--%>
-<%--        %>--%>
         <%
             if (pagination.getTotalRows() > 0) {
                 int beginPage = pagination.getBeginPage();

@@ -20,6 +20,9 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/common/css/style.css">
     <style>
+        .card {
+            margin: 80px 0px;
+        }
     </style>
 </head>
 <body>
@@ -36,8 +39,8 @@
     Notice notice = noticeDao.getNoticeDetailByNo(noticeNo);
 %>
 <div class="container">
-    <div class="row mb-10">
-        <div class="">
+    <div class="row">
+        <div class="card">
             <div class="card-header my-5">
                 <h4>공지사항</h4>
             </div>
@@ -47,12 +50,13 @@
                         <col width="15%"/>
                         <col width="*%"/>
                         <col width="10%"/>
-                        <col width="10%"/>
                     </colgroup>
                     <tr>
                         <th>제목</th>
                         <td><%=notice.getTitle()%>
                         </td>
+                    </tr>
+                    <tr>
                         <th>작성자</th>
                         <td>관리자</td>
                     </tr>
@@ -64,6 +68,8 @@
                     <tr>
                         <th>조회수</th>
                         <td></td>
+                    </tr>
+                    <tr>
                         <th>작성일</th>
                         <td><%=notice.getCreatedDate()%>
                         </td>

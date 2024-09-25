@@ -29,7 +29,7 @@
   UserDao userDao = new UserDao();
 
   // 세션에서 사용자 번호 가져온다.
-  int userNo = 19;
+  int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
   User user = userDao.getUserByNo(userNo);
 %>
 

@@ -26,7 +26,6 @@
             <div class="col-12 m-3 border bg-light p-3">
                 <h2 class="m-4"><strong>1:1 문의하기</strong></h2>
                 <hr style="border:solid 1px gray;"/>
-
                 <div class="mb-3">
                     <label class="form-label">문의 제목</label>
                     <input type="text" class="form-control" name="title">

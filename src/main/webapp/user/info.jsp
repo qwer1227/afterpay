@@ -73,7 +73,6 @@
           </tr>
         </tbody>
       </table>
-
       <div class="text-end">
         <a href="modify-info-form.jsp" type="submit" class="btn btn-outline-secondary">
             회원정보 수정

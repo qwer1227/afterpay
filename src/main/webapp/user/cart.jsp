@@ -54,17 +54,19 @@
             <!-- 컨텐츠 -->
             <div class="col-10">
                 <h2 class="m-4"><strong>장바구니</strong></h2>
+                <hr style="border:solid 1px gray;">
                 <div class="tab-content" id="nav-tabContent">
-                    <div class="hstack gap-3">
-                        <div class="p-2">
-                            <input type="checkbox" id="checkAll" style="zoom:1.8" onclick="checked()" >
-                        </div>
-                        <div class="p-3 ms-auto">
-                            <button class="btn btn-lg">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </div>
+                    <%
+                        if (carts.isEmpty()) {
+                    %>
+                    <div class="text-center m-5">
+                        <strong>장바구니에 상품이 없습니다.</strong><br>
+                        <br>
+                        <button type="button" onclick="location.href='../index.jsp'" class="btn btn-lg bg-light border-dark-subtle">지금 바로 쇼핑하러 가기</button>
                     </div>
+                    <%
+                        }
+                    %>
 
                     <div class="tab-pane fade show active " id="nav-cart" role="tabpanel"
                          aria-labelledby="nav-home-tab">

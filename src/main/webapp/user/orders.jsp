@@ -62,7 +62,6 @@
                     <strong>주문 내역이 없습니다.</strong><br>
                     <br>
                     <a href="" type="button" class="btn btn-lg bg-light border-dark-subtle">지금 바로 쇼핑하러 가기</a>
-
                 </div>
                 <%
                 }
@@ -78,15 +77,10 @@
                     <thead>
                     <tr>
                         <th scope="col">
-                          <input type="checkbox" style="zoom:1.8" onclick="checkAll(this)">
                         </th>
                         <th scope="col"></th>
                         <th scope="col"></th>
-                        <th scope="col" class="text-end">
-                            <button id="check-del" class="btn btn-lg">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </th>
+                        <th scope="col" class="text-end"></th>
                     </tr>
                     </thead>
 
@@ -100,17 +94,14 @@
 
                     %>
                         <tr class="align-middle">
-                          <td>
-                          </td>
-                          <td>
-                          </td>
+                          <td></td>
+                          <td></td>
                           <td>
                             <div class="bg-black text-white m-1 text-center">
                               <strong>주문번호: <%=order.getNo()%></strong>
                             </div>
                           </td>
-                          <td>
-                          </td>
+                          <td></td>
                         </tr>
                     <%
                             for (Delivery delivery : deliveries) {
@@ -120,6 +111,7 @@
                                 totalPrice = delivery.getPrice() * delivery.getAmount();
                     %>
                     <tr class="align-middle">
+                        <td></td>
                         <td>
                             <img src="../common/images/<%=images.get(0).getName()%>" class="rounded float-start"
                                  style="width: 130px; height:150px;">

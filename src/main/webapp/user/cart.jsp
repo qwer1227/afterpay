@@ -30,7 +30,7 @@
 <body>
 <%@include file="../common/nav.jsp" %>
 <%
-    int userNo =Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
+    int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
     if (userID == null) {
         response.sendRedirect("../login-form.jsp?deny");
         return;
@@ -62,7 +62,9 @@
                     <div class="text-center m-5">
                         <strong>장바구니에 상품이 없습니다.</strong><br>
                         <br>
-                        <button type="button" onclick="location.href='../index.jsp'" class="btn btn-lg bg-light border-dark-subtle">지금 바로 쇼핑하러 가기</button>
+                        <button type="button" onclick="location.href='../index.jsp'"
+                                class="btn btn-lg bg-light border-dark-subtle">지금 바로 쇼핑하러 가기
+                        </button>
                     </div>
                     <%
                         }
@@ -87,27 +89,30 @@
                                     StockDao stockDao = new StockDao();
                                     ProductDao productDao = new ProductDao();
                                     // 장바구니 목록 보여주기
-                                for (Cart cart : carts) {
+                                    for (Cart cart : carts) {
                                         int productNo = cart.getProduct().getNo();
                                         Product product = productDao.getProductByNo(productNo);
                                         List<Image> images = productDao.getAllImagesByNo(productNo);
                                         int stockNo = cart.getStock().getNo();
                                         Stock stock = stockDao.getStockByNo(stockNo);
-                                        totalAmount += cart.getAmount(  );
+                                        totalAmount += cart.getAmount();
                                         totalPrice += product.getPrice() * cart.getAmount();
                                 %>
                                 <tr>
                                     <td>
-                                        <input type="checkbox" class="chk" name="stockNo" value="<%=stockNo%>" style="zoom:1.5">
+                                        <input type="checkbox" class="chk" name="stockNo" value="<%=stockNo%>"
+                                               style="zoom:1.5">
                                     </td>
                                     <td>
-                                        <img src="../common/images/<%=images.get(0).getName()%>" class="rounded mx-auto d-block" width="170">
+                                        <img src="../common/images/<%=images.get(0).getName()%>"
+                                             class="rounded mx-auto d-block" width="170">
                                     </td>
                                     <td class="align-top">
                                         <p></p>
                                         <p style="font-size: 20px">
                                             <input type="hidden" name="name" value="<%=product.getName()%>">
-                                            <strong><%=product.getName()%></strong>
+                                            <strong><%=product.getName()%>
+                                            </strong>
                                         </p>
                                         <p>
                                             <input type="hidden" name="size" value="<%=stock.getSize()%>">
@@ -146,7 +151,8 @@
                                 for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
                             %>
                             <li class="page-item <%=num == pageNo ? "active" : ""%>">
-                                <a href="list.jsp?cat_no=<%=userNo%>&page=<%=num %>" class="page-link"><%=num %></a>
+                                <a href="list.jsp?cat_no=<%=userNo%>&page=<%=num %>" class="page-link"><%=num %>
+                                </a>
                             </li>
                             <%
                                 }
@@ -176,15 +182,18 @@
                                 <tr>
                                     <td>
                                         <input type="hidden" name="totalAmount" value="<%=totalAmount%>">
-                                        <strong><%=totalAmount%></strong>
+                                        <strong><%=totalAmount%>
+                                        </strong>
                                     </td>
                                     <td>
                                         <input type="hidden" name="deliveryPrice" value="<%=3000%>">
-                                        <strong><%=Utils.toCurrency(3000)%></strong>
+                                        <strong><%=Utils.toCurrency(3000)%>
+                                        </strong>
                                     </td>
                                     <td>
                                         <input type="hidden" name="totalPrice" value="<%=totalPrice%>">
-                                        <strong><%=Utils.toCurrency(totalPrice)%></strong>
+                                        <strong><%=Utils.toCurrency(totalPrice)%>
+                                        </strong>
                                     </td>
                                     <td></td>
                                 </tr>
@@ -200,38 +209,35 @@
 <script type="text/javascript">
     document.querySelector('#checkAll');
 
-    checkAll.addEventListener('click', function(){
+    checkAll.addEventListener('click', function () {
 
         const isChecked = checkAll.checked;
 
-        if(isChecked){
+        if (isChecked) {
             const checkboxes = document.querySelectorAll('.chk');
 
-            for(const checkbox of checkboxes){
+            for (const checkbox of checkboxes) {
                 checkbox.checked = true;
             }
-        }
-
-        else{
+        } else {
             const checkboxes = document.querySelectorAll('.chk');
-            for(const checkbox of checkboxes){
+            for (const checkbox of checkboxes) {
                 checkbox.checked = false;
             }
         }
     })
 
     const checkboxes = document.querySelectorAll('.chk');
-    for(const checkbox of checkboxes){
-        checkbox.addEventListener('click',function(){
+    for (const checkbox of checkboxes) {
+        checkbox.addEventListener('click', function () {
 
             const totalCnt = checkboxes.length;
 
             const checkedCnt = document.querySelectorAll('.chk:checked').length;
 
-            if(totalCnt == checkedCnt){
+            if (totalCnt == checkedCnt) {
                 document.querySelector('#checkAll').checked = true;
-            }
-            else{
+            } else {
                 document.querySelector('#checkAll').checked = false;
             }
 

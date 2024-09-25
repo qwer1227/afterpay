@@ -184,16 +184,6 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-  function checkAll(el){
-    const checkBoxes  = document.querySelectorAll('.chkbox');
-    checkBoxes.forEach((row)=>{
-      row.checked = el.checked;
-    })
-  }
-</script>
-
 <%@include file="../common/footer.jsp" %>
 </body>
 </html>

@@ -1,3 +1,5 @@
+<%@ page import="com.jhta.afterpay.notice.Notice" %>
+<%@ page import="com.jhta.afterpay.notice.NoticeDao" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <html>
 <head>
@@ -27,22 +29,52 @@
 //    response.sendRedirect("/login-form.jsp");
 //    return
 //  }
+  String nno = request.getParameter("nno");
+
 %>
 <div class="container">
-  <h1>공지사항 작성폼</h1>
-  <form class="border bg-light p-3" method="post" action="insert.jsp">
-    <div class="mb-3">
-      <label class="form-label">제목</label>
-      <input type="text" class="form-control" name="title">
-    </div>
-    <div class="mb-3">
-      <label class="form-label">내용</label>
-      <input type="text" class="form-control" name="content">
-    </div>
-    <div>
-      <button type="submit" class="btn btn-primary">등록</button>
-    </div>
-  </form>
+  <%
+    if (nno == null) {
+  %>
+    <h1>공지사항 작성</h1>
+    <form class="border bg-light p-3" method="post" action="insert.jsp">
+      <div class="mb-3">
+        <label class="form-label">제목</label>
+        <input type="text" class="form-control" name="title" >
+      </div>
+      <div class="mb-3">
+        <label class="form-label">내용</label>
+        <textarea class="form-control" rows="5" name="content"></textarea>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-primary">등록</button>
+      </div>
+    </form>
+
+  <%
+    } else  {
+      NoticeDao noticeDao = new NoticeDao();
+      Notice notice = noticeDao.getNoticeDetailByNo(Integer.parseInt(nno));
+  %>
+    <h1>공지사항 수정</h1>
+    <form class="border bg-light p-3" method="post" action="update.jsp">
+      <input type="hidden" name="nno" value="<%=notice.getNo()%>">
+      <div class="mb-3">
+        <label class="form-label">제목</label>
+        <input type="text" class="form-control" name="title" value="<%=notice.getTitle()%>">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">내용</label>
+        <textarea class="form-control" rows="5" name="content"><%=notice.getContent()%></textarea>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-primary">수정</button>
+      </div>
+    </form>
+  <%
+    }
+  %>
+
 </div>
 <%@ include file="/common/footer.jsp" %>
 </body>

@@ -7,23 +7,20 @@ import java.util.List;
 
 public class NoticeDao {
 
-    public void deleteNotice(Notice notice) {
-        String sql = """
-                delete from notices
-                where notice_id=?""";
-    }
-
     public void updateNotice(Notice notice) {
         String sql = """
                 UPDATE NOTICES
                 SET NOTICE_TITLE = ?
                 , NOTICE_CONTENT = ?
+                , ISNOTICEDELETED = ?
                 WHERE NOTICE_NO = ?
                 """;
 
         DaoHelper.update(sql
                              , notice.getTitle()
-                             , notice.getContent());
+                             , notice.getContent()
+                            , notice.getIsDeleted()
+                            , notice.getNo());
     }
     public void insertNotice(Notice notice) {
         String sql = """
@@ -64,8 +61,10 @@ public class NoticeDao {
                            , notice_no
                            , notice_title
                            , notice_created_date
-                           from notices n)
+                           from notices n
+                           where isnoticedeleted = 'N')
                 where row_num between ? and ?
+                
                 """;
 
         return DaoHelper.selectList(sql, rs -> {
@@ -104,6 +103,8 @@ public class NoticeDao {
             notice.setContent(rs.getString("notice_content"));
             notice.setCreatedDate(rs.getDate("notice_created_date"));
             notice.setUpdatedDate(rs.getDate("notice_updated_date"));
+            notice.setRemark(rs.getString("notice_remark"));
+            notice.setIsDeleted(rs.getString("isnoticedeleted"));
 
             return notice;
         }, No);

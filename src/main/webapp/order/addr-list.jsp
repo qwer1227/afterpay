@@ -33,10 +33,10 @@
     List<Addr> addrs = addrDao.getAllAddrByUserNo(Utils.toInt(userNo)); // 세션 이용하기
 %>
 <div class="container-sm">
-    <div class="row d-flex justify-content-center mb-3 p-5">
-        <a type="button" href="addr-add.jsp" class="btn btn-primary">배송지 추가하기</a>
-    </div>
     <h2 class="text-start">배송지 목록</h2>
+    <div class="row d-flex justify-content-center mt-2 mb-2 p-3">
+        <a type="button" href="addr-form.jsp" class="btn btn-primary">배송지 추가하기</a>
+    </div>
     <div class="row mb-3">
         <table class="table">
             <thead>
@@ -54,8 +54,8 @@
                 for (Addr addr : addrs) {
             %>
             <tr>
-                <td><input class="form-check-input" type="checkbox" id="name" name="addrName"
-                           value="<%=addr.getName()%>"
+                <td><input class="form-check-input" type="checkbox" id="name" name="addrNo"
+                           value="<%=addr.getNo()%>"
                            onclick="oneCheckbox(this)"></td>
                 <td><%=addr.getName()%>
                 </td>

@@ -50,7 +50,7 @@
     int totalRows = orderDao.getTotalRowsByUserNo(userNo);
     Pagination pagination = new Pagination(pageNo, totalRows, 5, 3);
     orders = orderDao.getAllOrdersByUserNo(userNo, pagination.getBegin(), pagination.getEnd());
-    List<Order> cancleOrder = new ArrayList<>();
+    List<Order> cancelOrder = new ArrayList<>();
 %>
 <div class="container">
     <div class="container">
@@ -64,12 +64,12 @@
                 <%
                     for (Order order : orders) {
                         if (order.getStatus() == "취소" || order.getStatus() == "반품" || order.getStatus() == "환불") {
-                            cancleOrder.add(order);
+                            cancelOrder.add(order);
                         }
                     }
                 %>
                 <%
-                    if (cancleOrder.isEmpty()) {
+                    if (cancelOrder.isEmpty()) {
                 %>
                 <div class="text-center m-5">
                     <strong>취소/교환/환불 내역이 없습니다.</strong><br>
@@ -126,7 +126,6 @@
                             </td>
                         </tr>
                         <%
-
                             for (Delivery delivery : deliveries) {
                                 Stock stock = stockDao.getStockByNo(delivery.getStock().getNo());
                                 Product product = productDao.getProductByNo(delivery.getProduct().getNo());

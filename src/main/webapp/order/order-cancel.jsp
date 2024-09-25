@@ -12,17 +12,20 @@
 --%>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <%
-  int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
-  // 전달 받은 상품 재고 번호
-  String stockNo = request.getParameter("stockNo");
-  //  전달 받은 상품 주문 수량
-  String amount = request.getParameter("amount");
-  int orderNo = Utils.toInt(request.getParameter("orderNo"));
+    int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
+    // 전달 받은 상품 재고 번호
+    int stockNo = Utils.toInt(request.getParameter("stockNo"));
+    //  전달 받은 상품 주문 수량
+    String amount = request.getParameter("amount");
+    int orderNo = Utils.toInt(request.getParameter("orderNo"));
 
-  DeliveryDao deliveryDao = new DeliveryDao();
-  List<Delivery> deliveries = deliveryDao.getAllDeliveryByOrderNo(orderNo);
-  for(Delivery delivery : deliveries) {
+    DeliveryDao deliveryDao = new DeliveryDao();
+    List<Delivery> deliveries = deliveryDao.getAllDeliveryByOrderNo(orderNo);
+    for (Delivery delivery : deliveries) {
+        if (delivery.getStock().getNo() == stockNo) {
+            delivery.setStatus("취소");
+        }
+    }
 
-  }
 
 %>

@@ -106,8 +106,6 @@
             addrDao.insertAddr(addr);
             break;
         }
-
-
     }
 
     // 새로 추가된 배송지 번호 가져오기

@@ -30,9 +30,9 @@
 <%@include file="../common/nav.jsp" %>
 <%
   WishDao wishDao = new WishDao();
-  int userNo = 19;
+  int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
   List<Wish> wishes = wishDao.getWishByUserNo(userNo);
-
+  
   int pageNo = Utils.toInt(request.getParameter("page"), 1);
   int totalRows = wishDao.getAllTotalRowsByUserNo(userNo);
   Pagination pagination = new Pagination(pageNo, totalRows);
@@ -41,7 +41,7 @@
   int beginPage = pagination.getBeginPage();
   int endPage = pagination.getEndPage();
   List<Wish> wishList = wishDao.getAllWishListByUserNo(userNo, begin, end);
-
+  
   int amount = 0;
   int totalPrice = 0;
   int totalAmount = 0;
@@ -60,7 +60,7 @@
     </div>
     <!-- 컨텐츠 -->
     <div class="col-10">
-      <form method="post" action="../order/order-form.jsp" id="wish">
+      <form method="post" action="../order/order-form.jsp" id="form-wish">
         <hr style="border:solid 1px gray;"/>
         <%
           if (wishList.isEmpty()) {
@@ -68,8 +68,8 @@
         <div class="text-center m-5">
           <strong>위시리스트 내역이 없습니다.</strong><br>
           <br>
-          <a href="" type="button" class="btn btn-lg bg-light border-dark-subtle">지금 바로 쇼핑하러 가기</a>
-
+          <a href="../index.jsp" type="button" class="btn btn-lg bg-light border-dark-subtle">지금 바로 쇼핑하러 가기</a>
+        
         </div>
         <%
         } else {
@@ -88,7 +88,7 @@
             </div>
           </div>
         </div>
-
+        
         <div class="tab-pane fade show active" id="nav-wishlist" role="tabpanel" aria-labelledby="nav-home-tab">
           <div class="table-responsive">
             <table class="table align-middle">
@@ -101,16 +101,20 @@
               <tbody>
               <%
                 for (Wish wish : wishList) {
+                  int stockNo = wish.getStock().getNo();
                   StockDao stockDao = new StockDao();
-                  ProductDao productDao = new ProductDao();
-
+                  Stock stock = stockDao.getStockByNo(stockNo);
+                  
                   int productNo = wish.getProduct().getNo();
+                  ProductDao productDao = new ProductDao();
+                  Product product = productDao.getProductByNo(productNo);
+                  
                   List<Image> images = productDao.getAllImagesByNo(productNo);
               %>
               <tr>
                 <td>
-                  <input type="checkbox" name="wishNo" id="ck" onchange="checkSelect()" onclick="checkWishCnt()"
-                         style="zoom:1.5" value="<%=wish.getNo()%>">
+                  <input type="checkbox" name="stockNo" id="ck" onchange="checkSelect()"
+                         style="zoom:1.5" value="<%=stockNo%>">
                 </td>
                 <td>
                   <img src="../common/images/<%=images.get(0).getName()%>" class="rounded mx-auto d-block" width="120">
@@ -121,14 +125,18 @@
                   </strong></p>
                   <p>사이즈: <strong><%=wish.getStock().getSize()%>
                   </strong></p>
-                  <p>가격: <strong><%=Utils.toCurrency(wish.getProduct().getPrice())%> 원</strong></p>
+                  <p>가격: <strong id="wish-<%=stock.getNo()%>-price"
+                                 data-price="<%=wish.getProduct().getPrice()%>"><%=Utils.toCurrency(wish.getProduct().getPrice())%>
+                    원</strong></p>
                 </td>
                 <td class="align-middle text-end">
-                  <a type="button" href="cart.jsp?stockNo=<%=wish.getStock().getNo()%>" class="btn btn-outline-primary">
+                  <a type="button" id="form-cart" href="cart.jsp?stockNo=<%=stockNo%>&amount=1" class="btn btn-outline-primary">
                     장바구니
                   </a>
                   <p></p>
-                  <a type="button" href="../order/order-form.jsp?stockNo=<%=wish.getStock().getNo()%>" class="btn btn-outline-success">
+                  <a type="button" id="form-order" href="../order/order-form.jsp?stockNo=<%=stockNo%>&amount=1"
+                     class="btn btn-outline-success">
+                    <input type="hidden" name="amount" value="1">
                     주문하기
                   </a>
                 </td>
@@ -140,7 +148,7 @@
             </table>
           </div>
         </div>
-
+        
         <!-- Item Total Info -->
         <div class="text-center mt-4 mb-5">
           <div class="row fs-5" id="cart-info">
@@ -152,36 +160,26 @@
                 <td>배송비</td>
                 <td>총 결제 금액</td>
                 <td rowspan="2">
-                  <button class="btn btn-outline-success btn-lg">
+                  <button class="btn btn-secondary btn-lg" id="btn-order" disabled>
                     지금 주문하기
                   </button>
                 </td>
               </tr>
               <tr>
                 <td>
-                  <div id="checkWish">
+                  <div>
                     <strong>
-                      <input type="hidden" name="totalAmount" value="<%=amount%>">개
+                      <span id="wish-total-amount"><%=amount%></span> 개
                     </strong>
                   </div>
                 </td>
                 <td>
-                  <input type="hidden" name="deliveryPrice" value="<%=totalPrice >= 150000 ? 0 : 3000%>">
-                  <%
-                    if (totalPrice < 150000) {
-                  %>
-                  <strong><%=Utils.toCurrency(3000)%> 원</strong>
-                  <%
-                  } else {
-                  %>
-                  <strong>무료</strong>
-                  <%
-                    }
-                  %>
+                  <strong>
+                    <span id="delivery-fee">3,000 원</span>
+                  </strong>
                 </td>
                 <td>
-                  <input type="hidden" name="totalPrice" value="<%=totalPrice%>">
-                  <strong><%=Utils.toCurrency(totalPrice)%> 원</strong>
+                  <strong><span id="wish-total-price"><%=Utils.toCurrency(totalPrice)%></span> 원</strong>
                 </td>
                 <td></td>
               </tr>
@@ -195,20 +193,22 @@
       </form>
     </div>
   </div>
-
+  
   <script type="text/javascript">
       function checkAll() {
           let isChecked = document.querySelector("[name=all]").checked;
           console.log('체크여부', isChecked);
 
-          let checkBoxes = document.querySelectorAll("[name=wishNo]");
+          let checkBoxes = document.querySelectorAll("[name=stockNo]");
           checkBoxes.forEach(function (el) {
               el.checked = isChecked;
           })
+
+          refreshSummary()
       }
 
       function checkSelect() {
-          let checkBoxes = document.querySelectorAll("[name=wishNo]");
+          let checkBoxes = document.querySelectorAll("[name=stockNo]");
           let checkBoxesLength = checkBoxes.length;
           let checkedLength = 0;
 
@@ -218,11 +218,54 @@
               }
           }
 
-          if (checkBoxesLength == checkedLength) {
+          if (checkBoxesLength === checkedLength) {
               document.querySelector("[name=all]").checked = true;
           } else {
               document.querySelector("[name=all]").checked = false;
           }
+
+          refreshSummary()
+      }
+
+      function refreshSummary() {
+          let checkboxes = document.querySelectorAll("[name=stockNo]");
+          let checkedCnt = 0;
+          let totalPrice = 0;
+          for (let checkbox of checkboxes) {
+              // 만약 체크박스가 선택된 것이 있으면
+              if (checkbox.checked) {
+                  // 체크된 개수 증가
+                  checkedCnt++;
+                  // 선택된 체크박스에서 위시번호와 가격을 가져옴
+                  let wishNo = checkbox.value;
+                  let price = document.getElementById("wish-" + wishNo + "-price").getAttribute("data-price");
+                  // 읽어온 가격을 총 금액에 추가
+                  totalPrice += parseInt(price);
+              }
+          }
+
+          // 총 금액이 150000이 넘으면 "무료", 아니면 3000원
+          if (totalPrice >= 150000) {
+              document.getElementById("delivery-fee").textContent = "무료";
+          } else {
+              document.getElementById("delivery-fee").textContent = "3,000";
+          }
+
+          // id값이 wish-total-amount인 곳에 checkedCnt 값 전달
+          document.getElementById("wish-total-amount").textContent = checkedCnt;
+          // id값이 wish-total-price인 곳에 totalPrice 값 전달
+          document.getElementById("wish-total-price").textContent = new Number(totalPrice).toLocaleString();
+
+          if (checkedCnt > 0) {
+              document.querySelector("#btn-order").classList.add("btn-success")
+              document.querySelector("#btn-order").classList.remove("btn-secondary")
+              document.querySelector("#btn-order").disabled = false;
+          } else {
+              document.querySelector("#btn-order").classList.remove("btn-success")
+              document.querySelector("#btn-order").classList.add("btn-secondary")
+              document.querySelector("#btn-order").disabled = true;
+          }
+
       }
 
       function deleteWish() {
@@ -238,53 +281,19 @@
           }
           // 만약 하나도 선택이 안되면 알림 전송 후, 거짓 반환
           if (!isChecked) {
-              alert("선택된 문의글이 없습니다.")
-              let qnaDefineForm = document.getElementById("wish");
+              alert("선택된 상품이 없습니다.")
+              let qnaDefineForm = document.getElementById("form-wish");
               qnaDefineForm.setAttribute("action", "wish-list.jsp");
               qnaDefineForm.submit();
               return false;
           }
 
-          let qnaForm = document.getElementById("wish");
+          let qnaForm = document.getElementById("form-wish");
           qnaForm.setAttribute("action", "delete-wish.jsp");
           qnaForm.submit();
 
           // 체크된 문의가 있으면 해당 폼을 제출하는 것이 참
           return true;
-      }
-
-      let totalCnt = parseInt(document.getElementById('checkWish').value);
-      let totalPrice = parseInt(document.getElementById('checkWish').value);
-      function checkWishCnt() {
-          let checkBoxes = document.querySelector("[name=wishNo]").checked;
-          let selectedElements = document.querySelectorAll(checkBoxes);
-          let selectedElementsCnt = selectedElements.length;
-
-          let selected = parseInt(document.getElementById('ck').value);
-          // ck가 체크되어있으면 true 반환
-          let checked = document.getElementById('ck').checked;
-          if (checked) {
-              total += selected;
-          } else {
-              total -= selected;
-          }
-
-          document.getElementById('checkWish').innerText = selectedElementsCnt;
-      }
-
-      function checkAllWishCnt() {
-          let isChecked = document.querySelector("[name=all]").checked;
-          console.log('체크여부', isChecked);
-
-          let checkBoxes = document.querySelectorAll("[name=wishNo]");
-          checkBoxes.forEach(function (el) {
-              el.checked = isChecked;
-          })
-
-          let selectedElements = document.querySelectorAll(checkBoxes);
-          let selectedElementsCnt = selectedElements.length;
-
-          document.getElementById('checkWish').innerText = selectedElementsCnt;
       }
   </script>
   <%@include file="../common/footer.jsp" %>

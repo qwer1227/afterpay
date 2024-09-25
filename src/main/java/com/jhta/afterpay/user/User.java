@@ -1,5 +1,7 @@
 package com.jhta.afterpay.user;
 
+import com.jhta.afterpay.addr.Addr;
+
 import java.awt.*;
 
 import java.util.Date;
@@ -18,7 +20,6 @@ public class User {
     private int totalUsedPoint;
     private Date createdDate;
     private String gradeId;
-
 
     @Override
     public String toString() {

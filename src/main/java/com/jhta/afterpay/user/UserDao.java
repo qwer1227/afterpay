@@ -121,10 +121,19 @@ public class UserDao {
                 insert into users
                 (user_no,user_name,user_id,user_password,user_tel,user_email)
                 values
-                (user_no_seq.nextval,?,?,?,?,?)
+                (?,?,?,?,?,?)
                 """;
 
-        DaoHelper.insert(sql, user.getName(), user.getId(), user.getPwd(), user.getTel(), user.getEmail());
+        DaoHelper.insert(sql, user.getNo(), user.getName(), user.getId(), user.getPwd(), user.getTel(), user.getEmail());
+    }
+
+    public int getSequence() {
+        String sql = """
+                select user_no_seq.nextval
+                from dual
+                """;
+
+        return DaoHelper.selectOneInt(sql);
     }
 
     public User getUserByEmail(String email) {

@@ -35,6 +35,7 @@ public class ReviewDao {
                 SELECT REVIEW_TITLE
                     , REVIEW_CONTENT
                     , REVIEW_CREATED_DATE
+                    , REVIEW_RATING
                 FROM REVIEWS
                 WHERE USER_NO = ?
                     AND ISDELETED = 'N'
@@ -47,6 +48,7 @@ public class ReviewDao {
             review.setTitle(rs.getString("REVIEW_TITLE"));
             review.setContent(rs.getString("REVIEW_CONTENT"));
             review.setCreatedDate(rs.getDate("REVIEW_CREATED_DATE"));
+            review.setRating(rs.getInt("REVIEW_RATING"));
 
             return review;
         }, userNo);
@@ -57,6 +59,7 @@ public class ReviewDao {
                 SELECT COUNT(*)
                 FROM REVIEWS
                 WHERE ISDELETED = 'N'
+                    AND USER_NO = ?
                 """;
 
         Review review = new Review();

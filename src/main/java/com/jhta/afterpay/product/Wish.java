@@ -1,11 +1,22 @@
 package com.jhta.afterpay.product;
 
+import com.jhta.afterpay.user.User;
+
 public class Wish {
     private int no;
     private int productNo;
     private int userNo;
     private Product product;
     private User user;
+    private Stock stock;
+
+    public Stock getStock() {
+        return stock;
+    }
+
+    public void setStock(Stock stock) {
+        this.stock = stock;
+    }
 
     public Wish() {}
 

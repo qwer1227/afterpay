@@ -113,7 +113,6 @@
                           </td>
                         </tr>
                     <%
-
                             for (Delivery delivery : deliveries) {
                                 Stock stock = stockDao.getStockByNo(delivery.getStock().getNo());
                                 Product product = productDao.getProductByNo(delivery.getProduct().getNo());
@@ -121,9 +120,6 @@
                                 totalPrice = delivery.getPrice() * delivery.getAmount();
                     %>
                     <tr class="align-middle">
-                        <td>
-                            <input type="checkbox" class="chkbox" name="orderNo" style="zoom: 1.5" value="<%=order.getNo()%>">
-                        </td>
                         <td>
                             <img src="../common/images/<%=images.get(0).getName()%>" class="rounded float-start"
                                  style="width: 130px; height:150px;">

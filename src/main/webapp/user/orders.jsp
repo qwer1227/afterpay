@@ -95,7 +95,6 @@
                         StockDao stockDao = new StockDao();
                         for (Order order : orders) {
                             List<Delivery> deliveries = deliveryDao.getAllDeliveryByOrderNo(order.getNo());
-
                     %>
                         <tr class="align-middle">
                           <td></td>
@@ -125,23 +124,20 @@
                                 <strong><%=product.getName()%>
                                 </strong>
                             </p>
-                            <p>사이즈: <%=stock.getSize()%>
-                            </p>
+                            <p>사이즈: <%=stock.getSize()%></p>
                             <p>수량: <%=delivery.getAmount()%> 개</p>
                             <p>결제금액: <%=Utils.toCurrency(totalPrice + 3000)%> 원</p>
-                            <p>구매일자: <%=order.getOrderDate()%>
-                            </p>
+                            <p>구매일자: <%=order.getOrderDate()%></p>
+                            <p>주문상태: <%=delivery.getStatus()%> </p>
                         </td>
                         <td class="text-center">
                             <form action="../order/order-detail.jsp">
                                 <input type="hidden" name="deliveryNo" value="<%=delivery.getNo() %>">
                                 <div><input type="submit" class="btn mt-1 btn-outline-info" value="상세보기"></div>
                             </form>
-                            <div><a href="" type="submit" class="btn mt-1 btn-outline-primary">재 구 매</a></div>
+                            <div><a href="../order/order-form.jsp?stockNo=<%=stock.getNo()%>&amount=<%=delivery.getAmount()%>" type="button" class="btn mt-1 btn-outline-primary">재 구 매</a></div>
+                            <div><a href="../order/order-cancel.jsp.?stockNo=<%=stock.getNo()%>&amount=<%=delivery.getAmount()%>&orderNo=<%=order.getNo()%>" type="button" class="btn mt-1 btn-outline-primary">재 구 매</a></div>
                             <div><a href="" type="submit" class="btn mt-1 btn-outline-success">리뷰쓰기</a></div>
-                            <%--              <%--%>
-                            <%--                }--%>
-                            <%--              %>--%>
                             <div><a href="" type="submit" class="btn mt-1 btn-outline-success">작성한 리뷰</a></div>
                         </td>
                     </tr>

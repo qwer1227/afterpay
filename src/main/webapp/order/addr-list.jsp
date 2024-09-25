@@ -33,6 +33,9 @@
     List<Addr> addrs = addrDao.getAllAddrByUserNo(Utils.toInt(userNo)); // 세션 이용하기
 %>
 <div class="container-sm">
+    <div class="row d-flex justify-content-center mb-3 p-5">
+        <a type="button" href="addr-add.jsp" class="btn btn-primary">배송지 추가하기</a>
+    </div>
     <h2 class="text-start">배송지 목록</h2>
     <div class="row mb-3">
         <table class="table">

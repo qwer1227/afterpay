@@ -1,5 +1,3 @@
-<%@ page import="com.jhta.afterpay.util.Utils" %>
-<%@ page import="com.jhta.afterpay.user.User" %>
 <%@ page import="com.jhta.afterpay.notice.Notice" %>
 <%@ page import="com.jhta.afterpay.notice.NoticeDao" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>

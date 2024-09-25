@@ -70,7 +70,7 @@
                     </tr>
                 </table>
                 <div class="float-end">
-                    <a href="modify-form.jsp" class="btn btn-warning">수정</a>
+                    <a href="form.jsp?nno=<%=noticeNo%>" class="btn btn-warning">수정</a>
                     <a href="delete.jsp?no=<%=noticeNo %>" class="btn btn-danger">삭제</a>
                     <a href="list.jsp?page=<%=pageNo %>" class="btn btn-primary">목록</a>
                 </div>

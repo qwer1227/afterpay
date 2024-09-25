@@ -24,8 +24,9 @@
     for (Delivery delivery : deliveries) {
         if (delivery.getStock().getNo() == stockNo) {
             delivery.setStatus("취소");
+            deliveryDao.updateDelivery(delivery);
         }
     }
 
-
+    response.sendRedirect("order.jsp");
 %>

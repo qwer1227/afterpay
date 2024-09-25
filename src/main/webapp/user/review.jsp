@@ -20,14 +20,6 @@
     h2 {
         text-align: center;
     }
-
-    #check-all {
-        margin-left: 15px;
-    }
-
-    #check-del {
-        margin-right: 20px;
-    }
 </style>
 <body>
 <%@include file="../common/nav.jsp" %>
@@ -72,7 +64,7 @@
               </colgroup>
               <thead>
               <tr class="text-center">
-                <th scope="col">
+                <th class="text-center">
                   <input id="check-all" type="checkbox" name="all" onchange="checkAll()" style="zoom:1.5">
                 </th>
                 <th scope="col">No</th>

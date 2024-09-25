@@ -75,6 +75,22 @@ public class AddrDao {
         );
     }
 
+    public Addr getAddrByUserNo(int userNo){
+        String sql = """
+                select ADDR_1
+                    , ADDR_2
+                from addresses
+                where user_no = ? and isaddr_home = 'Y'
+                """;
+
+        return DaoHelper.selectOne(sql,rs -> {
+            Addr addr = new Addr();
+            addr.setAddr1(rs.getString("ADDR_1"));
+            addr.setAddr2(rs.getString("ADDR_2"));
+            return addr;
+        },userNo);
+    }
+
     /**
      * 주소 번호로 주소 조회
      *

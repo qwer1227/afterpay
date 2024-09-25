@@ -37,7 +37,7 @@
     </div>
     <div class="mb-3">
       <label class="form-label">내용</label>
-      <input type="text" class="form-control" name="title">
+      <input type="text" class="form-control" name="content">
     </div>
     <div>
       <button type="submit" class="btn btn-primary">등록</button>

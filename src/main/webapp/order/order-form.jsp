@@ -91,7 +91,7 @@
                 <img src="../common/images/<%=images.get(0).getName()%>" class="rounded float-start"
                      style="width: 130px; height:150px;">
             </div>
-            <div class="col-7">
+            <div class="col-9">
                 <input type="hidden" name="amount" value="<%=amount1%>">
                 <input type="hidden" name="stockNo" value="<%=stock.getNo()%>">
                 <ul class="list-unstyled">
@@ -103,7 +103,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-3">
+            <div class="col-1">
                 \<%=Utils.toCurrency(product.getPrice())%>
             </div>
             <%
@@ -116,14 +116,15 @@
         <div id="delivery" class="row border-bottom border-top border-2 p-3 border-dark">
             <h4>배송 정보</h4>
             <ul class="list-unstyled p-4">
-                <li class="mt-1"><label>이름</label><input type="text" name="userName" class="form-control"/></li>
+                <li class="mt-1"><label>이름</label><input type="text" name="userName" class="form-control" required/>
+                </li>
                 <li class="mt-2 mb-2"><input type="button" id="addrListBtn" value="배송지 고르기" onclick="openAddrs()"
                                              class="btn btn-primary"></li>
                 <li class="mt-1">
                     <div class="col-12 input-group m-1">
                         <input type="hidden" name="addrNo" value="" disabled>
                         <label>우편번호</label><input type="text" id="sample6_postcode" name="zipcode" placeholder="우편번호"
-                                                  class="form-control" value="<%=zipcode%>" readonly>
+                                                  class="form-control" value="<%=zipcode%>" required readonly>
                         <input type="button" class="btn btn-primary" onclick="sample6_execDaumPostcode()" value="검색"
                                class="col-2"></button>
                     </div>
@@ -134,6 +135,11 @@
                 <li><label>상세주소</label> <input type="text" id="sample6_detailAddress" name="detailAddress"
                                                value="<%=addr2%>"
                                                placeholder="상세주소" class="form-control"></li>
+                <li>
+                    <div id="addrNull">
+                        배송지 고르기 또는 우편번호 검색으로 주소를 입력해주세요.
+                    </div>
+                </li>
                 <li><input type="hidden" id="sample6_extraAddress" name="cham" placeholder="참고항목" class="form-control">
                 </li>
                 <li class="mt-1 row">
@@ -309,16 +315,22 @@
         }
     });
 
+
+    const zipcode = document.querySelector("#sample6_postcode");
+    const addr1 = document.querySelector("#sample6_address");
+
     function checkForm() {
-        if (tel2.length != 4 || tel3.length != 4) {
-            document.querySelector("#telNumberError").style.display = 'block';
-            return;
+        if (zipcode.length == null || addr1.length == null) {
+            document.querySelector("#addrNull").style.display = 'block';
+            document.querySelector("#payButton").disabled = true;
+            return false;
         } else {
+            document.querySelector("#addrNull").style.display = 'none';
             document.querySelector("#payButton").disabled = false;
-            document.querySelector("#telNumberError").style.display = 'none';
+            return true;
         }
-        return;
     }
+
 
 </script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

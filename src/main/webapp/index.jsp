@@ -87,7 +87,7 @@
             </div>
             <div class="col">
                 <a href="/product/list.jsp?cat_no=13&page=1" class="text-dark text-decoration-none">
-                    <img src="/img/main5.png" alt="" style="width: 250px; height:350px;"/><br>
+                    <img src="/img/main8.png" alt="" style="width: 250px; height:350px;"/><br>
                     <p>남성 슈즈</p>
                 </a>
             </div>

@@ -29,18 +29,24 @@
     String menu = "홈";
 %>
 <%@ include file="../common/nav.jsp" %>
-<div id="thumbnail-image-box" class="row">
-    <div class="col" style="text-align: center; padding-left: 500px;">
-        <a href="/product/bestlist.jsp?cat_no=10" class="text-dark text-decoration-none">
-            <img src="/img/main6.png" onmouseenter="fn1(event)" onmouseleave="fn2(event)">
-            <p>남성 베스트</p>
-        </a>
-    </div>
-    <div class="col" style="text-align: center; padding-right: 500px">
-        <a href="/product/bestlist.jsp?cat_no=20" class="text-dark text-decoration-none">
-            <img src="/img/main7.png" onmouseenter="fn1(event)" onmouseleave="fn2(event)">
-            <p>여성 베스트</p>
-        </a>
+<div class="container">
+    <div class="row mb-3">
+        <div class="d-flex justify-content-evenly">
+            <div class="border p-3">
+                <a href="/product/bestlist.jsp?cat_no=10" class="text-dark text-decoration-none">
+                    <img src="/img/main6.png" width="300" onmouseenter="fn1(event)" onmouseleave="fn2(event)"
+                         class="mb-3">
+                    <p class="text-center fs-3">남성 베스트</p>
+                </a>
+            </div>
+            <div class="border p-3">
+                <a href="/product/bestlist.jsp?cat_no=20" class="text-dark text-decoration-none">
+                    <img src="/img/main7.png" width="300" onmouseenter="fn1(event)" onmouseleave="fn2(event)"
+                         class="mb-3">
+                    <p class="text-center fs-3">여성 베스트</p>
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 <%@ include file="../common/footer.jsp" %>

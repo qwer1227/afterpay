@@ -36,13 +36,17 @@
 <body>
 <%@include file="../common/nav.jsp" %>
 <%
-    int userNo = 19;
+    int userNo =Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
+    if (userID == null) {
+        response.sendRedirect("../login-form.jsp?deny");
+        return;
+    }
     DeliveryDao deliveryDao = new DeliveryDao();
     OrderDao orderDao = new OrderDao();
 
     int pageNo = Utils.toInt(request.getParameter("page"), 1);
     List<Order> orders = orderDao.getAllOrdersByUserNo(userNo);
-    int totalRows = orderDao.getTotalRowsByUserNo(19);
+    int totalRows = orderDao.getTotalRowsByUserNo(userNo);
     Pagination pagination = new Pagination(pageNo, totalRows, 5, 3);
     orders = orderDao.getAllOrdersByUserNo(userNo, pagination.getBegin(), pagination.getEnd());
 %>
@@ -61,7 +65,7 @@
                 <div class="text-center m-5">
                     <strong>주문 내역이 없습니다.</strong><br>
                     <br>
-                    <a href="" type="button" class="btn btn-lg bg-light border-dark-subtle">지금 바로 쇼핑하러 가기</a>
+                    <button type="button" onclick="location.href='../index.jsp'" class="btn btn-lg bg-light border-dark-subtle">지금 바로 쇼핑하러 가기</button>
                 </div>
                 <%
                 }

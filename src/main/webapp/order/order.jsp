@@ -99,8 +99,10 @@
             addr.setTel(tel);
             addr.setZipCode(zipcode);
             addr.setUser(user);
-            addr.setIsAddrHome("N");
             addr.setName("새 배송지");
+            if(findAddr.getIsAddrHome().equals("Y")){
+                addr.setIsAddrHome("N");
+            }
             addrDao.insertAddr(addr);
             break;
         }
@@ -123,9 +125,10 @@
         int remaining = s.getAmount() - amountArr[i];
         s.setAmount(remaining);
         stockDao.updateStockAmount(s);
-        if (remaining < 0) {
-            remaining = 0;
+        if (remaining <= 0) {
+            s.setAmount(0);
         }
+        stockDao.updateStockAmount(s);
     }
 
     // 주문정보 저장

@@ -27,6 +27,7 @@
   }
 </style>
 <body>
+
 <%@include file="../common/nav.jsp"%>
 <%
   /*

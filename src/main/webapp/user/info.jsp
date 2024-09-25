@@ -27,6 +27,8 @@
   int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
   UserDao userDao = new UserDao();
   User user = userDao.getUserByNo(userNo);
+  AddrDao addrDao = new AddrDao();
+  Addr addr = addrDao.getAddrByUserNo(userNo);
 %>
 
 <div class="container">
@@ -59,9 +61,7 @@
           </tr>
           <tr>
             <th scope="row" class="text-center">주소</th>
-            <td class="text-start">
-         
-            </td>
+            <td class="text-start"><%=addr.getAddr1()%> <%=addr.getAddr2()%></td>
           </tr>
           <tr>
             <th scope="row" class="text-center">이메일</th>

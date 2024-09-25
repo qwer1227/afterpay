@@ -9,6 +9,7 @@ public class PaymentDao {
 
     /**
      * 결제 추가
+     *
      * @param payment
      */
     public void insertPayment(Payment payment) {
@@ -30,6 +31,7 @@ public class PaymentDao {
 
     /**
      * 결제 수정
+     *
      * @param payment
      */
     public void updatePayment(Payment payment) {
@@ -45,6 +47,7 @@ public class PaymentDao {
 
     /**
      * 결제 삭제
+     *
      * @param payment
      */
     public void deletePayment(Payment payment) {
@@ -53,11 +56,12 @@ public class PaymentDao {
                 WHERE PAYMENT_NO = ?
                 """;
         DaoHelper.delete(sql
-        , payment.getNo());
+                , payment.getNo());
     }
 
     /**
      * 결제번호로 결제정보 조회
+     *
      * @param paymentNo
      * @return
      */
@@ -69,24 +73,25 @@ public class PaymentDao {
                 """;
 
         return DaoHelper.selectOne(sql
-            , rs -> {
-            Payment payment = new Payment();
-            payment.setNo(rs.getInt("PAYMENT_NO"));
-            payment.setPrice(rs.getInt("PAYMENT_PRICE"));
-            payment.getOrder().setNo(rs.getInt("ORDER_NO"));
-            payment.setCreatedDate(rs.getDate("CREATED_DATE"));
+                , rs -> {
+                    Payment payment = new Payment();
+                    payment.setNo(rs.getInt("PAYMENT_NO"));
+                    payment.setPrice(rs.getInt("PAYMENT_PRICE"));
+                    payment.getOrder().setNo(rs.getInt("ORDER_NO"));
+                    payment.setCreatedDate(rs.getDate("CREATED_DATE"));
 
-            return payment;
-        });
+                    return payment;
+                });
     }
 
     /**
      * 주문번호로 결제조회
+     *
      * @param orderNo
      * @return
      */
     public Payment getPaymentByOrderNo(int orderNo) {
-        String sql= """
+        String sql = """
                 SELECT *
                 FROM PAYMENTS
                 WHERE ORDER_NO = ?
@@ -95,12 +100,13 @@ public class PaymentDao {
         return DaoHelper.selectOne(sql
                 , rs -> {
                     Payment payment = new Payment();
-                    Order order =new Order();
+                    Order order = new Order();
                     payment.setOrder(order);
                     payment.setNo(rs.getInt("PAYMENT_NO"));
                     payment.setPrice(rs.getInt("PAYMENT_PRICE"));
                     payment.getOrder().setNo(rs.getInt("ORDER_NO"));
                     payment.setCreatedDate(rs.getDate("PAYMENT_DATE"));
-                    return payment;}, orderNo);
+                    return payment;
+                }, orderNo);
     }
 }

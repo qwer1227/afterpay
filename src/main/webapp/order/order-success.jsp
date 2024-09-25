@@ -136,8 +136,8 @@
             </form>
         </div>
         <div class="col-auto">
-            <button onclick="location.href='../user/orders.jsp'" class="btn btn-dark text-white d-grid" type="button">
-                쇼핑계속하기
+            <button onclick="location.href='../index.jsp'" class="btn btn-dark text-white d-grid" type="button">
+                확인
             </button>
         </div>
     </div>

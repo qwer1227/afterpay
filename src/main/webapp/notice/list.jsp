@@ -47,7 +47,7 @@
         %>
         <table class="table">
             <colgroup>
-                <col width="10%">
+
                 <col width="*%">
                 <col width="10%">
                 <col width="10%">
@@ -55,7 +55,7 @@
             </colgroup>
             <thead>
             <tr class="table-dark">
-                <th>번호</th>
+
                 <th>제목</th>
                 <th>작성자</th>
                 <th>조회수</th>
@@ -67,8 +67,7 @@
                 for (Notice notice : notices) {
             %>
             <tr>
-                <td><%=notice.getNo()%>
-                </td>
+
                 <td><a href="detail.jsp?nno=<%=notice.getNo()%>"><%=notice.getTitle()%></a></td>
                 <td>관리자</td>
                 <td>3</td>

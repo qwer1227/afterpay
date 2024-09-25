@@ -136,7 +136,7 @@
                                 <div><input type="submit" class="btn mt-1 btn-outline-info" value="상세보기"></div>
                             </form>
                             <div><a href="../order/order-form.jsp?stockNo=<%=stock.getNo()%>&amount=<%=delivery.getAmount()%>" type="button" class="btn mt-1 btn-outline-primary">재 구 매</a></div>
-                            <div><a href="../order/order-cancel.jsp.?stockNo=<%=stock.getNo()%>&amount=<%=delivery.getAmount()%>&orderNo=<%=order.getNo()%>" type="button" class="btn mt-1 btn-outline-primary">주문취소</a></div>
+                            <div><a href="../order/order-cancel.jsp?stockNo=<%=stock.getNo()%>&deliveryNo=<%=delivery.getNo()%>&orderNo=<%=order.getNo()%>" type="button" class="btn mt-1 btn-outline-primary">주문취소</a></div>
                             <div><a href="" type="submit" class="btn mt-1 btn-outline-success">리뷰쓰기</a></div>
                             <div><a href="" type="submit" class="btn mt-1 btn-outline-success">작성한 리뷰</a></div>
                         </td>

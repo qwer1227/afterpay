@@ -78,13 +78,14 @@
         <div class="row mb-5 p-3">
             <%
                 int totalPrice = 0;
-
+                int totalAmount = 0;
                 for (int i = 0; i < stockNoArr.length; i++) {
                     Stock stock = stockDao.getStockByNo(stockNoArr[i]);
                     int productNo = stock.getProductNo();
                     List<Image> images = productDao.getAllImagesByNo(productNo);
                     Product product = productDao.getProductByNo(productNo);
                     totalPrice += amountArr[i] * product.getPrice();
+                    totalAmount += amountArr[i];
                     int amount1 = amountArr[i];
             %>
             <div class="col-2">
@@ -136,7 +137,7 @@
                                                value="<%=addr2%>"
                                                placeholder="상세주소" class="form-control"></li>
                 <li>
-                    <div id="addrNull">
+                    <div id="addrNull" style="color: red">
                         배송지 고르기 또는 우편번호 검색으로 주소를 입력해주세요.
                     </div>
                 </li>
@@ -196,6 +197,11 @@
         <div id="price" class="row border-bottom border-2 border-dark">
             <h4>결제 정보</h4>
             <ul class="list-unstyled p-4">
+                <li>
+                    <label class="col-10">총 주문 수량</label>
+                    <input type="hidden" name="totalPrice" value="<%=totalAmount%>">
+                    \<%=Utils.toCurrency(totalAmount)%>
+                </li>
                 <li>
                     <label class="col-10">합계 금액</label>
                     <input type="hidden" name="totalPrice" value="<%=totalPrice%>">
@@ -319,14 +325,18 @@
     const zipcode = document.querySelector("#sample6_postcode");
     const addr1 = document.querySelector("#sample6_address");
 
+    if (zipcode.length == null || addr1.length == null) {
+        document.querySelector("#addrNull").style.display = 'block';
+    } else {
+        document.querySelector("#addrNull").style.display = 'none';
+    }
+
     function checkForm() {
         if (zipcode.length == null || addr1.length == null) {
             document.querySelector("#addrNull").style.display = 'block';
-            document.querySelector("#payButton").disabled = true;
             return false;
         } else {
             document.querySelector("#addrNull").style.display = 'none';
-            document.querySelector("#payButton").disabled = false;
             return true;
         }
     }

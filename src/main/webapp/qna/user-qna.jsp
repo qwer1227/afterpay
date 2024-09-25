@@ -26,7 +26,7 @@
 <body>
 <%@include file="../common/nav.jsp" %>
 <%
-  int userNo = 19;
+  int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
   QnaDao qnaDao = new QnaDao();
   
   // 요청한 페이지 번호 조회

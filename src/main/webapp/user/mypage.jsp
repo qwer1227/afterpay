@@ -37,7 +37,7 @@
   *
   */
 
-  int userNo = 19;
+  int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
   UserDao userDao = new UserDao();
   ReviewDao reviewDao = new ReviewDao();
   User user = userDao.getUserByNo(userNo);

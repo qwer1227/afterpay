@@ -28,7 +28,7 @@
 <%@include file="../common/nav.jsp" %>
 <%
   // 1. 요청 파라미터값 조회
-  int userNo = 19;
+  int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
   int usedPoint = Utils.toInt(request.getParameter("usedPoint"));
   int depositPoint = Utils.toInt(request.getParameter("depositPoint"));
   boolean isPointChanged = false;

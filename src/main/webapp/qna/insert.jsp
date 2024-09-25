@@ -1,9 +1,10 @@
 <%@ page import="com.jhta.afterpay.qna.QnaDao" %>
 <%@ page import="com.jhta.afterpay.qna.Qna" %>
 <%@ page import="com.jhta.afterpay.user.User" %>
+<%@ page import="com.jhta.afterpay.util.Utils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-  int userNo = 19;
+  int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
   String title = request.getParameter("title");
   String description = request.getParameter("description");
 

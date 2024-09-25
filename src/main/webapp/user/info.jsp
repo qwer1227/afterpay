@@ -22,7 +22,7 @@
 <%@include file="../common/nav.jsp"%>
 <%
   // 파라미터값을 전달받아 해당하는 정보를 받아 회원정보 폼에 각 값을 나타낸다.
-  int userNo = 19;
+  int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
   UserDao userDao = new UserDao();
   User user = userDao.getUserByNo(userNo);
 %>

@@ -32,8 +32,7 @@
 <body>
 <%@include file="../common/nav.jsp" %>
 <%
-  //int userNo = (Integer)session.getAttribute("userNo");
-  int userNo = 7;
+  int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
   ReviewDao reviewDao = new ReviewDao();
   
   // 요청한 페이지 번호 조회

@@ -42,7 +42,7 @@
     Review review = reviewDao.getReviewByNo(reviewNo);
 %>
 <div class="container" style="margin-top: 100px;">
-    <h3>리뷰 작성</h3>
+    <h3>리뷰 수정</h3>
     <form class="border bg-light p-3" method="post" action="update.jsp?pno=<%=review.getProduct().getNo() %>&rno=<%=reviewNo %>">
         <div class="mb-3">
             <label class="form-label">제목</label>
@@ -70,7 +70,7 @@
         </div>
         <div class="text-end">
             <a href="../product/detail.jsp?pno=<%=review.getProduct().getNo() %>" class="btn btn-secondary">취소</a>
-            <button type="submit" class="btn btn-primary">등록</button>
+            <button type="submit" class="btn btn-primary">수정</button>
         </div>
     </form>
 </div>

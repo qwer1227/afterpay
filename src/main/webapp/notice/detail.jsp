@@ -75,11 +75,23 @@
                         </td>
                     </tr>
                 </table>
+                <%
+                    if (session.getAttribute("USERID") != null) {
+                %>
                 <div class="float-end">
                     <a href="/notice/form.jsp?nno=<%=noticeNo%>" class="btn btn-warning">수정</a>
                     <a href="/notice/delete.jsp?nno=<%=noticeNo%>" class="btn btn-danger">삭제</a>
                     <a href="/notice/list.jsp?page=<%=pageNo %>" class="btn btn-primary">목록</a>
                 </div>
+                <%
+                    } else  {
+                %>
+                <div class="float-end">
+                    <a href="/notice/list.jsp?page=<%=pageNo %>" class="btn btn-primary">목록</a>
+                </div>
+                <%
+                    }
+                %>
             </div>
         </div>
     </div>

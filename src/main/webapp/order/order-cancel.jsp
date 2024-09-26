@@ -16,7 +16,7 @@
     // 전달 받은 상품 재고 번호
     int stockNo = Utils.toInt(request.getParameter("stockNo"));
     //  전달 받은 상품 주문 수량
-    String amount = request.getParameter("amount");
+    int amount = Utils.toInt(request.getParameter("amount"));
     int orderNo = Utils.toInt(request.getParameter("orderNo"));
 
     DeliveryDao deliveryDao = new DeliveryDao();
@@ -24,8 +24,9 @@
     for (Delivery delivery : deliveries) {
         if (delivery.getStock().getNo() == stockNo) {
             delivery.setStatus("취소");
+            deliveryDao.updateDelivery(delivery);
         }
     }
 
-
+    response.sendRedirect("/user/orders.jsp");
 %>

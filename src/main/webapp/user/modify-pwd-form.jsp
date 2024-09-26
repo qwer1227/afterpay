@@ -33,6 +33,12 @@
       <%@include file="../common/user-nav.jsp" %>
       <%
         int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
+        
+        if (userID == null) {
+          response.sendRedirect("../login-form.jsp?deny");
+          return;
+        }
+        
         UserDao userDao = new UserDao();
         User user = userDao.getUserByNo(userNo);
         String userPwd = user.getPwd();

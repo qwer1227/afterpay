@@ -1,5 +1,6 @@
 <%@ page import="com.jhta.afterpay.user.UserDao" %>
 <%@ page import="com.jhta.afterpay.user.User" %>
+<%@ page import="com.jhta.afterpay.util.Utils" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
@@ -25,7 +26,7 @@
         <div class="col-2">
           <%@include file="../common/user-nav.jsp"%>
           <%
-            int userNo = 19;
+            int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
             UserDao userDao = new UserDao();
             User user = userDao.getUserByNo(userNo);
             String userPwd = user.getPwd();

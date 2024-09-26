@@ -30,7 +30,7 @@
 <body>
 <%@include file="../common/nav.jsp" %>
 <%
-    int userNo =Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
+    int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
     if (userID == null) {
         response.sendRedirect("../login-form.jsp?deny");
         return;
@@ -44,7 +44,7 @@
     Pagination pagination = new Pagination(pageNo, totalRows);
 %>
 <div class="container">
-    <form action="../order/order-form.jsp" method="post">
+    <form action="../order/order-form.jsp" method="post" id="cart">
         <div class="row">
             <!-- 메뉴 nav 사용 -->
             <div class="col-2">
@@ -54,18 +54,36 @@
             <!-- 컨텐츠 -->
             <div class="col-10">
                 <h2 class="m-4"><strong>장바구니</strong></h2>
+                <hr style="border:solid 1px gray;">
                 <div class="tab-content" id="nav-tabContent">
-                    <div class="hstack gap-3">
-                        <div class="p-2">
-                            <input type="checkbox" id="checkAll" style="zoom:1.8" onclick="checked()" >
+                    <%
+                        if (carts.isEmpty()) {
+                    %>
+                    <div class="text-center m-5">
+                        <strong>장바구니에 상품이 없습니다.</strong><br>
+                        <br>
+                        <button type="button" onclick="location.href='../index.jsp'"
+                                class="btn btn-lg bg-light border-dark-subtle">지금 바로 쇼핑하러 가기
+                        </button>
+
+                    </div>
+                    <%
+                        }
+                    %>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <div class="text-start">
+                                <input id="check-all" type="checkbox" name="all" style="zoom:1.8" onchange="checkAll()">
+                            </div>
                         </div>
-                        <div class="p-3 ms-auto">
-                            <button class="btn btn-lg">
-                                <i class="bi bi-trash"></i>
-                            </button>
+                        <div class="col-6">
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-lg" onclick="deleteCart()">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
-
                     <div class="tab-pane fade show active " id="nav-cart" role="tabpanel"
                          aria-labelledby="nav-home-tab">
                         <div class="table-responsive">
@@ -86,43 +104,48 @@
                                     StockDao stockDao = new StockDao();
                                     ProductDao productDao = new ProductDao();
                                     // 장바구니 목록 보여주기
-                                for (Cart cart : carts) {
+                                    for (Cart cart : carts) {
                                         int productNo = cart.getProduct().getNo();
                                         Product product = productDao.getProductByNo(productNo);
                                         List<Image> images = productDao.getAllImagesByNo(productNo);
                                         int stockNo = cart.getStock().getNo();
                                         Stock stock = stockDao.getStockByNo(stockNo);
-                                        totalAmount += cart.getAmount();
-                                        totalPrice += product.getPrice() * cart.getAmount();
                                 %>
                                 <tr>
                                     <td>
-                                        <input type="checkbox" class="chk" name="stockNo" value="<%=stockNo%>" style="zoom:1.5">
+                                        <input type="checkbox" id="ck" name="stockNo" value="<%=stockNo%>"
+                                               style="zoom:1.5" onchange="checkSelect()">
                                     </td>
                                     <td>
-                                        <img src="../common/images/<%=images.get(0).getName()%>" class="rounded mx-auto d-block" width="170">
+                                        <img src="../common/images/<%=images.get(0).getName()%>"
+                                             class="rounded mx-auto d-block" width="170">
                                     </td>
                                     <td class="align-top">
                                         <p></p>
                                         <p style="font-size: 20px">
                                             <input type="hidden" name="name" value="<%=product.getName()%>">
-                                            <strong><%=product.getName()%></strong>
+                                            이름: <strong><%=product.getName()%>
+                                        </strong>
                                         </p>
                                         <p>
                                             <input type="hidden" name="size" value="<%=stock.getSize()%>">
-                                            <%=stock.getSize()%>
+                                            <span>사이즈: <%=stock.getSize()%></span>
                                         </p>
                                         <p>
                                             <input type="hidden" name="amount" value="<%=cart.getAmount()%>">
-                                            <%=cart.getAmount()%>
+                                            <span>수량: <%=cart.getAmount()%></span>
                                         </p>
                                         <p>
                                             <input type="hidden" name="price" value="<%=product.getPrice()%>">
-                                            <%=Utils.toCurrency(product.getPrice())%>
+                                            <span id="stock-<%=stock.getNo()%>-price"
+                                                  data-price="<%=product.getPrice()%>">가격: <%=Utils.toCurrency(product.getPrice())%></span>
                                         </p>
                                     </td>
                                     <td class="align-middle text-end">
-                                        <button class="btn btn-outline-primary">상세보기</button>
+                                        <button type="button" class="btn btn-outline-primary"
+                                                onclick="location.href='../product/detail.jsp'">
+                                            상세보기
+                                        </button>
                                     </td>
                                 </tr>
                                 <%
@@ -139,19 +162,20 @@
                     <div>
                         <ul class="pagination justify-content-center">
                             <li class="page-item <%=pagination.isFirst() ? "disabled" : ""%>">
-                                <a href="list.jsp?cat_no=<%=userNo%>&page=<%=pagination.getPrev() %>" class="page-link">이전</a>
+                                <a href="cart.jsp?userNo=<%=userNo%>&page=<%=pagination.getPrev() %>" class="page-link">이전</a>
                             </li>
                             <%
                                 for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
                             %>
                             <li class="page-item <%=num == pageNo ? "active" : ""%>">
-                                <a href="list.jsp?cat_no=<%=userNo%>&page=<%=num %>" class="page-link"><%=num %></a>
+                                <a href="cart.jsp?userNo=<%=userNo%>&page=<%=num %>" class="page-link"><%=num %>
+                                </a>
                             </li>
                             <%
                                 }
                             %>
                             <li class="page-item <%=pagination.isLast() ? "disabled" : "" %>">
-                                <a href="list.jsp?cat_no=<%=userNo%>&page=<%=pagination.getNext() %>" class="page-link">다음</a>
+                                <a href="cart.jsp?userNo=<%=userNo%>&page=<%=pagination.getNext() %>" class="page-link">다음</a>
                             </li>
                         </ul>
                     </div>
@@ -175,15 +199,20 @@
                                 <tr>
                                     <td>
                                         <input type="hidden" name="totalAmount" value="<%=totalAmount%>">
-                                        <strong><%=totalAmount%></strong>
+                                        <strong>
+                                            <span id="totalAmount"><%=totalAmount%></span>개
+                                        </strong>
                                     </td>
                                     <td>
                                         <input type="hidden" name="deliveryPrice" value="<%=3000%>">
-                                        <strong><%=Utils.toCurrency(3000)%></strong>
+                                        <strong>
+                                            <span id="delivery-fee"><%=Utils.toCurrency(3000)%></span>
+                                        </strong>
                                     </td>
                                     <td>
                                         <input type="hidden" name="totalPrice" value="<%=totalPrice%>">
-                                        <strong><%=Utils.toCurrency(totalPrice)%></strong>
+                                        <strong><span id="cart-total-price"><%=Utils.toCurrency(totalPrice)%></span>
+                                        </strong>
                                     </td>
                                     <td></td>
                                 </tr>
@@ -197,45 +226,67 @@
 </div>
 </div>
 <script type="text/javascript">
-    document.querySelector('#checkAll');
+    function checkAll() {
+        let isChecked = document.querySelector("[name=all]").checked;
+        console.log('체크여부', isChecked);
 
-    checkAll.addEventListener('click', function(){
+        let checkBoxes = document.querySelectorAll("[name=stockNo]");
+        checkBoxes.forEach(function (el) {
+            el.checked = isChecked;
+        })
 
-        const isChecked = checkAll.checked;
+        refreshSummary()
+    }
 
-        if(isChecked){
-            const checkboxes = document.querySelectorAll('.chk');
+    function checkSelect() {
+        let checkBoxes = document.querySelectorAll("[name=stockNo]");
+        let checkBoxesLength = checkBoxes.length;
+        let checkedLength = 0;
 
-            for(const checkbox of checkboxes){
-                checkbox.checked = true;
+        for (let el of checkBoxes) {
+            if (el.checked) {
+                checkedLength++;
             }
         }
 
-        else{
-            const checkboxes = document.querySelectorAll('.chk');
-            for(const checkbox of checkboxes){
-                checkbox.checked = false;
+        if (checkBoxesLength === checkedLength) {
+            document.querySelector("[name=all]").checked = true;
+        } else {
+            document.querySelector("[name=all]").checked = false;
+        }
+
+        refreshSummary()
+    }
+
+    function refreshSummary() {
+        let checkboxes = document.querySelectorAll("[name=stockNo]");
+        let checkedCnt = 0;
+        let totalPrice = 0;
+        for (let checkbox of checkboxes) {
+            // 만약 체크박스가 선택된 것이 있으면
+            if (checkbox.checked) {
+                // 체크된 개수 증가
+                checkedCnt++;
+                // 선택된 체크박스에서 위시번호와 가격을 가져옴
+                let stockNo = checkbox.value;
+                let price = document.getElementById("stock-" + stockNo + "-price").getAttribute("data-price");
+                // 읽어온 가격을 총 금액에 추가
+                totalPrice += parseInt(price);
             }
         }
-    })
 
-    const checkboxes = document.querySelectorAll('.chk');
-    for(const checkbox of checkboxes){
-        checkbox.addEventListener('click',function(){
 
-            const totalCnt = checkboxes.length;
+        // 총 금액이 150000이 넘으면 "무료", 아니면 3000원
+        if (totalPrice >= 150000) {
+            document.getElementById("delivery-fee").textContent = "무료";
+        } else {
+            document.getElementById("delivery-fee").textContent = "3,000";
+        }
 
-            const checkedCnt = document.querySelectorAll('.chk:checked').length;
-
-            if(totalCnt == checkedCnt){
-                document.querySelector('#checkAll').checked = true;
-            }
-            else{
-                document.querySelector('#checkAll').checked = false;
-            }
-
-        });
-
+        // id값이 totalAmount인 곳에 checkedCnt 값 전달
+        document.getElementById("totalAmount").textContent = checkedCnt;
+        // id값이 cart-total-price인 곳에 totalPrice 값 전달
+        document.getElementById("cart-total-price").textContent = new Number(totalPrice).toLocaleString();
     }
 </script>
 

@@ -20,6 +20,9 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/common/css/style.css">
     <style>
+        .card {
+            margin: 80px 0px;
+        }
     </style>
 </head>
 <body>
@@ -36,9 +39,9 @@
     Notice notice = noticeDao.getNoticeDetailByNo(noticeNo);
 %>
 <div class="container">
-    <div class="row mb-10">
-        <div class="">
-            <div class="card-header my-5">
+    <div class="row">
+        <div class="card">
+            <div class="card-header mt-3">
                 <h4>공지사항</h4>
             </div>
             <div class="card-body">
@@ -47,32 +50,35 @@
                         <col width="15%"/>
                         <col width="*%"/>
                         <col width="10%"/>
-                        <col width="10%"/>
                     </colgroup>
                     <tr>
-                        <th>제목</th>
+                        <th class="table-dark">제목</th>
                         <td><%=notice.getTitle()%>
                         </td>
-                        <th>작성자</th>
+                    </tr>
+                    <tr>
+                        <th class="table-dark">작성자</th>
                         <td>관리자</td>
                     </tr>
                     <tr>
-                        <th>내용</th>
+                        <th class="table-dark">내용</th>
                         <td><%=notice.getContent()%>
                         </td>
                     </tr>
                     <tr>
-                        <th>조회수</th>
+                        <th class="table-dark">조회수</th>
                         <td></td>
-                        <th>작성일</th>
+                    </tr>
+                    <tr>
+                        <th class="table-dark">작성일</th>
                         <td><%=notice.getCreatedDate()%>
                         </td>
                     </tr>
                 </table>
                 <div class="float-end">
-                    <a href="form.jsp?nno=<%=noticeNo%>" class="btn btn-warning">수정</a>
-                    <a href="delete.jsp?no=<%=noticeNo %>" class="btn btn-danger">삭제</a>
-                    <a href="list.jsp?page=<%=pageNo %>" class="btn btn-primary">목록</a>
+                    <a href="/notice/form.jsp?nno=<%=noticeNo%>" class="btn btn-warning">수정</a>
+                    <a href="/notice/delete.jsp?nno=<%=noticeNo%>" class="btn btn-danger">삭제</a>
+                    <a href="/notice/list.jsp?page=<%=pageNo %>" class="btn btn-primary">목록</a>
                 </div>
             </div>
         </div>

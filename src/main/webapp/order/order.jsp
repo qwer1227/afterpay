@@ -125,9 +125,10 @@
         int remaining = s.getAmount() - amountArr[i];
         s.setAmount(remaining);
         stockDao.updateStockAmount(s);
-        if (remaining < 0) {
-            remaining = 0;
+        if (remaining <= 0) {
+            s.setAmount(0);
         }
+        stockDao.updateStockAmount(s);
     }
 
     // 주문정보 저장

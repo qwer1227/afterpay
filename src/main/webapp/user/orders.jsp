@@ -36,13 +36,17 @@
 <body>
 <%@include file="../common/nav.jsp" %>
 <%
-    int userNo = 19;
+    int userNo =Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
+    if (userID == null) {
+        response.sendRedirect("../login-form.jsp?deny");
+        return;
+    }
     DeliveryDao deliveryDao = new DeliveryDao();
     OrderDao orderDao = new OrderDao();
 
     int pageNo = Utils.toInt(request.getParameter("page"), 1);
     List<Order> orders = orderDao.getAllOrdersByUserNo(userNo);
-    int totalRows = orderDao.getTotalRowsByUserNo(19);
+    int totalRows = orderDao.getTotalRowsByUserNo(userNo);
     Pagination pagination = new Pagination(pageNo, totalRows, 5, 3);
     orders = orderDao.getAllOrdersByUserNo(userNo, pagination.getBegin(), pagination.getEnd());
 %>
@@ -61,8 +65,7 @@
                 <div class="text-center m-5">
                     <strong>주문 내역이 없습니다.</strong><br>
                     <br>
-                    <a href="" type="button" class="btn btn-lg bg-light border-dark-subtle">지금 바로 쇼핑하러 가기</a>
-
+                    <button type="button" onclick="location.href='../index.jsp'" class="btn btn-lg bg-light border-dark-subtle">지금 바로 쇼핑하러 가기</button>
                 </div>
                 <%
                 }
@@ -78,15 +81,10 @@
                     <thead>
                     <tr>
                         <th scope="col">
-                          <input type="checkbox" style="zoom:1.8" onclick="checkAll(this)">
                         </th>
                         <th scope="col"></th>
                         <th scope="col"></th>
-                        <th scope="col" class="text-end">
-                            <button id="check-del" class="btn btn-lg">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </th>
+                        <th scope="col" class="text-end"></th>
                     </tr>
                     </thead>
 
@@ -97,23 +95,18 @@
                         StockDao stockDao = new StockDao();
                         for (Order order : orders) {
                             List<Delivery> deliveries = deliveryDao.getAllDeliveryByOrderNo(order.getNo());
-
                     %>
                         <tr class="align-middle">
-                          <td>
-                          </td>
-                          <td>
-                          </td>
+                          <td></td>
+                          <td></td>
                           <td>
                             <div class="bg-black text-white m-1 text-center">
                               <strong>주문번호: <%=order.getNo()%></strong>
                             </div>
                           </td>
-                          <td>
-                          </td>
+                          <td></td>
                         </tr>
                     <%
-
                             for (Delivery delivery : deliveries) {
                                 Stock stock = stockDao.getStockByNo(delivery.getStock().getNo());
                                 Product product = productDao.getProductByNo(delivery.getProduct().getNo());
@@ -121,9 +114,7 @@
                                 totalPrice = delivery.getPrice() * delivery.getAmount();
                     %>
                     <tr class="align-middle">
-                        <td>
-                            <input type="checkbox" class="chkbox" name="orderNo" style="zoom: 1.5" value="<%=order.getNo()%>">
-                        </td>
+                        <td></td>
                         <td>
                             <img src="../common/images/<%=images.get(0).getName()%>" class="rounded float-start"
                                  style="width: 130px; height:150px;">
@@ -133,23 +124,20 @@
                                 <strong><%=product.getName()%>
                                 </strong>
                             </p>
-                            <p>사이즈: <%=stock.getSize()%>
-                            </p>
+                            <p>사이즈: <%=stock.getSize()%></p>
                             <p>수량: <%=delivery.getAmount()%> 개</p>
                             <p>결제금액: <%=Utils.toCurrency(totalPrice + 3000)%> 원</p>
-                            <p>구매일자: <%=order.getOrderDate()%>
-                            </p>
+                            <p>구매일자: <%=order.getOrderDate()%></p>
+                            <p>주문상태: <%=delivery.getStatus()%> </p>
                         </td>
                         <td class="text-center">
                             <form action="../order/order-detail.jsp">
                                 <input type="hidden" name="deliveryNo" value="<%=delivery.getNo() %>">
                                 <div><input type="submit" class="btn mt-1 btn-outline-info" value="상세보기"></div>
                             </form>
-                            <div><a href="" type="submit" class="btn mt-1 btn-outline-primary">재 구 매</a></div>
+                            <div><a href="../order/order-form.jsp?stockNo=<%=stock.getNo()%>&amount=<%=delivery.getAmount()%>" type="button" class="btn mt-1 btn-outline-primary">재 구 매</a></div>
+                            <div><a href="../order/order-cancel.jsp.?stockNo=<%=stock.getNo()%>&amount=<%=delivery.getAmount()%>&orderNo=<%=order.getNo()%>" type="button" class="btn mt-1 btn-outline-primary">재 구 매</a></div>
                             <div><a href="" type="submit" class="btn mt-1 btn-outline-success">리뷰쓰기</a></div>
-                            <%--              <%--%>
-                            <%--                }--%>
-                            <%--              %>--%>
                             <div><a href="" type="submit" class="btn mt-1 btn-outline-success">작성한 리뷰</a></div>
                         </td>
                     </tr>
@@ -192,16 +180,6 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-  function checkAll(el){
-    const checkBoxes  = document.querySelectorAll('.chkbox');
-    checkBoxes.forEach((row)=>{
-      row.checked = el.checked;
-    })
-  }
-</script>
-
 <%@include file="../common/footer.jsp" %>
 </body>
 </html>

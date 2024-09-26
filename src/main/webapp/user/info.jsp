@@ -1,6 +1,8 @@
 <%@ page import="com.jhta.afterpay.user.UserDao" %>
 <%@ page import="com.jhta.afterpay.user.User" %>
 <%@ page import="com.jhta.afterpay.util.Utils" %>
+<%@ page import="com.jhta.afterpay.addr.AddrDao" %>
+<%@ page import="com.jhta.afterpay.addr.Addr" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
@@ -22,9 +24,11 @@
 <%@include file="../common/nav.jsp"%>
 <%
   // 파라미터값을 전달받아 해당하는 정보를 받아 회원정보 폼에 각 값을 나타낸다.
-  int userNo = 19;
+  int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
   UserDao userDao = new UserDao();
   User user = userDao.getUserByNo(userNo);
+  AddrDao addrDao = new AddrDao();
+  Addr addr = addrDao.getAddrByUserNo(userNo);
 %>
 
 <div class="container">
@@ -57,13 +61,7 @@
           </tr>
           <tr>
             <th scope="row" class="text-center">주소</th>
-            <td class="text-start">
-<%--              <%=--%>
-<%--                // addr1과 addr2가 둘 다 null이면 "-" 출력--%>
-<%--                // addr2가 null이면 "addr1", null이 아니면 "addr1 + addr2" 출력--%>
-<%--                user.getAddr1()--%>
-<%--              %>--%>
-            </td>
+            <td class="text-start"><%=addr.getAddr1()%> <%=addr.getAddr2()%></td>
           </tr>
           <tr>
             <th scope="row" class="text-center">이메일</th>

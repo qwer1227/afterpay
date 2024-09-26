@@ -3,12 +3,16 @@
 <%@ page import="com.jhta.afterpay.notice.Notice" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <%
-  int noticeNo = Utils.toInt(request.getParameter("nno"));
+    int noticeNo = Utils.toInt(request.getParameter("nno"));
+    String title = request.getParameter("title");
+    String content = request.getParameter("content");
 
-  NoticeDao noticeDao = new NoticeDao();
-  Notice notice = noticeDao.getNoticeDetailByNo(noticeNo);
+    NoticeDao noticeDao = new NoticeDao();
+    Notice notice = noticeDao.getNoticeDetailByNo(noticeNo);
+    notice.setTitle(title);
+    notice.setContent(content);
 
-  noticeDao.updateNotice(notice);
+    noticeDao.updateNotice(notice);
 
-  response.sendRedirect("/notice/form.jsp");
+    response.sendRedirect("/notice/detail.jsp?nno=" + noticeNo);
 %>

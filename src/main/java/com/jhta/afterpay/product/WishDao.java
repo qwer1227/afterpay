@@ -45,16 +45,41 @@ public class WishDao {
     }
 
     /**
-     * 위시리시트 번호로 위시리스트의 상품을 삭제한다.
+     * 위시리스트 상품을 삭제한다.
      * @param wishNo 위시리스트 번호
      */
-    public void deleteWishByNo(int wishNo, int userNo) {
+    public void deleteWishByNo(int wishNo) {
         String sql = """
            delete from wishes
-           where wish_no = ? and user_no = ?     
+           where wish_no = ?     
         """;
 
-        DaoHelper.delete(sql, wishNo, userNo);
+        DaoHelper.delete(sql, wishNo);
+    }
+
+    /**
+     * 위시리스트 상품을 반환한다.
+     * @param productNo 상품 번호
+     * @param userNo 유저 번호
+     * @return 위시리스트 상품 1개
+     */
+    public Wish getWishByNo(int productNo, int userNo) {
+        String sql = """
+            select wish_no
+                    , product_no
+                    , user_no    
+            from wishes
+            where product_no = ? and user_no = ?
+        """;
+
+        return DaoHelper.selectOne(sql, rs -> {
+            Wish wish = new Wish();
+            wish.setNo(rs.getInt("wish_no"));
+            wish.setProductNo(rs.getInt("product_no"));
+            wish.setUserNo(rs.getInt("user_no"));
+
+            return wish;
+        }, productNo, userNo);
     }
 
     /**
@@ -135,5 +160,57 @@ public class WishDao {
                 """;
 
         return DaoHelper.selectOneInt(sql, userNo);
+    }
+
+    /**
+     * 페이지처리가 되는 위시리스트 전체 조회 기능
+     * @param begin
+     * @param end
+     * @return
+     */
+    public List<Wish> getAllWishListByUserNo(int userNo, int begin, int end){
+        String sql = """
+                SELECT *
+                FROM(
+                    SELECT ROW_NUMBER() OVER (ORDER BY WISH_NO DESC) ROWNUMBER
+                        , W.WISH_NO
+                        , W.USER_NO
+                        , P.PRODUCT_NO
+                        , P.PRODUCT_NAME
+                        , P.PRODUCT_PRICE
+                        , S.PRODUCT_STOCK_NO
+                        , S.PRODUCT_STOCK_SIZE
+                        , S.PRODUCT_STOCK_AMOUNT
+                    FROM WISHES W JOIN PRODUCTS P
+                        ON W.PRODUCT_NO = P.PRODUCT_NO
+                            JOIN PRODUCT_STOCKS S
+                        ON W.PRODUCT_STOCK_NO = S.PRODUCT_STOCK_NO
+                    WHERE USER_NO = ?
+                )
+                WHERE ROWNUMBER BETWEEN ? AND ?
+                """;
+
+        return DaoHelper.selectList(sql, rs -> {
+            Wish wish = new Wish();
+            wish.setNo(rs.getInt("WISH_NO"));
+
+            User user = new User();
+            user.setNo(rs.getInt("USER_NO"));
+            wish.setUser(user);
+
+            Product product = new Product();
+            product.setNo(rs.getInt("PRODUCT_NO"));
+            product.setName(rs.getString("PRODUCT_NAME"));
+            product.setPrice(rs.getInt("PRODUCT_PRICE"));
+            wish.setProduct(product);
+
+            Stock stock = new Stock();
+            stock.setNo(rs.getInt("PRODUCT_STOCK_NO"));
+            stock.setSize(rs.getString("PRODUCT_STOCK_SIZE"));
+            stock.setAmount(rs.getInt("PRODUCT_STOCK_AMOUNT"));
+            wish.setStock(stock);
+
+            return wish;
+        }, userNo, begin, end);
     }
 }

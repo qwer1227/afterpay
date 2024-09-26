@@ -212,4 +212,41 @@ public class DeliveryDao {
         return DaoHelper.selectOneInt(sql, userNo);
     }
 
+    public Delivery getCancelDeliveryByOrderNo(int orderNo) {
+        String sql = """
+                select *
+                FROM ORDER_DELIVERY_PRODUCTS
+                WHERE ORDER_NO = ?
+                AND DELIVERY_STATUS = '취소'
+                OR DELIVERY_STATUS = '반품'
+                OR DELIVERY_STATUS = '환불'
+                """;
+
+        return DaoHelper.selectOne(sql,rs -> {
+            Delivery delivery = new Delivery();
+
+            delivery.setNo(rs.getInt("DELIVERY_NO"));
+            delivery.setPrice(rs.getInt("DELIVERY_PRODUCT_PRICE"));
+            delivery.setAmount(rs.getInt("DELIVERY_PRODUCT_AMOUNT"));
+            delivery.setStatus(rs.getString("DELIVERY_STATUS"));
+
+            Product product = new Product();
+            product.setNo(rs.getInt("PRODUCT_NO"));
+            product.setName(rs.getString("PRODUCT_NAME"));
+            delivery.setProduct(product);
+
+            Stock stock = new Stock();
+            stock.setNo(rs.getInt("PRODUCT_STOCK_NO"));
+            stock.setSize(rs.getString("PRODUCT_STOCK_SIZE"));
+            delivery.setStock(stock);
+
+            Order order = new Order();
+            order.setNo(rs.getInt("ORDER_NO"));
+            order.setOrderDate(rs.getDate("ORDER_DATE"));
+            delivery.setOrder(order);
+
+            return delivery;
+        }, orderNo);
+    }
+
 }

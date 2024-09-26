@@ -48,11 +48,12 @@
     ProductDao productDao = new ProductDao();
 
     int pageNo = Utils.toInt(request.getParameter("page"), 1);
-    int totalRows = orderDao.getTotalRowsByUserNo(userNo);
+    int totalRows = orderDao.getTotalRowsHaveCancelDeliveryOrderByUserNo(userNo);
     Pagination pagination = new Pagination(pageNo, totalRows, 5, 3);
-    List<Order> orders = orderDao.getAllOrdersByUserNo(userNo, pagination.getBegin(), pagination.getEnd());
+
+
     List<Delivery> cancelDeliveries = new ArrayList<>();
-    List<Order> cancelOrders = new ArrayList<>();
+    List<Order> cancelOrders = orderDao.getAllOrdersByUserNoCancelDelivery(userNo, pagination.getBegin(), pagination.getEnd());
     int totalPrice = 0;
 %>
 <div class="container">
@@ -69,10 +70,7 @@
         <div class="col-10">
             <hr style="border:solid 1px gray;"/>
             <%
-                for(Order order : orders) {
-                    cancelDeliveries = deliveryDao.getCancelDeliveryByOrderNo(order.getNo());
-                }
-                if (cancelDeliveries.isEmpty()) {
+                if (cancelOrders.isEmpty()) {
             %>
             <div class="text-center m-5">
                 <strong>취소/교환/환불 내역이 없습니다.</strong><br>
@@ -104,8 +102,8 @@
                     </thead>
                     <tbody>
                     <%
-                        for (Order order : orders) {
-                            List<Delivery> deliveries = deliveryDao.getCancelDeliveryByOrderNo(order.getNo());
+                        for (Order order : cancelOrders) {
+                            List<Delivery> deliveries = deliveryDao.getAllCancelDeliveryByOrderNo(order.getNo());
                     %>
 
                     <tr class="align-middle">
@@ -175,21 +173,21 @@
             <div>
                 <ul class="pagination justify-content-center">
                     <li class="page-item <%=pagination.isFirst() ? "disabled" : ""%>">
-                        <a href="orders.jsp?userNo=<%=userNo%>&page=<%=pagination.getPrev() %>"
+                        <a href="resolution.jsp?userNo=<%=userNo%>&page=<%=pagination.getPrev() %>"
                            class="page-link">이전</a>
                     </li>
                     <%
                         for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
                     %>
                     <li class="page-item <%=num == pageNo ? "active" : ""%>">
-                        <a href="orders.jsp?userNo=<%=userNo%>&page=<%=num %>" class="page-link"><%=num %>
+                        <a href="resolution.jsp?userNo=<%=userNo%>&page=<%=num %>" class="page-link"><%=num %>
                         </a>
                     </li>
                     <%
                         }
                     %>
                     <li class="page-item <%=pagination.isLast() ? "disabled" : "" %>">
-                        <a href="orders.jsp?userNo=<%=userNo%>&page=<%=pagination.getNext() %>"
+                        <a href="resolution.jsp?userNo=<%=userNo%>&page=<%=pagination.getNext() %>"
                            class="page-link">다음</a>
                     </li>
                 </ul>

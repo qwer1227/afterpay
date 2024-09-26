@@ -36,7 +36,7 @@
 <body>
 <%@include file="../common/nav.jsp" %>
 <%
-    int userNo =Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
+    int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
     if (userID == null) {
         response.sendRedirect("../login-form.jsp?deny");
         return;
@@ -46,7 +46,7 @@
 
     int pageNo = Utils.toInt(request.getParameter("page"), 1);
     List<Order> orders = orderDao.getAllOrdersByUserNo(userNo);
-    int totalRows = orderDao.getTotalRowsByUserNo(userNo);
+    int totalRows = orderDao.getTotalRows();
     Pagination pagination = new Pagination(pageNo, totalRows, 5, 5);
     orders = orderDao.getAllOrdersByUserNo(userNo, pagination.getBegin(), pagination.getEnd());
 %>
@@ -65,116 +65,130 @@
                 <div class="text-center m-5">
                     <strong>주문 내역이 없습니다.</strong><br>
                     <br>
-                    <button type="button" onclick="location.href='../index.jsp'" class="btn btn-lg bg-light border-dark-subtle">지금 바로 쇼핑하러 가기</button>
+                    <button type="button" onclick="location.href='../index.jsp'"
+                            class="btn btn-lg bg-light border-dark-subtle">지금 바로 쇼핑하러 가기
+                    </button>
                 </div>
                 <%
-                }
+                    }
                 %>
-              <div>
-                <table class="table">
-                    <colgroup>
-                        <col width="1%">
-                        <col width="15%">
-                        <col width="*">
-                        <col width="15%">
-                    </colgroup>
-                    <thead>
-                    <tr>
-                        <th scope="col">
-                        </th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col" class="text-end"></th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    <%
-                        int totalPrice = 0;
-                        ProductDao productDao = new ProductDao();
-                        StockDao stockDao = new StockDao();
-                        for (Order order : orders) {
-                            List<Delivery> deliveries = deliveryDao.getAllDeliveryByOrderNo(order.getNo());
-                    %>
-                        <tr class="align-middle">
-                          <td></td>
-                          <td></td>
-                          <td>
-                            <div class="bg-black text-white m-1 text-center">
-                              <strong>주문번호: <%=order.getNo()%></strong>
-                            </div>
-                          </td>
-                          <td></td>
+                <div>
+                    <table class="table">
+                        <colgroup>
+                            <col width="1%">
+                            <col width="15%">
+                            <col width="*">
+                            <col width="15%">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th scope="col">
+                            </th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col" class="text-end"></th>
                         </tr>
-                    <%
+                        </thead>
+
+                        <tbody>
+                        <%
+                            int totalPrice = 0;
+                            ProductDao productDao = new ProductDao();
+                            StockDao stockDao = new StockDao();
+                            for (Order order : orders) {
+                                List<Delivery> deliveries = deliveryDao.getAllDeliveryByOrderNo(order.getNo());
+                        %>
+                        <tr class="align-middle">
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <div class="bg-black text-white m-1 text-center">
+                                    <strong>주문번호: <%=order.getNo()%>
+                                    </strong>
+                                </div>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <%
                             for (Delivery delivery : deliveries) {
                                 Stock stock = stockDao.getStockByNo(delivery.getStock().getNo());
                                 Product product = productDao.getProductByNo(delivery.getProduct().getNo());
                                 List<Image> images = productDao.getAllImagesByNo(delivery.getProduct().getNo());
                                 totalPrice = delivery.getPrice() * delivery.getAmount();
-                    %>
-                    <tr class="align-middle">
-                        <td></td>
-                        <td>
-                            <img src="../common/images/<%=images.get(0).getName()%>" class="rounded float-start"
-                                 style="width: 130px; height:150px;">
-                        </td>
-                        <td>
-                            <p style="font-size: 20px">
-                                <strong><%=product.getName()%>
-                                </strong>
-                            </p>
-                            <p>사이즈: <%=stock.getSize()%></p>
-                            <p>수량: <%=delivery.getAmount()%> 개</p>
-                            <p>결제금액: <%=Utils.toCurrency(totalPrice + 3000)%> 원</p>
-                            <p>구매일자: <%=order.getOrderDate()%></p>
-                            <p>주문상태: <%=delivery.getStatus()%> </p>
-                        </td>
-                        <td class="text-center">
-                            <form action="../order/order-detail.jsp">
-                                <input type="hidden" name="deliveryNo" value="<%=delivery.getNo() %>">
-                                <div><input type="submit" class="btn mt-1 btn-outline-info" value="상세보기"></div>
-                            </form>
-                            <div><a href="../order/order-form.jsp?stockNo=<%=stock.getNo()%>&amount=<%=delivery.getAmount()%>" type="button" class="btn mt-1 btn-outline-primary">재 구 매</a></div>
-                            <div><a href="../order/order-cancel.jsp?stockNo=<%=stock.getNo()%>&deliveryNo=<%=delivery.getNo()%>&orderNo=<%=order.getNo()%>" type="button" class="btn mt-1 btn-outline-primary">주문취소</a></div>
-                            <div><a href="/review/review-form.jsp?pno=<%=product.getNo()%>" type="button" class="btn mt-1 btn-outline-success">리뷰쓰기</a></div>
-                        </td>
-                    </tr>
-                    <%
+                        %>
+                        <tr class="align-middle">
+                            <td></td>
+                            <td>
+                                <img src="../common/images/<%=images.get(0).getName()%>" class="rounded float-start"
+                                     style="width: 130px; height:150px;">
+                            </td>
+                            <td>
+                                <p style="font-size: 20px">
+                                    <strong><%=product.getName()%>
+                                    </strong>
+                                </p>
+                                <p>사이즈: <%=stock.getSize()%>
+                                </p>
+                                <p>수량: <%=delivery.getAmount()%> 개</p>
+                                <p>결제금액: <%=Utils.toCurrency(totalPrice + 3000)%> 원</p>
+                                <p>구매일자: <%=order.getOrderDate()%>
+                                </p>
+                                <p>배송상태: <%=delivery.getStatus()%>
+                                </p>
+                            </td>
+                            <td class="text-center">
+                                <form action="../order/order-detail.jsp">
+                                    <input type="hidden" name="deliveryNo" value="<%=delivery.getNo() %>">
+                                    <div><input type="submit" class="btn mt-1 btn-outline-info" value="상세보기"></div>
+                                </form>
+                                <div>
+                                    <a href="../order/order-form.jsp?stockNo=<%=stock.getNo()%>&amount=<%=delivery.getAmount()%>"
+                                       type="button" class="btn mt-1 btn-outline-primary">재 구 매</a></div>
+                                <div>
+                                    <a href="../order/order-cancel.jsp?stockNo=<%=stock.getNo()%>&deliveryNo=<%=delivery.getNo()%>&orderNo=<%=order.getNo()%>"
+                                       type="button" class="btn mt-1 btn-outline-primary">주문취소</a></div>
+                                <div><a href="/review/review-form.jsp?pno=<%=product.getNo()%>" type="button"
+                                        class="btn mt-1 btn-outline-success">리뷰쓰기</a></div>
+                            </td>
+                        </tr>
+                        <%
+                                }
                             }
-                        }
-                    %>
-                    </tbody>
-                </table>
-              </div>
+                        %>
+                        </tbody>
+                    </table>
+                </div>
 
-              <%--페이징 처리--%>
-              <%
-                if (pagination.getTotalRows() > 0) {
+                <%--페이징 처리--%>
+                <%
+                    if (pagination.getTotalRows() > 0) {
 
-              %>
-              <div>
-                <ul class="pagination justify-content-center">
-                  <li class="page-item <%=pagination.isFirst() ? "disabled" : ""%>">
-                    <a href="orders.jsp?userNo=<%=userNo%>&page=<%=pagination.getPrev() %>" class="page-link">이전</a>
-                  </li>
-                  <%
-                    for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
-                  %>
-                  <li class="page-item <%=num == pageNo ? "active" : ""%>">
-                    <a href="orders.jsp?userNo=<%=userNo%>&page=<%=num %>" class="page-link"><%=num %></a>
-                  </li>
-                  <%
+                %>
+                <div>
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item <%=pagination.isFirst() ? "disabled" : ""%>">
+                            <a href="orders.jsp?userNo=<%=userNo%>&page=<%=pagination.getPrev() %>"
+                               class="page-link">이전</a>
+                        </li>
+                        <%
+                            for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
+                        %>
+                        <li class="page-item <%=num == pageNo ? "active" : ""%>">
+                            <a href="orders.jsp?userNo=<%=userNo%>&page=<%=num %>" class="page-link"><%=num %>
+                            </a>
+                        </li>
+                        <%
+                            }
+                        %>
+                        <li class="page-item <%=pagination.isLast() ? "disabled" : "" %>">
+                            <a href="orders.jsp?userNo=<%=userNo%>&page=<%=pagination.getNext() %>"
+                               class="page-link">다음</a>
+                        </li>
+                    </ul>
+                </div>
+                <%
                     }
-                  %>
-                  <li class="page-item <%=pagination.isLast() ? "disabled" : "" %>">
-                    <a href="orders.jsp?userNo=<%=userNo%>&page=<%=pagination.getNext() %>" class="page-link">다음</a>
-                  </li>
-                </ul>
-              </div>
-              <%
-                }
-              %>
+                %>
             </div>
         </div>
     </div>

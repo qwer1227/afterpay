@@ -20,9 +20,10 @@
     int orderNo = Utils.toInt(request.getParameter("orderNo"));
 
     OrderDao orderDao = new OrderDao();
-    Order order = orderDao.getOrderByNo(orderNo);
-    order.setStatus("취소");
-    orderDao.updateOrderStatus(order);
+    DeliveryDao deliveryDao = new DeliveryDao();
+    Delivery delivery = deliveryDao.getDeliveryByOrderNo(orderNo);
+    delivery.setStatus("취소");
+    deliveryDao.updateDelivery(delivery);
 
     response.sendRedirect("/user/orders.jsp");
 %>

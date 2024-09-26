@@ -192,8 +192,7 @@
                             @
                         </div>
                         <div class="col-2">
-                            <input type="text" id="domain-txt" class="form-control" name="domain" value="직접입력"
-                                   required/>
+                            <input type="text" id="domain-txt" class="form-control" name="domain" value="직접입력" required/>
                         </div>
                         <div class="col-1">
                             <select id="domain-list">
@@ -333,6 +332,7 @@
     // 도메인 직접 입력 or domain option 선택
     const domainListEl = document.querySelector('#domain-list')
     const domainInputEl = document.querySelector('#domain-txt')
+
     // select 옵션 변경 시
     domainListEl.addEventListener('change', (event) => {
         // option에 있는 도메인 선택 시
@@ -345,6 +345,8 @@
             domainInputEl.value = ""
             domainInputEl.disabled = false
         }
+
+
     })
 
     const telInput = document.getElementById('tel');
@@ -383,8 +385,10 @@
     const points = parseInt(pointInput.value); // 입력된 포인트 값 가져오기
     const userPoints = parseInt(userPoint.value);
 
-
+    
+    const domain = document.getElementById('domain-txt').value;
     function checkForm() {
+
         if (zipcode.value == "" || addr1.value == "") {
             document.querySelector("#addrNull").style.display = 'block';
             return false;
@@ -398,6 +402,11 @@
             return true;
         } else {
             document.querySelector('#pointError').style.display = 'block';
+            return false;
+        }
+
+        if (domain == null) {
+            alert("이메일을 입력해주세요");
             return false;
         }
     }

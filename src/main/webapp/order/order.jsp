@@ -59,17 +59,15 @@
 
     // 상품 재고 번호 가져오기
     String[] stockNo = request.getParameterValues("stockNo");
-    int[] stockNoArr = new int[stockNo.length];
-    for (int i = 0; i < stockNoArr.length; i++) {
-        stockNoArr[i] = Utils.toInt(stockNo[i]);
-    }
+    int[] stockNoArr = null;
+
 
     // 장바구니 주문시 장바구니에서 해당 상품 삭제
     CartDao cartDao = new CartDao();
     String[] cartNo = request.getParameterValues("cartNo");
     int[] cartNoArr = null;
     List<Cart> carts = new ArrayList<>();
-    if (cartNo != null && !cartNo[0].equals(0)) {
+    if (cartNo != null && !cartNo[0].equals("0")) {
         cartNoArr = new int[cartNo.length];
         stockNoArr = new int[cartNoArr.length];
         for (int i = 0; i < cartNoArr.length; i++) {

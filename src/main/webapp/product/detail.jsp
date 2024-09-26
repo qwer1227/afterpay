@@ -103,11 +103,6 @@
                                 </tr>
                             </table>
                         </div>
-                        <%--로그인한 상태에서 위시 리스트 추가 버튼을 클릭하면, 상품을 위시리스트에 추가한다. --%>
-                        <div class="card-footer text-end">
-                            <a href="../wish/add-wish.jsp?pno=<%=productNo %>" class="btn btn-outline-primary btn-sm
-                                <%=loginedUserId != null ? "active" : "disabled" %>" onclick="addWish()">위시 리스트 추가</a>
-                        </div>
                   </div>
                 </div>
             </div>
@@ -121,7 +116,7 @@
                 <div class="row mb-3">
                     <div class="col-12 text-end">
                         <div class="d-flex justify-content-between border p-3 bg-light">
-                            <p class="fw-bold pt-2">사이즈, 재고수량 선택</p>
+                            <p class="fw-bold pt-2">사이즈, 수량 선택</p>
                             <form id="frm" class="row row-cols-lg-auto g-3 align-items-center">
                                 <input type="hidden" name="productNo" value="<%=productNo %>">
                                 <div class="col-12">
@@ -152,10 +147,11 @@
                                 <%
                                     }
                                 %>
-                                <div class="col-12  text-end">
+                                <div class="col-12 text-end">
                                     <div>
-                                        <button type="submit" class="btn btn-outline-primary btn-sm <%=loginedUserId != null ? "active" : "disabled" %>" onclick="addCart()">장바구니 담기</button>
-                                        <button type="submit" class="btn btn-outline-primary btn-sm <%=loginedUserId != null ? "active" : "disabled" %>" onclick="order()">지금 구매하기</button>
+                                        <button type="submit" class="btn btn-outline-primary btn-sm <%=loginedUserId != null ? "active" : "disabled" %>" onclick="wish()">위시리스트</button>
+                                        <button type="submit" class="btn btn-outline-primary btn-sm <%=loginedUserId != null ? "active" : "disabled" %>" onclick="addCart()">장바구니</button>
+                                        <button type="submit" class="btn btn-outline-primary btn-sm <%=loginedUserId != null ? "active" : "disabled" %>" onclick="order()">구매</button>
                                     </div>
                                 </div>
                             </form>
@@ -223,16 +219,16 @@
 
                                     if (canModify) {
                                 %>
-                                    <div class="float-end">
-                                        <a href="../review/modify-form.jsp?rno=<%=review.getNo() %>" class="btn btn-warning">수정</a>
-                                        <a href="../review/delete.jsp?rno=<%=review.getNo() %>" class="btn btn-danger">삭제</a>
+                                    <div class="text-end p-3">
+                                        <a href="../review/modify-form.jsp?rno=<%=review.getNo() %>" class="btn btn-warning btn-sm">수정</a>
+                                        <a href="../review/delete.jsp?rno=<%=review.getNo() %>" class="btn btn-danger btn-sm">삭제</a>
                                     </div>
                                 <%
                                     } else {
                                 %>
-                                    <div class="float-end">
-                                        <a href="" class="btn btn-secondary disabled">수정</a>
-                                        <a href="" class="btn btn-secondary disabled">삭제</a>
+                                    <div class="text-end p-3">
+                                        <a href="" class="btn btn-secondary disabled btn-sm">수정</a>
+                                        <a href="" class="btn btn-secondary disabled btn-sm">삭제</a>
                                     </div>
                                 <%
                                     }
@@ -292,12 +288,14 @@
         }
     }
 
-    // 위시리스트 추가 버튼을 클릭하면, 위시리스트에 물품을 추가하고 현재 페이지에 머무른다.
-    function addWish() {
+    // 위시리스트 추가 버튼을 클릭하면, 위시리스트에 물품을 추가하고 위시리스트 목록 페이지로 이동한다.
+    function wish() {
         alert("위시리스트에 물품을 담았습니다! (단, 위시리스트에 동일한 물품이 존재할 경우 추가되지 않습니다)")
+        document.getElementById("frm").setAttribute("action", "../wish/add-wish.jsp");
+        document.getElementById("frm").submit();
     }
 
-    // 장바구니 담기 버튼을 클릭하면, 장바구니에 물품을 추가하고 현재 페이지에 머무른다.
+    // 장바구니 담기 버튼을 클릭하면, 장바구니에 물품을 추가하고 장바구니 목록 페이지로 이동한다.
     function addCart() {
         alert("장바구니에 물품을 담았습니다!")
         document.getElementById("frm").setAttribute("action", "../user/cart-add.jsp");

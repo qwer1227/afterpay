@@ -103,10 +103,11 @@
             </button>
             <button type="button" name="btn-addr" id="update-addr" class="btn btn-outline-warning" onclick="modifyform()">
               <i class="bi bi-cursor-text"></i>선택 수정
+            </button>
             </a>
-            <a href="" type="submit" class="btn btn-outline-danger">
+            <button type="button" name="btn-addr" id=delete-addr" class="btn btn-outline-danger" onclick="deleteAddr()">
               <i class="bi bi-trash"></i>선택 삭제
-            </a>
+            </button>
           </div>
         </div>
       </form>

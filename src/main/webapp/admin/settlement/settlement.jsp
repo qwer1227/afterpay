@@ -17,6 +17,12 @@
 </head>
 <body>
 <%@ include file="../../common/nav.jsp" %>
+<%
+    if (userID == null || !userID.equals("ADMIN")) {
+        response.sendRedirect("../login-form.jsp?deny");
+        return;
+    } else {
+%>
 <div class="container mb-5" style="margin-top: 100px;">
     <div class="row mb-3">
         <div class="col-9 offset-2">
@@ -92,30 +98,34 @@
                 </ul>
             </div>
             <div class="mt-3">
-            <table class="table">
-                <colgroup>
-                    <col width="25%">
-                    <col width="25%">
-                    <col width="25%">
-                    <col width="25%">
-                </colgroup>
-                <tr>
-                    <th>총 수입금액</th>
-                    <th>총 지출금액</th>
-                    <th>세금</th>
-                    <th class="table-dark">최종 결재금액</th>
-                </tr>
-                <tr>
-                    <th><strong>364,000</strong> 원</th>
-                    <th><strong>149,000</strong> 원</th>
-                    <th><strong>0</strong></th>
-                    <th class="table-dark"><strong>215,000</strong> 원</th>
-                </tr>
-            </table>
+                <table class="table">
+                    <colgroup>
+                        <col width="25%">
+                        <col width="25%">
+                        <col width="25%">
+                        <col width="25%">
+                    </colgroup>
+                    <tr>
+                        <th>총 수입금액</th>
+                        <th>총 지출금액</th>
+                        <th>세금</th>
+                        <th class="table-dark">최종 결재금액</th>
+                    </tr>
+                    <tr>
+                        <th><strong>364,000</strong> 원</th>
+                        <th><strong>149,000</strong> 원</th>
+                        <th><strong>0</strong></th>
+                        <th class="table-dark"><strong>215,000</strong> 원</th>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
 </div>
+<%
+    }
+%>
+
 <%@ include file="../../common/footer.jsp" %>
 </body>
 </html>

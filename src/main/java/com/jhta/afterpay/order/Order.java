@@ -17,16 +17,18 @@ public class Order {
     private int usePoint;
     private int discountPrice;
     private int paymentPrice;
-    private int deliveryStatus;
+    private String deliveryStatus;
     private int depositPoint;
-    private String tel;
-    private String email;
+    private String deliveryMessage;
+    private String isDeleted;     // 삭제 여부 처리
     private Addr addr;
     private User user;
-    private String deliveryMessage;
+    private List<Product> Products;
+    private String tel;
+    private String email;
 
-    public Order() {
-    }
+
+    public Order() {}
 
     public int getNo() {
         return no;
@@ -100,11 +102,11 @@ public class Order {
         this.paymentPrice = paymentPrice;
     }
 
-    public int getDeliveryStatus() {
+    public String getDeliveryStatus() {
         return deliveryStatus;
     }
 
-    public void setDeliveryStatus(int deliveryStatus) {
+    public void setDeliveryStatus(String deliveryStatus) {
         this.deliveryStatus = deliveryStatus;
     }
 
@@ -124,6 +126,10 @@ public class Order {
         this.depositPoint = depositPoint;
     }
 
+    public String getDeliveryMessage() { return deliveryMessage; }
+
+    public void setDeliveryMessage(String deliveryMessage) { this.deliveryMessage = deliveryMessage; }
+
     public User getUser() {
         return user;
     }
@@ -132,12 +138,20 @@ public class Order {
         this.user = user;
     }
 
-    public String getDeliveryMessage() {
-        return deliveryMessage;
+    public List<Product> getProducts() {
+        return Products;
     }
 
-    public void setDeliveryMessage(String deliveryMessage) {
-        this.deliveryMessage = deliveryMessage;
+    public void setProducts(List<Product> products) {
+        Products = products;
+    }
+
+    public String getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(String isDeleted) {
+        this.isDeleted = isDeleted;
     }
 
     public String getTel() {
@@ -154,5 +168,29 @@ public class Order {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "no=" + no +
+                ", orderDate=" + orderDate +
+                ", status='" + status + '\'' +
+                ", price=" + price +
+                ", amount=" + amount +
+                ", deliveryPrice=" + deliveryPrice +
+                ", usePoint=" + usePoint +
+                ", discountPrice=" + discountPrice +
+                ", paymentPrice=" + paymentPrice +
+                ", deliveryStatus='" + deliveryStatus + '\'' +
+                ", depositPoint=" + depositPoint +
+                ", deliveryMessage='" + deliveryMessage + '\'' +
+                ", isDeleted='" + isDeleted + '\'' +
+                ", addr=" + addr +
+                ", user=" + user +
+                ", Products=" + Products +
+                ", tel='" + tel + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

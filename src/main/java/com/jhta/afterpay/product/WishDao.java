@@ -48,13 +48,14 @@ public class WishDao {
      * 위시리스트 상품을 삭제한다.
      * @param wishNo 위시리스트 번호
      */
-    public void deleteWishByNo(int wishNo) {
+    public void deleteWishByNo(int wishNo, int userNo) {
         String sql = """
            delete from wishes
-           where wish_no = ?     
+           where PRODUCT_STOCK_NO = ?
+           and user_no = ?     
         """;
 
-        DaoHelper.delete(sql, wishNo);
+        DaoHelper.delete(sql, wishNo, userNo);
     }
 
     /**

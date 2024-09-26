@@ -29,10 +29,17 @@
 <body>
 <%@include file="../common/nav.jsp" %>
 <%
-  WishDao wishDao = new WishDao();
   int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
+  String userId = String.valueOf(session.getAttribute("USERID"));
+
+  if (userId == null) {
+    response.sendRedirect("../login-form.jsp?deny");
+    return;
+  }
+
+  WishDao wishDao = new WishDao();
   List<Wish> wishes = wishDao.getWishByUserNo(userNo);
-  
+
   int pageNo = Utils.toInt(request.getParameter("page"), 1);
   int totalRows = wishDao.getAllTotalRowsByUserNo(userNo);
   Pagination pagination = new Pagination(pageNo, totalRows);
@@ -41,7 +48,7 @@
   int beginPage = pagination.getBeginPage();
   int endPage = pagination.getEndPage();
   List<Wish> wishList = wishDao.getAllWishListByUserNo(userNo, begin, end);
-  
+
   int amount = 0;
   int totalPrice = 0;
   int totalAmount = 0;
@@ -69,7 +76,7 @@
           <strong>위시리스트 내역이 없습니다.</strong><br>
           <br>
           <a href="../index.jsp" type="button" class="btn btn-lg bg-light border-dark-subtle">지금 바로 쇼핑하러 가기</a>
-        
+
         </div>
         <%
         } else {
@@ -82,13 +89,13 @@
           </div>
           <div class="col-6">
             <div class="text-end">
-              <button type="submit" class="btn btn-lg" onclick="deleteWish()">
+              <button type="button" class="btn btn-lg" onclick="deleteWish()">
                 <i class="bi bi-trash"></i>
               </button>
             </div>
           </div>
         </div>
-        
+
         <div class="tab-pane fade show active" id="nav-wishlist" role="tabpanel" aria-labelledby="nav-home-tab">
           <div class="table-responsive">
             <table class="table align-middle">
@@ -104,11 +111,11 @@
                   int stockNo = wish.getStock().getNo();
                   StockDao stockDao = new StockDao();
                   Stock stock = stockDao.getStockByNo(stockNo);
-                  
+
                   int productNo = wish.getProduct().getNo();
                   ProductDao productDao = new ProductDao();
                   Product product = productDao.getProductByNo(productNo);
-                  
+
                   List<Image> images = productDao.getAllImagesByNo(productNo);
               %>
               <tr>
@@ -130,7 +137,13 @@
                     원</strong></p>
                 </td>
                 <td class="align-middle text-end">
-                  <a type="button" id="form-cart" href="cart.jsp?stockNo=<%=stockNo%>&amount=1" class="btn btn-outline-primary">
+                  <a type="button" id="form-detail" href="../product/detail.jsp?pno=<%=wish.getProduct().getNo()%>"
+                     class="btn btn-outline-warning">
+                    상세보기
+                  </a>
+                  <p></p>
+                  <a type="button" id="form-cart" href="cart-add.jsp?stockNo=<%=stockNo%>&amount=1"
+                     class="btn btn-outline-primary">
                     장바구니
                   </a>
                   <p></p>
@@ -148,41 +161,41 @@
             </table>
           </div>
         </div>
-        
+
         <!-- Item Total Info -->
         <div class="text-center mt-4 mb-5">
           <div class="row fs-5" id="cart-info">
             <!-- cart -->
             <table border="1">
               <tbody>
-              <tr class="fs-5">
-                <td>총 선택 갯수</td>
-                <td>배송비</td>
-                <td>총 결제 금액</td>
-                <td rowspan="2">
-                  <button class="btn btn-secondary btn-lg" id="btn-order" disabled>
-                    지금 주문하기
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div>
+                <tr class="fs-5">
+                  <td>총 선택 갯수</td>
+                  <td>배송비</td>
+                  <td>총 결제 금액</td>
+                  <td rowspan="2">
+                    <button class="btn btn-secondary btn-lg" id="btn-order" disabled>
+                      지금 주문하기
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div>
+                      <strong>
+                        <span id="wish-total-amount"><%=amount%></span> 개
+                      </strong>
+                    </div>
+                  </td>
+                  <td>
                     <strong>
-                      <span id="wish-total-amount"><%=amount%></span> 개
+                      <span id="delivery-fee">3,000 원</span>
                     </strong>
-                  </div>
-                </td>
-                <td>
-                  <strong>
-                    <span id="delivery-fee">3,000 원</span>
-                  </strong>
-                </td>
-                <td>
-                  <strong><span id="wish-total-price"><%=Utils.toCurrency(totalPrice)%></span> 원</strong>
-                </td>
-                <td></td>
-              </tr>
+                  </td>
+                  <td>
+                    <strong><span id="wish-total-price"><%=Utils.toCurrency(totalPrice)%></span> 원</strong>
+                  </td>
+                  <td></td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -193,7 +206,7 @@
       </form>
     </div>
   </div>
-  
+
   <script type="text/javascript">
       function checkAll() {
           let isChecked = document.querySelector("[name=all]").checked;
@@ -270,7 +283,7 @@
 
       function deleteWish() {
           // 체크된 문의번호를 조회
-          let checkBoxes = document.querySelectorAll("input[type=checkbox][name=wishNo]");
+          let checkBoxes = document.querySelectorAll("input[name=stockNo]");
           let isChecked = false;
           // 체크된 문의가 한 건이라도 있으면 참 반환
           for (let checkBox of checkBoxes) {
@@ -282,18 +295,13 @@
           // 만약 하나도 선택이 안되면 알림 전송 후, 거짓 반환
           if (!isChecked) {
               alert("선택된 상품이 없습니다.")
-              let qnaDefineForm = document.getElementById("form-wish");
-              qnaDefineForm.setAttribute("action", "wish-list.jsp");
-              qnaDefineForm.submit();
-              return false;
+              return;
           }
 
           let qnaForm = document.getElementById("form-wish");
           qnaForm.setAttribute("action", "delete-wish.jsp");
           qnaForm.submit();
 
-          // 체크된 문의가 있으면 해당 폼을 제출하는 것이 참
-          return true;
       }
   </script>
   <%@include file="../common/footer.jsp" %>

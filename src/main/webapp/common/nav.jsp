@@ -5,7 +5,7 @@
 
 <nav class="navbar bg-body-tertiary fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="../index.jsp">AFTER PAY</a>
+        <a class="navbar-brand" href="/index.jsp">AFTER PAY</a>
         <div class="nav-box">
             <button type="button" class="btn btn-outline-secondary">
                 <%

@@ -128,10 +128,13 @@
             </div>
         </div>
     </form>
+    <!--관리자 답변 -->
+<%
+    if (userID != null && "ADMIN".equals(userID)) {
+%>
     <div class="row">
         <div class="col-2"></div>
         <div class="col-10">
-            <!--관리자 답변 -->
             <div class="mt-3">
                 <%
                     if (qna.getRepliedContent() == null) {
@@ -140,6 +143,7 @@
                 <div class="border p-2 mb-2">
                     <div class="small d-flex justify-content-between">
                         <p>답변을 기달려주세요.</p>
+                        <button type="button" class="btn btn-outline-dark btn-sm" onclick="showReply()">답변</button>
                     </div>
                 </div>
                 <%
@@ -176,10 +180,17 @@
 
         </div>
     </div>
+<%
+    }
+%>
 </div>
 <script type="text/javascript">
     function showForm() {
-        document.getElementById("modify-form").classList.remove("d-none");
+        document.getElementById("modify-form").classList.toggle("d-none");
+    }
+
+    function showReply() {
+        document.getElementById("modify-form").classList.toggle("d-none");
     }
 </script>
 <%@include file="../common/footer.jsp" %>

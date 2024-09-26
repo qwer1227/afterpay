@@ -11,7 +11,7 @@ public class Addr {
     private String addr2;
     private String isAddrHome;
     private User user;
-
+    private String recipient;
 
     public Addr() {
     }
@@ -83,5 +83,13 @@ public class Addr {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getRecipient() {
+        return recipient;
+    }
+
+    public void setRecipient(String recipient) {
+        this.recipient = recipient;
     }
 }

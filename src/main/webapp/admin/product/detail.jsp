@@ -21,6 +21,12 @@
 </head>
 <body>
 <%@ include file="../../common/nav.jsp" %>
+<%
+    if (userID == null || !userID.equals("ADMIN")) {
+        response.sendRedirect("/login-form.jsp?deny");
+        return;
+    } else {
+%>
 <div class="container">
     <div class="row">
         <div class="text-center">
@@ -146,10 +152,11 @@
                 </div>
             </div>
         </div>
-        <!--버튼-->
-
     </div>
 </div>
+<%
+    }
+%>
 <%@ include file="../../common/footer.jsp" %>
 </body>
 </html>

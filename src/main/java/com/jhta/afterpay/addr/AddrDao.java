@@ -18,16 +18,16 @@ public class AddrDao {
                 (ADDR_NO
                 , ADDR_NAME, ADDR_TEL 
                 , ZIP_CODE, ADDR_1, ADDR_2
-                , ISADDR_HOME, USER_NO)
+                , ISADDR_HOME, USER_NO, RECIPIENT)
                 values(ADDR_NO_SEQ.NEXTVAL
                 , ?, ?
                 ,?, ?, ?
-                ,?, ?)
+                ,?, ?, ?)
                 """;
         DaoHelper.insert(sql
                 , addr.getName(), addr.getTel()
                 , addr.getZipCode(), addr.getAddr1(), addr.getAddr2()
-                , addr.getIsAddrHome(), addr.getUser().getNo());
+                , addr.getIsAddrHome(), addr.getUser().getNo(), addr.getRecipient());
     }
 
     /**
@@ -61,6 +61,7 @@ public class AddrDao {
                 ,ADDR_2 = ?
                 ,ISADDR_HOME = ?
                 ,USER_NO = ?
+                ,RECIPIENT = ?
                 """;
         DaoHelper.update(sql, addr.getNo()
                 , addr.getName()
@@ -70,7 +71,24 @@ public class AddrDao {
                 , addr.getAddr2()
                 , addr.getIsAddrHome()
                 , addr.getUser().getNo()
+                , addr.getRecipient()
         );
+    }
+
+    public Addr getAddrByUserNo(int userNo){
+        String sql = """
+                select ADDR_1
+                    , ADDR_2
+                from addresses
+                where user_no = ? and isaddr_home = 'Y'
+                """;
+
+        return DaoHelper.selectOne(sql,rs -> {
+            Addr addr = new Addr();
+            addr.setAddr1(rs.getString("ADDR_1"));
+            addr.setAddr2(rs.getString("ADDR_2"));
+            return addr;
+        },userNo);
     }
 
     /**
@@ -96,6 +114,7 @@ public class AddrDao {
             addr.setZipCode(rs.getString("ZIP_CODE"));
             addr.setAddr1(rs.getString("ADDR_1"));
             addr.setAddr2(rs.getString("ADDR_2"));
+            addr.setRecipient(rs.getString("RECIPIENT"));
             addr.setIsAddrHome(rs.getString("ISADDR_HOME"));
             addr.getUser().setNo(rs.getInt("USER_NO"));
             return addr;
@@ -124,6 +143,7 @@ public class AddrDao {
             addr.setAddr1(rs.getString("ADDR_1"));
             addr.setAddr2(rs.getString("ADDR_2"));
             addr.setAddrHome(rs.getString("ISADDR_HOME"));
+            addr.setRecipient(rs.getString("RECIPIENT"));
             User user = new User();
             user.setNo(userNo);
             addr.setUser(user);
@@ -143,10 +163,11 @@ public class AddrDao {
                 WHERE USER_NO = ?
                     AND ISADDR_HOME = 'Y'
                 """;
-        Addr addr = new Addr();
-        User user = new User();
-        addr.setUser(user);
+
         return DaoHelper.selectOne(sql, rs-> {
+            Addr addr = new Addr();
+            User user = new User();
+            addr.setUser(user);
             addr.setNo(rs.getInt("ADDR_NO"));
             addr.setName(rs.getString("ADDR_NAME"));
             addr.setTel(rs.getString("ADDR_TEL"));

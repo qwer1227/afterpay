@@ -4,16 +4,14 @@
     <div class="card-header">회원/주문 관리</div>
     <div class="card-body">
         <ul class="list-group">
-            <li class="list-group-item-action btn btn-outline"><a href="/admin/home.jsp"
-                                                                  class="text-decoration-none">관리자메인</a>
+            <li class="list-group-item-action btn btn-outline"><a href="/admin/home.jsp" class="text-decoration-none">관리자메인</a>
             </li>
             <li class="list-group-item-action btn btn-outline"><a href="/admin/user/user.jsp"
                                                                   class="text-decoration-none">회원관리</a></li>
             <li class="list-group-item-action btn btn-outline"><a href="/admin/order/order.jsp"
                                                                   class="text-decoration-none">주문관리</a>
             </li>
-            <li class="list-group-item-action btn btn-outline"><a href="/admin/mileage/mileage.jsp"
-                                                                  class="text-decoration-none">적립금관리</a></li>
+            <li class="list-group-item-action btn btn-outline"><a href="#" class="text-decoration-none">적립금관리</a></li>
         </ul>
     </div>
 </div>

@@ -15,32 +15,30 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/common/css/style.css">
-    <style>
-        #thumbnail-image-box img {
-            margin-top: 200px;
-            width: 300px;
-            height: 450px;
-            opacity: 0.5;
-        }
-    </style>
 </head>
 <body class="d-flex flex-column min-vh-100 ">
 <%
     String menu = "홈";
 %>
 <%@ include file="/common/nav.jsp" %>
-<div id="thumbnail-image-box" class="row">
-    <div class="col" style="text-align: center; padding-left: 500px;">
-        <a href="/product/list.jsp?cat_no=10" class="text-dark text-decoration-none">
-            <img src="/img/main6.png" onmouseenter="fn1(event)" onmouseleave="fn2(event)">
-            <p>남성</p>
-        </a>
-    </div>
-    <div class="col" style="text-align: center; padding-right: 500px">
-        <a href="/product/list.jsp?cat_no=20" class="text-dark text-decoration-none">
-            <img src="/img/main4.png" onmouseenter="fn1(event)" onmouseleave="fn2(event)">
-            <p>여성</p>
-        </a>
+<div class="container">
+    <div class="row mb-3">
+        <div class="d-flex justify-content-evenly">
+            <div class="border p-3">
+                <a href="/product/list.jsp?cat_no=10" class="text-dark text-decoration-none">
+                    <img src="/img/main6.png" width="300" onmouseenter="fn1(event)" onmouseleave="fn2(event)"
+                         class="mb-3">
+                    <p class="text-center fs-3">남성</p>
+                </a>
+            </div>
+            <div class="border p-3">
+                <a href="/product/list.jsp?cat_no=20" class="text-dark text-decoration-none">
+                    <img src="/img/main3.png" width="300" onmouseenter="fn1(event)" onmouseleave="fn2(event)"
+                         class="mb-3">
+                    <p class="text-center fs-3">여성</p>
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 <%@ include file="/common/footer.jsp" %>

@@ -250,7 +250,7 @@ public class DeliveryDao {
 
             Stock stock = new Stock();
             stock.setNo(rs.getInt("PRODUCT_STOCK_NO"));
-           // stock.setSize(rs.getString("PRODUCT_STOCK_SIZE"));
+            stock.setSize(rs.getString("PRODUCT_STOCK_SIZE"));
             delivery.setStock(stock);
 
             Order order = new Order();
@@ -278,7 +278,7 @@ public class DeliveryDao {
         return DaoHelper.selectOneInt(sql, userNo);
     }
 
-    public List<Delivery> getCancelDeliveryByOrderNo(int orderNo) {
+    public Delivery getCancelDeliveryByOrderNo(int orderNo) {
         String sql = """
                 select *
                 FROM ORDER_DELIVERY_PRODUCTS
@@ -288,7 +288,7 @@ public class DeliveryDao {
                 OR DELIVERY_STATUS = '환불'
                 """;
 
-        return DaoHelper.selectList(sql,rs -> {
+        return DaoHelper.selectOne(sql,rs -> {
             Delivery delivery = new Delivery();
 
             delivery.setNo(rs.getInt("DELIVERY_NO"));
@@ -314,5 +314,4 @@ public class DeliveryDao {
             return delivery;
         }, orderNo);
     }
-
 }

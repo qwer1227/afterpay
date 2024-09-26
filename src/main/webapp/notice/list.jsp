@@ -54,7 +54,7 @@
                 <col width="15%">
             </colgroup>
             <thead>
-            <tr>
+            <tr class="table-dark">
                 <th>번호</th>
                 <th>제목</th>
                 <th>작성자</th>
@@ -80,15 +80,9 @@
             %>
             </tbody>
         </table>
-<%--        <%--%>
-<%--            if (loginUserId != null){--%>
-<%--        %>--%>
         <div class="float-end">
             <a href="/notice/form.jsp?" class="btn btn-primary">새 글</a>
         </div>
-<%--        <%--%>
-<%--            }--%>
-<%--        %>--%>
         <%
             if (pagination.getTotalRows() > 0) {
                 int beginPage = pagination.getBeginPage();

@@ -37,41 +37,48 @@
 <body>
 <%@include file="../common/nav.jsp" %>
 <%
-    int userNo = 19;
+    int userNo =Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
+    if (userID == null) {
+        response.sendRedirect("../login-form.jsp?deny");
+        return;
+    }
     DeliveryDao deliveryDao = new DeliveryDao();
     OrderDao orderDao = new OrderDao();
 
     int pageNo = Utils.toInt(request.getParameter("page"), 1);
     List<Order> orders = orderDao.getAllOrdersByUserNo(userNo);
-    int totalRows = orderDao.getTotalRowsByUserNo(19);
+    int totalRows = orderDao.getTotalRowsByUserNo(userNo);
     Pagination pagination = new Pagination(pageNo, totalRows, 5, 3);
     orders = orderDao.getAllOrdersByUserNo(userNo, pagination.getBegin(), pagination.getEnd());
-    List<Order> cancleOrder = new ArrayList<>();
+    List<Order> cancelOrder = new ArrayList<>();
 %>
 <div class="container">
-    <div class="container">
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="col-10">
+        <h2 class="mt-3"><strong>취소/반품/환불</strong></h2>
+      </div>
+    </div>
         <div class="row">
             <div class="col-2">
                 <%@include file="../common/user-nav.jsp" %>
             </div>
             <div class="col-10">
-                <h2 class="m-4"><strong>취소/반품/환불</strong></h2>
                 <hr style="border:solid 1px gray;"/>
                 <%
                     for (Order order : orders) {
                         if (order.getStatus() == "취소" || order.getStatus() == "반품" || order.getStatus() == "환불") {
-                            cancleOrder.add(order);
+                            cancelOrder.add(order);
                         }
                     }
                 %>
                 <%
-                    if (cancleOrder.isEmpty()) {
+                    if (cancelOrder.isEmpty()) {
                 %>
                 <div class="text-center m-5">
                     <strong>취소/교환/환불 내역이 없습니다.</strong><br>
                     <br>
-                    <a href="" type="button" class="btn btn-lg bg-light border-dark-subtle">지금 바로 쇼핑하러 가기</a>
-
+                    <button type="button" onclick="location.href='../index.jsp'" class="btn btn-lg bg-light border-dark-subtle">지금 바로 쇼핑하러 가기</button>
                 </div>
                 <%
                 } else {
@@ -123,7 +130,6 @@
                             </td>
                         </tr>
                         <%
-
                             for (Delivery delivery : deliveries) {
                                 Stock stock = stockDao.getStockByNo(delivery.getStock().getNo());
                                 Product product = productDao.getProductByNo(delivery.getProduct().getNo());
@@ -156,11 +162,8 @@
                                     <input type="hidden" name="deliveryNo" value="<%=delivery.getNo() %>">
                                     <div><input type="submit" class="btn mt-1 btn-outline-info" value="상세보기"></div>
                                 </form>
-                                <div><a href="" type="submit" class="btn mt-1 btn-outline-primary">재 구 매</a></div>
+                                <div><a href="../order/order-form.jsp?stockNo=<%=stock.getNo()%>&amount=<%=delivery.getAmount()%>" type="button" class="btn mt-1 btn-outline-primary">재 구 매</a></div>
                                 <div><a href="" type="submit" class="btn mt-1 btn-outline-success">리뷰쓰기</a></div>
-                                <%--              <%--%>
-                                <%--                }--%>
-                                <%--              %>--%>
                                 <div><a href="" type="submit" class="btn mt-1 btn-outline-success">작성한 리뷰</a></div>
                             </td>
                         </tr>

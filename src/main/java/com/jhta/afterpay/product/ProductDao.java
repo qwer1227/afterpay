@@ -341,6 +341,7 @@ public class ProductDao {
                         , PC.CAT_NAME
                         FROM PRODUCTS P, PRODUCT_CATEGORIES PC
                         WHERE P.CAT_NO = PC.CAT_NO
+                        and P.ISDELETED = 'N'
                     )
                     WHERE ROWNUMBER BETWEEN ? AND ?
                 """;
@@ -368,6 +369,7 @@ public class ProductDao {
         String sql = """
                 select count(*)
                 from products
+                where ISDELETED = 'N'
                 """;
 
         return DaoHelper.selectOneInt(sql);

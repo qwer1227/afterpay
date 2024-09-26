@@ -2,13 +2,14 @@ package com.jhta.afterpay.delivery;
 
 import com.jhta.afterpay.order.Order;
 import com.jhta.afterpay.product.Product;
-import com.jhta.afterpay.product.Review;
 import com.jhta.afterpay.product.Stock;
 import com.jhta.afterpay.util.DaoHelper;
 
 import java.util.List;
 
 public class DeliveryDao {
+
+
 
     /**
      * 배송 관리 상품 추가
@@ -72,6 +73,44 @@ public class DeliveryDao {
     }
 
 
+
+    /**
+     * 주문번호 번호로 배송상품 조회
+     * @param orderNo 주문번호
+     * @return
+     */
+    public Delivery getDeliveryByOrderNo(int orderNo) {
+        String sql = """
+                SELECT *
+                FROM ORDER_DELIVERY_PRODUCTS
+                WHERE ORDER_NO = ?
+                """;
+
+
+
+        return DaoHelper.selectOne(sql, rs -> {
+            Delivery delivery = new Delivery();
+            delivery.setNo(rs.getInt("DELIVERY_NO"));
+            delivery.setPrice(rs.getInt("DELIVERY_PRODUCT_PRICE"));
+            delivery.setAmount(rs.getInt("DELIVERY_PRODUCT_AMOUNT"));
+            delivery.setStatus(rs.getString("DELIVERY_STATUS"));
+
+            Product product = new Product();
+            delivery.setProduct(product);
+            delivery.getProduct().setNo(rs.getInt("PRODUCT_NO"));
+
+            Stock stock = new Stock();
+            delivery.setStock(stock);
+            delivery.getStock().setNo(rs.getInt("PRODUCT_STOCK_NO"));
+
+            Order order = new Order();
+            delivery.setOrder(order);
+            delivery.getOrder().setNo(rs.getInt("ORDER_NO"));
+
+            return delivery;
+        }, orderNo);
+    }
+
     /**
      * 배송상품 번호로 배송상품 조회
      * @param deliveryNo
@@ -116,28 +155,55 @@ public class DeliveryDao {
      */
     public List<Delivery> getAllDeliveryByOrderNo(int orderNo) {
         String sql = """
-                SELECT *
-                FROM ORDER_DELIVERY_PRODUCTS
-                WHERE ORDER_NO = ?
+               SELECT D.DELIVERY_PRODUCT_PRICE
+                    , D.DELIVERY_NO
+                    , D.DELIVERY_PRODUCT_AMOUNT
+                    , D.DELIVERY_STATUS
+                    , D.PRODUCT_NO
+                    , D.PRODUCT_STOCK_NO
+                    , D.ORDER_NO
+                    , S.PRODUCT_STOCK_SIZE
+                    , O.USER_NO
+                    , O.ORDER_DATE
+                    , P.PRODUCT_NAME
+                     ,(select img_name
+                     from product_imgs
+                     where product_no = p.product_no
+                     and isthumb = 'Y') default_Image
+                FROM ORDER_DELIVERY_PRODUCTS D JOIN PRODUCT_STOCKS S
+                    ON D.PRODUCT_STOCK_NO = S.PRODUCT_STOCK_NO
+                        JOIN ORDERS O
+                    ON O.ORDER_NO = D.ORDER_NO
+                        JOIN PRODUCTS P
+                    ON P.PRODUCT_NO = D.PRODUCT_NO
+                WHERE O.order_no = ?
                 """;
-
 
         return DaoHelper.selectList(sql, rs -> {
             Delivery delivery = new Delivery();
-            Product product = new Product();
-            delivery.setProduct(product);
-            Stock stock = new Stock();
-            delivery.setStock(stock);
-            Order order = new Order();
-            delivery.setOrder(order);
+
             delivery.setNo(rs.getInt("DELIVERY_NO"));
             delivery.setPrice(rs.getInt("DELIVERY_PRODUCT_PRICE"));
             delivery.setAmount(rs.getInt("DELIVERY_PRODUCT_AMOUNT"));
             delivery.setStatus(rs.getString("DELIVERY_STATUS"));
-            delivery.setRecipient(rs.getString("RECIPIENT"));
-            delivery.getProduct().setNo(rs.getInt("PRODUCT_NO"));
-            delivery.getStock().setNo(rs.getInt("PRODUCT_STOCK_NO"));
-            delivery.getOrder().setNo(rs.getInt("ORDER_NO"));
+
+            Product product = new Product();
+            product.setNo(rs.getInt("PRODUCT_NO"));
+            product.setName(rs.getString("PRODUCT_NAME"));
+            product.setDefaultImage(rs.getString("default_Image"));
+            delivery.setProduct(product);
+
+            Stock stock = new Stock();
+            stock.setNo(rs.getInt("PRODUCT_STOCK_NO"));
+            stock.setSize(rs.getString("PRODUCT_STOCK_SIZE"));
+            delivery.setStock(stock);
+
+            Order order = new Order();
+            order.setNo(rs.getInt("ORDER_NO"));
+            order.setOrderDate(rs.getDate("ORDER_DATE"));
+            delivery.setOrder(order);
+
+
             return delivery;
         }, orderNo);
     }
@@ -248,5 +314,4 @@ public class DeliveryDao {
             return delivery;
         }, orderNo);
     }
-
 }

@@ -128,10 +128,13 @@
             </div>
         </div>
     </form>
+    <!--관리자 답변 -->
+<%
+    if (userID != null && "ADMIN".equals(userID)) {
+%>
     <div class="row">
         <div class="col-2"></div>
         <div class="col-10">
-            <!--관리자 답변 -->
             <div class="mt-3">
                 <%
                     if (qna.getRepliedContent() == null) {
@@ -177,6 +180,9 @@
 
         </div>
     </div>
+<%
+    }
+%>
 </div>
 <script type="text/javascript">
     function showForm() {

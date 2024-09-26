@@ -6,6 +6,7 @@ import java.util.List;
 
 public class PointHistoryDao {
 
+
     /**
      * 사용자번호를 전달받아 적립금 내역 전체 조회
      * @param userNo
@@ -36,13 +37,13 @@ public class PointHistoryDao {
     public void insertHistory(PointHistory pointHistory) {
         String sql = """
                 INSERT INTO POINT_HISTORIES
-                    (HISTORY_NO, USER_NO, HISTORY_DATE, HISTORY_CONTENT, HISTORY_POINT, HISTORY_CURRENT_POINT)
+                    (HISTORY_NO, HISTORY_CONTENT, HISTORY_POINT, USER_NO, HISTORY_CURRENT_POINT)
                 VALUES
-                    (HISTORY_NO_SEQ.NEXTVAL, ?, SYSDATE, ?, ?, ?)
+                    (HISTORY_NO_SEQ.NEXTVAL, ?, ?, ?, ?)
                 """;
-        DaoHelper.insert(sql, pointHistory.getUserNo()
-                , pointHistory.getContent()
+        DaoHelper.insert(sql, pointHistory.getContent()
                 , pointHistory.getPoint()
+                , pointHistory.getUserNo()
                 , pointHistory.getCurrentPoint());
     }
 

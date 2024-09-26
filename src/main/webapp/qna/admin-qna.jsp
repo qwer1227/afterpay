@@ -75,7 +75,7 @@
                     </td>
                     <td><%=qna.getRepliedDate()%>
                     </td>
-                    <td>답변대기중</td>
+                    <td>답변 준비중</td>
                     <td><%=qna.getCnt()%>
                     </td>
                     <td><%=qna.getUser().getName()%>

@@ -75,7 +75,45 @@ public class AddrDao {
         );
     }
 
-    public Addr getAddrByUserNo(int userNo){
+    public void updateAddrByAddrNo(Addr addr) {
+        String sql = """
+                UPDATE ADDRESSES
+                    SET
+                    ADDR_NAME = ?,
+                    ADDR_TEL = ?,
+                    ZIP_CODE = ?,
+                    ADDR_1 = ?,
+                    ADDR_2 = ?,
+                    ISADDR_HOME = ?,
+                    USER_NO = ?,
+                    RECIPIENT = ?
+                    WHERE ADDR_NO = ?
+                """;
+        DaoHelper.update(sql
+                , addr.getName()
+                , addr.getTel()
+                , addr.getZipCode()
+                , addr.getAddr1()
+                , addr.getAddr2()
+                , addr.getIsAddrHome()
+                , addr.getUser().getNo()
+                , addr.getRecipient()
+                , addr.getNo()
+        );
+    }
+
+    public void updateNewDefaultAddr(Addr addr) {
+        String sql1 = "UPDATE ADDRESSES SET ISADDR_HOME = 'N' WHERE ISADDR_HOME = 'Y' AND USER_NO = ?";
+        String sql2 = "UPDATE ADDRESSES SET ISADDR_HOME = 'Y' WHERE ADDR_NO = ?";
+
+        //기본배송지를 N으로 변경
+        DaoHelper.update(sql1, addr.getUser().getNo());
+
+        //새로운 배송지를 Y로 변경
+        DaoHelper.update(sql2, addr.getNo());
+    }
+
+    public Addr getAddrByUserNo(int userNo) {
         String sql = """
                 select ADDR_1
                     , ADDR_2
@@ -83,12 +121,12 @@ public class AddrDao {
                 where user_no = ? and isaddr_home = 'Y'
                 """;
 
-        return DaoHelper.selectOne(sql,rs -> {
+        return DaoHelper.selectOne(sql, rs -> {
             Addr addr = new Addr();
             addr.setAddr1(rs.getString("ADDR_1"));
             addr.setAddr2(rs.getString("ADDR_2"));
             return addr;
-        },userNo);
+        }, userNo);
     }
 
     /**
@@ -153,6 +191,7 @@ public class AddrDao {
 
     /**
      * 집주소로 설정된 사용자의 주소 조회
+     *
      * @param userNo
      * @return
      */
@@ -164,7 +203,7 @@ public class AddrDao {
                     AND ISADDR_HOME = 'Y'
                 """;
 
-        return DaoHelper.selectOne(sql, rs-> {
+        return DaoHelper.selectOne(sql, rs -> {
             Addr addr = new Addr();
             User user = new User();
             addr.setUser(user);
@@ -178,24 +217,5 @@ public class AddrDao {
             addr.getUser().setNo(rs.getInt("USER_NO"));
             return addr;
         }, userNo);
-    }
-
-    /**
-     * 배송주소 번호로 조회해 해당하는 주소의 정보 수정
-     * @param addr
-     */
-    public void updateAddrByAddrNo(Addr addr) {
-        String sql = """
-                UPDATE ADDRESSES
-                SET ZIP_CODE = ?
-                    , ADDR_1 = ?
-                    , ADDR_2 = ?
-                WHERE ADDR_NO = ?
-                """;
-        DaoHelper.update(sql
-                , addr.getZipCode()
-                , addr.getAddr1()
-                , addr.getAddr2()
-                , addr.getNo());
     }
 }

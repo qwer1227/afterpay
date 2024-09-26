@@ -1,6 +1,8 @@
 <%@ page import="com.jhta.afterpay.util.Utils" %>
 <%@ page import="com.jhta.afterpay.user.User" %>
 <%@ page import="com.jhta.afterpay.user.UserDao" %>
+<%@ page import="com.jhta.afterpay.user.PointHistory" %>
+<%@ page import="com.jhta.afterpay.user.PointHistoryDao" %>
 
 <%
     // 요청 파라미터 값을 조회
@@ -15,5 +17,5 @@
 
     userDao.updateUser(user);
 
-    response.sendRedirect("form.jsp?no=" + userNo);
+    response.sendRedirect("detail.jsp?no=" + userNo);
 %>

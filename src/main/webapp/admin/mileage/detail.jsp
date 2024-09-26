@@ -84,23 +84,14 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="card-footer">
-                            <form method="post" action="update.jsp">
-                                <div class="text-end p-3">
-                                    <input type="hidden" name="userNo" value="<%=user.getNo()%>">
-                                    <input type="number" name="point" class="form-control w-25 d-inline-block">
-                                    <button type="submit" class="btn btn-danger">지급</button>
-                                </div>
-                            </form>
-                        </div>
                     </div>
-
                 </div>
-            </div>
 
+            </div>
         </div>
+
     </div>
 </div>
-<%@ include file="../../common/footer.jsp" %>
+    <%@ include file="../../common/footer.jsp" %>
 </body>
 </html>

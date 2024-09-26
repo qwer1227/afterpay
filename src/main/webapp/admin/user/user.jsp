@@ -106,7 +106,6 @@
                 %>
                 <!--버튼-->
                 <div class="text-end my-2">
-                    <a href="delete.jsp" class="btn btn-danger">회원삭제</a>
                     <a href="form.jsp" class="btn btn-success">회원등록</a>
                 </div>
             </div>

@@ -142,7 +142,6 @@
                     </div>
                 </div>
                 <div class=" text-end my-2">
-                    <a href="delete.jsp?no=<%=orderNo%>" class="btn btn-danger">주문삭제</a>
                     <button type="submit" class="btn btn-primary">주문수정</button>
                     <a href="order.jsp" class="btn btn-success">주문목록</a>
                 </div>

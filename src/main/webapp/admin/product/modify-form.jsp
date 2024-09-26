@@ -14,6 +14,13 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
+<%
+    String userID = (String) session.getAttribute("USERID");
+    if (userID == null || !userID.equals("ADMIN")) {
+        response.sendRedirect("/login-form.jsp?deny");
+        return;
+    } else {
+%>
 <div class="container">
     <%
         ProductDao productDao = new ProductDao();
@@ -84,5 +91,8 @@
         </div>
     </form>
 </div>
+<%
+    }
+%>
 </body>
 </html>

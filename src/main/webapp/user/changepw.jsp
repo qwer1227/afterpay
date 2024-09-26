@@ -7,9 +7,10 @@
     String prevPw = request.getParameter("prevpwd");
     String changePw = request.getParameter("pwd");
 
+    String sha256pw = DigestUtils.sha256Hex(prevPw);
 
     UserDao userDao = new UserDao();
-    User user = userDao.getUserByPrevPw(prevPw);
+    User user = userDao.getUserByPrevPw(sha256pw);
 
     if(user == null){
         response.sendRedirect("changepw-form.jsp?error");

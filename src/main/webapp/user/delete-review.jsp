@@ -7,7 +7,7 @@
 
   for (String value : arr) {
     int reviewNo = Integer.parseInt(value);
-    reviewDao.deleteReview(reviewNo);
+    reviewDao.deleteReviewByReviewNo(reviewNo);
   }
   response.sendRedirect("review.jsp");
 %>

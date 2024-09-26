@@ -9,6 +9,8 @@ import java.util.List;
 
 public class DeliveryDao {
 
+
+
     /**
      * 배송 관리 상품 추가
      * @param delivery
@@ -151,35 +153,56 @@ public class DeliveryDao {
      * @param orderNo
      * @return
      */
-    public Delivery getAllDeliveryByOrderNo(int orderNo) {
+    public List<Delivery> getAllDeliveryByOrderNo(int orderNo) {
         String sql = """
-                SELECT *
-                FROM ORDER_DELIVERY_PRODUCTS
-                WHERE ORDER_NO = ?
+               SELECT D.DELIVERY_PRODUCT_PRICE
+                    , D.DELIVERY_NO
+                    , D.DELIVERY_PRODUCT_AMOUNT
+                    , D.DELIVERY_STATUS
+                    , D.PRODUCT_NO
+                    , D.PRODUCT_STOCK_NO
+                    , D.ORDER_NO
+                    , S.PRODUCT_STOCK_SIZE
+                    , O.USER_NO
+                    , O.ORDER_DATE
+                    , P.PRODUCT_NAME
+                     ,(select img_name
+                     from product_imgs
+                     where product_no = p.product_no
+                     and isthumb = 'Y') default_Image
+                FROM ORDER_DELIVERY_PRODUCTS D JOIN PRODUCT_STOCKS S
+                    ON D.PRODUCT_STOCK_NO = S.PRODUCT_STOCK_NO
+                        JOIN ORDERS O
+                    ON O.ORDER_NO = D.ORDER_NO
+                        JOIN PRODUCTS P
+                    ON P.PRODUCT_NO = D.PRODUCT_NO
+                WHERE O.order_no = ?
                 """;
 
-
-
-
-        return DaoHelper.selectOne(sql, rs -> {
+        return DaoHelper.selectList(sql, rs -> {
             Delivery delivery = new Delivery();
+
             delivery.setNo(rs.getInt("DELIVERY_NO"));
             delivery.setPrice(rs.getInt("DELIVERY_PRODUCT_PRICE"));
             delivery.setAmount(rs.getInt("DELIVERY_PRODUCT_AMOUNT"));
             delivery.setStatus(rs.getString("DELIVERY_STATUS"));
-            delivery.setRecipient(rs.getString("RECIPIENT"));
 
             Product product = new Product();
             product.setNo(rs.getInt("PRODUCT_NO"));
+            product.setName(rs.getString("PRODUCT_NAME"));
+            product.setDefaultImage(rs.getString("default_Image"));
             delivery.setProduct(product);
 
             Stock stock = new Stock();
             stock.setNo(rs.getInt("PRODUCT_STOCK_NO"));
+            stock.setSize(rs.getString("PRODUCT_STOCK_SIZE"));
             delivery.setStock(stock);
 
             Order order = new Order();
             order.setNo(rs.getInt("ORDER_NO"));
+            order.setOrderDate(rs.getDate("ORDER_DATE"));
             delivery.setOrder(order);
+
 
             return delivery;
         }, orderNo);

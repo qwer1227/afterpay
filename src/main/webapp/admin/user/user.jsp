@@ -59,7 +59,7 @@
                             <th>회원이름</th>
                             <th>가입일</th>
                             <th>등급</th>
-                            <th>탈퇴여부</th>
+                            <th>정지여부</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -74,6 +74,10 @@
                     <td><%=user.getTotalPoint()%></td>
                     <td><%=user.getTotalUsedPoint()%></td>
                     <td><%=user.getPoint()%></td>
+                    <td>
+                        <input type="text" class="form-control" name="mileageContents"
+                               value="<%= %>"내용</input>
+                    </td>
                     <td><a href="form.jsp?no=<%=user.getNo()%>" class="btn btn-primary btn-sm">적립</a></td>
                         <%
                         }

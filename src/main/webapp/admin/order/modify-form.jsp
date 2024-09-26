@@ -48,8 +48,9 @@
                 // 요청파라미터로 전달받은 회원번호에 해당하는 회원 상세정보를 조회한다.
                 OrderDao orderDao = new OrderDao();
                 Order order = orderDao.getAllOrderByNo(orderNo);
+
                 DeliveryDao deliveryDao = new DeliveryDao();
-                Delivery delivery = deliveryDao.getDeliveryByOrderNo(orderNo);
+                List<Delivery> deliveries = deliveryDao.getAllDeliveryByOrderNo(orderNo);
 
                 User user = order.getUser();
             %>
@@ -82,7 +83,7 @@
                                     <tr>
                                         <th>주문상태</th>
                                         <td>
-                                            <input type="text" class="form-control" name="name"
+                                            <input type="text" class="form-control" name="orderStatus"
                                                    value="<%=order.getStatus()%>">
                                         </td>
                                     </tr>
@@ -96,10 +97,15 @@
                                 <div class="card">
                                     <div class="card-header"><strong>상품정보</strong></div>
                                     <div class="card-body">
-                                        <%
-                                            List<Delivery> deliveries = orderDao.getDeliveriesByOrderNo(orderNo);
-                                        %>
                                         <table class="table">
+                                            <colgroup>
+                                                <col width="10%">
+                                                <col width="*">
+                                                <col width="10%">
+                                                <col width="10%">
+                                                <col width="10%">
+                                                <col width="10%">
+                                            </colgroup>
                                             <thead>
                                             <tr>
                                                 <th>사진</th>
@@ -115,14 +121,15 @@
                                                 for (Delivery del : deliveries) {
                                             %>
                                             <tr class="align-middle">
-                                                <td><img src="/../common/images/<%=del.getProduct().getDefaultImage()%>"
+                                                <td><img src="/common/images/<%=del.getProduct().getDefaultImage()%>"
                                                          width="100" height="100"></td>
                                                 <td><%=del.getProduct().getName() %> </td>
                                                 <td><%=del.getStock().getSize() %> </td>
                                                 <td><%=del.getAmount()%> </td>
                                                 <td><%=del.getPrice() %> </td>
                                                 <td>
-                                                    <input type="text" name="status" value="<%=del.getStatus() %>">
+                                                    <input type="hidden" name="deliveryNo" value="<%=del.getNo()%>" >
+                                                    <input type="text" name="deliveryStatus" value="<%=del.getStatus() %>">
                                                 </td>
                                             </tr>
                                             <%
@@ -143,6 +150,7 @@
         </div>
     </div>
 </div>
+
 <%@ include file="../../common/footer.jsp" %>
 </body>
 </html>

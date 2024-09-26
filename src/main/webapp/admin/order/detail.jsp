@@ -50,14 +50,10 @@
             <%
                 //  조회할 상품 정보
                 int orderNo = Utils.toInt(request.getParameter("no"));
-                int deliveryNo = Utils.toInt(request.getParameter("no"));
 
                 // 요청파라미터로 전달받은 회원번호에 해당하는 회원 상세정보를 조회한다.
                 OrderDao orderDao = new OrderDao();
                 Order order = orderDao.getAllOrderByNo(orderNo);
-
-                DeliveryDao deliveryDao = new DeliveryDao();
-                Delivery delivery = deliveryDao.getDeliveryByOrderNo(deliveryNo);
 
                 User user = order.getUser();
                 Addr addr = order.getAddr();

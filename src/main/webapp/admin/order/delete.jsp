@@ -12,7 +12,7 @@
 
     //삭제여부를 Y로 변경하기
     order.setIsDeleted("Y");
-    orderDao.updateAllOrder(order);
+    orderDao.deleteOrder(order);
 
     // 재요청 URL을 응답으로 보내기
     response.sendRedirect("order.jsp");

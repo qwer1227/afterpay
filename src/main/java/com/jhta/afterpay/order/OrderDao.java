@@ -50,9 +50,10 @@ public class OrderDao {
      *
      * @param orderNo
      */
-    public void deleteOrder(String orderNo) {
+    public void deleteOrder(int orderNo) {
         String sql = """
-                DELETE FROM ORDERS WHERE ORDER_NO = ?
+                DELETE FROM ORDERS 
+                WHERE ORDER_NO = ?
                 """;
         DaoHelper.delete(sql, orderNo);
     }
@@ -399,6 +400,16 @@ public class OrderDao {
         DaoHelper.update(sql,
                 order.getStatus()
                 , order.getNo());
+    }
+
+    public void updateDeliveryStatus(Delivery delivery) {
+        String sql = """
+                update ORDER_DELIVERY_PRODUCTS
+                set delivery_status = ?
+                where delivery_no = ?
+                """;
+
+        DaoHelper.update(sql, delivery.getStatus(), delivery.getNo());
     }
 
 }

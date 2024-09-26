@@ -25,6 +25,12 @@
 <%@include file="../common/nav.jsp" %>
 <%
   int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
+  
+  if (userID == null) {
+    response.sendRedirect("../login-form.jsp?deny");
+    return;
+  }
+  
   QnaDao qnaDao = new QnaDao();
   
   // 요청한 페이지 번호 조회

@@ -53,6 +53,10 @@
 </head>
 <body class="d-flex flex-column min-vh-100 ">
 <%@ include file="/common/nav.jsp" %>
+<%
+    String test = "844373802C0CF79BBF65C7EEABB3DBAFB739F15F566EBBB4BDDAB65275BA66A8";
+    System.out.println(test.toLowerCase());
+%>
 <div class="main-container" style="min-width:1140px;">
     <div>
         <img src="/img/main.png" alt=""/>

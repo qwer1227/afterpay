@@ -39,7 +39,7 @@
       %>
     </div>
     <div class="col-10">
-      <form method="post" action="change-address.jsp">
+      <form method="post" action="" id="addr-form">
         <hr style="border:solid 1px gray;"/>
         <table class="table text-center">
           <colgroup>
@@ -96,15 +96,15 @@
             </button>
           </div>
           <div class="col-6 text-end">
-            <a href="" type="submit" class="btn btn-outline-primary">
+            <a href="" type="button" class="btn btn-outline-primary">
               <i class="bi bi-plus-square"></i> 배송지 추가
             </a>
-            <a href="" type="submit" class="btn btn-outline-warning">
+            <a href="" type="button" class="btn btn-outline-warning">
               <i class="bi bi-cursor-text"></i>선택 수정
             </a>
-            <a href="" type="submit" class="btn btn-outline-danger">
+            <button type="submit" class="btn btn-outline-danger" onclick="deleteAddr()">
               <i class="bi bi-trash"></i>선택 삭제
-            </a>
+            </button>
           </div>
         </div>
       </form>
@@ -112,4 +112,30 @@
   </div>
 </div>
 </body>
+<script type="text/javascript">
+    function deleteAddr() {
+        // 체크된 문의번호를 조회
+        let checkBoxes = document.querySelectorAll("input[name=addrNo]");
+        let isChecked = false;
+        // 체크된 문의가 한 건이라도 있으면 참 반환
+        for (let checkBox of checkBoxes) {
+            if (checkBox.checked) {
+                isChecked = true;
+                break;
+            }
+        }
+        // 만약 하나도 선택이 안되면 알림 전송 후, 거짓 반환
+        if (!isChecked) {
+            alert("선택된 배송지가 없습니다.")
+            return false;
+        }
+
+        let reviewForm = document.getElementById("addr-form");
+        reviewForm.setAttribute("action", "delete-address.jsp");
+        reviewForm.submit();
+
+        // 체크된 문의가 있으면 해당 폼을 제출하는 것이 참
+        return true;
+    }
+</script>
 </html>

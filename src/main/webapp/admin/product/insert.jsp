@@ -5,6 +5,11 @@
 <%@ page import="com.jhta.afterpay.product.Stock" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <%
+    String userID = (String) session.getAttribute("USERID");
+    if (userID == null || !userID.equals("ADMIN")) {
+        response.sendRedirect("/login-form.jsp?deny");
+        return;
+    }
     // 요청 파라미터 값을 조회
     int catNo = Utils.toInt(request.getParameter("catNo"));
     String name = request.getParameter("name");

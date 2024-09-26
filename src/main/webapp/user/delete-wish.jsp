@@ -2,7 +2,7 @@
 <%@ page import="com.jhta.afterpay.util.Utils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-  String[] arr = request.getParameterValues("wishNo");
+  String[] arr = request.getParameterValues("stockNo");
   int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
 
   WishDao wishDao = new WishDao();

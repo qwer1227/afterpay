@@ -39,6 +39,7 @@
     // 장바구니에서 주문한 경우
     CartDao cartDao = new CartDao();
     String[] cartNo = request.getParameterValues("cartNo");
+    String[] stockNo = request.getParameterValues("stockNo");
     int[] stockNoArr = null;
     int[] cartNoArr = null;
     List<Cart> carts = new ArrayList<>();
@@ -52,7 +53,6 @@
             stockNoArr[i] = cart.getStock().getNo();
         }
     } else {
-        String[] stockNo = request.getParameterValues("stockNo");
         stockNoArr = new int[stockNo.length];
         for (int i = 0; i < stockNoArr.length; i++) {
             stockNoArr[i] = Utils.toInt(stockNo[i]);

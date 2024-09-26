@@ -112,7 +112,6 @@
                                     List<Image> images = productDao.getAllImagesByNo(productNo);
                             %>
                             <tr>
-                                <input type="hidden" name="stockNo" value="<%=stockNo%>">
                                 <input type="hidden" name="amount" value="1">
                                 <td>
                                     <input type="checkbox" name="stockNo" id="ck" onchange="checkSelect()"
@@ -132,11 +131,11 @@
                                         원</strong></p>
                                 </td>
                                 <td class="align-middle text-end">
-                                    <a type="button" id="form-cart" href="cart.jsp?stockNo=<%=stockNo%>&amount=1" class="btn btn-outline-primary">
+                                    <a type="button" id="form-cart" href="cart-add.jsp?stockNo=<%=stockNo%>&amount=1" class="btn btn-outline-primary">
                                         장바구니
                                     </a>
                                     <p></p>
-                                    <a type="button" id="form-order" href="../order/order-form.jsp?stockNo=<%=stockNo%>&amount=1"
+                                    <a id="form-order" href="../order/order-form.jsp?stockNo=<%=stockNo%>&amount=1"
                                        class="btn btn-outline-success">
                                         주문하기
                                     </a>

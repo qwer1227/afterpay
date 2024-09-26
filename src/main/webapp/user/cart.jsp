@@ -148,8 +148,7 @@
                                                 onclick="location.href='../product/detail.jsp?pno=<%=product.getNo()%>'">
                                             상세보기
                                         </button>
-                                        <a href="cart-delete.jsp?<%=cartNo%>" class="btn btn-outline-danger mt-2"
-                                                onclick="location.href='../product/detail.jsp?pno=<%=product.getNo()%>'">
+                                        <a href="cart-delete.jsp?<%=cartNo%>" class="btn btn-outline-danger mt-2">
                                             삭제
                                         </a>
                                     </td>

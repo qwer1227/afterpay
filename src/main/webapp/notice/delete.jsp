@@ -8,7 +8,6 @@
 
     Notice notice = noticeDao.getNoticeDetailByNo(noticeNo);
 
-
     notice.setIsDeleted("Y");
     noticeDao.updateNotice(notice);
 

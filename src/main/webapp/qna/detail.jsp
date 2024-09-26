@@ -23,7 +23,13 @@
 <%@include file="../common/nav.jsp" %>
 <%
     int qnaNo = Utils.toInt(request.getParameter("no"));
-    QnaDao qnaDao = new QnaDao();
+  
+  if (userID == null) {
+    response.sendRedirect("../login-form.jsp?deny");
+    return;
+  }
+  
+  QnaDao qnaDao = new QnaDao();
     Qna qna = qnaDao.getQnaByQnaNo(qnaNo);
 %>
 <div class="container">

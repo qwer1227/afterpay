@@ -30,6 +30,12 @@
 
   // 세션에서 사용자 번호 가져온다.
   int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
+  
+  if (userID == null) {
+    response.sendRedirect("../login-form.jsp?deny");
+    return;
+  }
+  
   User user = userDao.getUserByNo(userNo);
 %>
 

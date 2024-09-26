@@ -170,9 +170,8 @@ public class UserDao {
     public void InsertUser(User user) {
         String sql = """
                 insert into users
-                (user_no,user_name,user_id,user_password,user_tel,user_email,grade_id,isBanned,isSignOut)
+                (user_no,user_name,user_id,user_password,user_tel,user_email)
                 values
-                (user_no_seq.nextval,?,?,?,?,?,?,?,?)
                 (?,?,?,?,?,?)
                 """;
 

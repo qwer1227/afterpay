@@ -130,7 +130,13 @@
                     원</strong></p>
                 </td>
                 <td class="align-middle text-end">
-                  <a type="button" id="form-cart" href="cart.jsp?stockNo=<%=stockNo%>&amount=1" class="btn btn-outline-primary">
+                  <a type="button" id="form-detail" href="../product/detail.jsp?pno=<%=wish.getProduct().getNo()%>"
+                     class="btn btn-outline-warning">
+                    상세보기
+                  </a>
+                  <p></p>
+                  <a type="button" id="form-cart" href="cart.jsp?stockNo=<%=stockNo%>&amount=1"
+                     class="btn btn-outline-primary">
                     장바구니
                   </a>
                   <p></p>
@@ -155,34 +161,34 @@
             <!-- cart -->
             <table border="1">
               <tbody>
-              <tr class="fs-5">
-                <td>총 선택 갯수</td>
-                <td>배송비</td>
-                <td>총 결제 금액</td>
-                <td rowspan="2">
-                  <button class="btn btn-secondary btn-lg" id="btn-order" disabled>
-                    지금 주문하기
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div>
+                <tr class="fs-5">
+                  <td>총 선택 갯수</td>
+                  <td>배송비</td>
+                  <td>총 결제 금액</td>
+                  <td rowspan="2">
+                    <button class="btn btn-secondary btn-lg" id="btn-order" disabled>
+                      지금 주문하기
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div>
+                      <strong>
+                        <span id="wish-total-amount"><%=amount%></span> 개
+                      </strong>
+                    </div>
+                  </td>
+                  <td>
                     <strong>
-                      <span id="wish-total-amount"><%=amount%></span> 개
+                      <span id="delivery-fee">3,000 원</span>
                     </strong>
-                  </div>
-                </td>
-                <td>
-                  <strong>
-                    <span id="delivery-fee">3,000 원</span>
-                  </strong>
-                </td>
-                <td>
-                  <strong><span id="wish-total-price"><%=Utils.toCurrency(totalPrice)%></span> 원</strong>
-                </td>
-                <td></td>
-              </tr>
+                  </td>
+                  <td>
+                    <strong><span id="wish-total-price"><%=Utils.toCurrency(totalPrice)%></span> 원</strong>
+                  </td>
+                  <td></td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -270,7 +276,7 @@
 
       function deleteWish() {
           // 체크된 문의번호를 조회
-          let checkBoxes = document.querySelectorAll("input[type=checkbox][name=wishNo]");
+          let checkBoxes = document.querySelectorAll("input[type=checkbox][name=stockNo]");
           let isChecked = false;
           // 체크된 문의가 한 건이라도 있으면 참 반환
           for (let checkBox of checkBoxes) {

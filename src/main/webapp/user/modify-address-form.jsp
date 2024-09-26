@@ -13,6 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
   <link href="/common/css/style.css" rel="stylesheet">
   <title>AFTER PAY</title>
+  <script src="../js/address.js"></script>
 </head>
 <style>
     h2 {
@@ -65,44 +66,49 @@
             for (Addr addr : addrList) {
           %>
           <tr>
-            <td><input type="checkbox" style="zoom: 1.5" id="check-addr" name="addrNo" value="<%=addr.getNo()%>"></td>
+            <td><input type="checkbox" style="zoom: 1.5" id="check-addr" name="addrNo" value="<%=addr.getNo()%>" data-default-addr="<%=addrDao.getHomeAddrByUserNo(userNo).getIsAddrHome()%>"></td>
             <td>
               <%
-                if (addr.getIsAddrHome().equals("Y")){
+                if (addr.getIsAddrHome().equals("Y")) {
               %>
               <i class="bi bi-check-lg"></i>
               <%
-                } else {
+              } else {
               %>
               <p></p>
               <%
                 }
               %>
             </td>
-            <td><%=addr.getRecipient()%></td>
-            <td><%=addr.getName()%></td>
-            <td><%=addr.getTel()%></td>
-            <td><%=addr.getAddr1()%> <%=addr.getAddr2()%></td>
+            <td><%=addr.getRecipient()%>
+            </td>
+            <td><%=addr.getName()%>
+            </td>
+            <td><%=addr.getTel()%>
+            </td>
+            <td><%=addr.getAddr1()%> <%=addr.getAddr2()%>
+            </td>
           </tr>
           <%
             }
           %>
+          
           </tbody>
         </table>
         <div class="row mb-3">
           <div class="col-6 text-start">
-            <button type="submit" class="btn btn-outline-dark">
+            <button type="button" id="change-default-addr" class="btn btn-outline-dark" onclick="changeDefaultAddr()">
               <i class="bi bi-arrow-repeat"></i>기본 배송지 변경
             </button>
           </div>
           <div class="col-6 text-end">
-            <a href="" type="button" class="btn btn-outline-primary">
+            <button type="button" name="btn-addr" id="add-addr" class="btn btn-outline-primary" >
               <i class="bi bi-plus-square"></i> 배송지 추가
-            </a>
-            <a href="" type="button" class="btn btn-outline-warning">
+            </button>
+            <button type="button" name="btn-addr" id="update-addr" class="btn btn-outline-warning" onclick="updateAddr()">
               <i class="bi bi-cursor-text"></i>선택 수정
-            </a>
-            <button type="submit" class="btn btn-outline-danger" onclick="deleteAddr()">
+            </button>
+            <button type="button" name="btn-addr" id=delete-addr" class="btn btn-outline-danger" onclick="deleteAddr()">
               <i class="bi bi-trash"></i>선택 삭제
             </button>
           </div>
@@ -130,9 +136,6 @@
             return false;
         }
 
-        let reviewForm = document.getElementById("addr-form");
-        reviewForm.setAttribute("action", "delete-address.jsp");
-        reviewForm.submit();
 
         // 체크된 문의가 있으면 해당 폼을 제출하는 것이 참
         return true;

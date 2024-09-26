@@ -1,14 +1,15 @@
-<%@ page import="com.jhta.afterpay.addr.AddrDao" %>
 <%@ page import="com.jhta.afterpay.addr.Addr" %>
-<%@ page import="com.jhta.afterpay.user.UserDao" %>
-<%@ page import="com.jhta.afterpay.util.Utils" %>
+<%@ page import="com.jhta.afterpay.addr.AddrDao" %>
 <%@ page import="com.jhta.afterpay.user.User" %>
+<%@ page import="com.jhta.afterpay.util.Utils" %>
+<%@ page import="com.jhta.afterpay.user.UserDao" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 
 <%
+    String addrNo = (String) session.getAttribute("ADDRNO");
+
     String userNos = String.valueOf(session.getAttribute("USERNO"));
     int userNo = Utils.toInt(userNos);
-    System.out.println(userNo);
 
     String name = request.getParameter("name");
     String addrName = request.getParameter("addr_name");
@@ -20,11 +21,7 @@
     UserDao userDao = new UserDao();
     User user = userDao.getUserByNo(userNo);
 
-    System.out.println(user.getNo());
-
-    AddrDao addrDao = new AddrDao();
     Addr addr = new Addr();
-
     addr.setUser(user);
     addr.setRecipient(name);
     addr.setName(addrName);
@@ -33,8 +30,10 @@
     addr.setZipCode(zipcode);
     addr.setAddr1(address);
     addr.setAddr2(detailAddress);
+    addr.setNo(Utils.toInt(addrNo));
 
-    addrDao.insertAddr(addr);
+    AddrDao addrDao = new AddrDao();
+    addrDao.updateAddrByAddrNo(addr);
 
     response.sendRedirect("/user/modify-address-form.jsp");
 %>

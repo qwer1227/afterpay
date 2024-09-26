@@ -25,6 +25,12 @@
 </head>
 <body>
 <%@ include file="../common/nav.jsp" %>
+<%
+    if (userID == null || !userID.equals("ADMIN")) {
+        response.sendRedirect("../login-form.jsp?deny");
+        return;
+    } else {
+%>
 <div class="container  mb-5" style="margin-top: 100px;">
     <div class="text-center mb-3">
         <h1>관리자 대시보드</h1>
@@ -169,6 +175,9 @@
         </div>
     </div>
 </div>
+<%
+    }
+%>
 <%@ include file="../common/footer.jsp" %>
 </body>
 </html>

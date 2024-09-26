@@ -23,7 +23,7 @@
     </div>
     <div class="mb-3">
         <label class="form-label">연락처</label>
-        <input class="form-control" type="password" name="phone" id="phone" placeholder="비밀번호를 입력해주세요">
+        <input class="form-control" type="tel" name="phone" id="phone" placeholder="전화번호를 입력해주세요">
     </div>
     <div class="mb-3">
         <label class="form-label">주소</label>
@@ -31,9 +31,6 @@
         <input class="form-control" type="button" value="우편번호검색" onclick="checkPost()">
         <input class="form-control" type="text" name="user_address" size="50" id="user_address" placeholder="주소" readonly>
         <input class="form-control" type="text" name="user_detail_address" size="50" id="user_detail_address" placeholder="상세주소">
-    </div>
-    <div>
-        <input type="checkbox" name="default_addr_name" value="Y">
     </div>
     <div>
         <button type="submit">수정하기</button>

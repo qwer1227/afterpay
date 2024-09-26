@@ -2,6 +2,7 @@
 <%@ page import="com.jhta.afterpay.addr.AddrDao" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.jhta.afterpay.addr.Addr" %>
+<%@ page import="com.jhta.afterpay.user.User" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
@@ -13,7 +14,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
   <link href="/common/css/style.css" rel="stylesheet">
   <title>AFTER PAY</title>
-  <script src="../js/address.js"></script>
 </head>
 <style>
     h2 {
@@ -37,10 +37,11 @@
         int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
         AddrDao addrDao = new AddrDao();
         List<Addr> addrList = addrDao.getAllAddrByUserNo(userNo);
+
       %>
     </div>
     <div class="col-10">
-      <form method="post" action="" id="addr-form">
+      <form id="addrForm" method="post" action="change-isaddr-home.jsp" on="changeDefaultAddr(this.form)">
         <hr style="border:solid 1px gray;"/>
         <table class="table text-center">
           <colgroup>
@@ -69,76 +70,163 @@
             <td><input type="checkbox" style="zoom: 1.5" id="check-addr" name="addrNo" value="<%=addr.getNo()%>" data-default-addr="<%=addrDao.getHomeAddrByUserNo(userNo).getIsAddrHome()%>"></td>
             <td>
               <%
-                if (addr.getIsAddrHome().equals("Y")) {
+                if (addr.getIsAddrHome().equals("Y")){
               %>
               <i class="bi bi-check-lg"></i>
               <%
-              } else {
+                } else {
               %>
               <p></p>
               <%
                 }
               %>
             </td>
-            <td><%=addr.getRecipient()%>
-            </td>
-            <td><%=addr.getName()%>
-            </td>
-            <td><%=addr.getTel()%>
-            </td>
-            <td><%=addr.getAddr1()%> <%=addr.getAddr2()%>
-            </td>
+            <td><%=addr.getRecipient()%></td>
+            <td><%=addr.getName()%></td>
+            <td><%=addr.getTel()%></td>
+            <td><%=addr.getAddr1()%> <%=addr.getAddr2()%></td>
           </tr>
           <%
             }
           %>
-          
           </tbody>
         </table>
         <div class="row mb-3">
           <div class="col-6 text-start">
-            <button type="button" id="change-default-addr" class="btn btn-outline-dark" onclick="changeDefaultAddr()">
+            <button type="button" id="change-default-addr" class="btn btn-outline-dark">
               <i class="bi bi-arrow-repeat"></i>기본 배송지 변경
             </button>
           </div>
           <div class="col-6 text-end">
-            <button type="button" name="btn-addr" id="add-addr" class="btn btn-outline-primary" >
+            <button type="button" name="btn-addr" id="add-addr" class="btn btn-outline-primary" onclick="insertform()">
               <i class="bi bi-plus-square"></i> 배송지 추가
             </button>
-            <button type="button" name="btn-addr" id="update-addr" class="btn btn-outline-warning" onclick="updateAddr()">
+            <button type="button" name="btn-addr" id="update-addr" class="btn btn-outline-warning" onclick="modifyform()">
               <i class="bi bi-cursor-text"></i>선택 수정
-            </button>
-            <button type="button" name="btn-addr" id=delete-addr" class="btn btn-outline-danger" onclick="deleteAddr()">
+            </a>
+            <a href="" type="submit" class="btn btn-outline-danger">
               <i class="bi bi-trash"></i>선택 삭제
-            </button>
+            </a>
           </div>
         </div>
       </form>
     </div>
   </div>
 </div>
-</body>
-<script type="text/javascript">
+
+<script>
+    function modifyform(){
+      // 한 개 선택여부 체크
+      if(getCheckedCount() == 0){
+        alert("수정할 배송지를 선택해주세요.")
+        return;
+      }
+
+      if(getCheckedCount() !== 1){
+        alert("한 건의 배송지만 수정 가능합니다. 한 건만 선택해주세요.")
+        return;
+      }
+
+      let form = document.getElementById('addrForm');
+      form.setAttribute("action","/addrupdate-form.jsp");
+      form.submit();
+    }
+
+    function insertform(){
+
+      let form = document.getElementById('addrForm');
+      form.setAttribute("action","/addrinsert-form.jsp");
+      form.submit();
+    }
+
+    function changeDefaultAddr() {
+      // 한 개 선택여부 체크
+      if(getCheckedCount() == 0){
+        alert("변경할 기본 배송지를 선택해주세요.")
+        return false;
+      }
+
+      if(getCheckedCount() != 1){
+        alert("한 건의 배송지만 기본 배송지로 선택 가능합니다.")
+        return false;
+      }
+
+      // 기본 배송지 설정 여부 체크
+      let checkBox = getCheckedCheckBox();
+      if (checkBox.getAttribute(("data-default-addr") === "Y")) {
+        alert("이미 설정된 기본 배송지입니다.");
+        return false;
+      }
+
+      // 참이면 동작할 페이지로 이동
+      let changeDefaultAddrForm = document.getElementById("change-default-addr");
+      changeDefaultAddrForm.setAttribute("action", "");
+      changeDefaultAddrForm.submit();
+
+      return true;
+    }
+
+    function updateAddr() {
+      // 한 개 선택여부 체크
+      if(getCheckedCount() == 0){
+        alert("수정할 배송지를 선택해주세요.")
+        return;
+      }
+
+      if(getCheckedCount() !== 1){
+        alert("한 건의 배송지만 수정 가능합니다. 한 건만 선택해주세요.")
+        return;
+      }
+
+      // 참이면 동작할 페이지로 이동
+      let addAddrForm = document.getElementById("update-addr");
+      addAddrForm.setAttribute("action", "");
+      addAddrForm.submit();
+    }
+
     function deleteAddr() {
-        // 체크된 문의번호를 조회
-        let checkBoxes = document.querySelectorAll("input[name=addrNo]");
-        let isChecked = false;
-        // 체크된 문의가 한 건이라도 있으면 참 반환
-        for (let checkBox of checkBoxes) {
-            if (checkBox.checked) {
-                isChecked = true;
-                break;
-            }
+      // 체크된 문의번호를 조회
+      let checkBoxes = document.querySelectorAll("input[name=addrNo]");
+      let isChecked = false;
+      // 체크된 문의가 한 건이라도 있으면 참 반환
+      for (let checkBox of checkBoxes) {
+        if (checkBox.checked) {
+          isChecked = true;
+          break;
         }
-        // 만약 하나도 선택이 안되면 알림 전송 후, 거짓 반환
-        if (!isChecked) {
-            alert("선택된 배송지가 없습니다.")
-            return false;
+      }
+      // 만약 하나도 선택이 안되면 알림 전송 후, 거짓 반환
+      if (!isChecked) {
+        alert("선택된 배송지가 없습니다.")
+        return false;
+      }
+
+      // 체크된 문의가 있으면 해당 폼을 제출하는 것이 참
+      return true;
+    }
+
+    function getCheckedCount() {
+      let cnt = 0;
+      let checkboxes = document.querySelectorAll("[name=btn-addr]");
+
+      for (let check of checkboxes){
+        if (check.checked){
+          cnt++;
         }
+      }
 
+      return cnt;
+    }
 
-        // 체크된 문의가 있으면 해당 폼을 제출하는 것이 참
-        return true;
+    function getCheckedCheckBox() {
+      let checkboxes = document.querySelectorAll("[name=btn-addr]");
+
+      for (let check of checkboxes) {
+        if (check.checked) {
+          return check;
+        }
+      }
     }
 </script>
+</body>
 </html>

@@ -60,11 +60,6 @@
             <th scope="row" class="text-center">변경 전 비밀번호</th>
             <td class="text-start">
               <input type="text" name="prevpwd">
-              <%--              <%--%>
-              <%--                if (userPwd.equals('input에 입력한 값')){--%>
-              <%--               --%>
-              <%--                }  --%>
-              <%--              %>--%>
             </td>
           </tr>
           <tr>

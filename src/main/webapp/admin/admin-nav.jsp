@@ -11,7 +11,7 @@
             <li class="list-group-item-action btn btn-outline"><a href="/admin/order/order.jsp"
                                                                   class="text-decoration-none">주문관리</a>
             </li>
-            <li class="list-group-item-action btn btn-outline"><a href="#" class="text-decoration-none">적립금관리</a></li>
+            <li class="list-group-item-action btn btn-outline"><a href="/admin/mileage/mileage.jsp" class="text-decoration-none">적립금관리</a></li>
         </ul>
     </div>
 </div>

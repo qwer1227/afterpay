@@ -67,7 +67,6 @@
                 for (Notice notice : notices) {
             %>
             <tr>
-
                 <td><a href="detail.jsp?nno=<%=notice.getNo()%>"><%=notice.getTitle()%></a></td>
                 <td>관리자</td>
                 <td>3</td>
@@ -79,9 +78,15 @@
             %>
             </tbody>
         </table>
+        <%
+            if (session.getAttribute("USERID") != null) {
+        %>
         <div class="float-end">
             <a href="/notice/form.jsp?" class="btn btn-primary">새 글</a>
         </div>
+        <%
+            }
+        %>
         <%
             if (pagination.getTotalRows() > 0) {
                 int beginPage = pagination.getBeginPage();
@@ -113,7 +118,6 @@
             %>
         </div>
     </div>
-
 </div>
 <%@ include file="/common/footer.jsp" %>
 </body>

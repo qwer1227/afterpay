@@ -243,7 +243,7 @@
             <ul class="list-unstyled p-4">
                 <li>
                     <label class="col-10">총 주문 수량</label>
-                    <input type="hidden" name="totalPrice" value="<%=totalAmount%>">
+                    <input type="hidden" name="totalAmount" value="<%=totalAmount%>">
                     <%=Utils.toCurrency(totalAmount)%>
                 </li>
                 <li>

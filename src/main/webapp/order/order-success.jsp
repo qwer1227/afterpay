@@ -69,6 +69,8 @@
         // 주문내역중 가장 최근 주문 가져오기
         List<Delivery> deliveries = deliveryDao.getAllDeliveryByOrderNo(order.getNo());
     %>
+
+
     <hr>
     <h3 class="mb-3">주문상품</h3>
     <%-- 주문 상품 --%>
@@ -136,8 +138,8 @@
             </form>
         </div>
         <div class="col-auto">
-            <button onclick="location.href='../index.jsp'" class="btn btn-dark text-white d-grid" type="button">
-                확인
+            <button onclick="location.href='index2.jsp/'" class="btn btn-dark text-white d-grid" type="button">
+                쇼핑계속하기
             </button>
         </div>
     </div>

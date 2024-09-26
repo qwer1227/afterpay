@@ -44,6 +44,11 @@ public class StockDao {
         }, stockNo);
     }
 
+    /**
+     * 상품 번호로 전체 조회
+     * @param productNo 상품 번호
+     * @return 해당 상품
+     */
     public Stock searchAllStockByNo(int productNo) {
         String sql = """
             select s.product_stock_no
@@ -102,6 +107,11 @@ public class StockDao {
             }, productNo, size);
     }
 
+    /**
+     * 재고 번호로 전체 조회
+     * @param no 재고 번호
+     * @return 해당 상품의 재고 수량
+     */
     public Stock getStockByNo(int no) {
         String sql = """
                 SELECT *
@@ -153,6 +163,10 @@ public class StockDao {
         }, productNo);
     }
 
+    /**
+     * 전체 상품 재고 수량 조회
+     * @return 전체 상품 재고 수량
+     */
     public List<Stock> getAllStocks() {
         String sql = """
                 SELECT

@@ -41,7 +41,7 @@
       %>
     </div>
     <div class="col-10">
-      <form id="addrForm" method="post" action="change-isaddr-home.jsp" on="changeDefaultAddr(this.form)">
+      <form id="addrForm" method="post" action="change-isaddr-home.jsp">
         <hr style="border:solid 1px gray;"/>
         <table class="table text-center">
           <colgroup>
@@ -68,6 +68,9 @@
           %>
           <tr>
             <td><input type="checkbox" style="zoom: 1.5" id="check-addr" name="addrNo" value="<%=addr.getNo()%>" data-default-addr="<%=addrDao.getHomeAddrByUserNo(userNo).getIsAddrHome()%>"></td>
+            <%
+              System.out.println();
+            %>
             <td>
               <%
                 if (addr.getIsAddrHome().equals("Y")){
@@ -93,7 +96,7 @@
         </table>
         <div class="row mb-3">
           <div class="col-6 text-start">
-            <button type="button" id="change-default-addr" class="btn btn-outline-dark">
+            <button type="submit" onclick="changeDefaultAddr()" id="change-default-addr" class="btn btn-outline-dark">
               <i class="bi bi-arrow-repeat"></i>기본 배송지 변경
             </button>
           </div>
@@ -117,14 +120,14 @@
 <script>
     function modifyform(){
       // 한 개 선택여부 체크
-      if(getCheckedCount() == 0){
+      if(getCheckedCount() === 0){
         alert("수정할 배송지를 선택해주세요.")
-        return;
+        return
       }
 
       if(getCheckedCount() !== 1){
         alert("한 건의 배송지만 수정 가능합니다. 한 건만 선택해주세요.")
-        return;
+        return
       }
 
       let form = document.getElementById('addrForm');
@@ -141,34 +144,32 @@
 
     function changeDefaultAddr() {
       // 한 개 선택여부 체크
-      if(getCheckedCount() == 0){
+      if(getCheckedCount() === 0){
         alert("변경할 기본 배송지를 선택해주세요.")
-        return false;
+        return;
       }
 
-      if(getCheckedCount() != 1){
+      if(getCheckedCount() !== 1){
         alert("한 건의 배송지만 기본 배송지로 선택 가능합니다.")
-        return false;
+        return;
       }
 
-      // 기본 배송지 설정 여부 체크
       let checkBox = getCheckedCheckBox();
-      if (checkBox.getAttribute(("data-default-addr") === "Y")) {
+      if (checkBox && checkBox.getAttribute("data-default-addr") === "Y") {
         alert("이미 설정된 기본 배송지입니다.");
-        return false;
+        return;
       }
 
-      // 참이면 동작할 페이지로 이동
-      let changeDefaultAddrForm = document.getElementById("change-default-addr");
-      changeDefaultAddrForm.setAttribute("action", "");
-      changeDefaultAddrForm.submit();
+      let form = document.getElementById('addrForm');
+      form.setAttribute("action", "change-isaddr-home.jsp");
+      form.submit();
 
-      return true;
+
     }
 
     function updateAddr() {
       // 한 개 선택여부 체크
-      if(getCheckedCount() == 0){
+      if(getCheckedCount() === 0){
         alert("수정할 배송지를 선택해주세요.")
         return;
       }
@@ -206,27 +207,17 @@
     }
 
     function getCheckedCount() {
-      let cnt = 0;
-      let checkboxes = document.querySelectorAll("[name=btn-addr]");
-
-      for (let check of checkboxes){
-        if (check.checked){
-          cnt++;
-        }
-      }
-
-      return cnt;
+      let chk_cnt = document.querySelectorAll('input[name="addrNo"]:checked').length;
+      return chk_cnt;
     }
 
     function getCheckedCheckBox() {
-      let checkboxes = document.querySelectorAll("[name=btn-addr]");
-
-      for (let check of checkboxes) {
-        if (check.checked) {
-          return check;
-        }
-      }
+      // 모든 체크된 체크박스를 가져오기
+      let checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+      // 체크된 체크박스가 없으면 null 반환
+      return checkboxes.length > 0 ? checkboxes[0] : null;
     }
+
 </script>
 </body>
 </html>

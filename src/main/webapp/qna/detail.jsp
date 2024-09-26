@@ -143,7 +143,10 @@
                 <div class="border p-2 mb-2">
                     <div class="small d-flex justify-content-between">
                         <p>답변을 기달려주세요.</p>
+                    </div>
+                    <div>
                         <button type="button" class="btn btn-outline-dark btn-sm" onclick="showReply()">답변</button>
+                        <a href="/qna/admin-qna.jsp" class="btn btn-outline-dark btn-sm">목록</a>
                     </div>
                 </div>
                 <%
@@ -156,9 +159,10 @@
                             <span class="small">관리자</span>
                             <span class="small"><%=qna.getRepliedDate()%></span>
                         </div>
-                        <div>
+                        <div class="">
                             <button type="button" class="btn btn-outline-dark btn-sm" onclick="showForm()">수정</button>
                             <a href="delete-reply.jsp?no=<%=qnaNo%>" class="btn btn-outline-dark btn-sm">삭제</a>
+                            <a href="/qna/admin-qna.jsp" class="btn btn-outline-dark btn-sm">목록</a>
                         </div>
                     </div>
                     <p class="mb-0"><%=qna.getRepliedContent()%>

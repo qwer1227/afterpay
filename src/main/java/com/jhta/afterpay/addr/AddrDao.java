@@ -62,6 +62,7 @@ public class AddrDao {
                 ,ISADDR_HOME = ?
                 ,USER_NO = ?
                 ,RECIPIENT = ?
+                where ADDR_NO = ?
                 """;
         DaoHelper.update(sql, addr.getNo()
                 , addr.getName()
@@ -72,6 +73,7 @@ public class AddrDao {
                 , addr.getIsAddrHome()
                 , addr.getUser().getNo()
                 , addr.getRecipient()
+                , addr.getNo()
         );
     }
 

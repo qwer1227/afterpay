@@ -7,6 +7,8 @@
 <%@ page import="com.jhta.afterpay.addr.AddrDao" %>
 <%@ page import="com.jhta.afterpay.util.Utils" %>
 <%@ page import="com.jhta.afterpay.product.*" %>
+<%@ page import="com.jhta.afterpay.user.Cart" %>
+<%@ page import="com.jhta.afterpay.user.CartDao" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,14 +36,30 @@
         return;
     }
 
+    // 장바구니에서 주문한 경우
+    CartDao cartDao = new CartDao();
+    String[] cartNo = request.getParameterValues("cartNo");
+    String[] stockNo = request.getParameterValues("stockNo");
+    int[] stockNoArr = null;
+    int[] cartNoArr = null;
+    List<Cart> carts = new ArrayList<>();
+    if (cartNo != null) {
+        cartNoArr = new int[cartNo.length];
+        stockNoArr = new int[cartNoArr.length];
+        for (int i = 0; i < cartNoArr.length; i++) {
+            cartNoArr[i] = Utils.toInt(cartNo[i]);
+            Cart cart = cartDao.getCartByNo(cartNoArr[i]);
+            carts.add(cart);
+            stockNoArr[i] = cart.getStock().getNo();
+        }
+    } else {
+        stockNoArr = new int[stockNo.length];
+        for (int i = 0; i < stockNoArr.length; i++) {
+            stockNoArr[i] = Utils.toInt(stockNo[i]);
+        }
+    }
 
     int userNo = Utils.toInt(userNos);
-    // 전달 받은 상품 재고 번호
-    String[] stockNo = request.getParameterValues("stockNo");
-    int[] stockNoArr = new int[stockNo.length];
-    for (int i = 0; i < stockNoArr.length; i++) {
-        stockNoArr[i] = Utils.toInt(stockNo[i]);
-    }
 
     //  전달 받은 상품 주문 수량
     String[] amount = request.getParameterValues("amount");
@@ -68,6 +86,8 @@
     }
     ProductDao productDao = new ProductDao();
     StockDao stockDao = new StockDao();
+
+
 %>
 <div id="main" class="container">
     <form action="order.jsp" method="post" onsubmit="return checkForm()">
@@ -78,13 +98,22 @@
         <div class="row mb-5 p-3">
             <%
                 int totalPrice = 0;
-
+                int totalAmount = 0;
+                int deliveryPrice = 3000;
+                int paymentPrice = 0;
+                int discountPrice = 0;
                 for (int i = 0; i < stockNoArr.length; i++) {
+                    // 장바구니 주문이 아니면 장바구니 번호를 담지 않음
+                    int cartNo1 = 0;
+                    if (cartNoArr != null) {
+                        cartNo1 = cartNoArr[i];
+                    }
                     Stock stock = stockDao.getStockByNo(stockNoArr[i]);
                     int productNo = stock.getProductNo();
                     List<Image> images = productDao.getAllImagesByNo(productNo);
                     Product product = productDao.getProductByNo(productNo);
                     totalPrice += amountArr[i] * product.getPrice();
+                    totalAmount += amountArr[i];
                     int amount1 = amountArr[i];
             %>
             <div class="col-2">
@@ -92,8 +121,10 @@
                      style="width: 130px; height:150px;">
             </div>
             <div class="col-9">
+                <%--                상품수량, 재고번호, 장바구니 주문시 장바구니 번호--%>
                 <input type="hidden" name="amount" value="<%=amount1%>">
                 <input type="hidden" name="stockNo" value="<%=stock.getNo()%>">
+                <input type="hidden" name="cartNo" value="<%=cartNo1%>">
                 <ul class="list-unstyled">
                     <li>상품명: <%=product.getName() %>
                     </li>
@@ -136,7 +167,7 @@
                                                value="<%=addr2%>"
                                                placeholder="상세주소" class="form-control"></li>
                 <li>
-                    <div id="addrNull">
+                    <div id="addrNull" style="color: red">
                         배송지 고르기 또는 우편번호 검색으로 주소를 입력해주세요.
                     </div>
                 </li>
@@ -182,20 +213,39 @@
         </div>
         <label class="mt-3"><h4>적립금 사용하기</h4></label><br>
         <div class="border-bottom mb-1 p-4 border-dark">
-            <input type="text" name="point" value="" class="form-control"/>
+            <input type="text" id="usePoint" name="point" value="<%=user.getPoint()%>" class="form-control"/>
+            <div id="pointError" style="color: red">
+                0원 미만이거나 보유한 적립금보다 초과된 금액은 불가능 합니다.
+            </div>
             <%
                 if (user.getPoint() != 0) {
             %>
             <div class="mt-1">
+                <input type="text" id="maxPoint" value="<%=user.getPoint()%>" style="display: none">
                 <label>보유한 적립금: </label><span> \<%=Utils.toCurrency(user.getPoint())%></span>
             </div>
             <%
                 }
             %>
         </div>
+        <%
+            if (user.getGradeId() == "BRONZE") {
+                discountPrice = (int) Math.round(totalPrice * 0.005);
+            } else if (user.getGradeId() == "SILVER") {
+                discountPrice = (int) Math.round(totalPrice * 0.01);
+            } else if (user.getGradeId() == "GOLD") {
+                discountPrice = (int) Math.round(totalPrice * 0.03);
+            }
+            paymentPrice = totalPrice - discountPrice + deliveryPrice - user.getPoint();
+        %>
         <div id="price" class="row border-bottom border-2 border-dark">
             <h4>결제 정보</h4>
             <ul class="list-unstyled p-4">
+                <li>
+                    <label class="col-10">총 주문 수량</label>
+                    <input type="hidden" name="totalPrice" value="<%=totalAmount%>">
+                    <%=Utils.toCurrency(totalAmount)%>
+                </li>
                 <li>
                     <label class="col-10">합계 금액</label>
                     <input type="hidden" name="totalPrice" value="<%=totalPrice%>">
@@ -203,17 +253,17 @@
                 </li>
                 <li>
                     <label class="col-10">할인 금액</label>
-                    <input type="hidden" name="discountPrice" value="<%=totalPrice%>">
-                    <span>\<%=Utils.toCurrency(totalPrice)%></span>
+                    <input type="hidden" name="discountPrice" value="<%=discountPrice%>">
+                    <span>\<%=Utils.toCurrency(discountPrice)%></span>
                 <li>
                     <label class="col-10">배송비</label>
-                    <input type="hidden" name="deliveryPrice" value="<%=3000%>">
-                    <span>\<%=Utils.toCurrency(3000)%></span>
+                    <input type="hidden" name="deliveryPrice" value="<%=deliveryPrice%>">
+                    <span>\<%=Utils.toCurrency(deliveryPrice)%></span>
                 </li>
                 <li>
                     <label class="col-10"><strong>결제 금액</strong></label>
-                    <input type="hidden" name="paymentPrice" value="<%=totalPrice + 3000%>">
-                    <strong>\<%=Utils.toCurrency(totalPrice + 3000)%>
+                    <input type="hidden" name="paymentPrice" value="<%=paymentPrice%>">
+                    <strong>\<%=Utils.toCurrency(paymentPrice)%>
                     </strong>
                 </li>
             </ul>
@@ -315,21 +365,40 @@
         }
     });
 
-
     const zipcode = document.querySelector("#sample6_postcode");
-    const addr1 = document.querySelector("#sample6_address");
+    let addr1 = document.querySelector("#sample6_address");
+
+    if (zipcode.value == "" || addr1.value == "") {
+        document.querySelector("#addrNull").style.display = 'block';
+    } else {
+        document.querySelector("#addrNull").style.display = 'none';
+    }
+
+    const maxPoint = parseInt(document.getElementById('maxPoint').te);
+    const usePoint = parseInt(document.getElementById('usePoint').value);
 
     function checkForm() {
-        if (zipcode.length == null || addr1.length == null) {
+        if (zipcode.value == "" || addr1.value == "") {
             document.querySelector("#addrNull").style.display = 'block';
-            document.querySelector("#payButton").disabled = true;
             return false;
         } else {
             document.querySelector("#addrNull").style.display = 'none';
-            document.querySelector("#payButton").disabled = false;
             return true;
         }
+
+        if (0 <= usePoint <= maxPoint) {
+            document.querySelector('#pointError').style.display='none';
+            return true;
+        } else {
+            document.querySelector('#pointError').style.display = 'block';
+            return false;
+        }
     }
+
+
+
+
+
 
 
 </script>

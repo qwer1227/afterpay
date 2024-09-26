@@ -123,13 +123,18 @@
                                             <tr class="align-middle">
                                                 <td><img src="/common/images/<%=del.getProduct().getDefaultImage()%>"
                                                          width="100" height="100"></td>
-                                                <td><%=del.getProduct().getName() %> </td>
-                                                <td><%=del.getStock().getSize() %> </td>
-                                                <td><%=del.getAmount()%> </td>
-                                                <td><%=del.getPrice() %> </td>
+                                                <td><%=del.getProduct().getName() %>
+                                                </td>
+                                                <td><%=del.getStock().getSize() %>
+                                                </td>
+                                                <td><%=del.getAmount()%>
+                                                </td>
+                                                <td><%=del.getPrice() %>
+                                                </td>
                                                 <td>
-                                                    <input type="hidden" name="deliveryNo" value="<%=del.getNo()%>" >
-                                                    <input type="text" name="deliveryStatus" value="<%=del.getStatus() %>">
+                                                    <input type="hidden" name="deliveryNo" value="<%=del.getNo()%>">
+                                                    <input type="text" name="deliveryStatus"
+                                                           value="<%=del.getStatus() %>">
                                                 </td>
                                             </tr>
                                             <%
@@ -139,11 +144,13 @@
                                         </table>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class=" text-end my-2">
+                            <button type="submit" class="btn btn-primary">주문수정</button>
+                            <a href="order.jsp" class="btn btn-success">주문목록</a>
+                        </div>
                     </div>
-                </div>
-                <div class=" text-end my-2">
-                    <button type="submit" class="btn btn-primary">주문수정</button>
-                    <a href="order.jsp" class="btn btn-success">주문목록</a>
                 </div>
             </form>
         </div>

@@ -13,6 +13,15 @@
 </head>
 <body>
 <form method="post" action="addrinsert.jsp">
+  <table>
+    <tbody>
+    <div>
+      <th><label class="form-label">수취인명</label></th>
+      <th><label class="form-label">배송지명</label></th>
+      <th><label class="form-label">연락처</label></th>
+      <th><label class="form-label">주소</label></th>
+    </div>
+    
     <div class="mb-3">
         <label class="form-label">수취인명</label>
         <input class="form-control" type="text" name="name" id="name" placeholder="이름을 입력해주세요">
@@ -35,6 +44,8 @@
     <div>
         <button type="submit">수정하기</button>
     </div>
+    </tbody>
+  </table>
 </form>
 </body>
 <script>

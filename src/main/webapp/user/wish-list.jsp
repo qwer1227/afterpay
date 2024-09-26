@@ -29,8 +29,15 @@
 <body>
 <%@include file="../common/nav.jsp" %>
 <%
-  WishDao wishDao = new WishDao();
   int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
+  String userId = String.valueOf(session.getAttribute("USERID"));
+  
+  if (userId == null) {
+    response.sendRedirect("../login-form.jsp?deny");
+    return;
+  }
+  
+  WishDao wishDao = new WishDao();
   List<Wish> wishes = wishDao.getWishByUserNo(userNo);
   
   int pageNo = Utils.toInt(request.getParameter("page"), 1);
@@ -82,7 +89,7 @@
           </div>
           <div class="col-6">
             <div class="text-end">
-              <button type="submit" class="btn btn-lg" onclick="deleteWish()">
+              <button type="button" class="btn btn-lg" onclick="deleteWish()">
                 <i class="bi bi-trash"></i>
               </button>
             </div>
@@ -276,7 +283,7 @@
 
       function deleteWish() {
           // 체크된 문의번호를 조회
-          let checkBoxes = document.querySelectorAll("input[type=checkbox][name=stockNo]");
+          let checkBoxes = document.querySelectorAll("input[name=stockNo]");
           let isChecked = false;
           // 체크된 문의가 한 건이라도 있으면 참 반환
           for (let checkBox of checkBoxes) {
@@ -288,18 +295,13 @@
           // 만약 하나도 선택이 안되면 알림 전송 후, 거짓 반환
           if (!isChecked) {
               alert("선택된 상품이 없습니다.")
-              let qnaDefineForm = document.getElementById("form-wish");
-              qnaDefineForm.setAttribute("action", "wish-list.jsp");
-              qnaDefineForm.submit();
-              return false;
+              return;
           }
 
           let qnaForm = document.getElementById("form-wish");
           qnaForm.setAttribute("action", "delete-wish.jsp");
           qnaForm.submit();
 
-          // 체크된 문의가 있으면 해당 폼을 제출하는 것이 참
-          return true;
       }
   </script>
   <%@include file="../common/footer.jsp" %>

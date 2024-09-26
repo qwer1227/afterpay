@@ -113,9 +113,6 @@
         <a href="/qna/user-qna.jsp" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
           상품 문의 내역
         </a>
-        <a href="#" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
-          공지사항
-        </a>
         <a href="../logout.jsp" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
           로그아웃
         </a>

@@ -33,6 +33,18 @@ public class CartDao {
         DaoHelper.delete(sql, cartNo);
     }
 
+    public void updateCartAmount(Cart cart) {
+        String sql = """
+               Update carts
+                SET CART_AMOUNT = ?
+                where cart_no = ?
+                """;
+
+        DaoHelper.update(sql
+                , cart.getAmount()
+                , cart.getNo());
+    }
+
     public Cart getCartByNo(int no) {
         String sql = """
                 SELECT c.cart_no

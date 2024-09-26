@@ -11,14 +11,11 @@
 
     CartDao cartDao = new CartDao();
     String[] cartNo = request.getParameterValues("cartNo");
-    if (cartNo != null) {
-        int[] cartNoArr = new int[cartNo.length];
-        for (int i = 0; i < cartNoArr.length; i++) {
-            cartNoArr[i] = Utils.toInt(cartNo[i]);
-            cartDao.deleteCartByNo(cartNoArr[i]);
-        }
+    int[] cartNoArr = new int[cartNo.length];
+    for (int i = 0; i < cartNoArr.length; i++) {
+        cartNoArr[i] = Utils.toInt(cartNo[i]);
+        cartDao.deleteCartByNo(cartNoArr[i]);
     }
-
 
     response.sendRedirect("cart.jsp");
 %>

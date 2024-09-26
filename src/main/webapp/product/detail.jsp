@@ -18,23 +18,31 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/common/css/style.css">
-
 </head>
 <body class="d-flex flex-column min-vh-100 ">
 <%--
-  요청 파라미터 정보
-  catNo = 해당 상품 카테고리 번호
-  productNo = 해당 상품 번호
+    요청 파라미터 정보
+    pno = 해당 상품 번호
+    page = 페이지 번호
 --%>
 <%
     String menu = "홈";
 %>
 <%@ include file="../common/nav.jsp" %>
 <%
+    if (request.getParameter("error") != null) {
+%>
+<div class="alert alert-danger">
+    수정/삭제는 게시글 작성자만 가능합니다.
+</div>
+<%
+    }
+%>
+
+<%
     // 1. 요청 파라미터 정보와 세션 객체의 사용자 정보 가져오기
     int productNo = Integer.parseInt(request.getParameter("pno")); // 상품 번호
     String loginedUserId = (String) session.getAttribute("USERID"); // 사용자 아이디
-//  String loginedUserId = "lee";
 
     // 2. 상품의 정보 가져오기
     // 상품 번호로 상품(productNo=?)의 모든 정보 반환
@@ -62,7 +70,7 @@
                 <%
                     for (Image image : images) {
                 %>
-                <img src="/common/images/<%=image.getName() %>" width="60" height="90" onmouseenter="changeBigImage(event)" />
+                        <img src="/common/images/<%=image.getName() %>" width="60" height="90" onmouseenter="changeBigImage(event)" />
                 <%
                     }
                 %>
@@ -95,11 +103,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <%--로그인한 상태에서 위시 리스트 추가 버튼을 클릭하면, 상품을 위시리스트에 추가한다. --%>
-                        <div class="card-footer text-end">
-                            <a href="../wish/add-wish.jsp?pno=<%=productNo %>" class="btn btn-outline-primary btn-sm">위시 리스트 추가</a>
-                        </div>
-                    </div>
+                  </div>
                 </div>
             </div>
 
@@ -109,53 +113,61 @@
             <%
                 if (!stocks.isEmpty()) {
             %>
-            <div class="row mb-3">
-                <div class="col-12 text-end">
-                    <div class="d-flex justify-content-between border p-3 bg-light">
-                        <p class="fw-bold pt-2">사이즈를 선택하세요</p>
-                        <form class="row row-cols-lg-auto g-3 align-items-center" method="get" action="../order/order-form.jsp">
-                            <div class="col-12">
-                                <div >
-                                    <%
-                                        for (Stock stock : stocks) {
-                                    %>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="stockNo" value="<%=stock.getNo()%>"
-                                            <%=stock.getSize().equals("M") ? "checked" : ""%>
-                                               onchange="showAmountField('<%=stock.getSize()%>')">
-                                        <label class="form-check-label" ><%=stock.getSize()%></label>
+                <div class="row mb-3">
+                    <div class="col-12 text-end">
+                        <div class="d-flex justify-content-between border p-3 bg-light">
+                            <p class="fw-bold pt-2">사이즈, 수량 선택</p>
+                            <form id="frm" class="row row-cols-lg-auto g-3 align-items-center">
+                                <input type="hidden" name="productNo" value="<%=productNo %>">
+                                <div class="col-12">
+                                    <div >
+                                        <%
+                                            for (Stock stock : stocks) {
+                                        %>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="stockNo" value="<%=stock.getNo()%>"
+                                                    <%=stock.getSize().equals("M") ? "checked" : ""%>
+                                                    onchange="showAmountField('<%=stock.getSize()%>')" >
+                                                <label class="form-check-label" ><%=stock.getSize()%></label>
+                                            </div>
+                                        <%
+                                          }
+                                        %>
                                     </div>
-                                    <%
-                                        }
-                                    %>
                                 </div>
-                            </div>
-                            <%
-                                for (Stock stock : stocks) {
-                            %>
-                            <div class="col-12">
-                                <input type="number" class="form-control <%=stock.getSize().equals("M") ? "" : "d-none"%>"
-                                       name="amount" id="amount-<%=stock.getSize()%>" value="1"
-                                       min="1" max="<%=stock.getAmount() %>"
-                                    <%=stock.getSize().equals("M") ? "" : "disabled"%> >
-                            </div>
-                            <%
-                                }
-                            %>
-                            <div class="col-12  text-end">
-                                <div>
-                                    <button type="button" class="btn btn-outline-primary btn-sm">장바구니 담기</button>
-                                    <button type="submit" class="btn btn-outline-primary btn-sm">지금 구매하기</button>
+                                <%
+                                    for (Stock stock : stocks) {
+                                %>
+                                    <div class="col-12">
+                                      <input type="number" class="form-control <%=stock.getSize().equals("M") ? "" : "d-none"%>"
+                                             name="amount" id="amount-<%=stock.getSize()%>" value="1"
+                                             min="1" max="<%=stock.getAmount() %>"
+                                            <%=stock.getSize().equals("M") ? "" : "disabled"%> >
+                                    </div>
+                                <%
+                                    }
+                                %>
+                                <div class="col-12 text-end">
+                                    <div>
+                                        <button type="submit" class="btn btn-outline-primary btn-sm <%=loginedUserId != null ? "active" : "disabled" %>" onclick="wish()">위시리스트</button>
+                                        <button type="submit" class="btn btn-outline-primary btn-sm <%=loginedUserId != null ? "active" : "disabled" %>" onclick="addCart()">장바구니</button>
+                                        <button type="submit" class="btn btn-outline-primary btn-sm <%=loginedUserId != null ? "active" : "disabled" %>" onclick="order()">구매</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
-                    </div>
+                            </form>
+                        </div>
+                      </div>
                 </div>
-            </div>
             <%
-                }
+                } else {
             %>
-        </div>
+                <div class="card-body">
+                  <p class="card-text">재고가 없습니다.</p>
+                </div>
+            <%
+              }
+            %>
+          </div>
     </div>
 
     <div class="row mb-3">
@@ -164,85 +176,86 @@
                 <div class="card-header">
                     리뷰 목록
                     <%--리뷰 작성하기 버튼 클릭 -> 리뷰 작성 폼으로 이동(로그인) / 로그인 폼으로 이동(로그아웃) --%>
-                    <a href="../review/review-form.jsp?pno=<%=productNo %>" class="btn btn-outline-primary float-end btn-sm">리뷰 작성하기</a>
+                    <a href="../review/review-form.jsp?pno=<%=productNo %>"
+                        class="btn btn-outline-primary float-end btn-sm <%=loginedUserId != null ? "active" : "disabled" %>">리뷰 작성하기</a>
                 </div>
-                <%--리뷰가 없다면, 리뷰가 없습니다를 화면에 표시한다. --%>
+                <%--리뷰가 없으면, "리뷰가 없습니다"를 화면에 표시한다. --%>
                 <%
                     if (reviews.isEmpty()) {
                 %>
-                <div class="card-body">
-                    <p class="card-text">리뷰가 없습니다.</p>
-                </div>
-                <%
-                } else {
-                %>
-                <div class="list-group">
-                    <%--상품에 대해 작성한 리뷰 목록을 화면에 표시한다.--%>
-                    <%
-                        for (Review review : reviews) {
-                    %>
-                    <a href="#" class="list-group-item list-group-item-action " aria-current="true">
-                        <div class="d-flex w-100 justify-content-between border-bottom">
-                            <h5 class="mb-1 p-2 fw-bolder"><%=review.getTitle() %> <span class="badge text-bg-primary small"><%=review.getRating()%></span></h5>
-                            <div>
-                                <span class="small"><%=review.getUser().getName() %></span>
-                                <span class="small"><%=review.getCreatedDate() %></span>
-                            </div>
-                        </div>
-                        <p class="mb-1 small p-2"><%=review.getContent() %></p>
-                    </a>
-
-                    <%--로그인한 사용자와 리뷰를 작성한 사용자와 동일하다면, 리뷰를 수정 및 삭제할 수 있다.--%>
-                    <%
-                        boolean canModify = false; // 수정 가능 여부
-
-                        if (loginedUserId != null) {
-                            int loginedUserNo = (Integer) session.getAttribute("USERNO"); // 사용자 번호
-                            //  int loginedUserNo = 8;
-
-                            if (loginedUserNo == review.getUser().getNo()) {
-                                canModify = true;
-                            }
-                        }
-
-                        if (canModify) {
-                    %>
-                    <div class="float-end">
-                        <a href="modify-form.jsp" class="btn btn-warning">수정</a>
-                        <a href="delete.jsp?rno=<%=review.getNo() %>" class="btn btn-danger">삭제</a>
+                    <div class="card-body">
+                        <p class="card-text">리뷰가 없습니다.</p>
                     </div>
-                    <%
+                <%
                     } else {
-                    %>
-                    <div class="float-end">
-                        <a href="" class="btn btn-secondary disabled">수정</a>
-                        <a href="" class="btn btn-secondary disabled">삭제</a>
-                    </div>
-                    <%
-                        }
-                    %>
-                    <%
-                        }
-                    %>
-                </div>
-                <%
-                    }
                 %>
+                    <div class="list-group">
+                        <%--상품에 대해 작성한 리뷰 목록을 화면에 표시한다.--%>
+                        <%
+                            for (Review review : reviews) {
+                        %>
+                                <a href="#" class="list-group-item list-group-item-action " aria-current="true">
+                                    <div class="d-flex w-100 justify-content-between border-bottom">
+                                        <h5 class="mb-1 p-2 fw-bolder"><%=review.getTitle() %> <span class="badge text-bg-primary small"><%=review.getRating()%></span></h5>
+                                        <div>
+                                            <span class="small"><%=review.getUser().getName() %></span>
+                                            <span class="small"><%=review.getCreatedDate() %></span>
+                                        </div>
+                                    </div>
+                                    <p class="mb-1 small p-2"><%=review.getContent() %></p>
+                                </a>
+
+                                <%--로그인한 사용자와 리뷰를 작성한 사용자와 동일하다면, 리뷰를 수정 및 삭제할 수 있다.--%>
+                                <%
+                                    boolean canModify = false; // 수정 가능 여부
+
+                                    if (loginedUserId != null) {
+                                        int loginedUserNo = (Integer) session.getAttribute("USERNO"); // 사용자 번호
+
+                                        if (loginedUserNo == review.getUser().getNo()) {
+                                          canModify = true;
+                                        }
+                                    }
+
+                                    if (canModify) {
+                                %>
+                                    <div class="text-end p-3">
+                                        <a href="../review/modify-form.jsp?rno=<%=review.getNo() %>" class="btn btn-warning btn-sm">수정</a>
+                                        <a href="../review/delete.jsp?rno=<%=review.getNo() %>" class="btn btn-danger btn-sm">삭제</a>
+                                    </div>
+                                <%
+                                    } else {
+                                %>
+                                    <div class="text-end p-3">
+                                        <a href="" class="btn btn-secondary disabled btn-sm">수정</a>
+                                        <a href="" class="btn btn-secondary disabled btn-sm">삭제</a>
+                                    </div>
+                                <%
+                                    }
+                                %>
+                        <%
+                            }
+                        %>
+                    </div>
+                  <%
+                    }
+                  %>
             </div>
         </div>
     </div>
 </div>
 <%@ include file="../common/footer.jsp" %>
 <script type="text/javascript">
+    // 4개의 이미지 중 하나에 마우스 커서를 대면, 해당 이미지를 화면에 크게 표시한다.
     function changeBigImage(event) {
         let thumbImg = event.target;
         thumbImg.style.opacity = "1.0"; // opacity : 투명도 설정
 
-        // 큰 이미지에서 마우스 커서를 둔 이미지로 변경된다.
         let imagePath = thumbImg.getAttribute("src");
         document.getElementById('big').setAttribute("src", imagePath);
     }
 
+    // 사이즈를 클릭하면, 해당 사이즈의 최대 재고수량만큼 선택할 수 있다.
     function showAmountField(size) {
         let input1 = document.getElementById("amount-S");
         let input2 = document.getElementById("amount-M");
@@ -273,6 +286,26 @@
             input2.disabled = true;
             input3.disabled = false;
         }
+    }
+
+    // 위시리스트 추가 버튼을 클릭하면, 위시리스트에 물품을 추가하고 위시리스트 목록 페이지로 이동한다.
+    function wish() {
+        alert("위시리스트에 물품을 담았습니다! (단, 위시리스트에 동일한 물품이 존재할 경우 추가되지 않습니다)")
+        document.getElementById("frm").setAttribute("action", "../wish/add-wish.jsp");
+        document.getElementById("frm").submit();
+    }
+
+    // 장바구니 담기 버튼을 클릭하면, 장바구니에 물품을 추가하고 장바구니 목록 페이지로 이동한다.
+    function addCart() {
+        alert("장바구니에 물품을 담았습니다!")
+        document.getElementById("frm").setAttribute("action", "../user/cart-add.jsp");
+        document.getElementById("frm").submit();
+    }
+
+    // 지금 구매하기 버튼을 클릭하면, 주문 폼으로 이동한다.
+    function order() {
+        document.getElementById("frm").setAttribute("action", "../order/order-form.jsp")
+        document.getElementById("frm").submit();
     }
 </script>
 </body>

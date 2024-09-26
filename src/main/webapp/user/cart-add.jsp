@@ -30,29 +30,35 @@
     Stock stock = stockDao.getStockByNo(stockNo);
 
     CartDao cartDao = new CartDao();
-    Cart cart = new Cart();
     List<Cart> carts = cartDao.getAllCartsByUserNo(userNo);
 
+    Cart cart = null;
     for (Cart c : carts) {
         if (c.getStock().getNo() == stock.getNo()) {
-            cart.setAmount(cart.getAmount() + 1);
-            return;
+            cart = c;
+            break;
         }
     }
 
-    cart.setStock(stock);
+    if (cart == null) {
+        cart = new Cart();
+        cart.setStock(stock);
+        cart.setAmount(amount);
 
-    ProductDao productDao = new ProductDao();
-    Product product = productDao.getProductByNo(stock.getProductNo());
-    cart.setProduct(product);
+        ProductDao productDao = new ProductDao();
+        Product product = productDao.getProductByNo(stock.getProductNo());
+        cart.setProduct(product);
 
-    cart.setAmount(amount);
+        UserDao userDao = new UserDao();
+        User user = userDao.getUserByNo(userNo);
+        cart.setUser(user);
 
-    UserDao userDao = new UserDao();
-    User user = userDao.getUserByNo(userNo);
-    cart.setUser(user);
+        cartDao.insertCart(cart);
+    } else {
+        cart.setAmount(cart.getAmount() + amount);
+        cartDao.updateCartAmount(cart);
+    }
 
-    cartDao.insertCart(cart);
     response.sendRedirect("cart.jsp");
 %>
 

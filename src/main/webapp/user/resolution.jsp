@@ -130,7 +130,7 @@
                             </td>
                             <td>
                                 <div class="bg-black text-white m-1 text-center">
-                                    <strong>주문번호: <%=order.getNo()%>
+                                    <strong>주문번호: <%=order2.getNo()%>
                                     </strong>
                                 </div>
                             </td>
@@ -176,13 +176,9 @@
                         </tbody>
                     </table>
                 </div>
-                <%
-                    }
-                %>
                 <%--페이징 처리--%>
                 <%
                     if (pagination.getTotalRows() > 0) {
-
                 %>
                 <div>
                     <ul class="pagination justify-content-center">

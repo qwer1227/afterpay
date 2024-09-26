@@ -113,7 +113,8 @@
                                 %>
                                 <tr>
                                     <td>
-                                        <input type="checkbox" id="ck" name="stockNo" value="<%=stockNo%>"
+                                        <input type="hidden" name="stockNo" value="<%=stockNo%>">
+                                        <input type="checkbox" id="ck" name="cartNo" value="<%=cart.getNo()%>"
                                                style="zoom:1.5" onchange="checkSelect()">
                                     </td>
                                     <td>
@@ -143,7 +144,7 @@
                                     </td>
                                     <td class="align-middle text-end">
                                         <button type="button" class="btn btn-outline-primary"
-                                                onclick="location.href='../product/detail.jsp'">
+                                                onclick="location.href='../product/detail.jsp?pno=<%=product.getNo()%>'">
                                             상세보기
                                         </button>
                                     </td>
@@ -230,7 +231,7 @@
         let isChecked = document.querySelector("[name=all]").checked;
         console.log('체크여부', isChecked);
 
-        let checkBoxes = document.querySelectorAll("[name=stockNo]");
+        let checkBoxes = document.querySelectorAll("[name=cartNo]");
         checkBoxes.forEach(function (el) {
             el.checked = isChecked;
         })
@@ -239,7 +240,7 @@
     }
 
     function checkSelect() {
-        let checkBoxes = document.querySelectorAll("[name=stockNo]");
+        let checkBoxes = document.querySelectorAll("[name=cartNo]");
         let checkBoxesLength = checkBoxes.length;
         let checkedLength = 0;
 
@@ -259,7 +260,7 @@
     }
 
     function refreshSummary() {
-        let checkboxes = document.querySelectorAll("[name=stockNo]");
+        let checkboxes = document.querySelectorAll("[name=cartNo]");
         let checkedCnt = 0;
         let totalPrice = 0;
         for (let checkbox of checkboxes) {
@@ -268,8 +269,8 @@
                 // 체크된 개수 증가
                 checkedCnt++;
                 // 선택된 체크박스에서 위시번호와 가격을 가져옴
-                let stockNo = checkbox.value;
-                let price = document.getElementById("stock-" + stockNo + "-price").getAttribute("data-price");
+                let cartNo = checkbox.value;
+                let price = document.getElementById("cart-" + cartNo + "-price").getAttribute("data-price");
                 // 읽어온 가격을 총 금액에 추가
                 totalPrice += parseInt(price);
             }

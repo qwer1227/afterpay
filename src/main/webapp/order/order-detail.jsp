@@ -212,7 +212,7 @@
     </div>
     <div class="row mb-3">
         <div class="col d-flex justify-content-end d-grid">
-            <button onclick="location.href='order-list.jsp'" class="btn btn-dark text-white d-grid" type="button">
+            <button onclick="location.href='/user/orders.jsp'" class="btn btn-dark text-white d-grid" type="button">
                 주문목록보기
             </button>
         </div>

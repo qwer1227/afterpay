@@ -44,7 +44,7 @@
     int paymentPrice = Integer.parseInt(request.getParameter("paymentPrice"));              // 결제 금액
     String message = request.getParameter("message");                                       // 배송 메세지
     int totalAmount = Utils.toInt(request.getParameter("totalAmount"));                     // 주문 상품 전체 개수
-
+    int point = Utils.toInt("point");                                                       // 적립금
     // 주문 상품 개수
     String[] amount = request.getParameterValues("amount");
     int[] amountArr = new int[amount.length];
@@ -161,7 +161,7 @@
     order.setPrice(totalPrice);
     order.setAmount(totalAmount);
     order.setDeliveryPrice(deliveryPrice);
-    order.setUsePoint(1);
+    order.setUsePoint(point);
     order.setDiscountPrice(discountPrice);
     order.setPaymentPrice(paymentPrice);
     order.setDepositPoint(1);

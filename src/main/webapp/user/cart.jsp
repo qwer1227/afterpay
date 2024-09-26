@@ -67,7 +67,7 @@
                         </button>
                     </div>
                     <%
-                        }
+                        } else {
                     %>
                     <div class="row mb-3">
                         <div class="col-6">
@@ -227,6 +227,9 @@
                 </div>
             </div>
         </div>
+        <%
+            }
+        %>
     </form>
 </div>
 </div>

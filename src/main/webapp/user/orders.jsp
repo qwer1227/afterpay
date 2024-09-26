@@ -47,7 +47,7 @@
     int pageNo = Utils.toInt(request.getParameter("page"), 1);
     List<Order> orders = orderDao.getAllOrdersByUserNo(userNo);
     int totalRows = orderDao.getTotalRowsByUserNo(userNo);
-    Pagination pagination = new Pagination(pageNo, totalRows, 5, 3);
+    Pagination pagination = new Pagination(pageNo, totalRows, 5, 5);
     orders = orderDao.getAllOrdersByUserNo(userNo, pagination.getBegin(), pagination.getEnd());
 %>
 <div class="container">
@@ -137,8 +137,7 @@
                             </form>
                             <div><a href="../order/order-form.jsp?stockNo=<%=stock.getNo()%>&amount=<%=delivery.getAmount()%>" type="button" class="btn mt-1 btn-outline-primary">재 구 매</a></div>
                             <div><a href="../order/order-cancel.jsp?stockNo=<%=stock.getNo()%>&deliveryNo=<%=delivery.getNo()%>&orderNo=<%=order.getNo()%>" type="button" class="btn mt-1 btn-outline-primary">주문취소</a></div>
-                            <div><a href="" type="submit" class="btn mt-1 btn-outline-success">리뷰쓰기</a></div>
-                            <div><a href="" type="submit" class="btn mt-1 btn-outline-success">작성한 리뷰</a></div>
+                            <div><a href="/review/review-form.jsp?pno=<%=product.getNo()%>" type="button" class="btn mt-1 btn-outline-success">리뷰쓰기</a></div>
                         </td>
                     </tr>
                     <%

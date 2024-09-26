@@ -100,7 +100,8 @@
                 int totalPrice = 0;
                 int totalAmount = 0;
                 int deliveryPrice = 3000;
-                int paymentPrice = 0;
+                int
+                        paymentPrice = 0;
                 int discountPrice = 0;
                 for (int i = 0; i < stockNoArr.length; i++) {
                     // 장바구니 주문이 아니면 장바구니 번호를 담지 않음
@@ -213,7 +214,8 @@
         </div>
         <label class="mt-3"><h4>적립금 사용하기</h4></label><br>
         <div class="border-bottom mb-1 p-4 border-dark">
-            <input type="text" id="usePoint" name="point" value="<%=user.getPoint()%>" class="form-control"/>
+            <input type="text" id="userPoint" value="<%=user.getPoint()%>" style="display: none">
+            <input type="text" id="usePoint" name="point" placeholder="적립금 사용하기"class="form-control"/>
             <div id="pointError" style="color: red">
                 0원 미만이거나 보유한 적립금보다 초과된 금액은 불가능 합니다.
             </div>
@@ -221,10 +223,10 @@
                 if (user.getPoint() != 0) {
             %>
             <div class="mt-1">
-                <input type="text" id="maxPoint" value="<%=user.getPoint()%>" style="display: none">
                 <label>보유한 적립금: </label><span> \<%=Utils.toCurrency(user.getPoint())%></span>
             </div>
             <%
+                    paymentPrice = totalPrice - discountPrice + deliveryPrice;
                 }
             %>
         </div>
@@ -236,7 +238,7 @@
             } else if (user.getGradeId() == "GOLD") {
                 discountPrice = (int) Math.round(totalPrice * 0.03);
             }
-            paymentPrice = totalPrice - discountPrice + deliveryPrice - user.getPoint();
+            paymentPrice = totalPrice - discountPrice + deliveryPrice;
         %>
         <div id="price" class="row border-bottom border-2 border-dark">
             <h4>결제 정보</h4>
@@ -374,8 +376,13 @@
         document.querySelector("#addrNull").style.display = 'none';
     }
 
-    const maxPoint = parseInt(document.getElementById('maxPoint').te);
-    const usePoint = parseInt(document.getElementById('usePoint').value);
+
+
+    const pointInput = document.getElementById('usePoint');
+    const userPoint = document.getElementById('userPoint');
+    const points = parseInt(pointInput.value); // 입력된 포인트 값 가져오기
+    const userPoints = parseInt(userPoint.value);
+
 
     function checkForm() {
         if (zipcode.value == "" || addr1.value == "") {
@@ -386,7 +393,7 @@
             return true;
         }
 
-        if (0 <= usePoint <= maxPoint) {
+        if (0 <= pointInput <= userPoint) {
             document.querySelector('#pointError').style.display='none';
             return true;
         } else {
@@ -394,7 +401,6 @@
             return false;
         }
     }
-
 
 
 

@@ -16,11 +16,11 @@ public class AddrDao {
         String sql = """
                 INSERT INTO ADDRESSES
                 (ADDR_NO
-                , ADDR_TEL 
+                , ADDR_TEL
                 , ZIP_CODE, ADDR_1, ADDR_2
                 , ISADDR_HOME, USER_NO, RECIPIENT)
                 values(ADDR_NO_SEQ.NEXTVAL
-                , ?, ?
+                , ?
                 ,?, ?, ?
                 ,?, ?, ?)
                 """;

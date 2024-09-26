@@ -10,6 +10,6 @@
   <a href="../user/point-history.jsp" class="mb-1 p-2 list-group-item-action btn btn-outline">적립금 내역</a>
   <a href="../user/review.jsp" class="mb-1 p-2 list-group-item-action btn btn-outline">리뷰 작성 내역</a>
   <a href="../qna/user-qna.jsp" class="mb-1 p-2 list-group-item-action btn btn-outline">문의 내역</a>
-  <a href="../user/info.jsp" class="mb-1 p-2 list-group-item-action btn btn-outline">회원정보 수정</a>
+  <a href="../user/info.jsp" class="mb-1 p-2 list-group-item-action btn btn-outline">회원정보 관리</a>
   <a href="../index.jsp" class="mb-1 p-2 list-group-item-action btn btn-outline">로그아웃</a>
 </div>

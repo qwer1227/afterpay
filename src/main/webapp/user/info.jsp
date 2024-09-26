@@ -25,6 +25,12 @@
 <%
   // 파라미터값을 전달받아 해당하는 정보를 받아 회원정보 폼에 각 값을 나타낸다.
   int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
+  
+  if (userID == null) {
+    response.sendRedirect("../login-form.jsp?deny");
+    return;
+  }
+  
   UserDao userDao = new UserDao();
   User user = userDao.getUserByNo(userNo);
   AddrDao addrDao = new AddrDao();
@@ -33,11 +39,16 @@
 
 <div class="container">
   <div class="row">
+    <div class="col-2"></div>
+    <div class="col-10">
+      <h2 class="mt-3"><strong>회원정보 관리</strong></h2>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-2">
       <%@include file="../common/user-nav.jsp"%>
     </div>
     <div class="col-10">
-      <h2 class="m-4"><strong>회원정보 수정</strong></h2>
       <hr style="border:solid 1px gray;"/>
       <table class="table table-borderless">
         <thead>
@@ -73,16 +84,18 @@
           </tr>
         </tbody>
       </table>
-
       <div class="text-end">
         <a href="modify-info-form.jsp" type="submit" class="btn btn-outline-secondary">
             회원정보 수정
+        </a>
+        <a href="modify-address-form.jsp" type="submit" class="btn btn-outline-primary">
+            배송지 관리
         </a>
         <a href="modify-pwd-form.jsp" type="submit" class="btn btn-outline-warning">
             비밀번호 변경
         </a>
         <!-- 성민님이 작업한 회원탈퇴로 이동 -->
-        <a href="" type="submit" class="btn btn-outline-danger">
+        <a href="../isdeleted.jsp" type="submit" class="btn btn-outline-danger">
             회원 탈퇴
         </a>
       </div>

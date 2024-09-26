@@ -65,7 +65,6 @@
                         <button type="button" onclick="location.href='../index.jsp'"
                                 class="btn btn-lg bg-light border-dark-subtle">지금 바로 쇼핑하러 가기
                         </button>
-
                     </div>
                     <%
                         }
@@ -78,7 +77,8 @@
                         </div>
                         <div class="col-6">
                             <div class="text-end">
-                                <button type="submit" class="btn btn-lg" onclick="deleteCart()">
+                                <button type="button" location.href='../cart-delete.jsp?' class="btn btn-lg"
+                                        onclick="deleteSelectedCartItem()">
                                     <i class="bi bi-trash"></i>
                                 </button>
                             </div>
@@ -110,10 +110,11 @@
                                         List<Image> images = productDao.getAllImagesByNo(productNo);
                                         int stockNo = cart.getStock().getNo();
                                         Stock stock = stockDao.getStockByNo(stockNo);
+                                        int cartNo = cart.getNo();
                                 %>
                                 <tr>
                                     <td>
-                                        <input type="checkbox" id="ck" name="stockNo" value="<%=stockNo%>"
+                                        <input type="checkbox" id="ck" name="cartNo" value="<%=cartNo%>"
                                                style="zoom:1.5" onchange="checkSelect()">
                                     </td>
                                     <td>
@@ -132,20 +133,24 @@
                                             <span>사이즈: <%=stock.getSize()%></span>
                                         </p>
                                         <p>
-                                            <input type="hidden" name="amount" value="<%=cart.getAmount()%>">
+                                            <input type="hidden" name="amount" id="cart-<%=cartNo%>-amount"
+                                                   value="<%=cart.getAmount()%>">
                                             <span>수량: <%=cart.getAmount()%></span>
                                         </p>
                                         <p>
-                                            <input type="hidden" name="price" value="<%=product.getPrice()%>">
-                                            <span id="stock-<%=stock.getNo()%>-price"
-                                                  data-price="<%=product.getPrice()%>">가격: <%=Utils.toCurrency(product.getPrice())%></span>
+                                            <input type="hidden" name="price" id="cart-<%=cartNo%>-price"
+                                                   value="<%=product.getPrice()%>">
+                                            <span data-price="<%=product.getPrice()%>">가격: <%=Utils.toCurrency(product.getPrice())%></span>
                                         </p>
                                     </td>
                                     <td class="align-middle text-end">
                                         <button type="button" class="btn btn-outline-primary"
-                                                onclick="location.href='../product/detail.jsp'">
+                                                onclick="location.href='../product/detail.jsp?pno=<%=product.getNo()%>'">
                                             상세보기
                                         </button>
+                                        <a href="cart-delete.jsp?cartNo=<%=cartNo%>" class="btn btn-outline-danger mt-2">
+                                            삭제
+                                        </a>
                                     </td>
                                 </tr>
                                 <%
@@ -230,7 +235,7 @@
         let isChecked = document.querySelector("[name=all]").checked;
         console.log('체크여부', isChecked);
 
-        let checkBoxes = document.querySelectorAll("[name=stockNo]");
+        let checkBoxes = document.querySelectorAll("[name=cartNo]");
         checkBoxes.forEach(function (el) {
             el.checked = isChecked;
         })
@@ -259,8 +264,9 @@
     }
 
     function refreshSummary() {
-        let checkboxes = document.querySelectorAll("[name=stockNo]");
+        let checkboxes = document.querySelectorAll("[name=cartNo]");
         let checkedCnt = 0;
+        let totalAmount = 0;
         let totalPrice = 0;
         for (let checkbox of checkboxes) {
             // 만약 체크박스가 선택된 것이 있으면
@@ -268,10 +274,13 @@
                 // 체크된 개수 증가
                 checkedCnt++;
                 // 선택된 체크박스에서 위시번호와 가격을 가져옴
-                let stockNo = checkbox.value;
-                let price = document.getElementById("stock-" + stockNo + "-price").getAttribute("data-price");
+                let cartNo = checkbox.value;
+                let amount = document.getElementById("cart-" + cartNo + "-amount").value
+                let price = document.getElementById("cart-" + cartNo + "-price").value
+
+                totalAmount += parseInt(amount);
                 // 읽어온 가격을 총 금액에 추가
-                totalPrice += parseInt(price);
+                totalPrice += parseInt(price * amount);
             }
         }
 
@@ -284,9 +293,30 @@
         }
 
         // id값이 totalAmount인 곳에 checkedCnt 값 전달
-        document.getElementById("totalAmount").textContent = checkedCnt;
+        document.getElementById("totalAmount").textContent = totalAmount;
         // id값이 cart-total-price인 곳에 totalPrice 값 전달
         document.getElementById("cart-total-price").textContent = new Number(totalPrice).toLocaleString();
+    }
+
+
+    function deleteSelectedCartItem() {
+        let checkboxes = document.querySelectorAll("[name=cartNo]");
+        let isChecked = false;
+
+        for (let checkbox of checkboxes) {
+            if (checkbox.checked) {
+                isChecked = true;
+                break;
+            }
+        }
+        if (!isChecked) {
+            alert("삭제할 상품을 체크하세요");
+            return;
+        }
+
+        let form = document.getElementById("cart");
+        form.setAttribute("action", "cart-delete.jsp");
+        form.submit();
     }
 </script>
 

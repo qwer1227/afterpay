@@ -1,29 +1,35 @@
+<%@ page import="com.jhta.afterpay.user.User" %>
+<%@ page import="com.jhta.afterpay.user.UserDao" %>
+<%@ page import="com.jhta.afterpay.util.Utils" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>AFTER PAY</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/common/css/style.css">
-</head>
-<body class>
 <%
-    String menu = "";
+    // 1. 요청 파라미터 정보 조회하기
+    int no = Utils.toInt(request.getParameter("no"));
+    String id = request.getParameter("id");
+    String name = request.getParameter("name");
+    String pwd = request.getParameter("pwd");
+    String email = request.getParameter("email");
+    String tel = request.getParameter("tel");
+    String gradeId = request.getParameter("gradeId");
+    String isBanned = request.getParameter("isBanned");
+    String isSignOut = request.getParameter("isSignOut");
+
+    // 2. User 객체를 생성해서 요청파라미터 정보를 저장한다.
+    User user = new User();
+    user.setNo(no);
+    user.setId(id);
+    user.setName(name);
+    user.setPwd(pwd);
+    user.setEmail(email);
+    user.setTel(tel);
+    user.setGradeId(gradeId);
+    user.setIsBanned(isBanned);
+    user.setIsSignOut(isSignOut);
+
+    // 3. UserDao 객체를 생성하고, updateAllUser() 메소드를 실행한다.
+    UserDao userDao = new UserDao();
+    userDao.updateAllUser(user);
+
+    // 4. 재요청 URL을 응답으로 보낸다.
+    response.sendRedirect("user.jsp?no=" + no);
 %>
-<%@ include file="../../common/nav.jsp" %>
-<div>
-    내용
-</div>
-<%@ include file="../../common/footer.jsp" %>
-</body>
-</html>

@@ -67,7 +67,6 @@
                 for (Notice notice : notices) {
             %>
             <tr>
-
                 <td><a href="detail.jsp?nno=<%=notice.getNo()%>"><%=notice.getTitle()%></a></td>
                 <td>관리자</td>
                 <td>3</td>

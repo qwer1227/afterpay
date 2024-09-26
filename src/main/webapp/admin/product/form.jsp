@@ -8,6 +8,13 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
+<%
+    String userID = (String) session.getAttribute("USERID");
+    if (userID == null || !userID.equals("ADMIN")) {
+        response.sendRedirect("/login-form.jsp?deny");
+        return;
+    } else {
+%>
 <div class="container">
     <form class="border bg-light p-3" method="post" action="insert.jsp">
         <div class="text-center">
@@ -80,5 +87,8 @@
         </div>
     </form>
 </div>
+<%
+    }
+%>
 </body>
 </html>

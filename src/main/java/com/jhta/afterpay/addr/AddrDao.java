@@ -16,7 +16,7 @@ public class AddrDao {
         String sql = """
                 INSERT INTO ADDRESSES
                 (ADDR_NO
-                , ADDR_NAME, ADDR_TEL 
+                , ADDR_TEL 
                 , ZIP_CODE, ADDR_1, ADDR_2
                 , ISADDR_HOME, USER_NO, RECIPIENT)
                 values(ADDR_NO_SEQ.NEXTVAL
@@ -25,7 +25,7 @@ public class AddrDao {
                 ,?, ?, ?)
                 """;
         DaoHelper.insert(sql
-                , addr.getName(), addr.getTel()
+                , addr.getTel()
                 , addr.getZipCode(), addr.getAddr1(), addr.getAddr2()
                 , addr.getIsAddrHome(), addr.getUser().getNo(), addr.getRecipient());
     }
@@ -62,6 +62,7 @@ public class AddrDao {
                 ,ISADDR_HOME = ?
                 ,USER_NO = ?
                 ,RECIPIENT = ?
+                where ADDR_NO = ?
                 """;
         DaoHelper.update(sql, addr.getNo()
                 , addr.getName()
@@ -72,6 +73,7 @@ public class AddrDao {
                 , addr.getIsAddrHome()
                 , addr.getUser().getNo()
                 , addr.getRecipient()
+                , addr.getNo()
         );
     }
 

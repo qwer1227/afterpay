@@ -31,15 +31,15 @@
 <%
   int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
   String userId = String.valueOf(session.getAttribute("USERID"));
-  
+
   if (userId == null) {
     response.sendRedirect("../login-form.jsp?deny");
     return;
   }
-  
+
   WishDao wishDao = new WishDao();
   List<Wish> wishes = wishDao.getWishByUserNo(userNo);
-  
+
   int pageNo = Utils.toInt(request.getParameter("page"), 1);
   int totalRows = wishDao.getAllTotalRowsByUserNo(userNo);
   Pagination pagination = new Pagination(pageNo, totalRows);
@@ -48,7 +48,7 @@
   int beginPage = pagination.getBeginPage();
   int endPage = pagination.getEndPage();
   List<Wish> wishList = wishDao.getAllWishListByUserNo(userNo, begin, end);
-  
+
   int amount = 0;
   int totalPrice = 0;
   int totalAmount = 0;
@@ -95,7 +95,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="tab-pane fade show active" id="nav-wishlist" role="tabpanel" aria-labelledby="nav-home-tab">
           <div class="table-responsive">
             <table class="table align-middle">
@@ -111,11 +111,11 @@
                   int stockNo = wish.getStock().getNo();
                   StockDao stockDao = new StockDao();
                   Stock stock = stockDao.getStockByNo(stockNo);
-                  
+
                   int productNo = wish.getProduct().getNo();
                   ProductDao productDao = new ProductDao();
                   Product product = productDao.getProductByNo(productNo);
-                  
+
                   List<Image> images = productDao.getAllImagesByNo(productNo);
               %>
               <tr>
@@ -142,7 +142,7 @@
                     상세보기
                   </a>
                   <p></p>
-                  <a type="button" id="form-cart" href="cart.jsp?stockNo=<%=stockNo%>&amount=1"
+                  <a type="button" id="form-cart" href="cart-add.jsp?stockNo=<%=stockNo%>&amount=1"
                      class="btn btn-outline-primary">
                     장바구니
                   </a>
@@ -161,7 +161,7 @@
             </table>
           </div>
         </div>
-        
+
         <!-- Item Total Info -->
         <div class="text-center mt-4 mb-5">
           <div class="row fs-5" id="cart-info">
@@ -206,7 +206,7 @@
       </form>
     </div>
   </div>
-  
+
   <script type="text/javascript">
       function checkAll() {
           let isChecked = document.querySelector("[name=all]").checked;

@@ -45,16 +45,41 @@ public class WishDao {
     }
 
     /**
-     * 위시리시트 번호로 위시리스트의 상품을 삭제한다.
+     * 위시리스트 상품을 삭제한다.
      * @param wishNo 위시리스트 번호
      */
-    public void deleteWishByNo(int wishNo, int userNo) {
+    public void deleteWishByNo(int wishNo) {
         String sql = """
            delete from wishes
-           where wish_no = ? and user_no = ?     
+           where wish_no = ?     
         """;
 
-        DaoHelper.delete(sql, wishNo, userNo);
+        DaoHelper.delete(sql, wishNo);
+    }
+
+    /**
+     * 위시리스트 상품을 반환한다.
+     * @param productNo 상품 번호
+     * @param userNo 유저 번호
+     * @return 위시리스트 상품 1개
+     */
+    public Wish getWishByNo(int productNo, int userNo) {
+        String sql = """
+            select wish_no
+                    , product_no
+                    , user_no    
+            from wishes
+            where product_no = ? and user_no = ?
+        """;
+
+        return DaoHelper.selectOne(sql, rs -> {
+            Wish wish = new Wish();
+            wish.setNo(rs.getInt("wish_no"));
+            wish.setProductNo(rs.getInt("product_no"));
+            wish.setUserNo(rs.getInt("user_no"));
+
+            return wish;
+        }, productNo, userNo);
     }
 
     /**

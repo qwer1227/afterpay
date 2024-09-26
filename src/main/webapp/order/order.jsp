@@ -16,9 +16,11 @@
 <%@ page import="com.jhta.afterpay.product.StockDao" %>
 <%@ page import="com.jhta.afterpay.product.ProductDao" %>
 <%@ page import="java.util.Optional" %>
+<%@ page import="com.jhta.afterpay.user.Cart" %>
+<%@ page import="com.jhta.afterpay.user.CartDao" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <%
-    String userNos = String.valueOf(session.getAttribute("USERNO"));
+    int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
     String userID = String.valueOf(session.getAttribute("USERID"));
     System.out.println(userID);
 
@@ -27,14 +29,10 @@
         return;
     }
 
-    int userNo = Utils.toInt(userNos);
 
     // 쿼리 파라미터
     String address = request.getParameter("address");                                       // 주소
     String detailAddr = request.getParameter("detailAddress");                              // 상세주소
-    if (detailAddr == null) {
-        detailAddr = "";
-    }
     String tel = request.getParameter("tel");                                               // 전화번호
     String zipcode = request.getParameter("zipcode");                                       // 우편번호
     String email = request.getParameter("emailId") + "@" + request.getParameter("domain");  // 이메일
@@ -66,6 +64,28 @@
         stockNoArr[i] = Utils.toInt(stockNo[i]);
     }
 
+    // 장바구니 주문시 장바구니에서 해당 상품 삭제
+    CartDao cartDao = new CartDao();
+    String[] cartNo = request.getParameterValues("cartNo");
+    int[] cartNoArr = null;
+    List<Cart> carts = new ArrayList<>();
+    if (cartNo != null && !cartNo[0].equals(0)) {
+        cartNoArr = new int[cartNo.length];
+        stockNoArr = new int[cartNoArr.length];
+        for (int i = 0; i < cartNoArr.length; i++) {
+            cartNoArr[i] = Utils.toInt(cartNo[i]);
+            Cart cart = cartDao.getCartByNo(cartNoArr[i]);
+            carts.add(cart);
+            stockNoArr[i] = cart.getStock().getNo();
+            cartDao.deleteCartByNo(cartNoArr[i]);
+        }
+    } else {
+        stockNoArr = new int[stockNo.length];
+        for (int i = 0; i < stockNoArr.length; i++) {
+            stockNoArr[i] = Utils.toInt(stockNo[i]);
+        }
+    }
+
 
     UserDao userDao = new UserDao();
     AddrDao addrDao = new AddrDao();
@@ -85,6 +105,12 @@
     // 배송지 저장
     List<Addr> addrs = addrDao.getAllAddrByUserNo(userNo);
     Addr addr = new Addr();
+    if (recipient == null) {
+        recipient = userDao.getUserByNo(userNo).getName();
+    }
+    if (detailAddr == null) {
+        detailAddr = "없음";
+    }
     // 입력받은 주소와 상세주소가 같은 배송지가 이미 있으면 저장하지 않는다.
     for (Addr findAddr : addrs) {
         if (findAddr.getAddr2() == null) {
@@ -94,13 +120,14 @@
                 && findAddr.getAddr2().equals(detailAddr)) {
             break;
         } else {
-            addr.setAddr1(address);
-            addr.setAddr2(detailAddr);
+            addr.setName("새 배송지");
             addr.setTel(tel);
             addr.setZipCode(zipcode);
+            addr.setAddr1(address);
+            addr.setAddr2(detailAddr);
             addr.setUser(user);
-            addr.setName("새 배송지");
-            if(findAddr.getIsAddrHome().equals("Y")){
+            addr.setRecipient(recipient);
+            if (findAddr.getIsAddrHome().equals("Y")) {
                 addr.setIsAddrHome("N");
             }
             addrDao.insertAddr(addr);
@@ -112,7 +139,7 @@
     addrs = addrDao.getAllAddrByUserNo(userNo);
     for (Addr findAddr : addrs) {
         if (findAddr.getAddr2() == null) {
-            findAddr.setAddr2("");
+            findAddr.setAddr2("없음");
         }
         if (findAddr.getAddr1().equals(address) && findAddr.getAddr2().equals(detailAddr)) {
             addr.setNo(findAddr.getNo());

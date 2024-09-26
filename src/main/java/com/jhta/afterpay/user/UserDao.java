@@ -12,6 +12,57 @@ import java.util.List;
 public class UserDao {
 
     /**
+     * 회원 번호로 회원의 모든 정보를 반환한다.
+     * @param userNo 회원번호
+     * @return 해당 회원의 모든 정보
+     */
+    public User getAllUserByNo(int userNo) {
+        String sql = """
+                    select *
+                    from users u
+                    where u.user_no = ?
+                """;
+
+        return DaoHelper.selectOne(sql, rs -> {
+            User user = new User();
+            user.setNo(rs.getInt("user_no"));
+            user.setEmail(rs.getString("user_email"));
+            user.setId(rs.getString("user_id"));
+            user.setPwd(rs.getString("user_password"));
+            user.setName(rs.getString("user_name"));
+            user.setTel(rs.getString("user_tel"));
+            user.setIsBanned(rs.getString("isbanned"));
+            user.setIsSignOut(rs.getString("issignout"));
+            user.setCreatedDate(rs.getDate("created_date"));
+            user.setGradeId(rs.getString("grade_id"));
+            user.setTotalUsedPoint(rs.getInt("total_used_point"));
+            user.setTotalPoint(rs.getInt("total_point"));
+            user.setPoint(rs.getInt("point"));
+
+            return user;
+        }, userNo);
+    }
+
+    /**
+     * 회원 정보를 수정한다.
+     * @param user 기존회원정보
+     */
+    public void updateAllUser(User user) {
+        String sql = """
+                UPDATE USERS
+                SET USER_PASSWORD = ?
+                    , USER_TEL = ?
+                    , USER_EMAIL = ?
+                    , GRADE_ID = ?
+                    , ISBANNED = ?
+                    , ISSIGNOUT = ?
+                WHERE USER_NO = ?
+                """;
+
+        DaoHelper.update(sql, user.getPwd(), user.getTel(), user.getEmail(), user.getGradeId(), user.getIsBanned(), user.getIsSignOut(), user.getNo());
+    }
+
+    /**
      * 전체 회원 수를 조회해서 반환한다.
      *
      * @return 회원 수
@@ -65,9 +116,9 @@ public class UserDao {
 
     public User getUserByPrevPw(String pw) throws SQLException {
         String sql = """
-                select *
+                select * 
                 from users
-                where user_password = ?
+                where user_password = ? 
                 """;
 
         return DaoHelper.selectOne(sql, rs -> {
@@ -219,10 +270,16 @@ public class UserDao {
                 UPDATE USERS
                 SET USER_EMAIL = ?
                     , USER_TEL = ?
+                    , total_used_point = ?
+                    , total_point = ?
+                    , point = ?
                 WHERE USER_NO = ?
                 """;
         DaoHelper.update(sql, user.getEmail()
                 , user.getTel()
+                , user.getTotalUsedPoint()
+                , user.getTotalPoint()
+                , user.getPoint()
                 , user.getNo());
     }
 
@@ -266,6 +323,35 @@ public class UserDao {
             user.setCreatedDate(rs.getDate("created_date"));
             user.setGradeId(rs.getString("grade_id"));
             user.setIsBanned(rs.getString("ISBANNED"));
+            return user;
+
+        }, begin, end);
+    }
+
+    public List<User> getAllUserPoints(int begin, int end) {
+        String sql = """
+                SELECT *
+                FROM(
+                    SELECT ROW_NUMBER() OVER (ORDER BY USER_NO DESC) ROWNUMBER
+                        , U.USER_NO
+                        , U.USER_ID
+                        , U.USER_NAME
+                        , U.TOTAL_POINT
+                        , U.TOTAL_USED_POINT
+                        , U.POINT
+                        FROM USERS U
+                    )
+                    WHERE ROWNUMBER BETWEEN ? AND ?
+                """;
+
+        return DaoHelper.selectList(sql, rs -> {
+            User user = new User();
+            user.setNo(rs.getInt("user_no"));
+            user.setId(rs.getString("user_id"));
+            user.setName(rs.getString("user_name"));
+            user.setTotalPoint(rs.getInt("total_point"));
+            user.setTotalUsedPoint(rs.getInt("total_used_point"));
+            user.setPoint(rs.getInt("point"));
             return user;
 
         }, begin, end);

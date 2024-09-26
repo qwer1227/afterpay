@@ -33,6 +33,12 @@
       <%@include file="../common/user-nav.jsp" %>
       <%
         int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
+        
+        if (userID == null) {
+          response.sendRedirect("../login-form.jsp?deny");
+          return;
+        }
+        
         UserDao userDao = new UserDao();
         User user = userDao.getUserByNo(userNo);
         String userPwd = user.getPwd();
@@ -54,11 +60,6 @@
             <th scope="row" class="text-center">변경 전 비밀번호</th>
             <td class="text-start">
               <input type="text" name="prevpwd">
-              <%--              <%--%>
-              <%--                if (userPwd.equals('input에 입력한 값')){--%>
-              <%--               --%>
-              <%--                }  --%>
-              <%--              %>--%>
             </td>
           </tr>
           <tr>

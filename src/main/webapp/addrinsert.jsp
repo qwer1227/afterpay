@@ -15,8 +15,7 @@
     String phone = request.getParameter("phone");
     String zipcode = request.getParameter("zipcode");
     String address = request.getParameter("user_address");
-    String detailAddress = request.getParameter("user_datail_address");
-    String defaultAddrName = request.getParameter("default_addr_name");
+    String detailAddress = request.getParameter("user_detail_address");
 
     UserDao userDao = new UserDao();
     User user = userDao.getUserByNo(userNo);
@@ -30,10 +29,12 @@
     addr.setRecipient(name);
     addr.setName(addrName);
     addr.setTel(phone);
+    addr.setIsAddrHome("N");
     addr.setZipCode(zipcode);
     addr.setAddr1(address);
     addr.setAddr2(detailAddress);
-    addr.setIsAddrHome(defaultAddrName);
 
     addrDao.insertAddr(addr);
+
+    response.sendRedirect("/user/modify-address-form.jsp");
 %>

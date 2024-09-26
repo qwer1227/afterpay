@@ -4,6 +4,12 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 
 <%
+    String userID = (String) session.getAttribute("USERID");
+    if (userID == null || !userID.equals("ADMIN")) {
+        response.sendRedirect("/login-form.jsp?deny");
+        return;
+    }
+
     int productNo = Utils.toInt(request.getParameter("no"));
     int sStockNo = Utils.toInt(request.getParameter("SNo"));
     int mStockNo = Utils.toInt(request.getParameter("MNo"));
@@ -30,5 +36,6 @@
     stockDao.updateStockAmount(largeProductStock);
 
     response.sendRedirect("detail.jsp?no=" + productNo);
+
 %>
 

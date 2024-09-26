@@ -20,20 +20,17 @@
     h2 {
         text-align: center;
     }
-
-    #check-all {
-        margin-left: 15px;
-    }
-
-    #check-del {
-        margin-right: 20px;
-    }
 </style>
 <body>
 <%@include file="../common/nav.jsp" %>
 <%
-  //int userNo = (Integer)session.getAttribute("userNo");
-  int userNo = 7;
+  int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
+  
+  if (userID == null) {
+    response.sendRedirect("../login-form.jsp?deny");
+    return;
+  }
+  
   ReviewDao reviewDao = new ReviewDao();
   
   // 요청한 페이지 번호 조회
@@ -73,7 +70,7 @@
               </colgroup>
               <thead>
               <tr class="text-center">
-                <th scope="col">
+                <th class="text-center">
                   <input id="check-all" type="checkbox" name="all" onchange="checkAll()" style="zoom:1.5">
                 </th>
                 <th scope="col">No</th>
@@ -104,7 +101,7 @@
                 </th>
                 <td class="text-start">
                   <!-- 상품 상세페이지의 리뷰로 페이지 이동 -->
-                  <a href="../product/detail.jsp?" style="text-decoration-line: none">
+                  <a href="../product/detail.jsp?pno=<%=reviews.getProduct().getNo()%>#review" style="text-decoration-line: none">
                     <%=reviews.getTitle()%>
                   </a>
                 </td>

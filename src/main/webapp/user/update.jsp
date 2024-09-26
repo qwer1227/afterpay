@@ -14,7 +14,14 @@
   //5. info.jsp를 재요청하는 URL을 응답으로 전송
 
   // 세션에서 사용자 번호를 가져온다.
-  int userNo = 19;
+  int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
+  String userID = String.valueOf(session.getAttribute("USERID"));
+  
+  if (userID == null) {
+    response.sendRedirect("../login-form.jsp?deny");
+    return;
+  }
+  
   String tel = request.getParameter("tel");
   String email = request.getParameter("email");
   String zipcode = request.getParameter("zipcode");

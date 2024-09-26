@@ -244,7 +244,7 @@
     }
 
     function checkSelect() {
-        let checkBoxes = document.querySelectorAll("[name=cartNo]");
+        let checkBoxes = document.querySelectorAll("[name=stockNo]");
         let checkBoxesLength = checkBoxes.length;
         let checkedLength = 0;
 

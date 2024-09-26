@@ -2,6 +2,8 @@
 <%@ page import="com.jhta.afterpay.util.DaoHelper" %>
 <%@ page import="com.jhta.afterpay.user.UserDao" %>
 <%@ page import="org.apache.commons.codec.digest.DigestUtils" %>
+<%@ page import="com.jhta.afterpay.addr.Addr" %>
+<%@ page import="com.jhta.afterpay.addr.AddrDao" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <%--
     요청 URL
@@ -42,10 +44,14 @@
     String name = request.getParameter("user_name");
     String pwd = request.getParameter("user_pw");
     String email = request.getParameter("user_email");
-    String phone = request.getParameter("phone");
+    String phone = request.getParameter("user_phone");
+    String zipcode = request.getParameter("zipcode");
+    String address = request.getParameter("user_address");
+    String detailaddr = request.getParameter("user_detail_address");
 
 
     UserDao userDao = new UserDao();
+    AddrDao addrDao = new AddrDao();
 
     User savedId = userDao.getUserById(id);
     //이미 생성된 아이디로 생성을 막기위해
@@ -65,7 +71,10 @@
     //비밀번호 암호화
     String sha256Pwd = DigestUtils.sha256Hex(pwd);
 
+    int seq = userDao.getSequence();
+
     User user = new User();
+    user.setNo(seq);
     user.setId(id);
     user.setName(name);
     user.setPwd(sha256Pwd);
@@ -73,6 +82,15 @@
     user.setTel(phone);
 
     userDao.InsertUser(user);
+
+    Addr addr = new Addr();
+    addr.setZipCode(zipcode);
+    addr.setTel(user.getTel());
+    addr.setAddr1(address);
+    addr.setAddr2(detailaddr);
+    addr.setUser(user);
+
+    addrDao.insertAddr(addr);
 
     response.sendRedirect("index.jsp");
 %>

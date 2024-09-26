@@ -30,11 +30,6 @@
 
 <%@include file="../common/nav.jsp"%>
 <%
-  String userNos = String.valueOf(session.getAttribute("USERNO"));
-  String userId = String.valueOf(session.getAttribute("USERID"));
-  String grade = (String) session.getAttribute("GRADE");
-%>
-<%
   /*
   * user.jsp?id=hong
   *
@@ -42,8 +37,13 @@
   * 2. 사용자 정보 값 조회
   *
   */
-
-  int userNo = Utils.toInt(userNos);
+  int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
+  
+  if (userID == null) {
+    response.sendRedirect("../login-form.jsp?deny");
+    return;
+  }
+  
   UserDao userDao = new UserDao();
   ReviewDao reviewDao = new ReviewDao();
   User user = userDao.getUserByNo(userNo);
@@ -117,9 +117,6 @@
         </a>
         <a href="/qna/user-qna.jsp" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
           상품 문의 내역
-        </a>
-        <a href="#" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
-          공지사항
         </a>
         <a href="../logout.jsp" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
           로그아웃

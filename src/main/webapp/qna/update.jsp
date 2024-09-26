@@ -3,7 +3,7 @@
 <%@ page import="com.jhta.afterpay.util.Utils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-  int qnaNo = Utils.toInt(request.getParameter("no"));
+  int qnaNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
   String description = request.getParameter("description");
 
   QnaDao qnaDao = new QnaDao();

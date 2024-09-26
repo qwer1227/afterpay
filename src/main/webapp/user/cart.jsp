@@ -38,29 +38,23 @@
   // 장바구니 목록 가져오기
   CartDao cartDao = new CartDao();
   List<Cart> carts = cartDao.getAllCartsByUserNo(userNo);
-
+  
   int totalRows = carts.size();
   int pageNo = Utils.toInt(request.getParameter("page"), 1);
   Pagination pagination = new Pagination(pageNo, totalRows);
 %>
 <div class="container">
-  <div class="row">
-    <div class="col-2"></div>
-    <div class="col-10">
-      <h2 class="mt-3"><strong>장바구니</strong></h2>
-    </div>
-  </div>
-  <div class="row">
-    <!-- 메뉴 nav 사용 -->
-    <div class="col-2">
-      <%@include file="../common/user-nav.jsp" %>
-    </div>
-    <div class="col-10">
-      <form action="../order/order-form.jsp" method="post" id="cart">
+  <form action="../order/order-form.jsp" method="post" id="cart">
+    <div class="row">
+      <!-- 메뉴 nav 사용 -->
+      <div class="col-2">
+        <%@include file="../common/user-nav.jsp" %>
+      </div>
+      
+      <!-- 컨텐츠 -->
+      <div class="col-10">
+        <h2 class="m-4"><strong>장바구니</strong></h2>
         <hr style="border:solid 1px gray;">
-        <!-- 컨텐츠 -->
-
-
         <div class="tab-content" id="nav-tabContent">
           <%
             if (carts.isEmpty()) {
@@ -71,7 +65,7 @@
             <button type="button" onclick="location.href='../index.jsp'"
                     class="btn btn-lg bg-light border-dark-subtle">지금 바로 쇼핑하러 가기
             </button>
-
+          
           </div>
           <%
             }
@@ -101,7 +95,7 @@
                   <col width="15%">
                 </colgroup>
                 <tbody>
-
+                
                 <%--주문내역 상품 보여주기--%>
                 <%
                   int amount = 0;
@@ -149,7 +143,7 @@
                   </td>
                   <td class="align-middle text-end">
                     <button type="button" class="btn btn-outline-primary"
-                            onclick="location.href='../product/detail.jsp'">
+                            onclick="location.href='../product/detail.jsp?pno=<%=product.getNo()%>'">
                       상세보기
                     </button>
                   </td>
@@ -188,7 +182,7 @@
           <%
             }
           %>
-
+          
           <!-- Item Total Info -->
           <div class="text-center mt-4 mb-5">
             <div class="row fs-5" id="cart-info">
@@ -226,9 +220,10 @@
             </div>
           </div>
         </div>
-      </form>
+      </div>
     </div>
-  </div>
+  </form>
+</div>
 </div>
 <script type="text/javascript">
     function checkAll() {

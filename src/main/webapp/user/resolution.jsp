@@ -125,8 +125,6 @@
                     %>
                     <tr class="align-middle">
                         <td>
-                            <input type="checkbox" class="chkbox" name="orderNo" style="zoom: 1.5"
-                                   value="<%=delivery.getNo()%>">
                         </td>
                         <td>
                             <img src="../common/images/<%=images.get(0).getName()%>" class="rounded float-start"
@@ -143,7 +141,7 @@
                             <p>결제금액: <%=Utils.toCurrency(delivery.getPrice())%> 원</p>
                             <p>주문일자: <%=delivery.getOrder().getOrderDate()%>
                             </p>
-                            <p>주문상태: <%=delivery.getStatus()%>
+                            <p>배송상태: <%=delivery.getStatus()%>
                             </p>
                         </td>
                         <td class="text-center">

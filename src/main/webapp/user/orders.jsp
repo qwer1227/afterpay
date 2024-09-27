@@ -137,10 +137,10 @@
                                 </p>
                             </td>
                             <td class="text-center">
-                                <form action="../order/order-detail.jsp">
-                                    <input type="hidden" name="deliveryNo" value="<%=delivery.getNo() %>">
-                                    <div><input type="submit" class="btn mt-1 btn-outline-info" value="상세보기"></div>
-                                </form>
+                                <div>
+                                    <a href="../order/order-detail.jsp?orderNo=<%=order.getNo()%>"
+                                       type="button" class="btn mt-1 btn-outline-primary">상세보기</a>
+                                </div>
                                 <div>
                                     <a href="../order/order-form.jsp?stockNo=<%=stock.getNo()%>&amount=<%=delivery.getAmount()%>"
                                        type="button" class="btn mt-1 btn-outline-primary">재 구 매</a></div>

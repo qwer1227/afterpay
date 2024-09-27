@@ -1,6 +1,7 @@
 <%@ page import="com.jhta.afterpay.util.Utils" %>
 <%@ page import="com.jhta.afterpay.qna.QnaDao" %>
 <%@ page import="com.jhta.afterpay.qna.Qna" %>
+<%@ page import="java.util.Date" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 
 <%

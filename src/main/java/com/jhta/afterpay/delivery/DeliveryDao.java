@@ -41,22 +41,24 @@ public class DeliveryDao {
     public void updateDelivery(Delivery delivery) {
         String sql = """
                 UPDATE ORDER_DELIVERY_PRODUCTS
-                SET DELIVERY_NO = ?,
+                SET
                 DELIVERY_PRODUCT_PRICE = ?,
                 DELIVERY_PRODUCT_AMOUNT = ?,
                 DELIVERY_STATUS = ?,
                 PRODUCT_NO = ?,
                 PRODUCT_STOCK_NO = ?,
-                ORDER_NO = ?
+                ORDER_NO = ?  
+                WHERE DELIVERY_NO = ?
                 """;
 
-        DaoHelper.update(sql, delivery.getNo()
+        DaoHelper.update(sql
                 , delivery.getPrice()
                 , delivery.getAmount()
                 , delivery.getStatus()
                 , delivery.getProduct().getNo()
                 , delivery.getStock().getNo()
                 , delivery.getOrder().getNo()
+                , delivery.getNo()
         );
     }
 
@@ -278,17 +280,25 @@ public class DeliveryDao {
         return DaoHelper.selectOneInt(sql, userNo);
     }
 
-    public Delivery getCancelDeliveryByOrderNo(int orderNo) {
+    public List<Delivery> getAllCancelDeliveryByOrderNo(int orderNo) {
         String sql = """
-                select *
-                FROM ORDER_DELIVERY_PRODUCTS
-                WHERE ORDER_NO = ?
+                select D.DELIVERY_PRODUCT_PRICE
+                    , D.DELIVERY_NO
+                    , D.DELIVERY_PRODUCT_AMOUNT
+                    , D.DELIVERY_STATUS
+                    , D.PRODUCT_NO
+                    , D.PRODUCT_STOCK_NO
+                    , D.ORDER_NO
+                    , O.ORDER_DATE           
+                FROM ORDER_DELIVERY_PRODUCTS D, ORDERS O
+                WHERE D.ORDER_NO = ?
+                AND D.ORDER_NO = O.ORDER_NO
                 AND DELIVERY_STATUS = '취소'
                 OR DELIVERY_STATUS = '반품'
                 OR DELIVERY_STATUS = '환불'
                 """;
 
-        return DaoHelper.selectOne(sql,rs -> {
+        return DaoHelper.selectList(sql,rs -> {
             Delivery delivery = new Delivery();
 
             delivery.setNo(rs.getInt("DELIVERY_NO"));
@@ -298,12 +308,10 @@ public class DeliveryDao {
 
             Product product = new Product();
             product.setNo(rs.getInt("PRODUCT_NO"));
-            product.setName(rs.getString("PRODUCT_NAME"));
             delivery.setProduct(product);
 
             Stock stock = new Stock();
             stock.setNo(rs.getInt("PRODUCT_STOCK_NO"));
-            stock.setSize(rs.getString("PRODUCT_STOCK_SIZE"));
             delivery.setStock(stock);
 
             Order order = new Order();

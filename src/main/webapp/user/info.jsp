@@ -25,6 +25,13 @@
 <%
   // 파라미터값을 전달받아 해당하는 정보를 받아 회원정보 폼에 각 값을 나타낸다.
   int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
+  String userId = String.valueOf(session.getAttribute("USERID"));
+  
+  if (userId == null) {
+    response.sendRedirect("../login-form.jsp?deny");
+    return;
+  }
+  
   UserDao userDao = new UserDao();
   User user = userDao.getUserByNo(userNo);
   AddrDao addrDao = new AddrDao();

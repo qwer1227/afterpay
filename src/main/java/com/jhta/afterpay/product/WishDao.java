@@ -36,40 +36,41 @@ public class WishDao {
     public void insertWish(Wish wish) {
         String sql = """
             insert into wishes
-            (wish_no, product_no, user_no)
+            (wish_no, product_no, user_no, product_stock_no)
             values
-            (wish_no_seq.nextval, ?, ?)    
+            (wish_no_seq.nextval, ?, ?, ?)    
         """;
 
-        DaoHelper.insert(sql, wish.getProduct().getNo(), wish.getUser().getNo());
+        DaoHelper.insert(sql, wish.getProduct().getNo(), wish.getUser().getNo(), wish.getStock().getNo());
     }
 
     /**
      * 위시리스트 상품을 삭제한다.
      * @param wishNo 위시리스트 번호
      */
-    public void deleteWishByNo(int wishNo) {
+    public void deleteWishByNo(int wishNo, int userNo) {
         String sql = """
            delete from wishes
-           where wish_no = ?     
+           where PRODUCT_STOCK_NO = ?
+           and user_no = ?     
         """;
 
-        DaoHelper.delete(sql, wishNo);
+        DaoHelper.delete(sql, wishNo, userNo);
     }
 
     /**
      * 위시리스트 상품을 반환한다.
-     * @param productNo 상품 번호
+     * @param stockNo 재고 번호
      * @param userNo 유저 번호
      * @return 위시리스트 상품 1개
      */
-    public Wish getWishByNo(int productNo, int userNo) {
+    public Wish getWishByNo(int stockNo, int userNo) {
         String sql = """
             select wish_no
                     , product_no
                     , user_no    
             from wishes
-            where product_no = ? and user_no = ?
+            where product_stock_no = ? and user_no = ?
         """;
 
         return DaoHelper.selectOne(sql, rs -> {
@@ -79,7 +80,7 @@ public class WishDao {
             wish.setUserNo(rs.getInt("user_no"));
 
             return wish;
-        }, productNo, userNo);
+        }, stockNo, userNo);
     }
 
     /**

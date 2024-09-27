@@ -37,8 +37,14 @@
   * 2. 사용자 정보 값 조회
   *
   */
-
   int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
+  String userId = String.valueOf(session.getAttribute("USERID"));
+  
+  if (userId == null) {
+    response.sendRedirect("../login-form.jsp?deny");
+    return;
+  }
+  
   UserDao userDao = new UserDao();
   ReviewDao reviewDao = new ReviewDao();
   User user = userDao.getUserByNo(userNo);

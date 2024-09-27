@@ -36,5 +36,5 @@
 
     addrDao.insertAddr(addr);
 
-    response.sendRedirect("/user/modify-address-form.jsp");
+    response.sendRedirect("/order/addr-list.jsp");
 %>

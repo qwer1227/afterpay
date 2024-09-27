@@ -42,8 +42,7 @@
 
 
     // 조회할 상품 정보
-    String d = request.getParameter("deliveryNo");
-    int deliveryNo = Utils.toInt(d);
+    int deliveryNo = Utils.toInt(request.getParameter("deliveryNo"));
     OrderDao orderDao = new OrderDao();
     Order order = new Order();
 
@@ -184,7 +183,7 @@
             받으시는 분
         </div>
         <div class="col-9 p-3">
-            <%=recipient%>
+            <%=addr.getRecipient()%>
         </div>
         <div class="col-3 border-top bg-secondary bg-opacity-10 p-3 ps-4">
             우편번호
@@ -202,7 +201,7 @@
             휴대전화
         </div>
         <div class="col-9 border-top p-3">
-            <%=user.getTel() %>
+            <%=addr.getTel() %>
         </div>
         <div class="col-3 border-top border-bottom bg-secondary bg-opacity-10 p-3 ps-4">
             배송 메세지
@@ -213,7 +212,7 @@
     </div>
     <div class="row mb-3">
         <div class="col d-flex justify-content-end d-grid">
-            <button onclick="location.href='order-list.jsp'" class="btn btn-dark text-white d-grid" type="button">
+            <button onclick="location.href='/user/orders.jsp'" class="btn btn-dark text-white d-grid" type="button">
                 주문목록보기
             </button>
         </div>

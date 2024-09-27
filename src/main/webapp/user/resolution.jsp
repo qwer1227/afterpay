@@ -152,8 +152,8 @@
                             <div>
                                 <a href="../order/order-form.jsp?stockNo=<%=stock.getNo()%>&amount=<%=delivery.getAmount()%>"
                                    type="button" class="btn mt-1 btn-outline-primary">재 구 매</a></div>
-                            <div><a href="" type="submit" class="btn mt-1 btn-outline-success">리뷰쓰기</a></div>
-                            <div><a href="" type="submit" class="btn mt-1 btn-outline-success">작성한 리뷰</a></div>
+                            <div><a href="/review/review-form.jsp?pno=<%=product.getNo()%>" type="button"
+                                    class="btn mt-1 btn-outline-success">리뷰쓰기</a></div>
                         </td>
                     </tr>
                     <%

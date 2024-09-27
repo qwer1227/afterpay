@@ -96,7 +96,7 @@
             비밀번호 변경
         </a>
         <!-- 성민님이 작업한 회원탈퇴로 이동 -->
-        <a href="../isdeleted.jsp" type="submit" class="btn btn-outline-danger">
+        <a href="isdeleted.jsp" type="submit" class="btn btn-outline-danger">
             회원 탈퇴
         </a>
       </div>

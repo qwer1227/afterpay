@@ -19,14 +19,11 @@
     int amount = Utils.toInt(request.getParameter("amount"));
     int orderNo = Utils.toInt(request.getParameter("orderNo"));
 
+    OrderDao orderDao = new OrderDao();
     DeliveryDao deliveryDao = new DeliveryDao();
-    List<Delivery> deliveries = deliveryDao.getAllDeliveryByOrderNo(orderNo);
-    for (Delivery delivery : deliveries) {
-        if (delivery.getStock().getNo() == stockNo) {
-            delivery.setStatus("취소");
-            deliveryDao.updateDelivery(delivery);
-        }
-    }
+    Delivery delivery = deliveryDao.getDeliveryByOrderNo(orderNo);
+    delivery.setStatus("취소");
+    deliveryDao.updateDelivery(delivery);
 
     response.sendRedirect("/user/orders.jsp");
 %>

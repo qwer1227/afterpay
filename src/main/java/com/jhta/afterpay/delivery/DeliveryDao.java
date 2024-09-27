@@ -280,11 +280,19 @@ public class DeliveryDao {
         return DaoHelper.selectOneInt(sql, userNo);
     }
 
-    public List<Delivery> getCancelDeliveryByOrderNo(int orderNo) {
+    public List<Delivery> getAllCancelDeliveryByOrderNo(int orderNo) {
         String sql = """
-                select *
-                FROM ORDER_DELIVERY_PRODUCTS
-                WHERE ORDER_NO = ?
+                select D.DELIVERY_PRODUCT_PRICE
+                    , D.DELIVERY_NO
+                    , D.DELIVERY_PRODUCT_AMOUNT
+                    , D.DELIVERY_STATUS
+                    , D.PRODUCT_NO
+                    , D.PRODUCT_STOCK_NO
+                    , D.ORDER_NO
+                    , O.ORDER_DATE           
+                FROM ORDER_DELIVERY_PRODUCTS D, ORDERS O
+                WHERE D.ORDER_NO = ?
+                AND D.ORDER_NO = O.ORDER_NO
                 AND DELIVERY_STATUS = '취소'
                 OR DELIVERY_STATUS = '반품'
                 OR DELIVERY_STATUS = '환불'
@@ -300,12 +308,10 @@ public class DeliveryDao {
 
             Product product = new Product();
             product.setNo(rs.getInt("PRODUCT_NO"));
-            product.setName(rs.getString("PRODUCT_NAME"));
             delivery.setProduct(product);
 
             Stock stock = new Stock();
             stock.setNo(rs.getInt("PRODUCT_STOCK_NO"));
-            stock.setSize(rs.getString("PRODUCT_STOCK_SIZE"));
             delivery.setStock(stock);
 
             Order order = new Order();

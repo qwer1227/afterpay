@@ -33,6 +33,12 @@
     <div class="row mb-3">
         <div class="col-2">
             <%@include file="../admin-nav.jsp"%>
+            <%
+                if (userID == null || !userID.equals("ADMIN")) {
+                    response.sendRedirect("/login-form.jsp?deny");
+                    return;
+                } else {
+            %>
         </div>
         <div class="col-10">
             <!--회원목록-->

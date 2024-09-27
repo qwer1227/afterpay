@@ -44,6 +44,12 @@
         <div class="col-2">
             <!--관리자 메뉴-->
             <%@include file="../admin-nav.jsp" %>
+            <%
+                if (userID == null || !userID.equals("ADMIN")) {
+                    response.sendRedirect("/login-form.jsp?deny");
+                    return;
+                } else {
+            %>
         </div>
         <div class="col-10">
             <!-- 주문정보 -->
@@ -215,6 +221,9 @@
         </div>
     </div>
 </div>
+<%
+    }
+%>
 <%@ include file="../../common/footer.jsp" %>
 </body>
 </html>

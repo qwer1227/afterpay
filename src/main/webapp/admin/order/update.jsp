@@ -2,7 +2,14 @@
 <%@ page import="com.jhta.afterpay.order.OrderDao" %>
 <%@ page import="com.jhta.afterpay.order.Order" %>
 <%@ page import="com.jhta.afterpay.delivery.DeliveryDao" %>
-<%@ page import="com.jhta.afterpay.delivery.Delivery" %><%
+<%@ page import="com.jhta.afterpay.delivery.Delivery" %>
+
+<%
+    String userID = (String) session.getAttribute("USERID");
+    if (userID == null || !userID.equals("ADMIN")) {
+        response.sendRedirect("/login-form.jsp?deny");
+        return;
+    }
 
     int orderNo = Utils.toInt(request.getParameter("orderNo"));
     String orderStatus = request.getParameter("orderStatus");

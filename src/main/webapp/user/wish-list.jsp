@@ -142,7 +142,7 @@
                     상세보기
                   </a>
                   <p></p>
-                  <a type="button" id="form-cart" href="cart/cart-add.jsp?stockNo=<%=stockNo%>&amount=1"
+                  <a type="button" id="form-cart" href="cart-add.jsp?stockNo=<%=stockNo%>&amount=1"
                      class="btn btn-outline-primary">
                     장바구니
                   </a>

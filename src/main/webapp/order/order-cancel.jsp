@@ -25,5 +25,5 @@
     delivery.setStatus("취소");
     deliveryDao.updateDelivery(delivery);
 
-    response.sendRedirect("/user/orders.jsp");
+    response.sendRedirect("../user/resolution.jsp");
 %>

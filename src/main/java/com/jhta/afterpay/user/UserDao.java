@@ -356,5 +356,22 @@ public class UserDao {
 
         }, begin, end);
     }
+
+    public User getUserGradeIdByNo(int userNo) throws SQLException {
+        String sql = """
+		SELECT USER_NO
+		, GRADE_ID
+		FROM USERS
+		WHERE USER_NO = ?
+		""";
+
+        return DaoHelper.selectOne(sql, rs ->{
+            User user = new User();
+            user.setNo(rs.getInt("USER_NO"));
+            user.setGradeId(rs.getString("GRADE_ID"));
+
+            return user;
+        }, userNo);
+    }
 }
 

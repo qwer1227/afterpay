@@ -118,7 +118,7 @@
             </li>
             <li>
                 <label class="col-10">배송비</label>
-                <span>\<%=Utils.toCurrency(deliveryPrice)%></span>
+                <span>\<%=Utils.toCurrency(order.getDeliveryPrice())%></span>
             </li>
             <li>
                 <div class="bg-secondary bg-opacity-25">

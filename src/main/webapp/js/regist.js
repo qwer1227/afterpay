@@ -7,6 +7,7 @@ function sendit() {
     const email = document.getElementById('user_email');
     const phone = document.getElementById('user_phone');
     const termsCheckbox = document.getElementById('terms');
+    const address = document.getElementById('user_address');
 
 
     // 정규 표현식
@@ -35,7 +36,7 @@ function sendit() {
     }
 
     if (!expIdText.test(userid.value)) {
-        alert('아이디는 4자 이상 20자 이하의 대소문자로 시작하는 조합입니다');
+        alert('아이디는 4자 이상 20자 이하의 영문 대소문자로 시작하는 조합입니다');
         userid.focus();
         return false
     }
@@ -81,10 +82,17 @@ function sendit() {
         return false
     }
 
+    if (address.value === ''){
+        alert('주소를 입력하세요');
+        return false;
+    }
+
     if (!termsCheckbox.checked) {
         alert('이용약관에 동의해야 회원가입을 진행할 수 있습니다');
         return false
     }
+    
+
 
     return true
 }

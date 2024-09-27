@@ -343,14 +343,12 @@
         if (event.target.value !== "type") {
             // 선택한 도메인을 input에 입력하고 disabled
             domainInputEl.value = event.target.value
-            domainInputEl.disabled = true
+            domainInputEl.readOnly  = true
         } else { // 직접 입력 시
             // input 내용 초기화 & 입력 가능하도록 변경
             domainInputEl.value = ""
-            domainInputEl.disabled = false
+            domainInputEl.readOnly  = false
         }
-
-
     })
 
     const telInput = document.getElementById('tel');
@@ -389,7 +387,7 @@
     const maxPoint = parseInt(userPoint.value); // 최대 포인트
     const userPoints = parseInt(userPoint.value); // 사용 포인트
 
-    
+
     const domain = document.getElementById('domain-txt').value;
     function checkForm() {
 

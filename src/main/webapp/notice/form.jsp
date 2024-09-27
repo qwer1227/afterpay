@@ -25,9 +25,9 @@
 %>
 <%@ include file="/common/nav.jsp" %>
 <%
-    //  if (loginedUserId == null) {
+//      if (loginedUserId == null) {
 //    response.sendRedirect("/login-form.jsp");
-//    return
+//    return;
 //  }
     String nno = request.getParameter("nno");
 

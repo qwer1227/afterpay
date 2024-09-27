@@ -15,7 +15,7 @@
 
     qna.setNo(qnaNo);
     qna.setRepliedContent(null);
-    qna.setRepliedDate(new Date());
+    qna.setRepliedDate(null);
 
     qnaDao.updateQna(qna);
 

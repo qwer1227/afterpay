@@ -37,7 +37,7 @@
     <div class="row">
         <div class="card">
             <div class="card-header">
-                <h3 class="text-center">사이즈별 재고 사항</h3>
+                <h3 class="text-center">사이즈별 재고 현황</h3>
             </div>
             <div class="card-body">
                 <table class="table">

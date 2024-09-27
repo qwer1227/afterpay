@@ -89,6 +89,8 @@
     addr.setAddr1(address);
     addr.setAddr2(detailaddr);
     addr.setUser(user);
+    addr.setIsAddrHome("Y");
+    addr.setRecipient(user.getName());
 
     addrDao.insertAddr(addr);
 

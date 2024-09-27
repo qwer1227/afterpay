@@ -38,35 +38,23 @@
         return;
     }
 
+    // 주문번호
     int orderNo = Utils.toInt(request.getParameter("orderNo"));
 
-
-    // 조회할 상품 정보
-    int deliveryNo = Utils.toInt(request.getParameter("deliveryNo"));
+    // 주문번호로 주문 조회
     OrderDao orderDao = new OrderDao();
-    Order order = new Order();
+    Order order = orderDao.getOrderByNo(orderNo);
 
+    // 주문번호로 배송상품 목록 가져오기
     DeliveryDao deliveryDao = new DeliveryDao();
-    Delivery delivery = deliveryDao.getDeliveryByNo(deliveryNo);
-    List<Delivery> deliveries = new ArrayList<>();
-
-
-    if (orderNo != 0) {
-        order = orderDao.getOrderByNo(orderNo);
-        deliveries = deliveryDao.getAllDeliveryByOrderNo(orderNo);
-    }
-
-    if (orderNo == 0) {
-        order = orderDao.getOrderByNo(delivery.getOrder().getNo());
-        deliveries = deliveryDao.getAllDeliveryByOrderNo(order.getNo());
-    }
-
-    UserDao userDao = new UserDao();
+    List<Delivery> deliveries = deliveryDao.getAllDeliveryByOrderNo(orderNo);
     AddrDao addrDao = new AddrDao();
-    User user = userDao.getUserById("hong");
-    order.setUser(user);
-
     Addr addr = addrDao.getAddrByNo(order.getAddr().getNo());
+
+    // 회원조회
+    UserDao userDao = new UserDao();
+    User user = userDao.getUserById(userID);
+    order.setUser(user);
 %>
 <div class="container ">
     <h3 class="mb-5 pt-3">주문상세조회</h3>
@@ -119,16 +107,12 @@
     <div class="row mb-5 p-3 border-top border-4 border-dark">
         <hr>
         <%
-            String recipient = "";
             ProductDao productDao = new ProductDao();
-            int totalPrice = 0;
-            for (Delivery delivery1 : deliveries) {
-                List<Image> images = productDao.getAllImagesByNo(delivery1.getProduct().getNo());
-                Product product = productDao.getProductByNo(delivery1.getProduct().getNo());
-                recipient = delivery1.getRecipient();
+            for (Delivery delivery : deliveries) {
+                List<Image> images = productDao.getAllImagesByNo(delivery.getProduct().getNo());
+                Product product = productDao.getProductByNo(delivery.getProduct().getNo());
                 StockDao stockDao = new StockDao();
-                Stock stock = stockDao.getStockByNo(delivery1.getStock().getNo());
-                totalPrice += delivery1.getPrice() * delivery1.getAmount();
+                Stock stock = stockDao.getStockByNo(delivery.getStock().getNo());
         %>
         <div class="col-2 mb-2">
             <img src="../common/images/<%=images.get(0).getName()%>" class="rounded float-start"
@@ -140,7 +124,7 @@
                 </li>
                 <li>옵션: <%=stock.getSize()%>
                 </li>
-                <li>수량: <%=delivery1.getAmount()%>
+                <li>수량: <%=delivery.getAmount()%>
                 </li>
                 <li>상품 가격: \<%=Utils.toCurrency(product.getPrice())%>
                 </li>
@@ -157,26 +141,21 @@
             총 주문금액
         </div>
         <div class="col-9 border-top p-3">
-            \<%=Utils.toCurrency(totalPrice)%>
+            \<%=Utils.toCurrency(order.getPrice())%>
         </div>
         <div class="col-3 border-top bg-secondary bg-opacity-10 p-3 ps-4">
             배송비
         </div>
         <div class="col-9 border-top p-3">
-            \<%=Utils.toCurrency(3000)%>
+            \<%=Utils.toCurrency(order.getDeliveryPrice())%>
         </div>
         <div class="col-3 border-top border-bottom bg-secondary bg-opacity-10 p-3 ps-4">
             결제예정금액
         </div>
         <div class="col-9 border-top border-bottom p-3">
-            \<%=Utils.toCurrency(totalPrice + 3000)%>
+            \<%=Utils.toCurrency(order.getPaymentPrice())%>
         </div>
     </div>
-        <%
-    // 배송지 정보 가져오기
-    addrDao.getAddrByNo(order.getAddr().getNo());
-
-%>
     <h4>배송지정보</h4>
     <div class="row border-top border-4 border-dark justify-content-md-center mb-3">
         <div class="col-3 bg-secondary bg-opacity-10 p-3 ps-4">

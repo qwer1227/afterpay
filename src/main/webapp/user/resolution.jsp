@@ -125,8 +125,6 @@
                     %>
                     <tr class="align-middle">
                         <td>
-                            <input type="checkbox" class="chkbox" name="orderNo" style="zoom: 1.5"
-                                   value="<%=delivery.getNo()%>">
                         </td>
                         <td>
                             <img src="../common/images/<%=images.get(0).getName()%>" class="rounded float-start"
@@ -143,7 +141,7 @@
                             <p>결제금액: <%=Utils.toCurrency(delivery.getPrice())%> 원</p>
                             <p>주문일자: <%=delivery.getOrder().getOrderDate()%>
                             </p>
-                            <p>주문상태: <%=delivery.getStatus()%>
+                            <p>배송상태: <%=delivery.getStatus()%>
                             </p>
                         </td>
                         <td class="text-center">
@@ -154,8 +152,8 @@
                             <div>
                                 <a href="../order/order-form.jsp?stockNo=<%=stock.getNo()%>&amount=<%=delivery.getAmount()%>"
                                    type="button" class="btn mt-1 btn-outline-primary">재 구 매</a></div>
-                            <div><a href="" type="submit" class="btn mt-1 btn-outline-success">리뷰쓰기</a></div>
-                            <div><a href="" type="submit" class="btn mt-1 btn-outline-success">작성한 리뷰</a></div>
+                            <div><a href="/review/review-form.jsp?pno=<%=product.getNo()%>" type="button"
+                                    class="btn mt-1 btn-outline-success">리뷰쓰기</a></div>
                         </td>
                     </tr>
                     <%

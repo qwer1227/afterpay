@@ -43,6 +43,9 @@
     int deliveryPrice = Integer.parseInt(request.getParameter("deliveryPrice"));            // 배송비
     int paymentPrice = Integer.parseInt(request.getParameter("paymentPrice"));              // 결제 금액
     String message = request.getParameter("message");                                       // 배송 메세지
+    if (message == "") {
+        message = "방문전 연락 부탁드립니다.";
+    }
     int totalAmount = Utils.toInt(request.getParameter("totalAmount"));                     // 주문 상품 전체 개수
     int point = Utils.toInt("point");                                                       // 적립금
     // 주문 상품 개수
@@ -103,6 +106,7 @@
     // 배송지 저장
     List<Addr> addrs = addrDao.getAllAddrByUserNo(userNo);
     Addr addr = new Addr();
+    addr.setUser(user);
     if (recipient == null) {
         recipient = userDao.getUserByNo(userNo).getName();
     }
@@ -116,6 +120,9 @@
         }
         if (findAddr.getAddr1().equals(address)
                 && findAddr.getAddr2().equals(detailAddr)) {
+            findAddr.setTel(tel);
+            findAddr.setRecipient(recipient);
+            addrDao.insertAddr(findAddr);
             break;
         } else {
             addr.setName("새 배송지");
@@ -123,7 +130,6 @@
             addr.setZipCode(zipcode);
             addr.setAddr1(address);
             addr.setAddr2(detailAddr);
-            addr.setUser(user);
             addr.setRecipient(recipient);
             if (findAddr.getIsAddrHome().equals("Y")) {
                 addr.setIsAddrHome("N");

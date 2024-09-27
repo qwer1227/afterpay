@@ -6,6 +6,7 @@
 <%@ page import="com.jhta.afterpay.user.UserDao" %>
 <%@ page import="com.jhta.afterpay.user.User" %>
 <%@ page import="com.jhta.afterpay.util.Utils" %>
+<%@ page import="org.apache.commons.codec.digest.DigestUtils" %>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 
 <%
@@ -52,7 +53,9 @@
         // Text
         message.setText(tempPw);    //메일 내용을 입력
 
-        userDao.UpdatePw(tempPw, id, email, name);
+        String sha256 = DigestUtils.sha256Hex(tempPw);
+
+        userDao.UpdatePw(sha256, id, email, name);
 
         // send the message
         Transport.send(message); ////전송

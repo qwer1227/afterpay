@@ -22,6 +22,11 @@
         return;
     }
 
+    if("Y".equals(user.getIsSignOut())){
+        response.sendRedirect("login-form.jsp?invalid");
+        return;
+    }
+
     String sha256Password = DigestUtils.sha256Hex(pwd);
     if (!sha256Password.equals(user.getPwd())) {
         response.sendRedirect("login-form.jsp?invalid");

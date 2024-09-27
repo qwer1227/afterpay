@@ -174,6 +174,7 @@ public class QnaDao {
                     , QNA_CONTENT
                     , QNA_CREATED_DATE
                     , QNA_REPLIED_CONTENT
+                    , QNA_REPLIED_DATE
                 FROM QNAS
                 WHERE QNA_NO = ?
                 """;
@@ -186,6 +187,7 @@ public class QnaDao {
             qna.setContent(rs.getString("qna_content"));
             qna.setCreatedDate(rs.getDate("qna_created_date"));
             qna.setRepliedContent(rs.getString("qna_replied_content"));
+            qna.setRepliedDate(rs.getDate("qna_replied_date"));
 
             return qna;
         }, qnaNo);

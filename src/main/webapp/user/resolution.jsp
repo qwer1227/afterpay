@@ -196,7 +196,7 @@
         </div>
     </div>
 </div>
-</div>
+<%@include file="../common/footer.jsp" %>
 
 <script type="text/javascript">
     function checkAll(el) {
@@ -207,6 +207,5 @@
     }
 </script>
 
-<%@include file="../common/footer.jsp" %>
 </body>
 </html>

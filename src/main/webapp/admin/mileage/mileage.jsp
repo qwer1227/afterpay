@@ -26,7 +26,7 @@
 <div class="container mb-5"  style="margin-top: 100px;">
     <div class="rom mb-3">
         <div class="col-10 offset-1">
-            <h2 class="text-center"><strong>회원관리 페이지</strong></h2>
+            <h2 class="text-center"><strong>적립금관리 페이지</strong></h2>
         </div>
     </div>
 

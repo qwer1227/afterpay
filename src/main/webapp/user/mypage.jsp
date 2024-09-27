@@ -104,22 +104,22 @@
   <div class="row mb-3">
     <div class="col-12">
       <div class="list-group">
-        <a href="/user/orders.jsp" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
+        <a href="/user/orders.jsp" style="border: 1px solid black" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
           주문 내역
         </a>
-        <a href="/user/resolution.jsp" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
+        <a href="/user/resolution.jsp" style="border: 1px solid black" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
           취소/반품/교환 내역
         </a>
-        <a href="/user/cart.jsp" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
+        <a href="/user/cart.jsp" style="border: 1px solid black" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
           장바구니
         </a>
-        <a href="/user/wish-list.jsp" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
+        <a href="/user/wish-list.jsp" style="border: 1px solid black" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
           위시리스트
         </a>
-        <a href="/qna/user-qna.jsp" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
+        <a href="/qna/user-qna.jsp" style="border: 1px solid black" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
           상품 문의 내역
         </a>
-        <a href="../logout.jsp" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
+        <a href="../logout.jsp" style="border: 1px solid black" class="fs-5 mb-3 list-group-item list-group-item-action p-3 btn btn-outline-secondary">
           로그아웃
         </a>
       </div>

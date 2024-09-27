@@ -22,7 +22,7 @@ public class AddrDao {
                 values(ADDR_NO_SEQ.NEXTVAL
                 , ?
                 ,?, ?, ?
-                ,?, ?, ?)
+                ,?, ?,?)
                 """;
         DaoHelper.insert(sql
                 , addr.getTel()

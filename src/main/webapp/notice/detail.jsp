@@ -76,7 +76,7 @@
                     </tr>
                 </table>
                 <%
-                    if (session.getAttribute("USERID") != null) {
+                    if ("ADMIN".equals(session.getAttribute("USERID"))) {
                 %>
                 <div class="float-end">
                     <a href="/notice/form.jsp?nno=<%=noticeNo%>" class="btn btn-warning">수정</a>

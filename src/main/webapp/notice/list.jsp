@@ -79,7 +79,7 @@
             </tbody>
         </table>
         <%
-            if (session.getAttribute("USERID") != null) {
+            if ("ADMIN".equals(session.getAttribute("USERID"))) {
         %>
         <div class="float-end">
             <a href="/notice/form.jsp?" class="btn btn-primary">새 글</a>

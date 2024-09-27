@@ -35,7 +35,7 @@
     String detailAddr = request.getParameter("detailAddress");                              // 상세주소
     String tel = request.getParameter("tel");                                               // 전화번호
     String zipcode = request.getParameter("zipcode");                                       // 우편번호
-    String email = request.getParameter("emailId") + "@" + request.getParameter("domain");  // 이메일
+    String email = request.getParameter("emailId") + "@"+request.getParameter("domain");   // 이메일 아이디
     String recipient = request.getParameter("recipient");                                   // 수령인
     String userName = request.getParameter("userName");                                     // 주문자명
     int totalPrice = Integer.parseInt(request.getParameter("totalPrice"));                  // 주문 가격

@@ -19,13 +19,13 @@
   <title>AFTER PAY_Shopping List</title>
 </head>
 <style>
-    h2 {
-        text-align: center;
-    }
+  h2 {
+    text-align: center;
+  }
 
-    #cart-info {
-        height: 120px;
-    }
+  #cart-info {
+    height: 120px;
+  }
 </style>
 <body>
 <%@include file="../common/nav.jsp" %>
@@ -38,7 +38,7 @@
   // 장바구니 목록 가져오기
   CartDao cartDao = new CartDao();
   List<Cart> carts = cartDao.getAllCartsByUserNo(userNo);
-  
+
   int totalRows = carts.size();
   int pageNo = Utils.toInt(request.getParameter("page"), 1);
   Pagination pagination = new Pagination(pageNo, totalRows);
@@ -72,12 +72,13 @@
               </button>
             </div>
             <%
-              } else {
+            } else {
             %>
             <div class="row mb-3">
               <div class="col-6">
                 <div class="text-start">
-                  <input id="check-all" type="checkbox" name="all" style="zoom:1.8" onchange="checkAll()">
+                  <input id="check-all" type="checkbox" name="all" style="zoom:1.8"
+                         onchange="checkAll()">
                 </div>
               </div>
               <div class="col-6">
@@ -100,7 +101,7 @@
                     <col width="15%">
                   </colgroup>
                   <tbody>
-                  
+
                   <%--주문내역 상품 보여주기--%>
                   <%
                     int amount = 0;
@@ -153,7 +154,8 @@
                               onclick="location.href='../product/detail.jsp?pno=<%=product.getNo()%>'">
                         상세보기
                       </button>
-                      <a href="cart-delete.jsp?cartNo=<%=cartNo%>" class="btn btn-outline-danger mt-2">
+                      <a href="cart-delete.jsp?cartNo=<%=cartNo%>"
+                         class="btn btn-outline-danger mt-2">
                         삭제
                       </a>
                     </td>
@@ -172,7 +174,8 @@
             <div>
               <ul class="pagination justify-content-center">
                 <li class="page-item <%=pagination.isFirst() ? "disabled" : ""%>">
-                  <a href="cart.jsp?userNo=<%=userNo%>&page=<%=pagination.getPrev() %>" class="page-link">이전</a>
+                  <a href="cart.jsp?userNo=<%=userNo%>&page=<%=pagination.getPrev() %>"
+                     class="page-link">이전</a>
                 </li>
                 <%
                   for (int num = pagination.getBeginPage(); num <= pagination.getEndPage(); num++) {
@@ -185,14 +188,15 @@
                   }
                 %>
                 <li class="page-item <%=pagination.isLast() ? "disabled" : "" %>">
-                  <a href="cart.jsp?userNo=<%=userNo%>&page=<%=pagination.getNext() %>" class="page-link">다음</a>
+                  <a href="cart.jsp?userNo=<%=userNo%>&page=<%=pagination.getNext() %>"
+                     class="page-link">다음</a>
                 </li>
               </ul>
             </div>
             <%
               }
             %>
-            
+
             <!-- Item Total Info -->
             <div class="text-center mt-4 mb-5">
               <div class="row fs-5" id="cart-info">
@@ -203,7 +207,8 @@
                     <td>배송비</td>
                     <td>총 결제 금액</td>
                     <td rowspan="2">
-                      <button type="submit" class="btn btn-outline-success btn-lg">지금 주문하기</button>
+                      <button type="submit" class="btn btn-outline-success btn-lg">지금 주문하기
+                      </button>
                     </td>
                   </tr>
                   <tr>
@@ -231,102 +236,104 @@
             </div>
           </div>
         </div>
-          <%
-              }
-          %>
+        <%
+          }
+        %>
       </form>
     </div>
   </div>
-  <script type="text/javascript">
-      function checkAll() {
-          let isChecked = document.querySelector("[name=all]").checked;
-          console.log('체크여부', isChecked);
+</div>
+<%@include file="../common/footer.jsp" %>
 
-          let checkBoxes = document.querySelectorAll("[name=cartNo]");
-          checkBoxes.forEach(function (el) {
-              el.checked = isChecked;
-          })
+<script type="text/javascript">
+  function checkAll() {
+    let isChecked = document.querySelector("[name=all]").checked;
+    console.log('체크여부', isChecked);
 
-          refreshSummary()
+    let checkBoxes = document.querySelectorAll("[name=cartNo]");
+    checkBoxes.forEach(function (el) {
+      el.checked = isChecked;
+    })
+
+    refreshSummary()
+  }
+
+  function checkSelect() {
+    let checkBoxes = document.querySelectorAll("[name=stockNo]");
+    let checkBoxesLength = checkBoxes.length;
+    let checkedLength = 0;
+
+    for (let el of checkBoxes) {
+      if (el.checked) {
+        checkedLength++;
       }
+    }
 
-      function checkSelect() {
-          let checkBoxes = document.querySelectorAll("[name=stockNo]");
-          let checkBoxesLength = checkBoxes.length;
-          let checkedLength = 0;
+    if (checkBoxesLength === checkedLength) {
+      document.querySelector("[name=all]").checked = true;
+    } else {
+      document.querySelector("[name=all]").checked = false;
+    }
 
-          for (let el of checkBoxes) {
-              if (el.checked) {
-                  checkedLength++;
-              }
-          }
+    refreshSummary()
+  }
 
-          if (checkBoxesLength === checkedLength) {
-              document.querySelector("[name=all]").checked = true;
-          } else {
-              document.querySelector("[name=all]").checked = false;
-          }
+  function refreshSummary() {
+    let checkboxes = document.querySelectorAll("[name=cartNo]");
+    let checkedCnt = 0;
+    let totalAmount = 0;
+    let totalPrice = 0;
+    for (let checkbox of checkboxes) {
+      // 만약 체크박스가 선택된 것이 있으면
+      if (checkbox.checked) {
+        // 체크된 개수 증가
+        checkedCnt++;
+        // 선택된 체크박스에서 위시번호와 가격을 가져옴
+        let cartNo = checkbox.value;
+        let amount = document.getElementById("cart-" + cartNo + "-amount").value
+        let price = document.getElementById("cart-" + cartNo + "-price").value
 
-          refreshSummary()
+        totalAmount += parseInt(amount);
+        // 읽어온 가격을 총 금액에 추가
+        totalPrice += parseInt(price * amount);
       }
-
-      function refreshSummary() {
-          let checkboxes = document.querySelectorAll("[name=cartNo]");
-          let checkedCnt = 0;
-          let totalAmount = 0;
-          let totalPrice = 0;
-          for (let checkbox of checkboxes) {
-              // 만약 체크박스가 선택된 것이 있으면
-              if (checkbox.checked) {
-                  // 체크된 개수 증가
-                  checkedCnt++;
-                  // 선택된 체크박스에서 위시번호와 가격을 가져옴
-                  let cartNo = checkbox.value;
-                  let amount = document.getElementById("cart-" + cartNo + "-amount").value
-                  let price = document.getElementById("cart-" + cartNo + "-price").value
-
-                  totalAmount += parseInt(amount);
-                  // 읽어온 가격을 총 금액에 추가
-                  totalPrice += parseInt(price * amount);
-              }
-          }
+    }
 
 
-          // 총 금액이 150000이 넘으면 "무료", 아니면 3000원
-          if (totalPrice >= 150000) {
-              document.getElementById("delivery-fee").textContent = "무료";
-          } else {
-              document.getElementById("delivery-fee").textContent = "3,000";
-          }
+    // 총 금액이 150000이 넘으면 "무료", 아니면 3000원
+    if (totalPrice >= 150000) {
+      document.getElementById("delivery-fee").textContent = "무료";
+    } else {
+      document.getElementById("delivery-fee").textContent = "3,000";
+    }
 
-          // id값이 totalAmount인 곳에 checkedCnt 값 전달
-          document.getElementById("totalAmount").textContent = totalAmount;
-          // id값이 cart-total-price인 곳에 totalPrice 값 전달
-          document.getElementById("cart-total-price").textContent = new Number(totalPrice).toLocaleString();
+    // id값이 totalAmount인 곳에 checkedCnt 값 전달
+    document.getElementById("totalAmount").textContent = totalAmount;
+    // id값이 cart-total-price인 곳에 totalPrice 값 전달
+    document.getElementById("cart-total-price").textContent = new Number(totalPrice).toLocaleString();
+  }
+
+
+  function deleteSelectedCartItem() {
+    let checkboxes = document.querySelectorAll("[name=cartNo]");
+    let isChecked = false;
+
+    for (let checkbox of checkboxes) {
+      if (checkbox.checked) {
+        isChecked = true;
+        break;
       }
+    }
+    if (!isChecked) {
+      alert("삭제할 상품을 체크하세요");
+      return;
+    }
 
+    let form = document.getElementById("cart");
+    form.setAttribute("action", "cart-delete.jsp");
+    form.submit();
+  }
+</script>
 
-      function deleteSelectedCartItem() {
-          let checkboxes = document.querySelectorAll("[name=cartNo]");
-          let isChecked = false;
-
-          for (let checkbox of checkboxes) {
-              if (checkbox.checked) {
-                  isChecked = true;
-                  break;
-              }
-          }
-          if (!isChecked) {
-              alert("삭제할 상품을 체크하세요");
-              return;
-          }
-
-          let form = document.getElementById("cart");
-          form.setAttribute("action", "cart-delete.jsp");
-          form.submit();
-      }
-  </script>
-  
-  <%@include file="../common/footer.jsp" %>
 </body>
 </html>

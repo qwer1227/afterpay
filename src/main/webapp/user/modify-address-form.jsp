@@ -107,10 +107,12 @@
             <button type="button" name="btn-addr" id="update-addr" class="btn btn-outline-warning" onclick="modifyform()">
               <i class="bi bi-cursor-text"></i>선택 수정
             </button>
-            </a>
-            <button type="button" name="btn-addr" id=delete-addr" class="btn btn-outline-danger" onclick="deleteAddr()">
+            <!--
+            DB에서 삭제가 아닌 isDeleted로 관리되어야 함. 아예 삭제 버튼은 X
+             <button type="button" name="btn-addr" id=delete-addr" class="btn btn-outline-danger" onclick="deleteAddr()">
               <i class="bi bi-trash"></i>선택 삭제
             </button>
+            -->
           </div>
         </div>
       </form>
@@ -187,24 +189,26 @@
     }
 
     function deleteAddr() {
-      // 체크된 문의번호를 조회
-      let checkBoxes = document.querySelectorAll("input[name=addrNo]");
-      let isChecked = false;
-      // 체크된 문의가 한 건이라도 있으면 참 반환
-      for (let checkBox of checkBoxes) {
-        if (checkBox.checked) {
-          isChecked = true;
-          break;
+        // 체크된 문의번호를 조회
+        let checkBoxes = document.querySelectorAll("input[name=addrNo]");
+        let isChecked = false;
+        // 체크된 문의가 한 건이라도 있으면 참 반환
+        for (let checkBox of checkBoxes) {
+            if (checkBox.checked) {
+                isChecked = true;
+                break;
+            }
         }
-      }
-      // 만약 하나도 선택이 안되면 알림 전송 후, 거짓 반환
-      if (!isChecked) {
-        alert("선택된 배송지가 없습니다.")
-        return false;
-      }
+        // 만약 하나도 선택이 안되면 알림 전송 후, 거짓 반환
+        if (!isChecked) {
+            alert("선택된 배송지가 없습니다.")
+            return false;
+        }
 
-      // 체크된 문의가 있으면 해당 폼을 제출하는 것이 참
-      return true;
+        let deleteForm = document.getElementById("delete-addr");
+        deleteForm.setAttribute("action", "delete-address.jsp");
+        deleteForm.submit();
+
     }
 
     function getCheckedCount() {
@@ -220,5 +224,6 @@
     }
 
 </script>
+<%@include file="../common/footer.jsp" %>
 </body>
 </html>

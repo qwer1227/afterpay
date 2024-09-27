@@ -146,7 +146,7 @@
                         </td>
                         <td class="text-center">
                             <form action="../order/order-detail.jsp">
-                                <input type="hidden" name="deliveryNo" value="<%=delivery.getNo() %>">
+                                <input type="hidden" name="orderNo" value="<%=order.getNo() %>">
                                 <div><input type="submit" class="btn mt-1 btn-outline-info" value="상세보기"></div>
                             </form>
                             <div>

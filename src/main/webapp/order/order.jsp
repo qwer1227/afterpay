@@ -120,6 +120,9 @@
         }
         if (findAddr.getAddr1().equals(address)
                 && findAddr.getAddr2().equals(detailAddr)) {
+            if (findAddr.getIsAddrHome().equals("Y")) {
+                addr.setIsAddrHome("N");
+            }
             findAddr.setTel(tel);
             findAddr.setRecipient(recipient);
             addrDao.insertAddr(findAddr);

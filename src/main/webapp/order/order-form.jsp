@@ -82,6 +82,7 @@
             zipcode = addr.getZipCode();
             addr1 = addr.getAddr1();
             addr2 = addr.getAddr2();
+            break;
         }
     }
     ProductDao productDao = new ProductDao();

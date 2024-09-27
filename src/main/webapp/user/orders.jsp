@@ -73,7 +73,7 @@
                     <div class="text-center m-5">
                         <strong>주문 내역이 없습니다.</strong><br>
                         <br>
-                        <button type="button" onclick="location.href='../index.jsp'"
+                        <button type="button" onclick="location.href='../index2.jsp'"
                                 class="btn btn-lg bg-light border-dark-subtle">지금 바로 쇼핑하러 가기
                         </button>
                     </div>

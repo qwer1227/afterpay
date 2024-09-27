@@ -44,7 +44,7 @@
     int paymentPrice = Integer.parseInt(request.getParameter("paymentPrice"));              // 결제 금액
     String message = request.getParameter("message");                                       // 배송 메세지
     int totalAmount = Utils.toInt(request.getParameter("totalAmount"));                     // 주문 상품 전체 개수
-
+    int point = Utils.toInt("point");                                                       // 적립금
     // 주문 상품 개수
     String[] amount = request.getParameterValues("amount");
     int[] amountArr = new int[amount.length];
@@ -59,17 +59,15 @@
 
     // 상품 재고 번호 가져오기
     String[] stockNo = request.getParameterValues("stockNo");
-    int[] stockNoArr = new int[stockNo.length];
-    for (int i = 0; i < stockNoArr.length; i++) {
-        stockNoArr[i] = Utils.toInt(stockNo[i]);
-    }
+    int[] stockNoArr = null;
+
 
     // 장바구니 주문시 장바구니에서 해당 상품 삭제
     CartDao cartDao = new CartDao();
     String[] cartNo = request.getParameterValues("cartNo");
     int[] cartNoArr = null;
     List<Cart> carts = new ArrayList<>();
-    if (cartNo != null && !cartNo[0].equals(0)) {
+    if (cartNo != null && !cartNo[0].equals("0")) {
         cartNoArr = new int[cartNo.length];
         stockNoArr = new int[cartNoArr.length];
         for (int i = 0; i < cartNoArr.length; i++) {
@@ -163,7 +161,7 @@
     order.setPrice(totalPrice);
     order.setAmount(totalAmount);
     order.setDeliveryPrice(deliveryPrice);
-    order.setUsePoint(1);
+    order.setUsePoint(point);
     order.setDiscountPrice(discountPrice);
     order.setPaymentPrice(paymentPrice);
     order.setDepositPoint(1);

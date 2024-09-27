@@ -24,7 +24,7 @@
 </head>
 <body>
 <%
-    String userNo = String.valueOf(session.getAttribute("USERNO"));
+    int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
     String userId = String.valueOf(session.getAttribute("USERID"));
     if (userId == null) {
         response.sendRedirect("../login-form.jsp?deny");
@@ -33,9 +33,9 @@
 
     // 가장 최근 주문내역 가져오기
     OrderDao orderDao = new OrderDao();
-    Order order = orderDao.getMostLatelyOrderNoByUserNo(7);
+    Order order = orderDao.getMostLatelyOrderNoByUserNo(userNo);
     order = orderDao.getOrderByNo(order.getNo());
-
+    int paymentPrice = order.getPaymentPrice();
 %>
 <%@ include file="../common/nav.jsp" %>
 <div class="container">
@@ -55,7 +55,7 @@
             </li>
             <li>
                 <label class="col-10">결제금액</label>
-                <span>\<%=Utils.toCurrency(order.getPaymentPrice())%></span>
+                <span>\<%=Utils.toCurrency(paymentPrice)%></span>
             </li>
         </ul>
     </div>
@@ -69,6 +69,8 @@
         // 주문내역중 가장 최근 주문 가져오기
         List<Delivery> deliveries = deliveryDao.getAllDeliveryByOrderNo(order.getNo());
     %>
+
+
     <hr>
     <h3 class="mb-3">주문상품</h3>
     <%-- 주문 상품 --%>
@@ -105,7 +107,6 @@
     </div>
     <%
         }
-        int paymentPrice = totalPrice + deliveryPrice;
     %>
     <%-- 결제 정보 --%>
     <div class="row border mb-3 p-3 border-dark">
@@ -122,7 +123,7 @@
             <li>
                 <div class="bg-secondary bg-opacity-25">
                     <label class="col-10"><strong>결제금액</strong></label>
-                    <span><strong>\<%=Utils.toCurrency(order.getPaymentPrice())%></strong></span>
+                    <span><strong>\<%=Utils.toCurrency(paymentPrice)%></strong></span>
                 </div>
             </li>
         </ul>
@@ -136,8 +137,8 @@
             </form>
         </div>
         <div class="col-auto">
-            <button onclick="location.href='../index.jsp'" class="btn btn-dark text-white d-grid" type="button">
-                확인
+            <button onclick="location.href='/index2.jsp'" class="btn btn-dark text-white d-grid" type="button">
+                쇼핑계속하기
             </button>
         </div>
     </div>

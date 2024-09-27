@@ -100,7 +100,8 @@
                 int totalPrice = 0;
                 int totalAmount = 0;
                 int deliveryPrice = 3000;
-                int paymentPrice = 0;
+                int
+                        paymentPrice = 0;
                 int discountPrice = 0;
                 for (int i = 0; i < stockNoArr.length; i++) {
                     // 장바구니 주문이 아니면 장바구니 번호를 담지 않음
@@ -191,8 +192,7 @@
                             @
                         </div>
                         <div class="col-2">
-                            <input type="text" id="domain-txt" class="form-control" name="domain" value="직접입력"
-                                   required/>
+                            <input type="text" id="domain-txt" class="form-control" name="domain" value="직접입력" required/>
                         </div>
                         <div class="col-1">
                             <select id="domain-list">
@@ -211,23 +211,24 @@
                                                           value="<%=user.getName()%>"/></li>
             </ul>
         </div>
-        <label class="mt-3"><h4>적립금 사용하기</h4></label><br>
-        <div class="border-bottom mb-1 p-4 border-dark">
-            <input type="text" id="usePoint" name="point" value="<%=user.getPoint()%>" class="form-control"/>
-            <div id="pointError" style="color: red">
-                0원 미만이거나 보유한 적립금보다 초과된 금액은 불가능 합니다.
-            </div>
-            <%
-                if (user.getPoint() != 0) {
-            %>
-            <div class="mt-1">
-                <input type="text" id="maxPoint" value="<%=user.getPoint()%>" style="display: none">
-                <label>보유한 적립금: </label><span> \<%=Utils.toCurrency(user.getPoint())%></span>
-            </div>
-            <%
-                }
-            %>
-        </div>
+<%--        <label class="mt-3"><h4>적립금 사용하기</h4></label><br>--%>
+<%--        <div class="border-bottom mb-1 p-4 border-dark">--%>
+<%--            <input type="text" id="userPoint" value="<%=user.getPoint()%>" style="display: none">--%>
+<%--            <input type="text" id="usePoint" name="point" placeholder="적립금 사용하기"class="form-control"/>--%>
+<%--            <div id="pointError" style="color: red">--%>
+<%--                0원 미만이거나 보유한 적립금보다 초과된 금액은 불가능 합니다.--%>
+<%--            </div>--%>
+<%--            <%--%>
+<%--                if (user.getPoint() != 0) {--%>
+<%--            %>--%>
+<%--            <div class="mt-1">--%>
+<%--                <label>보유한 적립금: </label><span> \<%=Utils.toCurrency(user.getPoint())%></span>--%>
+<%--            </div>--%>
+<%--            <%--%>
+<%--                    paymentPrice = totalPrice - discountPrice + deliveryPrice;--%>
+<%--                }--%>
+<%--            %>--%>
+<%--        </div>--%>
         <%
             if (user.getGradeId() == "BRONZE") {
                 discountPrice = (int) Math.round(totalPrice * 0.005);
@@ -236,14 +237,18 @@
             } else if (user.getGradeId() == "GOLD") {
                 discountPrice = (int) Math.round(totalPrice * 0.03);
             }
-            paymentPrice = totalPrice - discountPrice + deliveryPrice - user.getPoint();
+
+            if(totalPrice >= 150000) {
+                deliveryPrice = 0;
+            }
+            paymentPrice = totalPrice - discountPrice + deliveryPrice;
         %>
         <div id="price" class="row border-bottom border-2 border-dark">
             <h4>결제 정보</h4>
             <ul class="list-unstyled p-4">
                 <li>
                     <label class="col-10">총 주문 수량</label>
-                    <input type="hidden" name="totalPrice" value="<%=totalAmount%>">
+                    <input type="hidden" name="totalAmount" value="<%=totalAmount%>">
                     <%=Utils.toCurrency(totalAmount)%>
                 </li>
                 <li>
@@ -331,6 +336,7 @@
     // 도메인 직접 입력 or domain option 선택
     const domainListEl = document.querySelector('#domain-list')
     const domainInputEl = document.querySelector('#domain-txt')
+
     // select 옵션 변경 시
     domainListEl.addEventListener('change', (event) => {
         // option에 있는 도메인 선택 시
@@ -343,6 +349,8 @@
             domainInputEl.value = ""
             domainInputEl.disabled = false
         }
+
+
     })
 
     const telInput = document.getElementById('tel');
@@ -374,10 +382,17 @@
         document.querySelector("#addrNull").style.display = 'none';
     }
 
-    const maxPoint = parseInt(document.getElementById('maxPoint').te);
-    const usePoint = parseInt(document.getElementById('usePoint').value);
 
+
+    const pointInput = document.getElementById('usePoint');
+    const userPoint = document.getElementById('userPoint');
+    const maxPoint = parseInt(userPoint.value); // 최대 포인트
+    const userPoints = parseInt(userPoint.value); // 사용 포인트
+
+    
+    const domain = document.getElementById('domain-txt').value;
     function checkForm() {
+
         if (zipcode.value == "" || addr1.value == "") {
             document.querySelector("#addrNull").style.display = 'block';
             return false;
@@ -386,15 +401,19 @@
             return true;
         }
 
-        if (0 <= usePoint <= maxPoint) {
+        if (0 <= pointInput <= userPoint) {
             document.querySelector('#pointError').style.display='none';
             return true;
         } else {
             document.querySelector('#pointError').style.display = 'block';
             return false;
         }
-    }
 
+        if (domain == null) {
+            alert("이메일을 입력해주세요");
+            return false;
+        }
+    }
 
 
 

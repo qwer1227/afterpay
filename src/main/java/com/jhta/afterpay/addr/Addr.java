@@ -6,6 +6,7 @@ public class Addr {
     private int no;
     private String name;
     private String tel;
+    private String email;
     private String zipCode;
     private String addr1;
     private String addr2;
@@ -92,4 +93,5 @@ public class Addr {
     public void setRecipient(String recipient) {
         this.recipient = recipient;
     }
+
 }

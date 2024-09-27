@@ -97,26 +97,26 @@ public class OrderDao {
     public List<Delivery> getDeliveriesByOrderNo(int orderNo) {
 
         String sql = """
-                select
-                    o.delivery_no,
-                    o.delivery_product_price,
-                    o.delivery_product_amount,
-                    o.delivery_status,
-                    p.product_no,
-                    p.product_name,
-                    p.product_price,
-                    (select img_name
-                     from product_imgs
-                     where product_no = p.product_no
-                     and isthumb = 'Y') default_Image,
-                    s.product_stock_no,
-                    s.product_stock_size
-
-                from order_delivery_products o, products p, product_stocks s
-                where o.order_no = ?
-                and o.product_no = p.product_no
-                and o.product_stock_no = s.product_stock_no
-	""";
+                               select
+                                   o.delivery_no,
+                                   o.delivery_product_price,
+                                   o.delivery_product_amount,
+                                   o.delivery_status,
+                                   p.product_no,
+                                   p.product_name,
+                                   p.product_price,
+                                   (select img_name
+                                    from product_imgs
+                                    where product_no = p.product_no
+                                    and isthumb = 'Y') default_Image,
+                                   s.product_stock_no,
+                                   s.product_stock_size
+                
+                               from order_delivery_products o, products p, product_stocks s
+                               where o.order_no = ?
+                               and o.product_no = p.product_no
+                               and o.product_stock_no = s.product_stock_no
+                """;
 
         return DaoHelper.selectList(sql, rs -> {
 
@@ -134,7 +134,7 @@ public class OrderDao {
             delivery.setProduct(product);
 
             Stock stock = new Stock();
-		    stock.setProductNo(rs.getInt("product_stock_no"));
+            stock.setProductNo(rs.getInt("product_stock_no"));
             stock.setSize(rs.getString("product_stock_size"));
             delivery.setStock(stock);
 
@@ -292,6 +292,52 @@ public class OrderDao {
     }
 
     /**
+     * 회원번호로 모든 주문조회
+     *
+     * @param userNo
+     * @param begin
+     * @param end
+     * @return
+     */
+    public List<Order> getAllOrdersByUserNoCancelDelivery(int userNo, int begin, int end) {
+        String sql = """
+                SELECT *
+                FROM (
+                       SELECT row_number() over (order by O.order_no desc) AS rn
+                            , O.order_no
+                            , O.payment_price
+                            , O.order_date
+                            , O.order_amount
+                            , O.order_status
+                            , D.DELIVERY_NO
+                       From ORDERS O, ORDER_DELIVERY_PRODUCTS D
+                       where user_no = ?
+                       AND O.order_no = d.order_no
+                       AND D.DELIVERY_STATUS= '취소'
+                       OR D.DELIVERY_STATUS= '반품'
+                       OR D.DELIVERY_STATUS= '환불'
+                       order by order_no desc
+                )  
+                WHERE rn BETWEEN ? AND ?
+                """;
+
+        return DaoHelper.selectList(sql, rs -> {
+            Order order = new Order();
+
+            User user = new User();
+            user.setNo(userNo);
+            order.setUser(user);
+
+            order.setNo(rs.getInt("ORDER_NO"));
+            order.setOrderDate(rs.getDate("ORDER_DATE"));
+            order.setStatus(rs.getString("ORDER_STATUS"));
+            order.setAmount(rs.getInt("ORDER_AMOUNT"));
+            order.setPaymentPrice(rs.getInt("PAYMENT_PRICE"));
+            return order;
+        }, userNo, begin, end);
+    }
+
+    /**
      * 회원번호로 가장 최근 주문조회
      *
      * @param userNo
@@ -341,6 +387,27 @@ public class OrderDao {
                 """;
         return DaoHelper.selectOneInt(sql, userNo);
     }
+
+    /**
+     * 회원번호로 조회되는 모든 주문 개수
+     *
+     * @param userNo
+     * @return
+     */
+    public int getTotalRowsHaveCancelDeliveryOrderByUserNo(int userNo) {
+        String sql = """
+                    select count(*)
+                    from ORDERS O, ORDER_DELIVERY_PRODUCTS D
+                    where O.USER_NO = ?
+                    AND o.order_no = d.order_no
+                    AND D.ORDER_NO = O.ORDER_NO
+                    AND DELIVERY_STATUS = '취소'
+                    OR DELIVERY_STATUS = '반품'
+                    OR DELIVERY_STATUS = '환불'
+                """;
+        return DaoHelper.selectOneInt(sql, userNo);
+    }
+
 
     /**
      * 전체 회원 수를 조회해서 반환한다.
@@ -411,5 +478,6 @@ public class OrderDao {
 
         DaoHelper.update(sql, delivery.getStatus(), delivery.getNo());
     }
+
 
 }

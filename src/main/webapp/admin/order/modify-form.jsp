@@ -36,7 +36,7 @@
 
     <div class="row mb-3">
         <div class="col-9 offset-2">
-            <h2 class="text-center"><strong>주문 상세조회</strong></h2>
+            <h2 class="text-center"><strong>주문정보 수정</strong></h2>
         </div>
     </div>
 
@@ -153,8 +153,8 @@
                             </div>
                         </div>
                         <div class=" text-end my-2">
-                            <button type="submit" class="btn btn-primary">주문수정</button>
-                            <a href="order.jsp" class="btn btn-success">주문목록</a>
+                            <button type="submit" class="btn btn-primary">수정완료</button>
+                            <a href="order.jsp" class="btn btn-success">수정취소</a>
                         </div>
                     </div>
                 </div>

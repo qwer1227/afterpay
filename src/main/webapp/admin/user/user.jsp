@@ -23,6 +23,12 @@
 </head>
 <body>
 <%@ include file="../../common/nav.jsp" %>
+<%
+    if (userID == null || !userID.equals("ADMIN")) {
+        response.sendRedirect("/login-form.jsp?deny");
+        return;
+    } else {
+%>
 <div class="container mb-5"  style="margin-top: 100px;">
     <div class="rom mb-3">
         <div class="col-10 offset-1">
@@ -106,11 +112,13 @@
                 %>
                 <!--버튼-->
                 <div class="text-end my-2">
-                    <a href="form.jsp" class="btn btn-success">회원등록</a>
                 </div>
             </div>
         </div>
     </div>
+<%
+    }
+%>
 <%@ include file="../../common/footer.jsp" %>
 </body>
 </html>

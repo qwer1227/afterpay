@@ -113,11 +113,6 @@
             <%
                 }
             %>
-            <!--버튼-->
-            <div class="text-end my-2">
-                <a href="#" class="btn btn-danger">글삭제</a>
-                <a href="#" class="btn btn-success">글등록</a>
-            </div>
         </div>
     </div>
 </div>

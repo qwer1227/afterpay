@@ -1,9 +1,5 @@
 package com.jhta.afterpay.user;
 
-import com.jhta.afterpay.addr.Addr;
-
-import java.awt.*;
-
 import java.util.Date;
 
 public class User {
@@ -139,12 +135,9 @@ public class User {
         this.createdDate = createdDate;
     }
 
-    public String getGradeId() {
-        return gradeId;
-    }
+    public String getGradeId() { return gradeId; }
 
     public void setGradeId(String gradeId) {
         this.gradeId = gradeId;
     }
-
 }

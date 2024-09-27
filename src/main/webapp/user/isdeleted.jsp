@@ -8,5 +8,6 @@
     UserDao userDao = new UserDao();
     userDao.DeletedByUserId(type,userID);
 
-    response.sendRedirect("/index.jsp");
+
+    response.sendRedirect("/logout.jsp");
 %>

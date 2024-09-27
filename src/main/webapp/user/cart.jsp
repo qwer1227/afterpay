@@ -150,7 +150,7 @@
                     </td>
                     <td class="align-middle text-end">
                       <button type="button" class="btn btn-outline-primary"
-                              onclick="location.href='../product/detail.jsp?pno=<%=product.getNo()%>'">
+                              onclick="location.href='../product/detail.jsp'">
                         상세보기
                       </button>
                       <a href="cart-delete.jsp?cartNo=<%=cartNo%>" class="btn btn-outline-danger mt-2">

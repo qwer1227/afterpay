@@ -15,7 +15,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
-<%@include file="../common/nav.jsp" %>
+<%@include file="../../common/nav.jsp" %>
 <%
     int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
     if (userID == null) {

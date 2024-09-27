@@ -23,7 +23,13 @@
 </head>
 <body>
 <%@ include file="../../common/nav.jsp" %>
-<div class="container mb-5"  style="margin-top: 100px;">
+<%
+    if (userID == null || !userID.equals("ADMIN")) {
+        response.sendRedirect("/login-form.jsp?deny");
+        return;
+    } else {
+%>
+<div class="container mb-5" style="margin-top: 100px;">
     <div class="rom mb-3">
         <div class="col-9 offset-2">
             <h2 class="text-center"><strong>주문관리 페이지</strong></h2>
@@ -67,7 +73,8 @@
                     for (Order order : orders) {
                 %>
                 <tr>
-                    <td><a href="detail.jsp?no=<%=order.getNo() %>"><%=order.getNo()%></a>
+                    <td><a href="detail.jsp?no=<%=order.getNo() %>"><%=order.getNo()%>
+                    </a>
                     </td>
                     <td><%=order.getOrderDate()%>
                     </td>
@@ -77,7 +84,7 @@
                     </td>
                     <td><%=order.getStatus()%>
                     </td>
-                <%
+                        <%
                     }
                 %>
                 </tbody>
@@ -112,6 +119,9 @@
         </div>
     </div>
 </div>
+<%
+    }
+%>
 <%@ include file="../../common/footer.jsp" %>
 </body>
 </html>

@@ -5,6 +5,7 @@ plugins {
 
 group 'com.jhta'
 version '1.0-SNAPSHOT'
+apply plugin: 'war'
 
 repositories {
   mavenCentral()
@@ -19,6 +20,10 @@ targetCompatibility = '21'
 
 tasks.withType(JavaCompile) {
   options.encoding = 'UTF-8'
+}
+
+war {
+  archiveFileName = 'ROOT.war'
 }
 
 dependencies {

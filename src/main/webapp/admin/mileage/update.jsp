@@ -5,6 +5,13 @@
 <%@ page import="com.jhta.afterpay.user.PointHistoryDao" %>
 
 <%
+    String userID = (String) session.getAttribute("USERID");
+    if (userID == null || !userID.equals("ADMIN")) {
+        response.sendRedirect("/login-form.jsp?deny");
+        return;
+    } else {
+
+    }
     // 요청 파라미터 값을 조회
     int userNo = Utils.toInt(request.getParameter("userNo"));
     int point = Utils.toInt(request.getParameter("point"));

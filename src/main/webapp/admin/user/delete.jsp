@@ -4,6 +4,12 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 
 <%
+    String userID = (String) session.getAttribute("USERID");
+    if (userID == null || !userID.equals("ADMIN")) {
+        response.sendRedirect("/login-form.jsp?deny");
+        return;
+    }
+
     // 요청 값 받기
     int userNo = Utils.toInt(request.getParameter("no"));
 

@@ -22,6 +22,12 @@
 </head>
 <body>
 <%@ include file="../../common/nav.jsp" %>
+<%
+    if (userID == null || !userID.equals("ADMIN")) {
+        response.sendRedirect("/login-form.jsp?deny");
+        return;
+    } else {
+%>
 <div class="container mb-5" style="margin-top: 100px;">
     <div class="rom mb-3">
         <div class="col-10 offset-1">
@@ -38,7 +44,6 @@
                 // http://localhost/user/modify-form.jsp?no=xxx
                 // 파라미터값을 전달받아 해당하는 정보를 받아 회원정보 폼에 각 값을 나타낸다.
                 UserDao userDao = new UserDao();
-                AddrDao addrDao = new AddrDao();
 
                 // 세션에서 사용자 번호 가져온다.
                 int userNo = Utils.toInt(request.getParameter("no"));
@@ -79,11 +84,11 @@
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label">등급</label>
                     <div class="col-sm-10">
-                        <select class="form-select" name="gradeId" value="<%=user.getGradeId()%>">
-                            <option>회원 등급을 선택하세요</option>
-                            <option value="BRONZE">브론즈</option>
-                            <option value="SILVER">실버</option>
-                            <option value="GOLD">골드</option>
+                        <select class="form-select" name="gradeId">
+                            <option value="gradeId">회원 등급을 선택하세요</option>
+                            <option value="BRONZE" <%= user.getGradeId() == "BRONZE" ? "selected" : "" %>>브론즈</option>
+                            <option value="SILVER" <%= user.getGradeId() == "SILVER" ? "selected" : "" %>>실버</option>
+                            <option value="GOLD" <%= user.getGradeId() == "GOLD" ? "selected" : "" %>>골드</option>
                         </select>
                     </div>
                 </div>
@@ -91,11 +96,13 @@
                     <label class="col-sm-2 col-form-label">정지여부</label>
                     <div class="col-sm-10">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="isBanned" value="Y">
+                            <input class="form-check-input" type="radio" name="isBanned"
+                                   value="Y" <% if("Y".equals(user.getIsBanned())){%>checked<%}%>>
                             <label class="form-check-label">Y</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="isBanned" value="N">
+                            <input class="form-check-input" type="radio" name="isBanned"
+                                   value="N" <% if("N".equals(user.getIsBanned())){%>checked<%}%>>
                             <label class="form-check-label">N</label>
                         </div>
                     </div>
@@ -104,11 +111,13 @@
                     <label class="col-sm-2 col-form-label">탈퇴여부</label>
                     <div class="col-sm-10">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="isSignOut" value="Y">
+                            <input class="form-check-input" type="radio" name="isSignOut"
+                                   value="Y" <% if("Y".equals(user.getIsSignOut())){%>checked<%}%>>
                             <label class="form-check-label">Y</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="isSignOut" value="N">
+                            <input class="form-check-input" type="radio" name="isSignOut"
+                                   value="N" <% if("N".equals(user.getIsSignOut())){%>checked<%}%>>
                             <label class="form-check-label">N</label>
                         </div>
                     </div>
@@ -121,8 +130,11 @@
                 </div>
             </form>
         </div>
-        </div>
     </div>
-    <%@ include file="../../common/footer.jsp" %>
+</div>
+<%@ include file="../../common/footer.jsp" %>
+<%
+    }
+%>
 </body>
 </html>

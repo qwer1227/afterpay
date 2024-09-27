@@ -211,24 +211,24 @@
                                                           value="<%=user.getName()%>"/></li>
             </ul>
         </div>
-        <label class="mt-3"><h4>적립금 사용하기</h4></label><br>
-        <div class="border-bottom mb-1 p-4 border-dark">
-            <input type="text" id="userPoint" value="<%=user.getPoint()%>" style="display: none">
-            <input type="text" id="usePoint" name="point" placeholder="적립금 사용하기"class="form-control"/>
-            <div id="pointError" style="color: red">
-                0원 미만이거나 보유한 적립금보다 초과된 금액은 불가능 합니다.
-            </div>
-            <%
-                if (user.getPoint() != 0) {
-            %>
-            <div class="mt-1">
-                <label>보유한 적립금: </label><span> \<%=Utils.toCurrency(user.getPoint())%></span>
-            </div>
-            <%
-                    paymentPrice = totalPrice - discountPrice + deliveryPrice;
-                }
-            %>
-        </div>
+<%--        <label class="mt-3"><h4>적립금 사용하기</h4></label><br>--%>
+<%--        <div class="border-bottom mb-1 p-4 border-dark">--%>
+<%--            <input type="text" id="userPoint" value="<%=user.getPoint()%>" style="display: none">--%>
+<%--            <input type="text" id="usePoint" name="point" placeholder="적립금 사용하기"class="form-control"/>--%>
+<%--            <div id="pointError" style="color: red">--%>
+<%--                0원 미만이거나 보유한 적립금보다 초과된 금액은 불가능 합니다.--%>
+<%--            </div>--%>
+<%--            <%--%>
+<%--                if (user.getPoint() != 0) {--%>
+<%--            %>--%>
+<%--            <div class="mt-1">--%>
+<%--                <label>보유한 적립금: </label><span> \<%=Utils.toCurrency(user.getPoint())%></span>--%>
+<%--            </div>--%>
+<%--            <%--%>
+<%--                    paymentPrice = totalPrice - discountPrice + deliveryPrice;--%>
+<%--                }--%>
+<%--            %>--%>
+<%--        </div>--%>
         <%
             if (user.getGradeId() == "BRONZE") {
                 discountPrice = (int) Math.round(totalPrice * 0.005);
@@ -236,6 +236,10 @@
                 discountPrice = (int) Math.round(totalPrice * 0.01);
             } else if (user.getGradeId() == "GOLD") {
                 discountPrice = (int) Math.round(totalPrice * 0.03);
+            }
+
+            if(totalPrice >= 150000) {
+                deliveryPrice = 0;
             }
             paymentPrice = totalPrice - discountPrice + deliveryPrice;
         %>
@@ -382,8 +386,8 @@
 
     const pointInput = document.getElementById('usePoint');
     const userPoint = document.getElementById('userPoint');
-    const points = parseInt(pointInput.value); // 입력된 포인트 값 가져오기
-    const userPoints = parseInt(userPoint.value);
+    const maxPoint = parseInt(userPoint.value); // 최대 포인트
+    const userPoints = parseInt(userPoint.value); // 사용 포인트
 
     
     const domain = document.getElementById('domain-txt').value;

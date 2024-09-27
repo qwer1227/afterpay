@@ -52,7 +52,7 @@
             <div class="row mb-3">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header"><strong>주문정보</strong></div>
+                        <div class="card-header"><strong>회원정보</strong></div>
                         <div class="card-body">
                             <table class="table">
                                 <tbody>

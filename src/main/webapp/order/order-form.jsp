@@ -192,7 +192,7 @@
                             @
                         </div>
                         <div class="col-2">
-                            <input type="text" id="domain-txt" class="form-control" name="domain" value="직접입력" required/>
+                            <input type="text" id="domain-txt" class="form-control" name="domain" required/>
                         </div>
                         <div class="col-1">
                             <select id="domain-list">
@@ -205,7 +205,7 @@
                         </div>
                     </div>
                 </li>
-                <li class="mt-1"><label>배송 메세지</label><input type="text" name="message" class="form-control" value=""/>
+                <li class="mt-1"><label>배송 메세지</label><input type="text" name="message" class="form-control"/>
                 </li>
                 <li class="mt-1"><label>수령인</label><input type="text" name="recipient" class="form-control"
                                                           value="<%=user.getName()%>"/></li>

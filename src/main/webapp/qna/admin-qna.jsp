@@ -75,7 +75,7 @@
                     </td>
                     <td><%=qna.getRepliedDate()%>
                     </td>
-                    <td>답변대기중</td>
+                    <td>답변 준비중</td>
                     <td><%=qna.getCnt()%>
                     </td>
                     <td><%=qna.getUser().getName()%>
@@ -113,11 +113,6 @@
             <%
                 }
             %>
-            <!--버튼-->
-            <div class="text-end my-2">
-                <a href="#" class="btn btn-danger">글삭제</a>
-                <a href="#" class="btn btn-success">글등록</a>
-            </div>
         </div>
     </div>
 </div>

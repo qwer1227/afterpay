@@ -75,8 +75,8 @@
         <div class="text-center m-5">
           <strong>위시리스트 내역이 없습니다.</strong><br>
           <br>
-          <a href="../index.jsp" type="button" class="btn btn-lg bg-light border-dark-subtle">지금 바로 쇼핑하러 가기</a>
-
+          <a href="../index2.jsp" type="button" class="btn btn-lg bg-light border-dark-subtle">지금 바로 쇼핑하러 가기</a>
+        
         </div>
         <%
         } else {

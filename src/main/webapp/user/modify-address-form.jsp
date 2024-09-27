@@ -113,11 +113,12 @@
                                 onclick="modifyform()">
                             <i class="bi bi-cursor-text"></i>선택 수정
                         </button>
-                        </a>
-                        <button type="button" name="btn-addr" id=delete-addr" class="btn btn-outline-danger"
-                                onclick="deleteAddr()">
-                            <i class="bi bi-trash"></i>선택 삭제
+                        <!--
+                        DB에서 삭제가 아닌 isDeleted로 관리되어야 함. 아예 삭제 버튼은 X
+                         <button type="button" name="btn-addr" id=delete-addr" class="btn btn-outline-danger" onclick="deleteAddr()">
+                          <i class="bi bi-trash"></i>선택 삭제
                         </button>
+                        -->
                     </div>
                 </div>
             </form>

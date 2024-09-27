@@ -38,8 +38,9 @@
   *
   */
   int userNo = Utils.toInt(String.valueOf(session.getAttribute("USERNO")));
+  String userId = String.valueOf(session.getAttribute("USERID"));
   
-  if (userID == null) {
+  if (userId == null) {
     response.sendRedirect("../login-form.jsp?deny");
     return;
   }

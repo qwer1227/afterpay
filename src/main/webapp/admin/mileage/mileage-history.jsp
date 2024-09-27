@@ -199,7 +199,6 @@
         }
     }
 %>
-
 <script>
     document.querySelector("input[name=month]").value = moment().format('YYYY-MM');
     changePointHistory();
@@ -210,10 +209,10 @@
 
         let xhr = new XMLHttpRequest();
         // xhr로 정보를 읽어서 값 요청 전달하는 함수 실행
-        xhr.onreadystatechange = function (){
+        xhr.onreadystatechange = function () {
             // readyState : 서버로부터 실행완료된 값을 전달받음
             // status : 200번이 오면 성공/(400 요청 잘못)/(500 서버 오류)
-            if (xhr.readyState = 4 && xhr.status == 200){
+            if (xhr.readyState = 4 && xhr.status == 200) {
                 let text = xhr.responseText;
                 let arr = JSON.parse(text);
             }
@@ -221,8 +220,11 @@
             xhr.send();
         }
     }
-</script>
-<%@ include file="../../common/footer.jsp" %>
 
+</script>
+<%
+    }
+%>
+<%@ include file="../../common/footer.jsp" %>
 </body>
 </html>

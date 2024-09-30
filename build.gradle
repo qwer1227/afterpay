@@ -5,7 +5,7 @@ plugins {
 
 group 'com.jhta'
 version '1.0-SNAPSHOT'
-apply plugin: 'war'
+//apply plugin: 'war'
 
 repositories {
   mavenCentral()
@@ -22,9 +22,9 @@ tasks.withType(JavaCompile) {
   options.encoding = 'UTF-8'
 }
 
-war {
-  archiveFileName = 'ROOT.war'
-}
+//war {
+//  archiveFileName = 'ROOT.war'
+//}
 
 dependencies {
   compileOnly('jakarta.servlet:jakarta.servlet-api:6.0.0')

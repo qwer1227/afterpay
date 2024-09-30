@@ -73,16 +73,14 @@
     UserDao userDao = new UserDao();
     User user = userDao.getUserById(userID);
     AddrDao addrDao = new AddrDao();
-    List<Addr> addrs = addrDao.getAllAddrByUserNo(userNo);
-    String zipcode = "";
-    String addr1 = "";
-    String addr2 = "";
-    for (Addr addr : addrs) {
-        if (addr.getIsAddrHome().equals("Y")) {
+    Addr addr = addrDao.getHomeAddrByUserNo(userNo);
+    String zipcode = " ";
+    String addr1 = " ";
+    String addr2 = " ";
+    if (addr.getIsAddrHome() != null) {
             zipcode = addr.getZipCode();
             addr1 = addr.getAddr1();
             addr2 = addr.getAddr2();
-        }
     }
     ProductDao productDao = new ProductDao();
     StockDao stockDao = new StockDao();
